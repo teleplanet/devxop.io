@@ -1,0 +1,153 @@
+<template name="banner">
+    <div class="container layout">
+        <div class="row">
+            <!-- <div class="col-sm-12">
+                <header>
+                    {{> plates}}
+                    <h1 class="heading">Criador de banner calorico</h1>
+                </header>
+            </div> -->
+            <div class="col-sm-6">
+                <div class="editForm">
+                    <br><br>
+                    <h2>Titulo</h2>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Titulo</span>
+                        </div>
+                        <input type="text" id="title" max="21" placeholder="Titulo do menu..." class="form-control">
+                        <!-- <input type="text" id="subTitle" placeholder="Descriçao do menu..." class="form-control"> -->
+                    </div>
+
+                    <br><br>
+                    <h2>Prato 1</h2>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="plate1InfoInput" class="form-control" aria-label="Text input with dropdown button">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Pratos...</button>
+                                <div class="dropdown-menu">
+                                    {{#each platesList}}
+                                    <a class="dropdown-item" id="plate1Select" href="#">{{name}} <span class="badge badge-secondary">{{kcal}}kcal</span></a>
+                                    {{/each}}
+                                    <!-- <div role="separator" class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Separated link</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img class="imagePreview" id="imagePlate1">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="imageUp">
+                                <label class="custom-file-label" id="imageUpInfo">Inserir imagem...</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+
+                <br><br>
+                <h2>Prato 2</h2>
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" id="plate2InfoInput" class="form-control" aria-label="Text input with dropdown button">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Pratos...</button>
+                                <div class="dropdown-menu">
+                                    {{#each platesList}}
+                                    <a class="dropdown-item" id="plate2Select" href="#">{{name}} <span class="badge badge-secondary">{{kcal}}kcal</span></a>
+                                    {{/each}}
+                                    <!-- <div role="separator" class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Separated link</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img class="imagePreview" id="imagePlate2">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="imageUp2">
+                                <label class="custom-file-label" id="imageUp2Info">Inserir imagem...</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br><br>
+                <h2>Rodapé</h2>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Preço Menu</span>
+                    </div>
+                    <input type="text" id="totalPrice" placeholder="Preço total.." class="form-control">
+                </div>
+
+                <br><br>
+
+                <input type="button" class="btn btn-success" id="btnSave" value="Gerar Imagem" />
+
+                <input type="button" class="btn btn-success" id="btnDown" value="Download" />
+            </div>
+
+            <div class="col-sm-6">
+                <div class="mobile-ui-preview">
+                       
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-12">
+        <div id="capture" class="A4template">
+            <div class="A4template header">
+                <div class="title">{{title}}</div>
+                <div class="subTitle">{{subTitle}}</div>
+            </div>
+            <div class="bubbleInfo1">
+                <div class="info">
+                    {{plate1Info}}
+                    <div class="infoCal">{{plate1InfoCal}}Kcal</div>
+                </div>
+            </div>
+            <div class="bubbleImage1"></div>
+
+            <div class="bubbleInfo2">
+                <div class="info">{{plate2Info}}
+                    <div class="infoCal">{{plate2InfoCal}}Kcal</div>
+                </div>
+            </div>
+            <div class="bubbleImage2"></div>
+
+            <div class="totalCalorie">
+                <!-- <div class="calorieIcon"></div> -->
+                <div class="calorieInfo">{{totalCal}}kcal</div>
+            </div>
+
+            <div class="price">
+                {{totalPrice}}€
+            </div>
+        </div>
+    </div>
+</template>

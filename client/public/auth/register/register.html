@@ -1,0 +1,55 @@
+<template name="register">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="d-flex flex-row align-items-center justify-content-center mih-100">
+					<div class="col-sm-12 col-md-5">
+						<div class="card shadow border-0 p-3">
+							<div class="card-block">
+								<h3 class="card-title text-primary">Register</h3>
+								<h6 class="card-subtitle mb-3 text-muted">All fields are mandatory</h6>
+								<form id="registerForm">
+									<div class="col-12">
+										<div class="form-group">
+											<label class="control-label mb-0" for="company">Company</label>
+											<input type="text" class="form-control input-lg" id="company" placeholder="Acme Transfers" />
+											<small class="text-danger errorMessage companyError"></small>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label class="control-label mb-0" for="email">Email</label>
+											<input type="email" class="form-control input-lg" id="email" placeholder="email@example.com" />
+											<small class="text-danger errorMessage emailError"></small>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label class="control-label mb-0" for="password">Password</label>
+											<input autocomplete="new-password" type="password" class="form-control input-lg" id="password" placeholder="Password">
+											<small class="text-danger errorMessage passwordError"></small>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<label class="control-label mb-0" for="passwordConfirm">Confirm Password</label>
+											<input autocomplete="new-password" type="password" class="form-control input-lg" id="passwordConfirm" placeholder="Password">
+											<small class="text-danger errorMessage passwordConfirmError"></small>
+										</div>
+									</div>
+
+									<div class="col-12 align-right">
+										<div class="form-group">
+											<a href="{{ pathFor route='login' }}" class="card-link pull-left">Login</a>
+											<button id="registerButton" class="btn btn-sm btn-primary pull-right shadow shadow-interact" type="submit" tabindex="3">Create Account</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

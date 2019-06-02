@@ -1,0 +1,11 @@
+<template name="publicBase">
+	
+	<header>
+		{{> yield "menuArea"}}
+	</header>
+
+
+	<!-- main content -->
+	{{> yield }} {{> yield "footerArea" }}
+
+</template>

@@ -1,0 +1,9 @@
+<template name="moduleDisplaySelect">
+    <!-- <label class="my-1 mr-2" for="displaySelect">Preference</label> -->
+    <select class="custom-select my-1 mr-sm-2" id="displaySelect">
+        <option selected>Modelos...</option>
+        {{#each display in displayList}}
+            <option value="{{display}}">{{display}}</option>
+        {{/each}}
+    </select>
+</template>

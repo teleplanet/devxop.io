@@ -1,0 +1,308 @@
+<template name="menu">
+    <div class="container-fluid">
+        <div class="row">
+            <!--  <div class="col-lg-12">
+                {{> plates}}
+            </div> -->
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <input type="button" class="btn btn-success" id="btnSave" value="Gerar Imagem" />
+
+                        <input type="button" class="btn btn-success" id="btnDown" value="Download" />
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <!-- <input type="text" id="insertPlateCategory" class="form-control"> -->
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lingua...</button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" id="selectLangPt" value="pt" href="#">Portugues </a>
+                                    <a class="dropdown-item" id="selectLangEn" value="en" href="#">Ingles </a>
+                                    <a class="dropdown-item" id="selectLangEs" value="es" href="#">Espanhol </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="gsMenuTemplate" id="capture">
+                    <div class="page-divider"></div>
+                    <div class="container-fluid">
+                        {{#if hasData}}
+                        <div class="row">
+                            <div class="col menu-col-left">
+                                <div class="items">
+                                    <div class="items-heading">{{categories.cat0.name}}</div>
+                                    <br>
+                                    {{#each platesList categories.cat0.category}}
+                                    <div class="items-item">
+                                        <div class="items-item-heading">{{name}}
+                                            <!--  | {{kcal}}kcal -->
+                                        </div>
+                                        <div class="items-item-price">
+                                            <!-- {{price}} --> {{kcal}} kcal</div>
+                                        <div class="items-item-subheading">{{info}}</div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                                <br>
+                                <div class="items">
+                                    <div class="items-heading">{{categories.cat1.name}}</div>
+                                    <br>
+                                    {{#each platesList categories.cat1.category}}
+                                    <div class="items-item">
+                                        <div class="items-item-heading">{{name}}</div>
+                                        <div class="items-item-price">{{kcal}} kcal</div>
+                                        <div class="items-item-subheading">{{info}}</div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+
+
+                                <!-- <div class="items">
+                                    <div class="items-heading"><br></div>
+                                    <div class="items-item">
+                                        <div class="items-item-heading">Renseignez-vous sur nos specialités</div>
+                                        <div class="items-item-price"></div>
+                                        <div class="items-item-subheading">Pergunte pelas nossas especialidades</div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="col menu-col-right">
+                                <div class="items">
+                                    <div class="items-heading">{{categories.cat2.name}}</div>
+                                    <br>
+                                    {{#each platesList categories.cat2.category}}
+                                    <div class="items-item">
+                                        <div class="items-item-heading">{{name}}</div>
+                                        <div class="items-item-price">{{kcal}} kcal</div>
+                                        <div class="items-item-subheading">{{info}}</div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                                <br>
+                                <div class="items">
+                                    <div class="items-heading">{{categories.cat3.name}}</div>
+                                    <br>
+                                    {{#each platesList categories.cat3.category}}
+                                    <div class="items-item">
+                                        <div class="items-item-heading">{{name}}</div>
+                                        <div class="items-item-price">{{kcal}} kcal</div>
+                                        <div class="items-item-subheading">{{info}}</div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                                <br>
+                                <div class="items">
+                                    <div class="items-heading">{{categories.cat12.name}}</div>
+                                    <br>
+                                    {{#each platesList categories.cat12.category}}
+                                    <div class="items-item">
+                                        <div class="items-item-heading">{{name}}</div>
+                                        <div class="items-item-price">{{kcal}} kcal</div>
+                                        <div class="items-item-subheading">{{info}}</div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<template name="originalMenu">
+    <div class="col-lg-6">
+        <div class="gsMenuTemplate" id="capture">
+            <div class="page-divider"></div>
+            <div class="container-fluid">
+                {{#if hasData}}
+                <div class="row">
+                    <div class="col menu-col-left">
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat0.name}}</div>
+                            {{#each platesList categories.cat0.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}
+                                    <!--  | {{kcal}}kcal -->
+                                </div>
+                                <div class="items-item-price">
+                                    <!-- {{price}} --> {{kcal}}</div>
+                                <div class="items-item-subheading">{{info}}</div>
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat1.name}}</div>
+                            {{#each platesList categories.cat1.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <div class="items-item-subheading">{{info}}</div>
+                            </div>
+                            {{/each}}
+                        </div>
+
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat2.name}}</div>
+                            {{#each platesList categories.cat2.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <div class="items-item-subheading">{{info}}</div>
+                            </div>
+                            {{/each}}
+                        </div>
+
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat3.name}}</div>
+                            {{#each platesList categories.cat3.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <div class="items-item-subheading">{{info}}</div>
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="items">
+                            <div class="items-heading"><br></div>
+                            <div class="items-item">
+                                <div class="items-item-heading">Renseignez-vous sur nos specialités</div>
+                                <div class="items-item-price"></div>
+                                <div class="items-item-subheading">Pergunte pelas nossas especialidades</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col menu-col-right">
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat4.name}}</div>
+                            {{#each platesList categories.cat4.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="item-heading-description">{{info}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <!-- 
+                                        <div class="items-item-subheading">{{info}}</div> -->
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat5.name}}</div>
+                            {{#each platesList categories.cat5.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="item-heading-description">{{info}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <!-- 
+                                        <div class="items-item-subheading">{{info}}</div> -->
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat6.name}}</div>
+                            {{#each platesList categories.cat6.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="item-heading-description">{{info}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <!-- 
+                                    <div class="items-item-subheading">{{info}}</div> -->
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat7.name}}</div>
+                            {{#each platesList categories.cat7.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="item-heading-description">{{info}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <!-- 
+                                        <div class="items-item-subheading">{{info}}</div> -->
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat8.name}}</div>
+                            {{#each platesList categories.cat8.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="item-heading-description">{{info}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <!-- 
+                                        <div class="items-item-subheading">{{info}}</div> -->
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat9.name}}</div>
+                            {{#each platesList categories.cat9.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="item-heading-description">{{info}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <!-- 
+                                        <div class="items-item-subheading">{{info}}</div> -->
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="items">
+                            <div class="items-heading">{{categories.cat10.name}}</div>
+                            {{#each platesList categories.cat10.category}}
+                            <div class="items-item">
+                                <div class="items-item-heading">{{name}}</div>
+                                <div class="item-heading-description">{{info}}</div>
+                                <div class="items-item-price">{{price}}</div>
+                                <!-- 
+                                        <div class="items-item-subheading">{{info}}</div> -->
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</template>

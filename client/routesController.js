@@ -1,0 +1,93 @@
+//Global routes configuration
+Router.configure({ 
+	//trackPageView: true,
+	loadingTemplate: 'gsTitle',
+	//notFoundTemplate: 'templateNotFound'
+});
+
+//Controller for public routes
+PublicController = RouteController.extend({
+  	layoutTemplate: 'publicBase',
+  	yieldRegions: {
+		'publicMenu': {
+			to: 'menuArea'
+		},
+	},
+	waitOn: function(){
+		return [
+			Meteor.subscribe('platesSubscriptions'),
+			Meteor.subscribe('categoriesSubscriptions'),
+			Meteor.subscribe('devicesSubscriptions'),
+			Meteor.subscribe('displayTemplatesSubscriptions')
+		];
+	}
+});
+
+EmptyController = RouteController.extend({
+	layoutTemplate: 'emptyBase'
+});
+
+DisplayController = RouteController.extend({
+	layoutTemplate: 'displayBase',
+	waitOn: function(){
+		return [
+			Meteor.subscribe('platesSubscriptions'),
+			Meteor.subscribe('devicesSubscriptions'),
+			Meteor.subscribe('displayTemplatesSubscriptions')
+		];
+	}
+});
+
+//Controller for private routes
+PrivateController = RouteController.extend({
+  	layoutTemplate: 'privateBase',
+  	yieldRegions: {
+		'userMenu': {
+			to: 'menuArea'
+		}
+	},
+	waitOn: function(){
+		return [
+			Meteor.subscribe('companyUsers'),
+			Meteor.subscribe('company'),
+			Meteor.subscribe('platesSubscriptions'),
+			Meteor.subscribe('categoriesSubscriptions'),
+			Meteor.subscribe('devicesSubscriptions'),
+			Meteor.subscribe('displayTemplatesSubscriptions')
+		];
+	}
+});
+
+//Check for user login before action (for all routes)
+Router.onBeforeAction(function()
+	{
+		//Check if a user is logged in. If not, redirect home
+		if(!Meteor.user()) {
+			if(Meteor.loggingIn()){
+				this.render(this.loadingTemplate);
+			}
+			else{
+				//Router.go('login');
+				this.next();
+			}
+		}
+		else{
+			//set session
+			Session.set("company", Companies.findOne());
+			//set session
+			Session.set("user", Meteor.user());
+
+			this.next(); 
+		}
+	}, 
+	{
+		//Add route names we don't want this onBeforeAction to apply
+		except: [
+			'home',
+			'login',
+			'register',
+			'slider',
+			'display'
+		]
+	}
+);

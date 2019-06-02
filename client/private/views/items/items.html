@@ -1,0 +1,98 @@
+<template name="items">
+    <h1>Items</h1>
+
+    {{#each listItems}}
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <button class="btn btn-link btn-collapse" value="{{@index}}">
+                    {{name}}
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapse{{@index}}" class="collapse">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <input type="text" class="form-control plateEdit" id="itemName" data-id="{{_id}}"
+                            data-key="name" placeholder="Nome do prato" value="{{name}}">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control plateEdit" id="itemPrice" data-id="{{_id}}"
+                            data-key="price" placeholder="Preço" value="{{price}}">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control plateEdit" id="itemCal" data-id="{{_id}}" data-key="kcal"
+                            placeholder="Kcal" value="{{kcal}}">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" class="form-control plateEdit" id="itemInfoEn" data-id="{{_id}}"
+                            data-key="info_en" placeholder="Descriçao Ingles..." value="{{info_en}}">
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control plateEdit" id="itemInfoPt" data-id="{{_id}}"
+                            data-key="info_pt" placeholder="Descrição Portugues..." value="{{info_pt}}">
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control plateEdit" id="itemInfoEs" data-id="{{_id}}"
+                            data-key="info_es" placeholder="Descrição Espanhol..." value="{{info_es}}">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-4">
+                        <label class="switch">
+                            <input type="checkbox" class="plateEdit" data-id="{{_id}}" value="{{visible}}"
+                                checked="{{visible}}">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-12">
+                            <!-- {{getCategory category "name"}} -->
+                            <select class="custom-select my-1 mr-sm-2 plateEdit" data-id="{{_id}}" data-key="category">
+                                <option selected value="{{category}}">{{getCategory category "name"}}</option> -->
+                                {{#each categoriesList}}
+                                    <option value="{{category}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                        <!-- <div class="input-group">
+                            <input type="text" id="insertPlateCategory" data-id="{{_id}}" data-key="category" value="{{category}}" class="form-control">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selecionar
+                                    Categoria...</button>
+                                <div class="dropdown-menu">
+                                    {{#each categoriesList}}
+                                    <a class="dropdown-item" id="selectPlateCategory" href="#">{{name}} </a>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <img class="imagePreview" id="imagePlate1">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" data-id="{{_id}}" id="imageUp">
+                                <label class="custom-file-label" id="imageUpInfo">Inserir imagem...</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</template>

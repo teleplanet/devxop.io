@@ -1,0 +1,44 @@
+<template name="displaySpecials">
+    <div id="slideshow">
+        <div class="slideshow-title">
+            G's Specials
+            <!-- <div class="gsTitle">{{>gsTitle}}</div> -->
+        </div>
+        <ul id="slides">
+            {{#each plate in platesList}}
+            <li class="slide-item slideActive" style="background-image: url({{plate.image}})">
+                <div class="slide-item-description lang-pt">
+                    {{plate.name}}<br>
+                    <div class="plate-description">{{plateLang plate}}</div>
+                    {{plate.price}}€
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+
+</template>
+
+<template name="gsTitle">
+    <svg viewBox="0 0 1000 800">
+        <symbol id="s-text">
+            <text text-anchor="middle" x="50%" y="35%" class="text--line">
+                G's
+            </text>
+            <text text-anchor="middle" x="50%" y="48%" class="text--line2">
+                Bistro
+            </text>
+
+        </symbol>
+
+        <g class="g-ants">
+            <use xlink:href="#s-text" class="text-copy"></use>
+            <use xlink:href="#s-text" class="text-copy"></use>
+            <use xlink:href="#s-text" class="text-copy"></use>
+            <use xlink:href="#s-text" class="text-copy"></use>
+            <use xlink:href="#s-text" class="text-copy"></use>
+        </g>
+
+
+    </svg>
+</template>

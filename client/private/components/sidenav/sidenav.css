@@ -1,0 +1,98 @@
+.sidenav{
+    width: 250px;
+    top: 65px;
+    position: fixed;
+    height: 100vh;
+    padding: 0% !important;
+    background-color: #f5f5f5;
+    /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
+    z-index: 900;
+    /* box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2); */
+}
+
+.sidenav-user{
+    height: 150px;
+    /* background-image: url("https://pixinvent.com/materialize-material-design-admin-template/images/gallary/12.png") */
+    background-color: #009BDD;
+}
+
+.sidenav-nav{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+    .sidenav-ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .sidenav-li {
+        height: 45px;
+        /* background-color: #c1c1c1; */
+        margin-bottom: 1px;
+    }
+
+        .sidenav-divider {
+            height: 45px;
+            /* background-color: #c1c1c1; */
+            margin-bottom: 1px;
+            display: block;
+            height: auto !important;
+            margin-top: 10px;
+            padding-top: 15px;
+            padding-left: 27px;
+            text-decoration: none;
+            text-transform: uppercase;
+            opacity: .6;
+            box-sizing: border-box;
+            border-top: #dcdcdc;
+            font-size: 85%;
+            font-weight: 400 !important;
+
+        }
+
+    .sidenav-a {
+        display: block;
+        height: 45px;
+        margin-left: 3px;
+        text-decoration: none;
+        cursor: pointer;
+        opacity: .6;
+        box-sizing: border-box;
+        transition: opacity ease-in 0.2s ;
+        font-size: 16px;
+        
+    }
+        .sidenav-a:hover {
+            margin-left: 0px;
+            background-color: #dcdcdc;
+            /* border-left: 3px solid #333; */
+            opacity: 1;
+
+            /* background-color: #222; */
+        }
+
+        .sidenav-a.active {
+            margin-left: 0px;
+            background-color: #dcdcdc;
+            opacity: 1;
+        }
+
+        .sidenav-a > i{
+            float: left;
+            line-height: 45px;
+            padding-left: 20px;
+            transform: scale(0.90);
+        }
+
+        .sidenav-a.active i {
+            /* background-color: #c1c1c1; */
+            
+        }
+
+        .sidenav-a span{
+            float: left;
+            padding-left: 20px;
+            line-height: 45px;
+        }
