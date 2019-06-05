@@ -1,0 +1,8 @@
+{
+    "localhost": {
+       "env": {
+         "MONGO_URL": "mongodb://<dbuser>:<dbpassword>@teleplanet.ddns.net:27017/meteor"
+       }
+     },
+     
+  }
