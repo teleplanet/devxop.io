@@ -1,0 +1,200 @@
+.profile-layout{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	position: relative;
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+
+.profile-content{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1 1 auto;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+}
+
+.profile-heading{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	height: auto;
+	background-color: #fff;
+	padding: 20px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	justify-content: center;
+	align-items: center;
+}.profile-heading .left-col{
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 auto;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	width: 250px;
+	padding-left: 30px;
+	padding-right: 50px;
+	}.profile-heading .left-col img{
+		position: relative;
+		width: 100%;
+		border-radius: 50%;
+		border: 1px solid #ccc;
+	}
+.profile-heading .center-col{
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 auto;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	width: calc((100% - 400px));
+}.profile-heading .center-col .heading{
+	font-weight: 100;
+	font-size: 42px;
+	line-height: 1;
+	margin-bottom: .25em;
+}
+.profile-heading .right-col{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1 1 auto;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+}
+
+.profile-nav{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	height: auto;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	margin-left: 20%;
+	margin-right: 20%;
+}.profile-nav.selected{
+	
+}
+.profile-nav .profile-tab-item{
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 auto;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	text-align: center;
+	width: calc(100% / 3);
+	padding: 10px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	cursor: pointer;
+	background-color: #fff;
+	font-weight: 300;
+	font-size: 16px;
+	-webkit-transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+	-moz-transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+	-o-transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+	transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+}.profile-nav .profile-tab-item:hover{
+	background-color: #f9f9f9;
+}.profile-nav .profile-tab-item.selected{
+	background-color: #666;
+	color: #fff;
+}.profile-nav .profile-tab-item#tab1 {
+	border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}.profile-nav .profile-tab-item#tab2 {
+	border-left: 1px solid #eee;
+}.profile-nav .profile-tab-item#tab3 {
+	border-left: 1px solid #eee;  
+}.profile-nav .profile-tab-item#tab4 {
+    border-left: 1px solid #eee;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+
+.profile-results-empty{
+	width: 100%;
+	text-align: center;
+	background-color: #fff;
+	padding: 20px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}.profile-results-empty div.heading{
+	position: relative;
+	width: 100%;
+	font-weight: 100;
+	font-size: 42px;
+}.profile-results-empty div.subheading{
+	position: relative;
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.table-heading{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	width: 100%;
+	background-color: #fff;
+	justify-content: center;
+	align-items: center;
+	font-weight: 300;
+	font-size: 16px;
+	margin-bottom: 2px;
+	border-bottom: 1px solid #ccc;
+}
+.table-heading .item{
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 auto;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	padding: 10px;
+}
+
+.table-row{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	background-color: #fff;
+	margin-bottom: 2px;
+	height: 80px;
+	color: #333;
+}.table-row:hover{
+	background-color: #f9f9f9;
+}.table-row .item{
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 auto;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	width: 100%;
+	padding: 10px;
+}
+
+
+.item.comment-post{
+	width: 40%;
+}.item.comment-comment{
+	width: 40%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}.item.comment-timestamp{
+	width: 20%;
+	text-align: center;
+}
+
+

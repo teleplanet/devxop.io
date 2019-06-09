@@ -1,11 +1,38 @@
 <template name="publicBase">
-	
-	<header>
+
+	<div class="menu-nav">
+		<div class="list-vertical">
+			<a href="/" class="js-menu-list-item">Home</a>
+			<a href="/about" class="js-menu-list-item">About</a>
+			<a href="#" target="_blank" class="attribution">
+				<span class="subtitle-attribution">Created by</span>
+				<span class="title-attribution">devxop.io</span>
+			</a>
+		</div>
+	</div>
+	<div class="layout-menu-overlay js-menu-layout-overlay"></div>
+	<div class="layout-test">
+		<div class="layout-menu">
+			<i class="material-icons js-menu">menu</i>
+		</div>
+		{{>yield}}
+
+		<div class="landing-footer">
+			<div id="logo">
+				<h1><a href="#">{{app "name"}}</a></h1>
+				<span>{{app "copyright"}}</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- <header>
 		{{> yield "menuArea"}}
-	</header>
+	</header> -->
 
 
 	<!-- main content -->
-	{{> yield }} {{> yield "footerArea" }}
+	<!-- {{> yield }} {{> yield "footerArea" }}
+
+	{{>mainLoader}} -->
 
 </template>

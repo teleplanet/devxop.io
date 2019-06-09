@@ -1,14 +1,14 @@
-Router.route('/home',{
-	name: 'home',
+Router.route('/',{
+	name: 'landing',
 	controller: 'PublicController',
 	action: function(){
 
 		this.render();
-		document.title = 'Pager.io';
+		document.title = 'devxop.io';
 
 		//If there's no logged in user, render public home, otherwise redirect to dashboard
 		if(!Meteor.userId()){
-			this.render('homepage',{ to: 'mainContentArea', });
+			this.render('landing',{ to: 'mainContentArea', });
 		}
 		else{
 			Router.go('dashboard');

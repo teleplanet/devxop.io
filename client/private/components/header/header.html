@@ -1,0 +1,75 @@
+<template name="header">
+	<header class="header-layout">
+		<div class="header-col-left">
+			<div class="header-col-action">
+				<div class="header-col-action-item js-menu noselect">
+					<i class="material-icons">menu</i>
+				</div>
+			</div>
+			<!-- <div class="header-col-action search">
+				<div class="header-col-action-item js-search noselect">
+					<i class="material-icons">search</i>
+					<div>Search divvy for posts...</div>
+				</div>
+			</div> -->
+		</div>
+		<div class="header-col-center">
+			<div class="header-col-action">
+				<div class="header-col-action-item noselect">
+					<!-- <img src="/images/icon.png" class="logo"> -->
+					 <a href="/" class="logo">{{app "name"}}</a>
+				</div>
+			</div>
+		</div>
+		<div class="header-col-right">
+			<div class="header-col-action">
+				<a href="/item/create">
+					<div class="header-col-action-item button noselect">
+						<i class="material-icons">add</i>
+					</div>
+				</a>
+			</div>
+			<!-- <div class="header-col-action">
+				<a class="js-notification">
+					<div class="header-col-action-item button noselect">
+						<i class="material-icons">notifications</i>
+						{{#if hasNotification}}
+							<div class="icon-navigation-badge">{{countNotifications}}</div>
+						{{/if}}
+					</div>
+				</a>
+				{{> notifications}}
+			</div>
+			 -->
+			<div class="header-col-action">
+				<div class="header-col-action-item">
+					<div class="header-col-action-item-profile js-profile noselect">
+						<img src="{{user.profile}}" class="profile-image">
+					</div>
+					{{> headerDropdown}}
+				</div>
+			</div>
+		</div>
+	</header>
+</template>
+
+
+<template name="headerBanner">
+	<div class="header-banner">
+		<div class="header-banner-content">
+			<div class="content">
+				<!-- <div class="banner-title">Search for Posts</div>
+				<div class="banner-search js-search">
+					<i class="material-icons">search</i>
+					<div class="icon-text">Search here now...</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+	<div id="showcase" class="stars-active">
+		<div class="stars" id="stars1"></div>
+		<div class="stars" id="stars2"></div>
+		<div class="stars" id="stars3"></div>
+		<div class="stars" id="stars4"></div>
+	</div>
+</template>

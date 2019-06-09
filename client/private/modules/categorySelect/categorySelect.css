@@ -1,0 +1,77 @@
+.select-button {
+    background-color: #ccc !important;
+    color: #fff !important;
+    margin-top: 10px;
+    border-radius: 4px !important;
+    border: none !important;
+    font-size: 18px !important;
+    font-weight: 300 !important;
+    padding: 6px 24px !important;
+    box-shadow: none !important;
+    height: auto !important;
+    line-height: none !important;
+    -webkit-transition: background-color .2s ease-in-out;
+    -moz-transition: background-color .2s ease-in-out;
+    transition: background-color .2s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+    line-height: 35px;
+
+}
+
+.select-button > i{
+    font-size: 18px;
+    width: 18px;
+    padding: 10px;
+    float: right;
+}
+
+.select-button:hover{
+    background-color: #19aec2 !important;
+}
+
+.category-select-modal{
+	position: absolute;
+	background-color: #fff;
+	width: 400px;
+	height: 200px;
+	height: auto;
+	opacity: 0;
+	border-radius: 4px;
+    -moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-webkit-transform: scale(0);
+	-ms-transform: scale(0);
+	transform: scale(0);
+	will-change: transform;
+	-webkit-transform-origin: 50% 0;
+	-ms-transform-origin: 50% 0;
+	transform-origin: 50% 0;
+	-webkit-transition: -webkit-transform .2s cubic-bezier(.4,0,.2,1),opacity .2s cubic-bezier(.4,0,.2,1);
+	transition: transform .2s cubic-bezier(.4,0,.2,1),opacity .2s cubic-bezier(.4,0,.2,1);
+	z-index: -1;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+}
+
+.category-select-modal-toggled{
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	z-index: 100;
+}
+
+
+.select-list-button{
+    width: 100%;
+    float: left;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}.select-list-button:hover{
+    background-color: #19aec2;
+    color: #fff;
+}

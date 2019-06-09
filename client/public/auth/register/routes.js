@@ -1,6 +1,6 @@
 Router.route('/register',{
 	name: 'register',
-	controller: 'PublicController',
+	controller: 'EmptyController',
 	action: function(){
 
 		this.render();

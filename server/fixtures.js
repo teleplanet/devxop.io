@@ -68,7 +68,7 @@ dbFixtures = function(){
 	};
 
 	//Create superuser if none
-	let rootUser = Meteor.users.findOne({
+	/* let rootUser = Meteor.users.findOne({
 		'roles': {
 			$in: ['root']
 		}
@@ -85,12 +85,13 @@ dbFixtures = function(){
 	        	username: 'admin',
 	            firstName: 'Root',
 	            lastName: 'Admin'
-	        }
+            },
+            company: "",
 	    });
 
 	    Roles.addUsersToRoles(userId, 'root');
 
-	}
+	} */
 
 	let companies = Companies.find().fetch();
 

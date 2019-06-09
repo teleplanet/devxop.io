@@ -1,7 +1,7 @@
 //Global routes configuration
 Router.configure({ 
 	//trackPageView: true,
-	loadingTemplate: 'gsTitle',
+	loadingTemplate: 'mainLoader',
 	//notFoundTemplate: 'templateNotFound'
 });
 

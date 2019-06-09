@@ -1,0 +1,40 @@
+<template name="notifications">
+	<div class="navbar-notification-modal">
+		<div class="notification-activityfeed-filter notification-tabcontrol">
+			<div class="notification-tabcontrol-box notification-tab-checked">NOTIFICATIONS
+			({{countNotifications}})
+			</div>
+			<!-- <div class="notification-tabcontrol-box notification-tab-unchecked">NEWSFEED</div> -->
+		</div>
+		<div class="notification-activityfeed">
+			<div class="notifications-settings-bar">
+				<div class="notifications-markasread js-mark-all-as-read">Mark all as read</div>
+			</div>
+
+			{{#each getNotifications}}
+				<div class="notification-item">
+					<div class="notification-item-avatar">
+						<img src="{{getUserImage creator}}" class="avatar-image">
+					</div>
+					<div class="notification-item-body">
+						<div class="notification-item-body-title">
+							<div class="notification-item-body-title-name">{{getUserName creator}}</div>
+							<div class="notification-item-body-title-timestamp">{{getDateDiff timestamp}}</div>
+						</div>
+						{{#with getNotification this}}
+							<div class="notification-item-body-context">{{context}}</div>
+							<div class="notification-item-body-event">
+								<div class="notification-item-body-event-icon">{{{icon}}}</div>
+								<div class="notification-item-body-event-text">{{{event}}}</div>
+							</div>
+						{{/with}}
+					</div>
+				</div>
+			{{else}}				
+				<div class="pagedlist-noitems">
+				 No notifications here
+				</div>
+			{{/each}}		
+		</div>
+	</div>
+</template>

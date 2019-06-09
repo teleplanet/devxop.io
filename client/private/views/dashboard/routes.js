@@ -16,7 +16,9 @@ Router.route('/dashboard',{
 			//else render staff dashboard
 			else{
 				//this.render('staffDashboard');
-            } */
+			} */
+			
+			this.render("headerBanner", {to: 'banner'})
             this.render('dashboard');
 		}
 

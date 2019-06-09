@@ -1,0 +1,145 @@
+<template name="createItem">
+	<div class="create-item-left-col">
+		<form class="js-create-item-form">
+			<!-- {{> tagInput}} -->
+			<br>
+			<div>
+				<h6>Categories</h6>
+				{{> moduleCategorySelect}}
+				<!-- {{#each listCategories}}
+						<p><input type="checkbox" class="checkbox js-item-category" name="category" id="checkbox{{_id}}" value="{{_id}}"> 
+						<label for="checkbox{{_id}}">{{name}}</label></p>
+				{{/each}} -->
+				<br>
+				<div class="row">
+					<br>
+					<div class="input-field col s6">
+						<!-- <i class="material-icons prefix small ">account_circle</i> -->
+						<input id="input-price" type="text" class="validate">
+						<label for="input-price-">Price</label>
+					</div>
+					<div class="input-field col s6">
+						<!-- <i class="material-icons prefix small ">account_circle</i> -->
+						<input id="input-kcal" type="text" class="validate">
+						<label for="input-kcal">Kcal(optional)</label>
+					</div>
+				</div>
+
+				<div class="input-field col s12">
+					<!-- <i class="material-icons prefix small ">account_circle</i> -->
+					<input id="input-info-en" type="text" class="validate">
+					<label for="input-info-en">English Description</label>
+				</div>
+				<div class="input-field col s12">
+					<!-- <i class="material-icons prefix small ">account_circle</i> -->
+					<input id="input-info-pt" type="text" class="validate">
+					<label for="input-info-pt">Portuguese Description</label>
+				</div>
+				<div class="input-field col s12">
+					<!-- <i class="material-icons prefix small ">account_circle</i> -->
+					<input id="input-info-es" type="text" class="validate">
+					<label for="input-info-es">Spanish Description</label>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<div class="create-item-right-col">
+		<h5>Title: </h5>
+		<p>{{getCopy.title}}</p>
+		<br>
+		<h5>Categories:</h5>
+		<p></p>
+		<!-- {{#each userCategories getCopy.categories}}
+				<div class="category" style="background-color: {{this.color}}">{{this.name}}</div>
+			{{else}}
+				No selected categories
+			{{/each}}
+		</p>
+		<br>
+		<h5>Tags:</h5>
+		<p>
+			{{#each getCopyTags}}
+				<div class="chip" style="margin-top: 5px;">{{this}}</div>
+			{{else}}
+				No selected tags
+			{{/each}}
+		</p>
+		<br>
+		<h5>Description:</h5>
+		<div class="formatted-text">
+			{{{getEditorText}}}
+		</div>
+		<br> -->
+
+
+		<button type="submit" class="submit js-create-item">Create item</button>
+	</div>
+</template>
+
+
+<template name="createItemCheck">
+	<div class="create-item-left-col">
+		<div class="item-create-check-rules">
+			<div>
+				<h4>Items</h4>
+				<p>Items in this system are considered plates that are used in your menu. Items have categories, plate
+					description and image, so that it can be reutilized in all the varied services we offer.</p>
+				<!-- <h4>Rules</h4>
+				<p>Before creating a item you should first go through the essential rules that allow for this site to present relevant results to different users and their questions.</p>
+				<br>
+				<h5>Search</h5>
+				<p>Before creating a item please make sure that your question is not available for answer by another user. This ensures that there is no redudant or equally distict items on our system and database.</p>
+				<br>
+				<h5>Be Specific</h5>
+				<p>Make sure that your question is packed with important details that will allow other users to suggest or provide your question with usefull and relevant answers.</p>
+				<br>
+				<h5>Relevancy</h5>
+				<p>When creating a item, make sure your title is well structured and relevant to your problem, as this can make it easier for people with same problems to reach your question and its answers.</p>
+			 -->
+			</div>
+		</div>
+	</div>
+	<div class="create-item-right-col">
+		<div class="item-create-check-input">
+			<div>
+				<h5>Item name check</h5><br>
+				<p>Before creating your new item, we will first check if your item name has any matches to other items.
+				</p><br>
+				<form class="js-form-item-create-check">
+					<input type="text" id="item-create-check-input" placeholder="What is your item name?"
+						required="required">
+					<button type="submit" class="comment-submit">Continue</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</template>
+
+<!-- 
+<div class="divider"></div>
+		<div class="create-item-form-layout">
+			<form class="js-create-item-form">
+				<div class="input-field col s12">
+				  <i class="material-icons prefix small ">account_circle</i>
+				  <input id="input-title" type="text" class="validate" required="required">
+				  <label for="input-title">Title</label>
+				</div>
+				{{> tagInput}}
+				<div class="input-field col s12">
+					<h6>Categories</h6>
+					{{#each listCategories}}
+							<p><input type="checkbox" class="checkbox" name="category" id="checkbox{{_id}}" value="{{_id}}"> 
+							<label for="checkbox{{_id}}">{{name}}</label></p>
+					{{/each}}
+					<p><br></p>
+				</div>
+				<div class="input-field col s12">
+		          <textarea id="input-description" class="materialize-textarea" required="required"></textarea>
+		          <label for="input-description">Description</label>
+		        </div>
+				<div class="input-submit">
+					<button type="submit" class="submit">Create item</button>
+				</div>
+			</form>
+		</div> -->
