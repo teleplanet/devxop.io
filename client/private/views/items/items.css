@@ -1,3 +1,57 @@
+/* Float four columns side by side */
+.list-items-card{
+  float: left;
+  width: calc(100% / 3 - 30px);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f1f1f1;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  height: 350px;
+  cursor: pointer;
+  transition: transform .2s cubic-bezier(.4,0,.2,1);
+}.list-items-card:hover{
+  transform: scale(1.02);
+}
+
+.list-items-card > .items-card-image{
+  width: 100%;
+  float: left;
+  height: 220px;
+  image-rendering: optimizeQuality;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-clip: padding-box;
+  background-size: cover;
+  background-size: 160% 160%;
+}.list-items-card > .items-card-name{
+  width: 100%;
+  float: left;
+  padding: 10px;
+}.list-items-card > .items-card-info{
+  width: 100%;
+  padding: 10px;
+  padding-top: 0px;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 1200px) {
+  .list-items-card {
+    width: calc(100% / 2 - 20px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .list-items-card {
+    width: calc(100% - 10px);
+  }
+}
+
+/* @media screen and (max-width: 1200px) {
+  .list-items-card {
+    width: 33.333%;
+  }
+}
+ */
 
 
 /* #########################  SWITCH  ########################### */

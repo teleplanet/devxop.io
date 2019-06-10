@@ -1,0 +1,48 @@
+<template name="editItem">
+    <div class="row">
+        <h1>Item edit</h1>
+    </div>
+    <div class="container-background">
+        
+        <div class="row">
+            <div class="col s12">
+                <h4>{{item.name}} {{> moduleCategorySelect}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                <input id="input-price" type="text" value="{{item.price}}" class="validate valid">
+                <label class="active" for="input-price-">Price</label>
+            </div>
+            <div class="input-field col s6">
+                <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                <input id="input-kcal" type="text" value="{{item.kcal}}" class="validate valid">
+                <label class="active" for="input-kcal">Kcal(optional)</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                <input id="input-info-en" type="text" value={{item.info_en}} class="validate valid">
+                <label class="active" for="input-info-en">English Description</label>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                <input id="input-info-pt" type="text" value={{item.info_pt}} class="validate valid">
+                <label class="active" for="input-info-pt">Portuguese Description</label>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                <input id="input-info-es" type="text" value={{item.info_es}} class="validate valid">
+                <label class="active" for="input-info-es">Spanish Description</label>
+            </div>
+        </div>
+    </div>
+</template>

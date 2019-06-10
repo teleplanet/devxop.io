@@ -16,7 +16,7 @@ Router.route('/display/crepes',{
 		}else{
 
 			let template = DisplayTemplates.findOne({"_id": device.selected_display});
-			let items = Plates.find({ "_id": { "$in": template.display_items } }).fetch();
+			let items = Items.find({ "_id": { "$in": template.display_items } }).fetch();
 
 			Session.set("template", template);
 			Session.set("device", device);

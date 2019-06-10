@@ -1,3 +1,5 @@
+
+
 Template.createItem.helpers({
   'getCopy': function () {
 
@@ -23,9 +25,9 @@ Template.createItem.events({
     event.preventDefault();
 
     var data = {
-      'name': $('#input-name').val(),
+      'name': Session.get("item-creation").title,
       'price': $('#input-price').val(),
-      'kcal': $('#insertPlateCal').val(),
+      'kcal': $('#input-kcal').val(),
       'info_en': $('#input-info-en').val(),
       'info_es': $('#input-info-es').val(),
       'info_pt': $('#input-info-pt').val(),
@@ -34,7 +36,7 @@ Template.createItem.events({
     }
 
 
-    Meteor.call("plates.insert", data, function (err, data) {
+    Meteor.call("items.insert", data, function (err, data) {
       if (err) {
         console.log(err);
       } else {

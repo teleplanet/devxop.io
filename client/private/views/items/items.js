@@ -3,13 +3,13 @@ var delay = 2000; // 0.6 seconds delay after last input
 
 
 Template.items.onRendered(function () {
-    let plates = Plates.find().fetch();
-    Session.set("plates", plates);
+    let items = Items.find().fetch();
+    Session.set("items", items);
 });
 
 Template.items.helpers({
     'listItems': function () {
-        return Session.get("plates");
+        return Session.get("items");
     },
     'listCategories': function () {
         return [];
@@ -29,6 +29,11 @@ Template.items.helpers({
 });
 
 Template.items.events({
+    'click .js-items-card-select': () => {
+        let itemId = $(".js-items-card-select").data('item-id');
+
+        Router.go("/item/edit/" + itemId);
+    },
     'click .btn-collapse': function (event) {
         let index = $(event.target).val();
 

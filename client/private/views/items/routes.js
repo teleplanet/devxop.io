@@ -15,11 +15,23 @@ Router.route('/item/create', {
 	controller: 'PrivateController',
 	action: function(){
 	  if(this.ready()){
-		this.render('createItemCheck',{
-		  data: function(){
-			Session.set('tags', []);
-		  }
-		});
+		this.render('createItemCheck');
+	  }else{
+		this.render('loader');
+	  }
+	},
+  });
+
+  Router.route('/item/edit/:itemId', {
+	controller: 'PrivateController',
+	action: function(){
+	  if(this.ready()){
+		let item = Items.findOne({"_id": this.params.itemId});
+
+		console.log("Session | item-edit: " + item._id);
+		Session.set('item-edit', item);
+
+		this.render("editItem");
 	  }else{
 		this.render('loader');
 	  }

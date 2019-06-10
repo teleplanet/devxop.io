@@ -25,7 +25,7 @@ Router.route('/display',{
 				let finalPlates = [];
 
 				for(let i = 0; i < template.display_items.length; i++){
-					let plate = Plates.findOne({ "_id": template.display_items[i]});
+					let plate = Items.findOne({ "_id": template.display_items[i]});
 
 					if(plate){
 						finalPlates.push(plate);

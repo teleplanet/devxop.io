@@ -18,6 +18,9 @@ PagerSubscriptions = new Meteor.Collection('pagerSubscriptions');
 Plates = new Meteor.Collection('plates');
 
 
+Items = new Meteor.Collection('items');
+
+
 Categories = new Meteor.Collection('categories');
 
 DisplayTemplates = new Meteor.Collection('displayTemplates');

@@ -1,6 +1,10 @@
 
 
 
+Template.moduleCategorySelect.onRendered(function(){
+    Session.set("module.selectedCategory", null);
+});
+
 Template.moduleCategorySelect.events({
     'click .js-category-selected':function(event){
         let catId = $(event.target).data('category-id');
@@ -24,6 +28,8 @@ Template.moduleCategorySelect.events({
 
 Template.moduleCategorySelect.helpers({
     'selected': function(){
+        $("#categoryButton").css({"background-color": getRandomColor()});
+
         return Session.get("module.selectedCategory");
     },
     'categoryList':function(){

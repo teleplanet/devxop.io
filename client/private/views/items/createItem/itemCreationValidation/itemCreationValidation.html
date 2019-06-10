@@ -1,15 +1,18 @@
 <template name="itemCreationValidation">
-	<div class="create-item-full-col">
+	<div class="row">
+		<h1>Item creation</h1>
+	</div>
+	<div class="container-background">
 		<div class="create-item-top-row">
 			<h5>Do any of these items match your question?</h5>
 		</div>
 		<div class="create-item-center-row">
 			{{#each getRelation}}
-				{{> modularitem}}
+			{{> modularitem}}
 			{{/each}}
 		</div>
 		<div class="create-item-bottom-row">
-			<button type="submit" class="comment-submit js-validation-continue">No (continue)</button>
+			<button type="submit" class="submit js-validation-continue">No (continue)</button>
 		</div>
 	</div>
 </template>

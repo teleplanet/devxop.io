@@ -15,7 +15,7 @@ PublicController = RouteController.extend({
 	},
 	waitOn: function(){
 		return [
-			Meteor.subscribe('platesSubscriptions'),
+			Meteor.subscribe('itemsSubscriptions'),
 			Meteor.subscribe('categoriesSubscriptions'),
 			Meteor.subscribe('devicesSubscriptions'),
 			Meteor.subscribe('displayTemplatesSubscriptions')
@@ -31,7 +31,7 @@ DisplayController = RouteController.extend({
 	layoutTemplate: 'displayBase',
 	waitOn: function(){
 		return [
-			Meteor.subscribe('platesSubscriptions'),
+			Meteor.subscribe('itemsSubscriptions'),
 			Meteor.subscribe('devicesSubscriptions'),
 			Meteor.subscribe('displayTemplatesSubscriptions')
 		];
@@ -50,7 +50,7 @@ PrivateController = RouteController.extend({
 		return [
 			Meteor.subscribe('companyUsers'),
 			Meteor.subscribe('company'),
-			Meteor.subscribe('platesSubscriptions'),
+			Meteor.subscribe('itemsSubscriptions'),
 			Meteor.subscribe('categoriesSubscriptions'),
 			Meteor.subscribe('devicesSubscriptions'),
 			Meteor.subscribe('displayTemplatesSubscriptions')
