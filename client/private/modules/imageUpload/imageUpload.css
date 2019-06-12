@@ -1,0 +1,18 @@
+.image-upload-button{
+    width: 175px;    
+}.image-upload-button{
+    
+}
+
+
+.uploaded-image{
+    width: 175px;
+    height: 175px;
+    border-radius: 4px;
+    image-rendering: optimizeQuality;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-clip: padding-box;
+    background-size: cover;
+    background-color: #26a69a;
+}

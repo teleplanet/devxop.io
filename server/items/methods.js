@@ -1,6 +1,6 @@
 Meteor.methods({
     'items.edit': function (id, data) {
-        console.log(data);
+        //console.log(data);
         
         Items.update(id, {
             $set: data,
@@ -13,9 +13,9 @@ Meteor.methods({
         return true;
 
     },
-    'items.remove': function (plateId) {
+    'items.remove': function (itemId) {
         let id = Items.remove({
-            '_id': plateId,
+            '_id': itemId,
         });
 
         return true;

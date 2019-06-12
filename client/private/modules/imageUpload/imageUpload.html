@@ -1,0 +1,14 @@
+<template name="moduleImageUpload">
+    <div id="uploadedImage" class="uploaded-image" style="background-image: url( {{imageUrl}})"></div>
+    <form action="#">
+        <div class="file-field input-field">
+            <div class="image-upload-button select-button">
+                <span>File</span>
+                <input id="imageUploadButton" type="file">
+            </div>
+            <div class="file-path-wrapper">
+                <input hidden class="file-path validate" type="text">
+            </div>
+        </div>
+    </form>
+</template>

@@ -22,7 +22,7 @@ Template.moduleCategorySelect.events({
         event.preventDefault();
         $('.category-select-modal').toggleClass('category-select-modal-toggled');
 
-    }
+    },
 });
 
 
