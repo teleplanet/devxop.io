@@ -14,6 +14,8 @@ Router.route('/display',{
 		let deviceId = query.deviceId;
 		let accessToken = query.accessToken;
 
+
+		console.log(query);
 		let device = Devices.findOne({"device_id": deviceId, "auth.access_token": accessToken});
 		if(!device){
 			//Router.go("/display/error");

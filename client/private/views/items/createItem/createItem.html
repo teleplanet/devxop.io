@@ -6,25 +6,40 @@
 		<form class="js-create-item-form">
 			<div class="row">
 				<div class="col s12">
-					<h4>{{getCopy.title}}</h4>
+					<div class="row">
+						<h5>Name</h5>
+					</div>
+					<div class="row">
+						<h4>{{getCopy.title}}</h4>
+					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s12">
-					{{> moduleCategorySelect}}
+				<div class="col s6">
+					<div class="row">
+						<h5>Image</h5>
+					</div>
+					<div class="row">
+						{{> moduleImageUpload}}
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="row">
+						<h5>Category</h5>
+					</div>
+					<div class="row">
+						{{> moduleCategorySelect}}
+					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s12">
-					{{> moduleImageUpload}}
-				</div>
+				<h5>Details</h5>
 			</div>
 			<div class="row">
-				<br>
 				<div class="input-field col s6">
 					<!-- <i class="material-icons prefix small ">account_circle</i> -->
 					<input id="input-price" type="text" class="validate">
-					<label for="input-price-">Price</label>
+					<label for="input-price">Price</label>
 				</div>
 				<div class="input-field col s6">
 					<!-- <i class="material-icons prefix small ">account_circle</i> -->

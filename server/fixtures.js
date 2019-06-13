@@ -1,73 +1,73 @@
 let catArray = [
-	{
-        "name" : "Entradas | Snacks",
-        "name_en" : "Starters | Snacks",
-        "name_es" : "Entrantes | Snacks"
-    },{
-        "name" : "Carne",
-        "name_en" : "Meat",
-        "name_es" : "Carne"
-    },{
-        "name" : "Peixe | Marisco",
-        "name_en" : "Fish | Seafood",
-        "name_es" : "Pescado | Marisco"
-    },{
-        "name" : "Sobremesas",
-        "name_en" : "Desserts",
-        "name_es" : "Postres"
-    },{
-        "name" : "Cafetaria | Sumos",
-        "name_en" : "Coffee | Juices",
-        "name_es" : "Cafetería | Zumos"
-    },{
-        "name" : "Cerveja",
-        "name_en" : "Beer",
-        "name_es" : "Cerveza"
-    },{
-        "name" : "Vinho Tinto",
-        "name_en" : "Red Wine",
-        "name_es" : "Vino Tinto"
-    },{
-        "name" : "Vinho Rosé",
-        "name_en" : "Rose Wine",
-        "name_es" : "Vino Rosé"
-    },{
-        "name" : "Vinho Branco",
-        "name_en" : "White Wine",
-        "name_es" : "Vino Blanco"
-    },{
-        "name" : "Aperitivos | Vinhos Especiais",
-        "name_en" : "Liqueurs | Special Wines",
-        "name_es" : "Aperitivos | Vinos Especiales"
-    },{
-        "name" : "Champagne | Espumante",
-        "name_en" : "Champagne | Sparkling Wine",
-        "name_es" : "Champagne | Espumante"
-    },{
-        "name" : "Especiais",
-        "name_en" : "Specials",
-        "name_es" : "Especial"
-    },{
-        "name" : "Vegetariano",
-        "name_en" : "Vegetarian",
-        "name_es" : "Vegetariano"
+    {
+        "name": "Entradas | Snacks",
+        "name_en": "Starters | Snacks",
+        "name_es": "Entrantes | Snacks"
+    }, {
+        "name": "Carne",
+        "name_en": "Meat",
+        "name_es": "Carne"
+    }, {
+        "name": "Peixe | Marisco",
+        "name_en": "Fish | Seafood",
+        "name_es": "Pescado | Marisco"
+    }, {
+        "name": "Sobremesas",
+        "name_en": "Desserts",
+        "name_es": "Postres"
+    }, {
+        "name": "Cafetaria | Sumos",
+        "name_en": "Coffee | Juices",
+        "name_es": "Cafetería | Zumos"
+    }, {
+        "name": "Cerveja",
+        "name_en": "Beer",
+        "name_es": "Cerveza"
+    }, {
+        "name": "Vinho Tinto",
+        "name_en": "Red Wine",
+        "name_es": "Vino Tinto"
+    }, {
+        "name": "Vinho Rosé",
+        "name_en": "Rose Wine",
+        "name_es": "Vino Rosé"
+    }, {
+        "name": "Vinho Branco",
+        "name_en": "White Wine",
+        "name_es": "Vino Blanco"
+    }, {
+        "name": "Aperitivos | Vinhos Especiais",
+        "name_en": "Liqueurs | Special Wines",
+        "name_es": "Aperitivos | Vinos Especiales"
+    }, {
+        "name": "Champagne | Espumante",
+        "name_en": "Champagne | Sparkling Wine",
+        "name_es": "Champagne | Espumante"
+    }, {
+        "name": "Especiais",
+        "name_en": "Specials",
+        "name_es": "Especial"
+    }, {
+        "name": "Vegetariano",
+        "name_en": "Vegetarian",
+        "name_es": "Vegetariano"
     }
-] 
+]
 
 
 //Create default database documents
-dbFixtures = function(){
+dbFixtures = function () {
 
-	//Create roles if none exist
+    //Create roles if none exist
 
-	if(Roles.getAllRoles().fetch().length < 1){ 
-		console.log('[FXT] Create permissions/group roles...');
-		Roles.createRole('root');
-		Roles.createRole('admin');
-		Roles.createRole('staff');
-	};
+    if (Roles.getAllRoles().fetch().length < 1) {
+        console.log('[FXT] Create permissions/group roles...');
+        Roles.createRole('root');
+        Roles.createRole('admin');
+        Roles.createRole('staff');
+    };
 
-	//Create superuser if none
+    //Create superuser if none
 	/* let rootUser = Meteor.users.findOne({
 		'roles': {
 			$in: ['root']
@@ -93,46 +93,67 @@ dbFixtures = function(){
 
 	} */
 
-	let companies = Companies.find().fetch();
+    let companies = Companies.find().fetch();
 
-	if(companies.length < 1){
+    if (companies.length < 1) {
 
-		console.log('[FXT] Create demo company & users...');
+        console.log('[FXT] Create demo company & users...');
 
-		//Create company
-		var companyId = Companies.insert({
-			name: 'GS Bistro',
-			createDate: new Date(),
-			active: true
+        //Create company
+        var companyId = Companies.insert({
+            name: 'GS Bistro',
+            createDate: new Date(),
+            active: true
         });
 
-		//Create users
+        //Create users
         //Daniel
         userId = Accounts.createUser({
             email: 'daniel@demo.com',
             password: '123',
             profile: {
-            	username: 'daniel',
+                username: 'daniel',
                 firstName: 'Daniel',
                 lastName: 'Abrantes',
                 company: companyId
             }
         });
 
-       	Roles.addUsersToRoles(userId, 'admin');
+        Roles.addUsersToRoles(userId, 'admin');
 
-	}
+    }
 
-	let categories = Categories.find().fetch();
-	if(categories.length < 1){
-		for(var i = 0; i < catArray.length; i++){
+    let categories = Categories.find().fetch();
+    if (categories.length < 1) {
+        for (var i = 0; i < catArray.length; i++) {
             catArray[i]["category"] = i;
-			Categories.insert(catArray[i], function(err, data){
-				if(err){
-					console.log(err);
-				}
-			});
-		}
-	}
+            Categories.insert(catArray[i], function (err, data) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+    }
+
+    let devices = Devices.find().fetch();
+    if (devices.length < 1) {
+
+        console.log("devices inserted");
+        Devices.insert({
+            "device_id": "4fe84085-6488-4b08-941d-4286dfadd075",
+            "authorization_code": "HlLH4OHd4tH1QMLn2JtHzdbEOSlziVZX8a9BZFkF941",
+            "update_stamp": 1560100348116.0,
+            "operating_system": "android",
+            "device_type": "screen_display",
+            "auth": {
+                "access_token": "GMNHgFGrUt8AuvkQCqSu4DLlgkPgYH9C0tjB1n5B5AO",
+                "refresh_token": "pW-IpP1vCFQvuG8GYfARTLxI03COg6penRJHjfshmpx",
+                "stamp": 1560100348116.0,
+                "user_id": "PWATjhtWwnihy597A"
+            },
+            "name": "Asus",
+            "selected_display": "sZq2EoN7hcrnqyyrc"
+        });
+    }
 
 }

@@ -1,9 +1,25 @@
 <template name="moduleDisplaySelect">
     <!-- <label class="my-1 mr-2" for="displaySelect">Preference</label> -->
-    <select class="custom-select my-1 mr-sm-2" id="displaySelect">
+    <!-- <select class="custom-select my-1 mr-sm-2" id="displaySelect">
         <option selected>Modelos...</option>
         {{#each display in displayList}}
             <option value="{{display}}">{{display}}</option>
         {{/each}}
-    </select>
+    </select> -->
+    <button class="select-button" id="displayButton">
+        {{#if selected}}
+        {{selected.name}}
+        {{else}}
+        Select display
+        {{/if}}<i class="material-icons">photo_size_select</i>
+    </button>
+
+    <div class="display-select-modal">
+        {{#each cat in displayList}}
+        <div class="select-list-button js-display-selected" data-display-id="{{cat._id}}">{{cat.name}}</div>
+        {{else}}
+        No categories available
+        {{/each}}
+    </div>
+
 </template>

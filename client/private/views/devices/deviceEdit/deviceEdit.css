@@ -1,0 +1,8 @@
+.device-template-load{
+    width: 100%;
+}
+
+.device-template-load iframe{
+    width: 400px;
+    min-height: 245px;
+}

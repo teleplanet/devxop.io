@@ -3,7 +3,7 @@ Template.devices.onRendered(function () {
 });
 
 Template.devices.helpers({
-    'devicesList': function () {
+    'listDevices': function () {
         return Devices.find({ "auth.user_id": Meteor.userId() }).fetch();
     },
     'platesList': function () {
@@ -55,6 +55,11 @@ Template.devices.helpers({
 });
 
 Template.devices.events({
+    'click .js-devices-card-select':function(event){
+        let deviceId = $(event.currentTarget).data('item-id');
+
+        Router.go("/devices/edit/" + deviceId);
+    },
     'click #plateSelect': function () {
         //Session.set("plate2Info", this);
 

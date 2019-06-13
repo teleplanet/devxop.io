@@ -32,7 +32,7 @@ Template.createItem.events({
       'info_es': $('#input-info-es').val(),
       'info_pt': $('#input-info-pt').val(),
       'category': Session.get("module.selectedCategory")["_id"],
-      'image': Session.get("module.imageUpload")["blob"],
+      'image': Session.get("module.imageUpload"),
       'visible': true
     }
 

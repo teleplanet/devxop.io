@@ -1,0 +1,22 @@
+<template name="deviceEdit">
+    <div class="row">
+        <h1>Device edit</h1>
+    </div>
+    <div class="container-background">
+
+        <div class="row">
+            <div class="col s6">
+                <h4>{{device.name}}</h4>
+                {{> moduleDisplaySelect}}
+            </div>
+            <div class="col s6">
+                <div class="device-template-load">
+                    <iframe id="templateLoad" src="{{templateLoad}}"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+</template>

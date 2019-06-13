@@ -1,14 +1,14 @@
 <template name="devices">
     <div class="row">
-        <h1>Items</h1>
+        <h1>Devices</h1>
     </div>
     <div class="row">
-        {{#each item in listDevices}}
-        <div class="list-devices-card js-devices-card-select" data-item-id="{{item._id}}">
+
+        {{#each device in listDevices}}
+        <div class="list-devices-card js-devices-card-select" data-item-id="{{device._id}}">
             <div class="devices-card-name">
-                <h5>{{item.name}}</h5>
+                <h5>{{device.name}}</h5>
             </div>
-            <div class="devices-card-info ellipsis">{{item.info_pt}}</div>
         </div>
         {{/each}}
     </div>
