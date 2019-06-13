@@ -8,17 +8,17 @@
     </select> -->
     <button class="select-button" id="displayButton">
         {{#if selected}}
-        {{selected.name}}
+        {{selected}}
         {{else}}
         Select display
         {{/if}}<i class="material-icons">photo_size_select</i>
     </button>
 
     <div class="display-select-modal">
-        {{#each cat in displayList}}
-        <div class="select-list-button js-display-selected" data-display-id="{{cat._id}}">{{cat.name}}</div>
+        {{#each display in displayList}}
+        <div class="select-list-button js-display-selected" data-display="{{display}}">{{display}}</div>
         {{else}}
-        No categories available
+        No displays available
         {{/each}}
     </div>
 

@@ -7,11 +7,11 @@ Template.moduleDisplaySelect.onRendered(function(){
 
 Template.moduleDisplaySelect.events({
     'click .js-display-selected':function(event){
-        let displayId = $(event.target).data('display-id');
+        let display = $(event.target).data('display');
 
-        let display = DisplayTemplates.findOne({"_id": displayId});
+        //let display = DisplayTemplates.findOne({"_id": displayId});
 
-        console.log("Session | module.selectedDisplay: " + display.name)
+        console.log("Session | module.selectedDisplay: " + display)
 
         Session.set("module.selectedDisplay", display);
 
@@ -33,7 +33,14 @@ Template.moduleDisplaySelect.helpers({
         return Session.get("module.selectedDisplay");
     },
     'displayList':function(){
-        return DisplayTemplates.find().fetch();
+        
+        let list = [
+            "light",
+            "specials",
+            "menu"
+        ]
+
+        return list;//DisplayTemplates.find().fetch();
     }
 });
 

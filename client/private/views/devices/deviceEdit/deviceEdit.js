@@ -3,11 +3,11 @@ var device;
 Template.deviceEdit.onRendered(function () {
     device = Session.get("device-edit");
 
-    let display = DisplayTemplates.findOne({"_id": device.selected_display});
-    Session.set("module.selectedDisplay", display);
+    let display = DisplayTemplates.findOne({ "_id": device.selected_display });
+    Session.set("module.selectedDisplay", display.name);
     //"http://localhost:3000"
     //$('.device-template-load').load(document.location.origin+ "/display" + template.name.capitalize());
-    Session.set("template-load", document.location.origin+ "/display?deviceId=" + device.device_id + "&accessToken=" + device.auth.access_token);
+    Session.set("template-load", document.location.origin + "/display?deviceId=" + device.device_id + "&accessToken=" + device.auth.access_token);
 });
 
 
@@ -17,11 +17,135 @@ Template.deviceEdit.helpers({
     'device': function () {
         return Session.get("device-edit");
     },
-    'templateLoad': function(){
+    'templateLoad': function () {
         return Session.get("template-load");
+    },
+    'hasDisplay': function () {
+        let display = Session.get("module.selectedDisplay");
+
+        //reload template
+        $("#templateLoad").attr("src", $('#templateLoad').attr("src"));
+
+        if (display) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    'selectedDisplayItems': function () {
+        let device = Session.get("device-edit");
+        let display = Session.get("module.selectedDisplay");
+
+        displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id });
+
+        if (displayTemplate) {
+            let result = Items.find({ "_id": { "$in": displayTemplate.display_items } }).fetch();
+
+            return result;
+        } else {
+            return [];
+        }
     }
 });
 
 Template.deviceEdit.events({
+    'click .js-item-selected': function (event) {
+        let item = Session.get("module.selecteditem");
+        let display = Session.get("module.selectedDisplay");
 
+        displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id });
+
+        if (displayTemplate) {
+            displayTemplate.display_items.push(item._id)
+
+            let data = {
+                "display_items": displayTemplate.display_items
+            };
+
+
+
+            Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
+                if (err)
+                    console.log(err);
+
+                console.log("item updated");
+            });
+        } else {
+
+            let data = {
+                "name": display,
+                "display_items": [item._id],
+                "user_id": Meteor.userId(),
+                "device_id": device._id
+            };
+
+
+
+            Meteor.call("display.templates.insert", data, function (err, data) {
+                if (err)
+                    console.log(err);
+
+                console.log("item updated");
+            });
+        }
+    },
+    'change .deviceEdit': function (event) {
+        let value = $(event.target).val();
+        let key = $(event.target).data('key');
+        let id = device._id;
+
+        console.log(value);
+        let data = {};
+        data[key] = value;
+
+
+        isCheckbox = $(event.target).is(':checkbox');
+        if(isCheckbox){
+            if ( $(event.target).is(":checked") ){
+                data["visible"] = true;
+            }else{
+                data["visible"] = false;
+            }
+        }else{
+            console.log("not checkbox");
+        }
+
+        Meteor.call("devices.edit", id, data, function (err, data) {
+            if (err)
+                console.log(err);
+
+            console.log("item updated");
+        });
+
+    },
+    'click .js-display-item-remove': function (event) {
+        let itemId = $(event.target).data('item-id');
+
+        let display = Session.get("module.selectedDisplay");
+
+        displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id });
+
+        let displayItems = displayTemplate.display_items;
+
+        let data = {
+            "display_items": []
+        };
+
+
+        for (let i = 0; i < displayItems.length; i++) {
+            if (displayItems[i] === itemId) {
+                console.log(displayItems[i] + " " + itemId);
+            } else {
+                data.display_items.push(displayItems[i]);
+            }
+        }
+
+        Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
+            if (err)
+                console.log(err);
+
+            console.log("item updated");
+        });
+
+    },
 });

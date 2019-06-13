@@ -1,0 +1,26 @@
+<template name="moduleItemSelect">
+    <!-- <label class="my-1 mr-2" for="itemSelect">Preference</label> -->
+    <!-- <select class="custom-select my-1 mr-sm-2" id="itemSelect">
+        <option selected>Modelos...</option>
+        {{#each item in itemList}}
+            <option value="{{item}}">{{item}}</option>
+        {{/each}}
+    </select> -->
+    <button class="select-button" id="itemButton">
+        <!-- {{#if selected}}
+            {{selected.name}}
+        {{else}}
+        Select item
+        {{/if}} -->
+        Select item<i class="material-icons">photo_size_select</i>
+    </button>
+
+    <div class="item-select-modal">
+        {{#each cat in itemList}}
+        <div class="select-list-button js-item-selected" data-item-id="{{cat._id}}">{{cat.name}}</div>
+        {{else}}
+        No categories available
+        {{/each}}
+    </div>
+
+</template>

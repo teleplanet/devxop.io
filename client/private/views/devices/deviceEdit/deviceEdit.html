@@ -5,18 +5,50 @@
     <div class="container-background">
 
         <div class="row">
-            <div class="col s6">
-                <h4>{{device.name}}</h4>
-                {{> moduleDisplaySelect}}
+            <div class="input-field col s6">
+                <h5>Device Name</h5>
+                <!-- <h4>{{device.name}}</h4> -->
+                <input id="input-device-name" type="text" value="{{device.name}}" data-key="name"
+                    class="validate valid deviceEdit"><!-- 
+                <label class="active" for="input-device-name"></label> -->
             </div>
             <div class="col s6">
-                <div class="device-template-load">
+                <h5>Displayed Template</h5>
+                {{> moduleDisplaySelect}}
+                <!-- <div class="device-template-load">
                     <iframe id="templateLoad" src="{{templateLoad}}"></iframe>
+                </div> -->
+            </div>
+        </div>
+        {{#if hasDisplay}}
+        <div class="row">
+            <div class="col s12">
+                <h5>Displayed Items</h5>
+            </div>
+            <div class="col s12">
+                {{#each item in selectedDisplayItems}}
+                <div class="list-items-card js-items-card-select" data-item-id="{{item._id}}">
+                    <div class="items-card-image" style="background-image: url({{item.image}})"></div>
+                    <div class="items-card-name">
+                        <h5>{{item.name}}</h5>
+                    </div>
+                    <div class="items-card-info ellipsis">{{item.info_en}}
+                        <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
+                        </div>
+                    </div>
                 </div>
+                {{else}}
+                no items
+                {{/each}}
             </div>
         </div>
         <div class="row">
-
+            <div class="col s12">
+                <h5>Add item to display</h5>
+                {{> moduleItemSelect}}
+            </div>
         </div>
+        {{/if}}
+
     </div>
 </template>
