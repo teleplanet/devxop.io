@@ -45,10 +45,54 @@ Template.deviceEdit.helpers({
         } else {
             return [];
         }
-    }
+    },
+    'displayTemplateVisible':function(deviceId){
+        if(!device.selected_display)
+            return false;
+
+            let display = Session.get("module.selectedDisplay");
+        let displayTemplate = DisplayTemplates.findOne({ "_id": device.selected_display, "name": display});
+
+        if(displayTemplate){
+            return true;
+        }else{
+            return false;
+        }
+    },
 });
 
 Template.deviceEdit.events({
+    'change .js-live-switch': function (event) {
+        let data = {};
+
+        let display = Session.get("module.selectedDisplay");
+
+        displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id});
+
+        if(!displayTemplate){
+            console.log("plates are required first!");
+            return;
+        }
+        
+
+        isCheckbox = $(event.target).is(':checkbox');
+        if(isCheckbox){
+            if ( $(event.target).is(":checked") ){
+                data["selected_display"] = displayTemplate._id;
+            }else{
+                data["selected_display"] = "";
+            }
+        }else{
+            console.log("not checkbox");
+        }
+
+        Meteor.call("devices.edit", device._id, data, function (err, data) {
+            if (err)
+                console.log(err);
+
+            console.log("item updated");
+        });
+    },
     'click .js-item-selected': function (event) {
         let item = Session.get("module.selecteditem");
         let display = Session.get("module.selectedDisplay");
@@ -100,13 +144,13 @@ Template.deviceEdit.events({
 
 
         isCheckbox = $(event.target).is(':checkbox');
-        if(isCheckbox){
-            if ( $(event.target).is(":checked") ){
+        if (isCheckbox) {
+            if ($(event.target).is(":checked")) {
                 data["visible"] = true;
-            }else{
+            } else {
                 data["visible"] = false;
             }
-        }else{
+        } else {
             console.log("not checkbox");
         }
 

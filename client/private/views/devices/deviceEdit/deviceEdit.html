@@ -9,7 +9,8 @@
                 <h5>Device Name</h5>
                 <!-- <h4>{{device.name}}</h4> -->
                 <input id="input-device-name" type="text" value="{{device.name}}" data-key="name"
-                    class="validate valid deviceEdit"><!-- 
+                    class="validate valid deviceEdit">
+                <!-- 
                 <label class="active" for="input-device-name"></label> -->
             </div>
             <div class="col s6">
@@ -21,6 +22,19 @@
             </div>
         </div>
         {{#if hasDisplay}}
+        <div class="row">
+            <div class="col s12">
+                <h5>Template Status</h5>
+                <div class="switch">
+                    <label>
+                        <input class="js-live-switch" data-device-id="{{device._id}}" type="checkbox"
+                            value="{{displayTemplateVisible}}"
+                            checked="{{displayTemplateVisible}}">
+                        <span class="lever"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col s12">
                 <h5>Displayed Items</h5>
