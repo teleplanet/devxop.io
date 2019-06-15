@@ -3,11 +3,13 @@ var device;
 Template.deviceEdit.onRendered(function () {
     device = Session.get("device-edit");
 
-    let display = DisplayTemplates.findOne({ "_id": device.selected_display });
-    Session.set("module.selectedDisplay", display.name);
+    let display = DisplayTemplates.findOne({ "_id": device["selected_display"] });
+
+    if(display)
+        Session.set("module.selectedDisplay", display["name"]);
     //"http://localhost:3000"
     //$('.device-template-load').load(document.location.origin+ "/display" + template.name.capitalize());
-    Session.set("template-load", document.location.origin + "/display?deviceId=" + device.device_id + "&accessToken=" + device.auth.access_token);
+    //Session.set("template-load", document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device["auth.access_token"]);
 });
 
 
@@ -46,12 +48,9 @@ Template.deviceEdit.helpers({
             return [];
         }
     },
-    'displayTemplateVisible':function(deviceId){
-        if(!device.selected_display)
-            return false;
-
-            let display = Session.get("module.selectedDisplay");
-        let displayTemplate = DisplayTemplates.findOne({ "_id": device.selected_display, "name": display});
+    'displayTemplateVisible':function(){
+        let display = Session.get("module.selectedDisplay");
+        let displayTemplate = DisplayTemplates.findOne({ "_id": device["selected_display"], "name": display});
 
         if(displayTemplate){
             return true;
@@ -90,7 +89,8 @@ Template.deviceEdit.events({
             if (err)
                 console.log(err);
 
-            console.log("item updated");
+            document.location.reload(true);
+
         });
     },
     'click .js-item-selected': function (event) {

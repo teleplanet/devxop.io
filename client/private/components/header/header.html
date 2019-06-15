@@ -17,7 +17,7 @@
 			<div class="header-col-action">
 				<div class="header-col-action-item noselect">
 					<!-- <img src="/images/icon.png" class="logo"> -->
-					 <a href="/" class="logo">{{app "name"}}</a>
+					<a href="/" class="logo">{{app "name"}}</a>
 				</div>
 			</div>
 		</div>
@@ -43,9 +43,12 @@
 			 -->
 			<div class="header-col-action">
 				<div class="header-col-action-item">
-					<div class="header-col-action-item-profile js-profile noselect">
-						<img src="{{user.profile}}" class="profile-image">
+					<div class="header-col-action-item button js-profile noselect">
+						<i class="material-icons">person</i>
 					</div>
+					<!-- <div class="header-col-action-item-profile js-profile noselect">
+						<img src="{{user.profile}}" class="profile-image">
+					</div> -->
 					{{> headerDropdown}}
 				</div>
 			</div>

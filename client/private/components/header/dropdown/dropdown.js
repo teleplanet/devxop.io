@@ -1,13 +1,9 @@
 Template.headerDropdown.events({
 	'click .js-logout': function(event, template){
-		Meteor.logout();
-		/*Meteor.call("logoutUser",function(err, data){
-			if(err){
-				console.log(err);
-			}else{
-				
-			}
-		});*/
+		event.preventDefault();
+		Meteor.logout(function(){ 
+			Router.go("/");
+		});
 	},
 	'click .js-profile':function(event, template){
 		Router.go("/account/profile");
