@@ -45,11 +45,13 @@
                     <div class="items-card-image" style="background-image: url({{item.image}})"></div>
                     <div class="items-card-name">
                         <h5>{{item.name}}</h5>
+                        <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
+                            </div>
                     </div>
-                    <div class="items-card-info ellipsis">{{item.info_en}}
+                    <!-- <div class="items-card-info ellipsis">
                         <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 {{else}}
                 no items
