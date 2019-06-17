@@ -27,7 +27,7 @@ Template.displayLight.helpers({
     'menuTotals':function(){
         let plates = Session.get("plates");
 
-        return {price: parseFloat(plates[0].price) + parseFloat(plates[1].price), kcal: parseInt(plates[0].kcal) + parseInt(plates[1].kcal)}
+        return {price: (parseFloat(plates[0].price) + parseFloat(plates[1].price)).toFixed(2), kcal: parseInt(plates[0].kcal) + parseInt(plates[1].kcal)}
     }
 });
 
