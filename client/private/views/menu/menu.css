@@ -36,11 +36,12 @@
 
 .menu-col-left{
     padding-right: 50px !important;
-
+    width: 50%;
 }
 
-.menu-col-rigth{
+.menu-col-right{
     padding-left: 50px !important;
+    width: 50%;
 }
 
 .items{

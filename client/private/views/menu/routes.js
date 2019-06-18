@@ -1,4 +1,4 @@
-Router.route('/menu',{
+Router.route('/prints',{
 	name: 'menu',
 	controller: 'PrivateController',
 	action: function(){

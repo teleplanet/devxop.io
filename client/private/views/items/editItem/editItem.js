@@ -35,6 +35,21 @@ Template.editItem.helpers({
 });
 
 Template.editItem.events({
+    'click .js-category-selected': function(event){
+        let key = "category";
+        let value = Session.get("module.selectedCategory")["_id"];
+        let id = Session.get("item-edit")["_id"];
+
+        let data = {};
+        data[key] = value;
+
+        Meteor.call("items.edit", id, data, function (err, data) {
+            if (err)
+                console.log(err);
+
+            console.log("item updated");
+        });
+    },
     'change .plateEdit': function (event) {
         let value = $(event.target).val();
         let key = $(event.target).data('key');

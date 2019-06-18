@@ -15,10 +15,10 @@ PublicController = RouteController.extend({
 	},
 	waitOn: function(){
 		return [
-			Meteor.subscribe('itemsSubscriptions'),
+			/* Meteor.subscribe('itemsSubscriptions'),
 			Meteor.subscribe('categoriesSubscriptions'),
 			Meteor.subscribe('devicesSubscriptions'),
-			Meteor.subscribe('displayTemplatesSubscriptions')
+			Meteor.subscribe('displayTemplatesSubscriptions') */
 		];
 	}
 });

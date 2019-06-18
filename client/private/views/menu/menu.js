@@ -47,8 +47,9 @@ Template.menu.helpers({
     },
     'platesList':function(cat_id){
         //console.log(cat_id);
-        let data = Session.get("plates");
+        let data = Items.find({}).fetch();
         let lang = Session.get("language");
+
 
         let platesArray = [];
 
@@ -86,8 +87,10 @@ Template.menu.events({
         
         let ele = document.getElementById("capture");
 
+        $("#capture").css('transform', 'inherit');
+
         //$('#capture').css("transform", "scale(1)");
-        $('#capture').css("display", "inherit");
+        //$('#capture').css("display", "inherit");
         html2canvas(ele, {
             /* width: 2480,
             height: 3508 */
@@ -114,6 +117,8 @@ Template.menu.events({
             //$('#capture').css("transform", "scale(0.3)");
            /*  $('#capture').css("display", "none");
             $('#loader').hide(); */
+
+            $('#capture').css("transform", "scale(0.3)");
         });
     },
     'click #btnDown': function () {
