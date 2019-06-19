@@ -5,7 +5,7 @@
     <div class="row">
         {{#each item in listItems}}
         <div class="list-items-card js-items-card-select" data-item-id="{{item._id}}">
-            <div class="items-card-image" style="background-image: url({{item.image}})"></div>
+            <div class="items-card-image" style="background-image: url({{item.image_thumb}})"></div>
             <div class="items-card-name"><h5>{{item.name}}</h5></div>
             <div class="items-card-info ellipsis">{{item.info_pt}}</div>
         </div>

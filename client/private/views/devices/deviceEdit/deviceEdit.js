@@ -1,12 +1,16 @@
 /* var image; */
-var device;
+
 Template.deviceEdit.onRendered(function () {
-    device = Session.get("device-edit");
+    let device = Session.get("device-edit");
 
-    let display = DisplayTemplates.findOne({ "_id": device["selected_display"] });
-
-    if(display)
-        Session.set("module.selectedDisplay", display["name"]);
+    if(device){
+        let display = DisplayTemplates.findOne({ "_id": device["selected_display"] });
+        if(display){
+            Session.set("module.selectedDisplay", display["name"]);
+        }
+    }
+        
+        
     //"http://localhost:3000"
     //$('.device-template-load').load(document.location.origin+ "/display" + template.name.capitalize());
     //Session.set("template-load", document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device["auth.access_token"]);
@@ -24,6 +28,7 @@ Template.deviceEdit.helpers({
     },
     'hasDisplay': function () {
         let display = Session.get("module.selectedDisplay");
+
 
         //reload template
         $("#templateLoad").attr("src", $('#templateLoad').attr("src"));
@@ -49,20 +54,30 @@ Template.deviceEdit.helpers({
         }
     },
     'displayTemplateVisible':function(){
+        let device = Session.get("device-edit");
         let display = Session.get("module.selectedDisplay");
-        let displayTemplate = DisplayTemplates.findOne({ "_id": device["selected_display"], "name": display});
 
-        if(displayTemplate){
-            return true;
-        }else{
+        if(!display || device) {
             return false;
+        }else{
+            let displayTemplate = DisplayTemplates.findOne({ "_id": device["selected_display"], "name": display});
+            if(!displayTemplate){
+                return false;
+            }else{
+                return true;
+            }
         }
+
+        
+
+
     },
 });
 
 Template.deviceEdit.events({
     'change .js-live-switch': function (event) {
         let data = {};
+        let device = Session.get("device-edit");
 
         let display = Session.get("module.selectedDisplay");
 
@@ -94,6 +109,7 @@ Template.deviceEdit.events({
         });
     },
     'click .js-item-selected': function (event) {
+        let device = Session.get("device-edit");
         let item = Session.get("module.selecteditem");
         let display = Session.get("module.selectedDisplay");
 
@@ -134,6 +150,7 @@ Template.deviceEdit.events({
         }
     },
     'change .deviceEdit': function (event) {
+        let device = Session.get("device-edit");
         let value = $(event.target).val();
         let key = $(event.target).data('key');
         let id = device._id;
@@ -163,6 +180,7 @@ Template.deviceEdit.events({
 
     },
     'click .js-display-item-remove': function (event) {
+        let device = Session.get("device-edit");
         let itemId = $(event.target).data('item-id');
 
         let display = Session.get("module.selectedDisplay");

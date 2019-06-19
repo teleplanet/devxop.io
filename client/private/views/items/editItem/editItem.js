@@ -6,7 +6,7 @@ Template.editItem.onRendered(function () {
 
     //image = item.image;
     Session.set("module.selectedCategory", category);
-    Session.set("module.imageUpload", item["image"]);
+    Session.set("module.imageUpload", item["image_thumb"]);
 
     /* //image upload change tracker
     this.sessionWatcher = Session.watch('module.imageUpload', function (value) {
