@@ -22,22 +22,34 @@ Template.moduleImageUpload.events({
         Session.set("module.processingLoader", true);
 
         if (ev.files && ev.files[0]) {
+            new ImageCompressor(ev.files[0], {
+                quality: .8,
+                width: 720,
+                height: 480,
+                success(result) {
+                    blobToDataURL(result, function(dataurl){
+                        Session.set("module.imageUploadThumb", dataurl);
+                    });
+
+                },
+                error(e) {
+                    console.log(e.message);
+                },
+            });
+
 
             new ImageCompressor(ev.files[0], {
-                quality: .6,
+                quality: .8,
+                width: 1920,
+                height: 1080,
                 success(result) {
-                    //const formData = new FormData();
-
-                    //formData.append('file', result, result.name);
-
-                    //var blob = dataURLtoBlob('data:text/plain;base64,YWFhYWFhYQ==');
                     blobToDataURL(result, function(dataurl){
-                        //console.log(dataurl);
-
                         Session.set("module.imageUpload", dataurl);
+
+                        //stop loader
                         Session.set("module.processingLoader", false);
 
-                        //console.log(dataURLtoBlob(dataurl));
+                        $('.js-image-upload-event').click();
                     });
 
                 },

@@ -35,6 +35,23 @@ Template.editItem.helpers({
 });
 
 Template.editItem.events({
+    'click .js-image-upload-event': function(event){
+        console.log(event);
+        let image = Session.get("module.imageUpload");
+        let thumb = Session.get("module.imageUploadThumb");
+        let id = Session.get("item-edit")["_id"];
+
+        let data = {};
+        data['image'] = image;
+        data['image_thumb'] = thumb;
+
+        Meteor.call("items.edit", id, data, function (err, data) {
+            if (err)
+                console.log(err);
+
+            console.log("item updated");
+        });
+    },
     'click .js-category-selected': function(event){
         let key = "category";
         let value = Session.get("module.selectedCategory")["_id"];

@@ -33,6 +33,7 @@ Template.createItem.events({
       'info_pt': $('#input-info-pt').val(),
       'category': Session.get("module.selectedCategory")["_id"],
       'image': Session.get("module.imageUpload"),
+      'image_thumb': Session.get("module.imageUploadThumb"),
       'visible': true
     }
 
