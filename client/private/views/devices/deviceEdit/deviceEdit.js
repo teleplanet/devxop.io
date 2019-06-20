@@ -3,14 +3,14 @@
 Template.deviceEdit.onRendered(function () {
     let device = Session.get("device-edit");
 
-    if(device){
+    if (device) {
         let display = DisplayTemplates.findOne({ "_id": device["selected_display"] });
-        if(display){
+        if (display) {
             Session.set("module.selectedDisplay", display["name"]);
         }
     }
-        
-        
+
+
     //"http://localhost:3000"
     //$('.device-template-load').load(document.location.origin+ "/display" + template.name.capitalize());
     //Session.set("template-load", document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device["auth.access_token"]);
@@ -53,50 +53,104 @@ Template.deviceEdit.helpers({
             return [];
         }
     },
-    'displayTemplateVisible':function(){
+    'displayTemplateVisible': function () {
         let device = Session.get("device-edit");
         let display = Session.get("module.selectedDisplay");
 
-        if(!display || device) {
+        if (!display || !device) {
             return false;
-        }else{
-            let displayTemplate = DisplayTemplates.findOne({ "_id": device["selected_display"], "name": display});
-            if(!displayTemplate){
+        } else {
+            let displayTemplate = DisplayTemplates.findOne({ "_id": device["selected_display"], "name": display });
+            if (!displayTemplate) {
                 return false;
-            }else{
+            } else {
                 return true;
             }
         }
-
-        
-
-
     },
+    'staticDisplay': function () {
+        let device = Session.get("device-edit");
+        let display = Session.get("module.selectedDisplay");
+
+        if (display == "static") {
+            let displayTemplate = DisplayTemplates.findOne({ "_id": device["selected_display"], "name": display });
+
+            Session.set("module.imageUpload", displayTemplate["static_image"]);
+
+            return displayTemplate;
+        }
+
+        return false;
+    }
 });
 
 Template.deviceEdit.events({
+    'click .js-image-upload-event': function (event) {
+        let display = Session.get("module.selectedDisplay");
+
+        if (display == "static") {
+            let device = Session.get("device-edit");
+            let image = Session.get("module.imageUpload");
+            let display = Session.get("module.selectedDisplay");
+
+            displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id });
+
+            if (displayTemplate) {
+
+                let data = {
+                    "static_image": image
+                };
+
+
+
+                Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
+                    if (err)
+                        console.log(err);
+
+                    console.log("item updated");
+                });
+            } else {
+
+                let data = {
+                    "name": display,
+                    "static_image": image,
+                    "user_id": Meteor.userId(),
+                    "device_id": device._id
+                };
+
+
+
+                Meteor.call("display.templates.insert", data, function (err, data) {
+                    if (err)
+                        console.log(err);
+
+                    console.log("item updated");
+                });
+            }
+        }
+    },
     'change .js-live-switch': function (event) {
         let data = {};
         let device = Session.get("device-edit");
 
         let display = Session.get("module.selectedDisplay");
 
-        displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id});
+        displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id });
 
-        if(!displayTemplate){
+        if (!displayTemplate) {
             console.log("plates are required first!");
             return;
         }
-        
+
 
         isCheckbox = $(event.target).is(':checkbox');
-        if(isCheckbox){
-            if ( $(event.target).is(":checked") ){
+        if (isCheckbox) {
+            if ($(event.target).is(":checked")) {
                 data["selected_display"] = displayTemplate._id;
-            }else{
+            } else {
                 data["selected_display"] = "";
             }
-        }else{
+        } else {
             console.log("not checkbox");
         }
 

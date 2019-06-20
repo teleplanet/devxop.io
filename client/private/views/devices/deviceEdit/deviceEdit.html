@@ -28,13 +28,23 @@
                 <div class="switch">
                     <label>
                         <input class="js-live-switch" data-device-id="{{device._id}}" type="checkbox"
-                            value="{{displayTemplateVisible}}"
-                            checked="{{displayTemplateVisible}}">
+                            value="{{displayTemplateVisible}}" checked="{{displayTemplateVisible}}">
                         <span class="lever"></span>
                     </label>
                 </div>
             </div>
         </div>
+        {{#if staticDisplay}}
+        <!-- ################### STATIC DISPLAY ####################### -->
+        <div class="row">
+            <div class="col s12">
+                <h5>Displayed Static Image</h5>
+                {{> moduleImageUpload}}
+            </div>
+        </div>
+
+        {{else}}
+        <!-- ################### NORMAL TEMPLATE DISPLAY ############### -->
         <div class="row">
             <div class="col s12">
                 <h5>Displayed Items</h5>
@@ -46,12 +56,12 @@
                     <div class="items-card-name">
                         <h5>{{item.name}}</h5>
                         <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
-                            </div>
+                        </div>
                     </div>
                     <!-- <div class="items-card-info ellipsis">
-                        <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
-                        </div>
-                    </div> -->
+                                <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
+                                </div>
+                            </div> -->
                 </div>
                 {{else}}
                 no items
@@ -64,6 +74,7 @@
                 {{> moduleItemSelect}}
             </div>
         </div>
+        {{/if}}
         {{/if}}
 
     </div>

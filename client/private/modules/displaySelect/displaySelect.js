@@ -37,7 +37,8 @@ Template.moduleDisplaySelect.helpers({
         let list = [
             "light",
             "specials",
-            "menu"
+            "static",
+            "menu(unavailable)"
         ]
 
         return list;//DisplayTemplates.find().fetch();
