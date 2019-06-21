@@ -1,0 +1,19 @@
+.message-container{
+    width: 100%;
+    padding: 15px;
+    position: fixed;
+    bottom: -100%;
+    color: #fff !important;
+    text-align: center;
+    transition: all 2s ease 0s;
+}
+
+.message-container .danger{
+    background: red;
+    bottom: 0;
+}
+
+.message-container .success{
+    background: green;
+    bottom: 0;
+}

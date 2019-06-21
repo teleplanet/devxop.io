@@ -198,7 +198,7 @@ Template.deviceEdit.events({
             if (err)
                 console.log(err);
 
-            document.location.reload(true);
+            //document.location.reload(true);
 
         });
     },
