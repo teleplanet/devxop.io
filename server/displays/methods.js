@@ -9,6 +9,6 @@ Meteor.methods({
     },
     'display.templates.insert':function (data) {
 
-        DisplayTemplates.insert(data);
+        return DisplayTemplates.insert(data);
     },
 })

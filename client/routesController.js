@@ -29,13 +29,13 @@ EmptyController = RouteController.extend({
 
 DisplayController = RouteController.extend({
 	layoutTemplate: 'displayBase',
-	waitOn: function(){
+	/* waitOn: function(){
 		return [
 			Meteor.subscribe('itemsSubscriptionsImage'),
 			Meteor.subscribe('devicesSubscriptions'),
 			Meteor.subscribe('displayTemplatesSubscriptions')
 		];
-	}
+	} */
 });
 
 //Controller for private routes
@@ -55,6 +55,16 @@ PrivateController = RouteController.extend({
 			Meteor.subscribe('devicesSubscriptions'),
 			Meteor.subscribe('displayTemplatesSubscriptions')
 		];
+	},
+	action: function(){
+
+		if (this.ready()){ 
+			console.log("ACTION!");
+			//set session
+			Session.set("company", Companies.findOne({"_id": Meteor.user().profile.company}));
+			//set session
+			Session.set("user", Meteor.user());
+		} else { this.render('Loading'); }
 	}
 });
 
@@ -73,7 +83,7 @@ Router.onBeforeAction(function()
 		}
 		else{
 			//set session
-			Session.set("company", Companies.findOne());
+			Session.set("company", Companies.findOne({"_id": Meteor.user().profile.company}));
 			//set session
 			Session.set("user", Meteor.user());
 

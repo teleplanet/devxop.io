@@ -1,5 +1,5 @@
 Meteor.methods({
-	'auth.registerAccount': function(email, password, companyName){
+	'auth.registerAccount': function(email, password, companyName, nameObject){
 		check(email, String);
 		check(password, String);
 		check(companyName, String);
@@ -10,11 +10,8 @@ Meteor.methods({
 			password : password,
 		});
 
-		//Set user as an admin
-		Roles.addUsersToRoles(userId, 'admin');
-
 		//Create company
-		let companyID = createCompany(companyName);
+		let companyId = createCompany(companyName);
 
 		//Assign company to user profile
 		Meteor.users.update({
@@ -22,7 +19,10 @@ Meteor.methods({
 		},
 		{
 			$set:{
-				'profile.company': companyID
+				'profile.company': companyId,
+				'profile.first_name': nameObject.f,
+				'profile.last_name': nameObject.l,
+				'profile.name': nameObject.f + " " + nameObject.l
 			}
 		});
 

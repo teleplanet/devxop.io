@@ -1,7 +1,9 @@
 Meteor.publish('itemsSubscriptions', function(){
-	return Items.find({}, {fields: {image:0}} );
+	return Items.find({"user_id": this.userId}, {fields: {image:0}} );
 });
 
-Meteor.publish('itemsSubscriptionsImage', function(){
-	return Items.find({});
+Meteor.publish('itemsSubscriptionsPublic', function(items){
+
+
+	return Items.find({"_id": { "$in" : items} });
 });

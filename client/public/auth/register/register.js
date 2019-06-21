@@ -1,5 +1,5 @@
 Template.register.events({
-	'submit #registerForm' : function(e, t){
+	'submit #register-form' : function(e, t){
 		e.preventDefault();
 		
 		var registerForm = $(e.currentTarget),
@@ -7,10 +7,12 @@ Template.register.events({
 		
 		if (!submitBtn.is("[disabled]")) {
 
-			var company = t.find('#company').value.trim(),
-				email = t.find('#email').value.trim(), 
-				password = t.find('#password').value.trim(),
-				passwordConfirm = t.find('#passwordConfirm').value.trim(),
+			var company = t.find('#input-company').value.trim(),
+				fname = t.find('#input-fname').value.trim(), 
+				lname = t.find('#input-lname').value.trim(), 
+				email = t.find('#input-email').value.trim(), 
+				password = t.find('#input-password').value.trim(),
+				passwordConfirm = t.find('#input-confirm').value.trim(),
 				isValid = true;
 
 
@@ -55,9 +57,9 @@ Template.register.events({
 			}
 
 		  	if(isValid){
-		  		t.$('.errorMessage').text('')
+		  		t.$('.errorMessage').text('');
 
-		  		Meteor.call('auth.registerAccount', email, password, company, function(err, data){
+		  		Meteor.call('auth.registerAccount', email, password, company, {f: fname, l: lname}, function(err, data){
 		  			submitBtn.removeClass('m-progress').removeAttr("disabled");
 		  			
 		  			if(!err){

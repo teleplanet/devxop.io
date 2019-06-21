@@ -1,5 +1,5 @@
 Meteor.methods({
-	'company.createCompany': function(name){
+	'company.create': function(name){
 		check(name, String);
 
 		let companyID = createCompany(name);

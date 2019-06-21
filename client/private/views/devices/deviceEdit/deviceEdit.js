@@ -29,11 +29,44 @@ Template.deviceEdit.helpers({
     'hasDisplay': function () {
         let display = Session.get("module.selectedDisplay");
 
-
-        //reload template
-        $("#templateLoad").attr("src", $('#templateLoad').attr("src"));
-
         if (display) {
+            let device = Session.get("device-edit");
+            let display = Session.get("module.selectedDisplay");
+
+            displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id });
+
+            if (!displayTemplate) {
+                console.log("There is no selected display template! Creating....");
+                let data = {
+                    "name": display,
+                    "static_image": "",
+                    "display_items": [],
+                    "user_id": Meteor.userId(),
+                    "device_id": device._id
+                };
+
+
+
+                Meteor.call("display.templates.insert", data, function (err, templateId) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        //if device does not have any selected device => SET ONE
+                        if (!device.selected_display) {
+                            let data = {
+                                "selected_display": templateId
+                            }
+                            Meteor.call("devices.edit", device._id, data, function (err, data) {
+                                if (err)
+                                    console.log(err);
+                            });
+                        }
+
+                        console.log("Display template created!");
+                    }
+                });
+            }
+
             return true;
         } else {
             return false;
@@ -73,14 +106,21 @@ Template.deviceEdit.helpers({
         let display = Session.get("module.selectedDisplay");
 
         if (display == "static") {
-            let displayTemplate = DisplayTemplates.findOne({ "_id": device["selected_display"], "name": display });
+            let displayTemplate = DisplayTemplates.findOne({ "name": display, "device_id": device._id });
 
-            Session.set("module.imageUpload", displayTemplate["static_image"]);
+            console.log(displayTemplate);
 
-            return displayTemplate;
+            setTimeout(function(){
+                Session.set("module.imageUpload", displayTemplate.static_image);
+            }, 1000);
+            
+
+            return true;
+        }else{
+            return false;
         }
 
-        return false;
+        
     }
 });
 

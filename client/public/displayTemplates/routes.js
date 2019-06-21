@@ -1,53 +1,63 @@
-String.prototype.capitalize = function() {
+String.prototype.capitalize = function () {
 	return this.charAt(0).toUpperCase() + this.slice(1)
-  }
+}
 
-Router.route('/display',{
+Router.route('/display', {
 	name: "displayBase",
-	controller: 'DisplayController',
-	action: function(){
-		this.render();
+	layoutTemplate: 'displayBase',
+	waitOn: function () {
+		let query = this.params.query;
+		let deviceId = query.deviceId;
 
+		return [
+			Meteor.subscribe('devicesSubscriptionsPublic', deviceId),
+		]
+	},
+	action: function () {
+
+		this.render("mainLoader");
 
 		let query = this.params.query;
 
 		let deviceId = query.deviceId;
 		let accessToken = query.accessToken;
 
+		let device = Devices.findOne({ "device_id": deviceId, "auth.access_token": accessToken });
+		if (!device) {
+			window.location.reload(true);
+		} else {
+			Deps.autorun(function () {
+				// subscribe to the posts publication
+				var subscription = Meteor.subscribe('displayTemplatesSubscriptionsPublic', device._id);
 
-		console.log(query);
-		let device = Devices.findOne({"device_id": deviceId, "auth.access_token": accessToken});
-		if(!device){
-			//Router.go("/display/error");
-			console.log("no device found!");
-			//window.location.reload(true);
-		}else{
-			let template = DisplayTemplates.findOne({"_id": device.selected_display});
-			if(template){
-				let finalPlates = [];
+				// if subscription is ready, set limit to newLimit
+				if (subscription.ready()) {
+					let template = DisplayTemplates.findOne({ "_id": device.selected_display });
 
-				for(let i = 0; i < template.display_items.length; i++){
-					let plate = Items.findOne({ "_id": template.display_items[i]});
+					if (template) {
+						var subscription2 = Meteor.subscribe('itemsSubscriptionsPublic', template.display_items);
+						if (subscription2.ready()) {
+							let finalPlates = Items.find().fetch();
 
-					if(plate){
-						finalPlates.push(plate);
+							Session.set("template", template);
+							Session.set("device", device);
+							Session.set("plates", finalPlates);
+
+							Router.current().render("display" + template.name.capitalize());
+						}
+					} else {
+						console.log("no template!");
+						window.location.reload(true);
 					}
+
+				} else {
+					//console.log("> Subscription is not ready yet. \n\n");
 				}
-				//let items = Plates.find({ "_id": { "$in": template.display_items } }).fetch();
+			});
 
-				Session.set("template", template);
-				Session.set("device", device);
-				Session.set("plates", finalPlates);
-
-				//Router.go("/display/" + template.name + "?deviceId=" + device._id + "&accessToken=" + accessToken);
-				this.render("display"+ template.name.capitalize());
-			}else{
-				window.location.reload(true);
-			}
-			
 		}
-		
+
 		this.next();
-		
+
 	}
 });

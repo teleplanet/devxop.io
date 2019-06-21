@@ -1,5 +1,5 @@
 <template name="privateBase">
-	<div class="menu-nav">
+	<!-- <div class="menu-nav">
 		<div class="list-vertical">
 			<a href="/" class="js-menu-list-item">Dashboard</a>
 			<a href="/prints" class="js-menu-list-item">Print Templates</a>
@@ -11,20 +11,21 @@
 			</a>
 		</div>
 	</div>
-	<div class="layout-menu-overlay js-menu-layout-overlay"></div>
+	<div class="layout-menu-overlay js-menu-layout-overlay"></div> -->
 	<div class="layout-test">
 		<div class="layout-header">
 			{{> header}}
-			{{> yield region='banner'}}
+			<!-- {{> yield region='banner'}} -->
 		</div>
+		{{> sidenav}}
 		<div class="content-layout">
 			<div class="container">
 				{{> yield}}
 			</div>
 		</div>
-		<div class="footer-layout">
+		<!-- <div class="footer-layout">
 			{{> footer}}
-		</div>
+		</div> -->
 	</div>
 
 	{{> moduleProcessingLoader}}
