@@ -1,6 +1,6 @@
 Meteor.methods({
     'display.templates.edit':function (id, data) {
-        console.log(data);
+        //console.log(data);
     
 
         DisplayTemplates.update(id, {

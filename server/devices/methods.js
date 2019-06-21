@@ -1,6 +1,6 @@
 Meteor.methods({
     'devices.edit':function (id, data) {
-        console.log(data);
+        //console.log(data);
         
         Devices.update(id, {
             $set: data,
