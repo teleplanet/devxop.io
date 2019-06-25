@@ -46,10 +46,12 @@ Template.editItem.events({
         data['image_thumb'] = thumb;
 
         Meteor.call("items.edit", id, data, function (err, data) {
-            if (err)
-                console.log(err);
-
-            console.log("item updated");
+            if (err){
+                console.log(err)
+                notifyMessage("Failed item update", "danger");
+            }else{
+                notifyMessage("Item successfully updated", "success");
+            }
         });
     },
     'click .js-category-selected': function(event){
@@ -61,10 +63,12 @@ Template.editItem.events({
         data[key] = value;
 
         Meteor.call("items.edit", id, data, function (err, data) {
-            if (err)
-                console.log(err);
-
-            console.log("item updated");
+            if (err){
+                console.log(err)
+                notifyMessage("Failed item update", "danger");
+            }else{
+                notifyMessage("Item successfully updated", "success");
+            }
         });
     },
     'change .plateEdit': function (event) {
@@ -88,20 +92,26 @@ Template.editItem.events({
 
 
         Meteor.call("items.edit", id, data, function (err, data) {
-            if (err)
-                console.log(err);
-
-            console.log("item updated");
+            if (err){
+                console.log(err)
+                notifyMessage("Failed item update", "danger");
+            }else{
+                notifyMessage("Item successfully updated", "success");
+            }
         });
 
     },
     'click .js-item-remove': function(){
         let id = Session.get("item-edit")["_id"];
         Meteor.call("items.remove", id, function (err, data) {
-            if (err)
-                console.log(err);
-
-            Router.go("/");
+            if (err){
+                console.log(err)
+                notifyMessage("Failed item update", "danger");
+            }else{
+                notifyMessage("Item has been removed", "success");
+                Router.go("/");
+            }
+            
         });
     }
 });

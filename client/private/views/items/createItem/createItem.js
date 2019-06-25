@@ -12,7 +12,7 @@ Template.createItem.helpers({
     data.tags = Session.get("tags");
     data.description = Session.get("editor-text");
 
-    console.log(data.description.rmStopWords());
+    //console.log(data.description.rmStopWords());
 
     Session.set("item-creation", data);
 
@@ -40,12 +40,13 @@ Template.createItem.events({
 
     Meteor.call("items.insert", data, function (err, data) {
       if (err) {
-        console.log(err);
+        console.log(err)
+        notifyMessage("An error occurred creating item.", "danger");
       } else {
-        console.log("Item created: " + data.name);
-
-        Router.go('/');
+        Router.go("/")
+        notifyMessage("New item created!", "success");
       }
+
     });
 
     return;

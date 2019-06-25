@@ -36,7 +36,7 @@ Template.deviceEdit.helpers({
             displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id });
 
             if (!displayTemplate) {
-                console.log("There is no selected display template! Creating....");
+                //console.log("There is no selected display template! Creating....");
                 let data = {
                     "name": display,
                     "static_image": "",
@@ -62,7 +62,7 @@ Template.deviceEdit.helpers({
                             });
                         }
 
-                        console.log("Display template created!");
+                        //console.log("Display template created!");
                     }
                 });
             }
@@ -108,7 +108,7 @@ Template.deviceEdit.helpers({
         if (display == "static") {
             let displayTemplate = DisplayTemplates.findOne({ "name": display, "device_id": device._id });
 
-            console.log(displayTemplate);
+            //console.log(displayTemplate);
 
             setTimeout(function(){
                 Session.set("module.imageUpload", displayTemplate.static_image);
@@ -144,10 +144,12 @@ Template.deviceEdit.events({
 
 
                 Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
-                    if (err)
-                        console.log(err);
-
-                    console.log("item updated");
+                    if (err){
+                        console.log(err)
+                        notifyMessage("Failed item update", "danger");
+                    }else{
+                        notifyMessage("Item successfully updated", "success");
+                    }
                 });
             } else {
 
@@ -161,10 +163,13 @@ Template.deviceEdit.events({
 
 
                 Meteor.call("display.templates.insert", data, function (err, data) {
-                    if (err)
-                        console.log(err);
-
-                    console.log("item updated");
+                    if (err){
+                        console.log(err)
+                        notifyMessage("Failed item update", "danger");
+                    }else{
+                        notifyMessage("Item successfully updated", "success");
+                    }
+                    
                 });
             }
         }
@@ -195,10 +200,12 @@ Template.deviceEdit.events({
         }
 
         Meteor.call("devices.edit", device._id, data, function (err, data) {
-            if (err)
-                console.log(err);
-
-            //document.location.reload(true);
+            if (err){
+                console.log(err)
+                notifyMessage("An error occurred trying to change template", "danger");
+            }else{
+                notifyMessage("Display template status changed!", "success");
+            }
 
         });
     },
@@ -219,10 +226,12 @@ Template.deviceEdit.events({
 
 
             Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
-                if (err)
-                    console.log(err);
-
-                console.log("item updated");
+                if (err){
+                    console.log(err)
+                    notifyMessage("Failed item update", "danger");
+                }else{
+                    notifyMessage("Item successfully updated", "success");
+                }
             });
         } else {
 
@@ -236,10 +245,12 @@ Template.deviceEdit.events({
 
 
             Meteor.call("display.templates.insert", data, function (err, data) {
-                if (err)
-                    console.log(err);
-
-                console.log("item updated");
+                if (err){
+                    console.log(err)
+                    notifyMessage("Failed item update", "danger");
+                }else{
+                    notifyMessage("Item successfully updated", "success");
+                }
             });
         }
     },
@@ -262,14 +273,16 @@ Template.deviceEdit.events({
                 data["visible"] = false;
             }
         } else {
-            console.log("not checkbox");
+            //console.log("not checkbox");
         }
 
         Meteor.call("devices.edit", id, data, function (err, data) {
-            if (err)
-                console.log(err);
-
-            console.log("item updated");
+            if (err){
+                console.log(err)
+                notifyMessage("Failed item update", "danger");
+            }else{
+                notifyMessage("Item successfully updated", "success");
+            }
         });
 
     },

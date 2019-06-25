@@ -1,104 +1,21 @@
 <template name="profile">
-	<div class="profile-layout">
-		<div class="profile-content">
-			<div class="profile-heading">
-				<div class="left-col">
-					<img src="{{user.details.profile}}">
-				</div>
-				<div class="center-col">
-					<!-- <div class="heading">{{user.details.fname}} {{user.details.lname}} 
-						{{#if isUser user.details.userid}}
-							<a href="/user/edit">Edit Profile</a>
-						{{/if}}
-					</div>
-					<div>{{user.details.description}}</div>
-					<br>
-					{{#each userCategories user.details.categories}}
-						<div class="category" style="background-color: {{this.color}}">{{this.name}}</div>
-					{{/each}}
-					<br>
-					{{#each getTags user.details.skills}}
-						<div class="chip" style="margin-top: 5px;">{{name}}</div>
-					{{/each}} -->
-				</div>
-				<div class="right-col">
-					
-				</div>
+	<div class="container-background">
+		<div class="row">
+			<div class="col s12">
+				<h5>{{company.name}}</h5>
+				<h5>{{user.name}}</h5>
 			</div>
-			<div class="profile-nav selected">
-				<!-- <div class="profile-tab-item js-tab-post selected" id="tab1">Posts({{countArray user.posts}})</div>
-				<div class="profile-tab-item js-tab-comment" id="tab2">Comments({{countArray user.comments}})</div>
-				<div class="profile-tab-item js-tab-answer" id="tab4">Answers({{countArray user.answers}})</div> -->
-			</div>
-			<!-- {{#if tabPost}}
-				{{#each user.posts}}
-					{{> postItem}}
-				{{else}}
-					<div class="profile-results-empty">
-						<div class="heading">No Posts</div>
-						<div class="subheading">There aren't any posts here yet.</div>
-					</div>
-				{{/each}}
-			{{/if}}
-			{{#if tabComment}}
-				{{> profileComments}}
-			{{/if}}
-			{{#if tabAnswer}}
-				{{> profileAnswers}}
-			{{/if}}
-			{{#if tabVote}}
-				
-			{{/if}} -->
 		</div>
+		<div class="row">
+			<div class="col s12">
+				<div class="js-login-fb">Login with facebook</div>
+			</div>
+		</div>
+		<div class="row">
+				<div class="col s12">
+					<div class="js-create-post">Post to facebook</div>
+				</div>
+			</div>
 	</div>
-</template>
-
-<template name="profileComments">
-		{{#if emptyArray user.comments}}
-			<div class="profile-results-empty">
-				<div class="heading">No Comments</div>
-				<div class="subheading">The user hasen't commented in any post.</div>
-			</div>
-		{{else}}
-			<div class="table-heading">
-				<div class="item comment-post">Post</div>
-				<div class="item comment-comment">Comment</div>
-				<div class="item comment-timestamp">Commented at</div>
-			</div> 
-			{{#each user.comments}}
-				<a href="/post/view/{{data.post}}">
-					<div class="table-row">
-						<div class="item comment-post" style="border-left: 2px solid {{getPostCategory data.post}}">{{getPostTitle data.post}}</div>
-						<div class="item comment-comment">{{data.comment}}</div>
-						<div class="item comment-timestamp">{{timeToDate data.timestamp}}</div>
-					</div>
-				</a>
-			{{/each}}
-		{{/if}}
-</template>
-
-<template name="profileAnswers">
-		{{#if emptyArray user.answers}}
-			<div class="profile-results-empty">
-				<div class="heading">No Answers</div>
-				<div class="subheading">The user hasen't left any solution.</div>
-			</div>
-		{{else}}
-			<div class="table-heading">
-				<div class="item comment-post">Post</div>
-				<div class="item comment-comment">Answer</div>
-				<div class="item comment-timestamp">Commented at</div>
-			</div>
-			{{#each user.answers}}
-				<a href="/post/view/{{data.post}}">
-					<div class="table-row">
-						<div class="item comment-post" style="border-left: 2px solid {{getPostCategory data.post}}">{{getPostTitle data.post}}</div>
-						<div class="item comment-comment">
-							{{data.answer}}
-						</div>
-						<div class="item comment-timestamp">{{timeToDate data.timestamp}}</div>
-					</div>
-				</a>
-			{{/each}}
-		{{/if}}
+	
 </template>
