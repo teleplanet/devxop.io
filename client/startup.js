@@ -15,6 +15,7 @@ Meteor.startup(function () {
 	}
 
 
+	Session.set("facebook", undefined);
 
 });
 
@@ -60,6 +61,7 @@ initFB = function(){
 					}, {perms: 'publish_pages,manage_pages,instagram_basic,user_photos,photo_upload,publish_stream'});
 				}else{
 					console.log("FACEBOOK USER CONNECTED!");
+					Session.set("facebook", response);
 				}
 			
 				

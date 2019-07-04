@@ -103,15 +103,22 @@ Template.editItem.events({
     },
     'click .js-item-remove': function(){
         let id = Session.get("item-edit")["_id"];
-        Meteor.call("items.remove", id, function (err, data) {
-            if (err){
-                console.log(err)
-                notifyMessage("Failed item update", "danger");
-            }else{
-                notifyMessage("Item has been removed", "success");
-                Router.go("/");
+
+        confirmPopup({title: "Delete Item", msg:"Your are attempting to permanantly delete and item. Are you sure?", btn_type:"danger", btn_msg: "Delete(danger)"}, function(canceled, confirmed){
+            if(canceled){
+                console.log("item deletion canceled.");
+            }else if(confirmed){
+                Meteor.call("items.remove", id, function (err, data) {
+                    if (err){
+                        console.log(err)
+                        notifyMessage("Failed item update", "danger");
+                    }else{
+                        notifyMessage("Item has been removed", "success");
+                        Router.go("/");
+                    }
+                    
+                });
             }
-            
-        });
+        })
     }
 });

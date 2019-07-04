@@ -1,38 +1,22 @@
 <template name="publicBase">
+	<div class="layout" style="overflow-y: auto;">
+		<header>
+			<div class="landing_nav" id="centered_nav">
+				<a href="/contact" title="Contact">Contact</a>
+				<a href="/about" title="About">About</a>
+				<a href="/" title="Home">Home</a>
 
-	<div class="menu-nav">
-		<div class="list-vertical">
-			<a href="/" class="js-menu-list-item">Home</a>
-			<a href="/about" class="js-menu-list-item">About</a>
-			<a href="#" target="_blank" class="attribution">
-				<span class="subtitle-attribution">Created by</span>
-				<span class="title-attribution">devxop.io</span>
-			</a>
-		</div>
-	</div>
-	<div class="layout-menu-overlay js-menu-layout-overlay"></div>
-	<div class="layout-test" style="overflow-y: auto;">
-		<div class="layout-menu">
-			<i class="material-icons js-menu">menu</i>
-		</div>
+			</div>
+		</header>
+
 		{{>yield}}
 
-		<div class="landing-footer">
+		<footer class="landing-footer">
 			<div id="logo">
 				<h1><a href="#">{{app "name"}}</a></h1>
 				<span>{{app "copyright"}}</span>
 			</div>
-		</div>
+		</footer>
 	</div>
-
-	<!-- <header>
-		{{> yield "menuArea"}}
-	</header> -->
-
-
-	<!-- main content -->
-	<!-- {{> yield }} {{> yield "footerArea" }}
-
-	{{>mainLoader}} -->
 
 </template>

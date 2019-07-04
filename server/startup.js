@@ -13,6 +13,9 @@ Meteor.startup(() => {
 
     console.log('[SYS] Server started @ '+ moment().utc().toISOString() + '\n***');
 
+
+    console.log(Meteor.users.find().fetch());
+
     /* DisplayTemplates.insert({
         "name" : "specials",
         "display_items" : [ 

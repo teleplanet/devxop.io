@@ -19,24 +19,21 @@ notifyMessage = function(msg, type, time){
     }, 2000)
 }
 
+notifyMessageConfirm = function(msg, type, callback){
+    Session.set("module.eventMessages", {msg: msg, type: type, time: time})
+
+    if ($("." + type)[0]){
+        // Do something if class exists
+        $(".js-event-message").removeClass("." + type);
+    }
+
+    //$(".js-event-message").toggleClass(type);
+
+    
+}
+
 Template.moduleEventMessages.onRendered(function(){
     Session.set("module.eventMessages", {});
-
-    //example set message
-    // Session.set("module.eventMessages", {msg: "testing", type: "success", time: 5000})
-
-    /* Deps.autorun(function(){
-        let event = Session.get("module.eventMessages");
-
-        //console.log(event);
-
-        $(".js-event-message").addClass(event.type);
-
-        setTimeout(function(){
-            Session.set("module.eventMessages", {});
-            $(".js-event-message").removeClass(event.type);
-        }, event.time)
-    }); */
 
 });
 

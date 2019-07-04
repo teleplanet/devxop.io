@@ -1,0 +1,21 @@
+<template name="moduleConfirmPopup">
+    <div class="confirm-popup-modal">
+        <div class="row">
+            <div class="col s12">
+                <h4>{{body.title}}</h4>
+            </div>
+            <div class="col s12">
+                    <h5>{{body.msg}}</h5>
+                </div>
+        </div>
+        <div class="row">
+            <div class="col s6">
+                <div class="select-button js-popup-cancel">Cancel</div>
+            </div>
+            <div class="col s6">
+                <div class="select-button {{body.btn_type}} js-popup-confirm">{{body.btn_msg}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="confirm-popup-background"></div>
+</template>

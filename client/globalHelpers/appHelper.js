@@ -1,12 +1,12 @@
 Template.registerHelper('app', function(key) {
 
     let app = {
-        name: "devxop.io",
+        name: "devxop.com",
         year: "2019",
         description: "Restaurante related software services.",
-        copyright: "COPYRIGHT © 2019 DIVVY. ALL RIGHTS RESERVED.",
+        copyright: "COPYRIGHT © 2019 Daniel Abrantes. ALL RIGHTS RESERVED.",
         developer: "Daniel Abrantes",
-        company: "Teleplanet LTD"
+        company: "Daniel Abrantes"
     };
 
     return app[key];

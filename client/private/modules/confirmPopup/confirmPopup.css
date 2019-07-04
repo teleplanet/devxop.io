@@ -1,0 +1,48 @@
+
+
+.confirm-popup-modal{
+	background-color: #fff;
+	width: 50%;
+    padding: 20px;
+	height: auto;
+	opacity: 0;
+	border-radius: 4px;
+    -moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-webkit-transform: scale(0);
+	-ms-transform: scale(0);
+	transform: scale(0);
+	will-change: transform;
+	-webkit-transform-origin: 50% 0;
+	-ms-transform-origin: 50% 0;
+	transform-origin: 50% 0;
+	-webkit-transition: -webkit-transform .2s cubic-bezier(.4,0,.2,1),opacity .2s cubic-bezier(.4,0,.2,1);
+	transition: transform .2s cubic-bezier(.4,0,.2,1),opacity .2s cubic-bezier(.4,0,.2,1);
+	z-index: -1;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -25%;
+}
+
+.confirm-popup-modal-toggled{
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	z-index: 200;
+}
+
+
+.confirm-popup-modal-toggled ~ .confirm-popup-background{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background:rgba(0,0,0,0.5);
+}
