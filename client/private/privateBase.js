@@ -1,4 +1,18 @@
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+	var instances = M.Dropdown.init(elems, {});
+	
+	console.log(instances);
+
+	
+  });
+
 Template.privateBase.helpers({
+	'route': function(){
+		let route = Session.get("route");	
+
+		return route;
+	},
 	'showSidebar':function(){
 		if(Session.get("sidebar") == true){
 			return true;
@@ -9,23 +23,4 @@ Template.privateBase.helpers({
 	'searchFocus':function(){
 		return Session.get("search-focus");
 	}
-});
-
-Template.privateBase.events({
-	'click .js-menu-layout-overlay':function(event, template){
-		$('.list-vertical').removeClass('list-vertical-toggled');
-		$('.layout-test').removeClass('layout-test-toggled');
-		$('.layout-menu-overlay').removeClass('layout-menu-overlay-toggled');
-
-		animationInterval(function () { // <-- this will run once all the above animations are finished
-		    // your callback (things to do after all animations are done)
-		    $('#showcase').removeClass('stars-hidden');
-		});
-	},
-	'click .js-menu-list-item':function(event, template){
-		$('.list-vertical').removeClass('list-vertical-toggled');
-		$('.layout-test').removeClass('layout-test-toggled');
-		$('.layout-menu-overlay').removeClass('layout-menu-overlay-toggled');
-		$('#showcase').removeClass('stars-hidden');
-    }
 });

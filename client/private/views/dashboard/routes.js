@@ -5,7 +5,6 @@ Router.route('/dashboard',{
 
 		//Renders the base layout
 		this.render();
-		document.title = 'Dashboard - Pager.io';
 
 		//Render dashboards according to user role
 		if(Meteor.user()){

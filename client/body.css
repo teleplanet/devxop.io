@@ -1,12 +1,19 @@
 
 body, form, fieldset, ol, ul, li, h1, h2, h3, h4, h5, h6, p {
-    font-family: 'Roboto', sans-serif !important;
-       font-weight: 300 !important;
+  font-family: Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
        margin:0;
        padding:0;
        color: #333333;
      text-rendering: optimizeLegibility;
      -webkit-font-smoothing: subpixel-antialiased;
+   }
+
+   body, div, form, fieldset, ol, ul, li, p, label{
+    font-size: 1.1rem !important;
+   }
+
+   body,html{
+    background-color: #f4f4f4;
    }
    
    
@@ -17,6 +24,10 @@ body, form, fieldset, ol, ul, li, h1, h2, h3, h4, h5, h6, p {
    a, a:link, a:visited {
        text-decoration: none;
        color: #19aec2;
+   }
+
+   .shadow{
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
    }
    
    img {
@@ -32,6 +43,7 @@ body, form, fieldset, ol, ul, li, h1, h2, h3, h4, h5, h6, p {
        height:100% !important; /* helps make height 100% */
      /*background-color: #2e2f30 !important;*/
      overflow: hidden !important;
+
    }
    
    .ellipsis {
@@ -42,7 +54,7 @@ body, form, fieldset, ol, ul, li, h1, h2, h3, h4, h5, h6, p {
     overflow: hidden;
   }
 
-   .background-body{
+   /* .background-body{
      position: fixed;
      left: 0;
      right: 0;
@@ -54,12 +66,12 @@ body, form, fieldset, ol, ul, li, h1, h2, h3, h4, h5, h6, p {
      background-repeat: no-repeat;
      background-size: 30%;
      opacity: .1;
-     /*-webkit-filter: blur(5px);
+     -webkit-filter: blur(5px);
      -moz-filter: blur(5px);
      -o-filter: blur(5px);
      -ms-filter: blur(5px);
-     filter: blur(5px);*/
-   }
+     filter: blur(5px);
+   } */
    
    ul {
        list-style-type: none;

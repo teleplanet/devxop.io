@@ -1,7 +1,7 @@
-body{
+/* body{
     background:#111a28 
 }
-
+ */
 @-webkit-keyframes pulse {
     from {
         -webkit-transform: scale3d(1, 1, 1);

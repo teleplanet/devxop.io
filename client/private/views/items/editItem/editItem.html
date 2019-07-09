@@ -1,61 +1,62 @@
 <template name="editItem">
-    <div class="row">
-        <h1>Item edit</h1>
-    </div>
-    <div class="container-background">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s6">
+                        <h4>{{item.name}} {{> moduleCategorySelect}}</h4>
+                    </div>
+                    <div class="col s6">
+                        {{> moduleImageUpload}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                        <input id="input-price" type="text" value="{{item.price}}" data-key="price"
+                            class="validate valid plateEdit">
+                        <label class="active" for="input-price-">Price</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                        <input id="input-kcal" type="text" value="{{item.kcal}}" data-key="kcal"
+                            class="validate valid plateEdit">
+                        <label class="active" for="input-kcal">Kcal(optional)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                        <input id="input-info-en" type="text" value={{item.info_en}} data-key="info_en"
+                            class="validate valid plateEdit">
+                        <label class="active" for="input-info-en">English Description</label>
+                    </div>
 
-        <div class="row">
-            <div class="col s6">
-                <h4>{{item.name}} {{> moduleCategorySelect}}</h4>
-            </div>
-            <div class="col s6">
-                {{> moduleImageUpload}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <!-- <i class="material-icons prefix small ">account_circle</i> -->
-                <input id="input-price" type="text" value="{{item.price}}" data-key="price"
-                    class="validate valid plateEdit">
-                <label class="active" for="input-price-">Price</label>
-            </div>
-            <div class="input-field col s6">
-                <!-- <i class="material-icons prefix small ">account_circle</i> -->
-                <input id="input-kcal" type="text" value="{{item.kcal}}" data-key="kcal"
-                    class="validate valid plateEdit">
-                <label class="active" for="input-kcal">Kcal(optional)</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <!-- <i class="material-icons prefix small ">account_circle</i> -->
-                <input id="input-info-en" type="text" value={{item.info_en}} data-key="info_en"
-                    class="validate valid plateEdit">
-                <label class="active" for="input-info-en">English Description</label>
-            </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                        <input id="input-info-pt" type="text" value={{item.info_pt}} data-key="info_pt"
+                            class="validate valid plateEdit">
+                        <label class="active" for="input-info-pt">Portuguese Description</label>
+                    </div>
 
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <!-- <i class="material-icons prefix small ">account_circle</i> -->
-                <input id="input-info-pt" type="text" value={{item.info_pt}} data-key="info_pt"
-                    class="validate valid plateEdit">
-                <label class="active" for="input-info-pt">Portuguese Description</label>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                        <input id="input-info-es" type="text" value={{item.info_es}} data-key="info_es"
+                            class="validate valid plateEdit">
+                        <label class="active" for="input-info-es">Spanish Description</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <div class="select-button danger js-item-remove">Delete Item</div>
+                    </div>
+                </div>
             </div>
+        </div>
 
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <!-- <i class="material-icons prefix small ">account_circle</i> -->
-                <input id="input-info-es" type="text" value={{item.info_es}} data-key="info_es"
-                    class="validate valid plateEdit">
-                <label class="active" for="input-info-es">Spanish Description</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <div class="select-button danger js-item-remove">Delete Item</div>
-            </div>
-        </div>
     </div>
 </template>

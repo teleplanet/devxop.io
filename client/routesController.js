@@ -58,12 +58,15 @@ PrivateController = RouteController.extend({
 	},
 	action: function(){
 
+		document.title = "devxop.com";
+
 		if (this.ready()){ 
 			console.log("ACTION!");
 			//set session
 			Session.set("company", Companies.findOne({"_id": Meteor.user().profile.company}));
 			//set session
 			Session.set("user", Meteor.user());
+			
 		} else { this.render('Loading'); }
 	}
 });
@@ -86,6 +89,9 @@ Router.onBeforeAction(function()
 			Session.set("company", Companies.findOne({"_id": Meteor.user().profile.company}));
 			//set session
 			Session.set("user", Meteor.user());
+
+			//set route
+			Session.set("route", {title: Router.current().route.getName()});
 
 			this.next(); 
 		}
