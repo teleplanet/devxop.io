@@ -24,3 +24,12 @@ Template.privateBase.helpers({
 		return Session.get("search-focus");
 	}
 });
+
+Template.privateBase.events({
+	'click .js-logout': function(event, template){
+		event.preventDefault();
+		Meteor.logout(function(){ 
+			Router.go("/");
+		});
+	},
+});
