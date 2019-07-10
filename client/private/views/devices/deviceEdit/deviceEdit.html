@@ -1,81 +1,83 @@
 <template name="deviceEdit">
-    <div class="row">
-        <h1>Device edit</h1>
-    </div>
-    <div class="container-background">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
 
-        <div class="row">
-            <div class="input-field col s6">
-                <h5>Device Name</h5>
-                <!-- <h4>{{device.name}}</h4> -->
-                <input id="input-device-name" type="text" value="{{device.name}}" data-key="name"
-                    class="validate valid deviceEdit">
-                <!-- 
-                <label class="active" for="input-device-name"></label> -->
-            </div>
-            <div class="col s6">
-                <h5>Displayed Template</h5>
-                {{> moduleDisplaySelect}}
-                <!-- <div class="device-template-load">
-                    <iframe id="templateLoad" src="{{templateLoad}}"></iframe>
-                </div> -->
+                <div class="row">
+                    <div class="input-field col s6">
+                        <h5>Device Name</h5>
+                        <!-- <h4>{{device.name}}</h4> -->
+                        <input id="input-device-name" type="text" value="{{device.name}}" data-key="name"
+                            class="validate valid deviceEdit">
+                        <!-- 
+                    <label class="active" for="input-device-name"></label> -->
+                    </div>
+                    <div class="col s6">
+                        <h5>Displayed Template</h5>
+                        {{> moduleDisplaySelect}}
+                        <!-- <div class="device-template-load">
+                        <iframe id="templateLoad" src="{{templateLoad}}"></iframe>
+                    </div> -->
+                    </div>
+                </div>
+                {{#if hasDisplay}}
+                <div class="row">
+                    <div class="col s12">
+                        <h5>Template Status</h5>
+                        <div class="switch">
+                            <label>
+                                <input class="js-live-switch" data-device-id="{{device._id}}" type="checkbox"
+                                    value="{{displayTemplateVisible}}" checked="{{displayTemplateVisible}}">
+                                <span class="lever" style="transform: scale(1.8);"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {{#if staticDisplay}}
+                <!-- ################### STATIC DISPLAY ####################### -->
+                <div class="row">
+                    <div class="col s12">
+                        <h5>Displayed Static Image</h5>
+                        {{> moduleImageUpload}}
+                    </div>
+                </div>
+
+                {{else}}
+                <!-- ################### NORMAL TEMPLATE DISPLAY ############### -->
+                <div class="row">
+                    <div class="col s12">
+                        <h5>Displayed Items</h5>
+                    </div>
+                    <div class="col s12">
+                        {{#each item in selectedDisplayItems}}
+                        <div class="list-items-card js-items-card-select" data-item-id="{{item._id}}">
+                            <div class="items-card-image" style="background-image: url({{item.image_thumb}})"></div>
+                            <div class="items-card-name">
+                                <h5>{{item.name}}</h5>
+                                <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">
+                                    Remove Item
+                                </div>
+                            </div>
+                            <!-- <div class="items-card-info ellipsis">
+                                        <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
+                                        </div>
+                                    </div> -->
+                        </div>
+                        {{else}}
+                        no items
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <h5>Add item to display</h5>
+                        {{> moduleItemSelect}}
+                    </div>
+                </div>
+                {{/if}}
+                {{/if}}
+
             </div>
         </div>
-        {{#if hasDisplay}}
-            <div class="row">
-                <div class="col s12">
-                    <h5>Template Status</h5>
-                    <div class="switch">
-                        <label>
-                            <input class="js-live-switch" data-device-id="{{device._id}}" type="checkbox"
-                                value="{{displayTemplateVisible}}" checked="{{displayTemplateVisible}}">
-                            <span class="lever" style="transform: scale(1.8);"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            {{#if staticDisplay}}
-            <!-- ################### STATIC DISPLAY ####################### -->
-            <div class="row">
-                <div class="col s12">
-                    <h5>Displayed Static Image</h5>
-                    {{> moduleImageUpload}}
-                </div>
-            </div>
-
-            {{else}}
-            <!-- ################### NORMAL TEMPLATE DISPLAY ############### -->
-            <div class="row">
-                <div class="col s12">
-                    <h5>Displayed Items</h5>
-                </div>
-                <div class="col s12">
-                    {{#each item in selectedDisplayItems}}
-                    <div class="list-items-card js-items-card-select" data-item-id="{{item._id}}">
-                        <div class="items-card-image" style="background-image: url({{item.image_thumb}})"></div>
-                        <div class="items-card-name">
-                            <h5>{{item.name}}</h5>
-                            <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
-                            </div>
-                        </div>
-                        <!-- <div class="items-card-info ellipsis">
-                                    <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
-                                    </div>
-                                </div> -->
-                    </div>
-                    {{else}}
-                    no items
-                    {{/each}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <h5>Add item to display</h5>
-                    {{> moduleItemSelect}}
-                </div>
-            </div>
-            {{/if}}
-        {{/if}}
-
     </div>
 </template>

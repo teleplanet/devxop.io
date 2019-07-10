@@ -15,7 +15,7 @@
 .slideshow-title{
     position: absolute;
     padding: 20pt;
-    font-size: 45pt;
+    font-size: 45pt !important;
     color:#fff;
     top: 0;
     z-index: 100;
@@ -30,7 +30,7 @@
     min-width: 580px;
     padding: 20pt;
     background-color: rgba(100, 100, 100, 0.6);
-    font-size: 45pt;
+    font-size: 45pt !important;
     color:#fff;
     float: right;
     margin-right: -100%;
@@ -41,7 +41,7 @@
 
 
 .slide-item-description .plate-description{
-    font-size: 20pt;
+    font-size: 20pt !important;
     color:#fff;
     transition: all 1s ease-in-out;
 }
