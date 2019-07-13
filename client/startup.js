@@ -17,9 +17,11 @@ Meteor.startup(function () {
 
 	Session.set("facebook", undefined);
 
+
 });
 
-initFB = function(){
+
+initFB = function () {
 	FB.getLoginStatus(function (response) {
 		if (response.status === 'connected') {
 			// The user is logged in and has authenticated your
@@ -44,9 +46,9 @@ initFB = function(){
 			// The user isn't logged in to Facebook. You can launch a
 			// login dialog with a user gesture, but the user may have
 			// to log in to Facebook before authorizing your application.
-			FB.login(function(response) {
+			FB.login(function (response) {
 				// Original FB.login code
-				if(response.error){
+				if (response.error) {
 					console.log("No facebook user.");
 					FB.login(function (response) {
 						if (!response.error) {
@@ -58,13 +60,13 @@ initFB = function(){
 						} else {
 							console.log('User cancelled login or did not fully authorize.');
 						}
-					}, {perms: 'publish_pages,manage_pages,instagram_basic,user_photos,photo_upload,publish_stream'});
-				}else{
+					}, { perms: 'publish_pages,manage_pages,instagram_basic,user_photos,photo_upload,publish_stream' });
+				} else {
 					console.log("FACEBOOK USER CONNECTED!");
 					Session.set("facebook", response);
 				}
-			
-				
+
+
 			}, { auth_type: 'reauthenticate' })
 		}
 	});
