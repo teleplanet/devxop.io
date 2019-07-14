@@ -38,7 +38,8 @@ Template.moduleDisplaySelect.helpers({
             "light",
             "specials",
             "static",
-            "menu(unavailable)"
+            "video"
+            /* "menu(unavailable)" */
         ]
 
         return list;//DisplayTemplates.find().fetch();

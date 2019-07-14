@@ -1,24 +1,28 @@
 <template name="devices">
+    {{#each device in listDevices}}
     <div class="row">
-        <h1>Devices</h1>
-    </div>
-    <div class="row">
-
-        {{#each device in listDevices}}
-        <div class="list-devices-card js-devices-card-select" data-item-id="{{device._id}}">
-            <div class="devices-card-name">
-                <div class="row" style="margin-bottom: 0px;">
-                    <div class="col s6">
-                        <h5>{{device.name}}</h5>
-                    </div>
-                    <div class="col s6">
-                        <h5>Live template: <b>{{getLiveDisplay device}}</b></h5>
-                    </div>
+        <div class="col s12 m12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">{{device.name}}</span>
+                    <p>Live template: <b>{{getLiveDisplay device}}</b></p>
+                </div>
+                <div class="card-action">
+                    <a class="js-devices-card-select" data-item-id="{{device._id}}" style="cursor: pointer;">View
+                        device</a>
                 </div>
             </div>
         </div>
-        {{else}}
-            <h4>You have no devices connected.</h4>
-        {{/each}}
     </div>
+    {{else}}
+    <div class="row">
+        <div class="col s12 m12">
+            <div class="card">
+                <div class="card-content">
+                    <p>There are no items to show.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
 </template>

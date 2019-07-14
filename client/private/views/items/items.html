@@ -28,13 +28,14 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="list-items-card js-items-card-select" data-item-id="{{item._id}}">
-            <div class="items-card-image" style="background-image: url({{item.image_thumb}})"></div>
-            <div class="items-card-name"><h5>{{item.name}}</h5></div>
-            <div class="items-card-info ellipsis">{{item.info_pt}}</div>
-        </div> -->
         {{else}}
-        <h4>You have no items added.</h4>
+        <div class="col s12 m12">
+            <div class="card">
+                <div class="card-content">
+                    <p>You have no devices connected.</p>
+                </div>
+            </div>
+        </div>
         {{/each}}
     </div>
 </template>
