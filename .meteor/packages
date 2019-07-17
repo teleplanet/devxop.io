@@ -44,3 +44,6 @@ http@1.4.2
 random@1.1.0
 underscore@1.0.10
 gwendall:reactive-watcher
+cfs:standard-packages
+cfs:gridfs
+cfs:filesystem

@@ -121,6 +121,25 @@ Template.deviceEdit.helpers({
         }
 
         
+    },
+    'videoDisplay': function () {
+        let device = Session.get("device-edit");
+        let display = Session.get("module.selectedDisplay");
+
+        if (display == "video") {
+            let displayTemplate = DisplayTemplates.findOne({ "name": display, "device_id": device._id });
+
+            setTimeout(function(){
+                Session.set("module.videoUpload", displayTemplate["video_id"]);
+            }, 1000);
+            
+
+            return true;
+        }else{
+            return false;
+        }
+
+        
     }
 });
 
@@ -156,6 +175,55 @@ Template.deviceEdit.events({
                 let data = {
                     "name": display,
                     "static_image": image,
+                    "user_id": Meteor.userId(),
+                    "device_id": device._id
+                };
+
+
+
+                Meteor.call("display.templates.insert", data, function (err, data) {
+                    if (err){
+                        console.log(err)
+                        notifyMessage("Failed item update", "danger");
+                    }else{
+                        notifyMessage("Item successfully updated", "success");
+                    }
+                    
+                });
+            }
+        }
+    },
+    'click .js-video-upload-event': function (event) {
+        let display = Session.get("module.selectedDisplay");
+
+        if (display == "video") {
+            let device = Session.get("device-edit");
+            let video = Session.get("module.videoUpload");
+            let display = Session.get("module.selectedDisplay");
+
+            displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id });
+
+            if (displayTemplate) {
+
+                let data = {
+                    "video_id": video
+                };
+
+
+
+                Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
+                    if (err){
+                        console.log(err)
+                        notifyMessage("Failed item update", "danger");
+                    }else{
+                        notifyMessage("Item successfully updated", "success");
+                    }
+                });
+            } else {
+
+                let data = {
+                    "name": display,
+                    "video_id": video,
                     "user_id": Meteor.userId(),
                     "device_id": device._id
                 };

@@ -53,7 +53,8 @@ PrivateController = RouteController.extend({
 			Meteor.subscribe('itemsSubscriptions'),
 			Meteor.subscribe('categoriesSubscriptions'),
 			Meteor.subscribe('devicesSubscriptions'),
-			Meteor.subscribe('displayTemplatesSubscriptions')
+			Meteor.subscribe('displayTemplatesSubscriptions'),
+			Meteor.subscribe('videos')
 		];
 	},
 	action: function(){
