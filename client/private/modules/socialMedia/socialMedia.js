@@ -2,7 +2,7 @@
 
 
 /* Template.moduleSocialMedia.onRendered(function(){
-    Session.set("module.selectedCategory", null);
+    initFb();
 }); */
 
 Template.moduleSocialMedia.events({
@@ -67,7 +67,7 @@ Template.moduleSocialMedia.events({
 
 Template.moduleSocialMedia.helpers({
     'fb': function(){
-        return Session.get("facebook");
+        return Session.get("fb");
     }
 });
 
