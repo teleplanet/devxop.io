@@ -1,0 +1,32 @@
+<template name="moduleSocialMedia">
+    <div class="navbar-item js-social-button"><i class="material-icons">share</i></div>
+
+    <div class="social-modal">
+        {{#if fb}}
+        <div class="row">
+            <div class="col">
+                <div class="title">Facebook</div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>Welcome {{fb.user.name}}</p>
+            </div>
+        </div>
+        {{else}}
+        <div class="row">
+            <div class="col">
+                <div class="title">Facebook not connected.</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="js-login-fb">Login with facebook</div>
+            </div>
+        </div>
+
+        {{/if}}
+    </div>
+
+</template>

@@ -32,11 +32,10 @@
     padding: 0px 16px;
     float: right;
     height: 63px;
-    overflow: hidden;
 } 
 .navbar-nav .navbar-item{
     float: right;
-    padding: 0px 15px;
+    padding: 0px 20px;
     cursor: pointer;
     color: #333;
     height: 63px;
@@ -47,6 +46,7 @@
 
 .navbar-item i{
     line-height: 64px;
+    font-size: 1.8rem;
 }
 
 .container-route{

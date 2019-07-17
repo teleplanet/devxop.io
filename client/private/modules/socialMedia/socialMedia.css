@@ -1,0 +1,18 @@
+
+
+.social-modal{
+	position: fixed;
+	background-color: #fff;
+	width: 400px;
+    height: 100vh;
+    -moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    transform: translateX(200px) ;
+    transition: all 1s;
+    color: #333;
+}
+
+.social-modal-toggled{
+	transform: translateX(-200px);
+}
