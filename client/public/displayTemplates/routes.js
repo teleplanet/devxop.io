@@ -35,16 +35,20 @@ Router.route('/display', {
 					let template = DisplayTemplates.findOne({ "_id": device.selected_display });
 
 					if (template) {
-						var subscription2 = Meteor.subscribe('itemsSubscriptionsPublic', template.display_items);
-						if (subscription2.ready()) {
-							let finalPlates = Items.find().fetch();
+						Deps.autorun(function () {
+							var subscription2 = Meteor.subscribe('itemsSubscriptionsPublic', template.display_items);
+							var subscriptionVideo = Meteor.subscribe('videos');
+							if (subscription2.ready() && subscriptionVideo) {
+								let finalPlates = Items.find().fetch();
+								let video = Videos.findOne({"_id": template.video_id});
 
-							Session.set("template", template);
-							Session.set("device", device);
-							Session.set("plates", finalPlates);
+								Session.set("template", template);
+								Session.set("device", device);
+								Session.set("plates", finalPlates);
 
-							Router.current().render("display" + template.name.capitalize());
-						}
+								Router.current().render("display" + template.name.capitalize());
+							}
+						});
 					} else {
 						console.log("no template!");
 						window.location.reload(true);

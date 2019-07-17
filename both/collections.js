@@ -28,10 +28,21 @@ DisplayTemplates = new Meteor.Collection('displayTemplates');
 /* Videos = new Meteor.Collection("videos");
  */
 
+var baseUrl = "";
 
+if (Meteor.isServer) {
+    baseUrl = process.env.PWD;
+
+
+
+    console.log(process.env);
+}
+
+
+var videoStore = new FS.Store.FileSystem("videos");
 
 Videos = new FS.Collection("videos", {
-    stores: [new FS.Store.FileSystem("videos", { path: "~/uploads" })]
+    stores: [videoStore]
 });
 
 

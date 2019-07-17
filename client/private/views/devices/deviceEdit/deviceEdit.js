@@ -13,7 +13,8 @@ Template.deviceEdit.onRendered(function () {
 
     //"http://localhost:3000"
     //$('.device-template-load').load(document.location.origin+ "/display" + template.name.capitalize());
-    //Session.set("template-load", document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device["auth.access_token"]);
+    console.log(device.auth.access_token)
+    console.log("Device link at:" + document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device.auth.access_token);
 });
 
 
