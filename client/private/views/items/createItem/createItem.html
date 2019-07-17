@@ -1,122 +1,113 @@
 <template name="createItem">
 	<div class="row">
-		<h1>Item creation</h1>
-	</div>
-	<div class="container-background">
-		<form class="js-create-item-form">
-			<div class="row">
-				<div class="col s12">
-					<div class="row">
-						<h5>Name</h5>
-					</div>
-					<div class="row">
-						<h4>{{getCopy.title}}</h4>
-					</div>
+		<div class="col s12">
+			<div class="card">
+				<div class="card-content">
+					<form class="js-create-item-form">
+							<div class="row">
+								<div class="col s12">
+									<div class="row">
+										<div class="title">Name</div>
+									</div>
+									<div class="row">
+										<div class="sub-title">{{getCopy.title}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s6">
+									<div class="row">
+											<div class="sub-title">Image</div>
+									</div>
+									<div class="row">
+										{{> moduleImageUpload}}
+									</div>
+								</div>
+								<div class="col s6">
+									<div class="row">
+											<div class="sub-title">Category</div>
+									</div>
+									<div class="row">
+										{{> moduleCategorySelect}}
+									</div>
+								</div>
+							</div>
+							<div class="row">
+									<div class="sub-title">Details</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s6">
+									<!-- <i class="material-icons prefix small ">account_circle</i> -->
+									<input id="input-price" type="text" class="validate">
+									<label for="input-price">Price</label>
+								</div>
+								<div class="input-field col s6">
+									<!-- <i class="material-icons prefix small ">account_circle</i> -->
+									<input id="input-kcal" type="text" class="validate">
+									<label for="input-kcal">Kcal(optional)</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s12">
+									<!-- <i class="material-icons prefix small ">account_circle</i> -->
+									<input id="input-info-en" type="text" class="validate">
+									<label for="input-info-en">English Description</label>
+								</div>
+				
+							</div>
+							<div class="row">
+								<div class="input-field col s12">
+									<!-- <i class="material-icons prefix small ">account_circle</i> -->
+									<input id="input-info-pt" type="text" class="validate">
+									<label for="input-info-pt">Portuguese Description</label>
+								</div>
+				
+							</div>
+							<div class="row">
+								<div class="input-field col s12">
+									<!-- <i class="material-icons prefix small ">account_circle</i> -->
+									<input id="input-info-es" type="text" class="validate">
+									<label for="input-info-es">Spanish Description</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12">
+									<button type="submit" class="submit js-create-item">Create item</button>
+								</div>
+							</div>
+						</form>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col s6">
-					<div class="row">
-						<h5>Image</h5>
-					</div>
-					<div class="row">
-						{{> moduleImageUpload}}
-					</div>
-				</div>
-				<div class="col s6">
-					<div class="row">
-						<h5>Category</h5>
-					</div>
-					<div class="row">
-						{{> moduleCategorySelect}}
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<h5>Details</h5>
-			</div>
-			<div class="row">
-				<div class="input-field col s6">
-					<!-- <i class="material-icons prefix small ">account_circle</i> -->
-					<input id="input-price" type="text" class="validate">
-					<label for="input-price">Price</label>
-				</div>
-				<div class="input-field col s6">
-					<!-- <i class="material-icons prefix small ">account_circle</i> -->
-					<input id="input-kcal" type="text" class="validate">
-					<label for="input-kcal">Kcal(optional)</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<!-- <i class="material-icons prefix small ">account_circle</i> -->
-					<input id="input-info-en" type="text" class="validate">
-					<label for="input-info-en">English Description</label>
-				</div>
+				<!-- <div class="card-action">
 
+				</div> -->
 			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<!-- <i class="material-icons prefix small ">account_circle</i> -->
-					<input id="input-info-pt" type="text" class="validate">
-					<label for="input-info-pt">Portuguese Description</label>
-				</div>
 
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<!-- <i class="material-icons prefix small ">account_circle</i> -->
-					<input id="input-info-es" type="text" class="validate">
-					<label for="input-info-es">Spanish Description</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s12">
-					<button type="submit" class="submit js-create-item">Create item</button>
-				</div>
-			</div>
-		</form>
+		</div>
 	</div>
 </template>
 
 
 <template name="createItemCheck">
 	<div class="row">
-		<h1>Item creation</h1>
-	</div>
-	<div class="container-background">
-		<!-- <div class="row">
-			<div class="col s12">
-				<h4>Create a new item</h4>
+		<div class="col s12">
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">Choose item category</span>
+					<p>
+						Before creating your new item, we will first check if your item name has any matches to other
+						items.
+					</p>
+					<p>
+						<input type="text" id="item-create-check-input" placeholder="What is your item name?"
+							required="required">
+					</p>
+				</div>
+				<div class="card-action">
+					<button type="submit" class="submit js-check-item">Continue</button>
+				</div>
 			</div>
-		</div> -->
-		<!-- <div class="row">
-			<div class="col s12">
-				<h4>Items</h4>
-				<p>Items in this system are considered plates that are used in your menu. Items have categories, plate
-					description and image, so that it can be reutilized in all the varied services we offer.</p>
-			</div>
-		</div> -->
-		<div class="row">
-			<div class="col s12">
-				<p>
-					Before creating your new item, we will first check if your item name has any matches to other items.
-				</p>
-			</div>
+
 		</div>
-		<form class="js-form-item-create-check">
-			<div class="row">
-				<div class="col s12">
-					<input type="text" id="item-create-check-input" placeholder="What is your item name?"
-						required="required">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s12">
-					<button type="submit" class="submit">Continue</button>
-				</div>
-			</div>
-		</form>
 	</div>
 
 </template>

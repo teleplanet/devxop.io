@@ -56,7 +56,7 @@ Template.createItem.events({
 
 
 Template.createItemCheck.events({
-  'submit .js-form-item-create-check': function (event, template) {
+  'click .js-check-item': function (event, template) {
     event.preventDefault();
 
     var title = template.find("#item-create-check-input").value;
