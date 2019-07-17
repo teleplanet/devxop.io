@@ -3,7 +3,8 @@
 
     {{#with video}}
         {{#if isUploaded}}
-            <video id="uploadedVideo" class="uploaded-image" src="{{url}}" loop autoplay></video>
+            <!-- <video id="uploadedVideo" poster="{{url 'thumb'}}" class="uploaded-image" loop autoplay></video> -->
+            {{name}}
         {{else}}
             <p>Loading video....</p>
         {{/if}}
