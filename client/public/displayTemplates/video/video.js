@@ -12,6 +12,11 @@ Template.displayVideo.helpers({
     'videoUrl': function (url) {
         console.log(url)
 
+        $("#video").attr({
+            "src": url,
+            "autoplay": "autoplay",        
+        });
+
         //var url = window.URL.createObjectURL(document.location.origin + url);
 
         var req = new XMLHttpRequest();
