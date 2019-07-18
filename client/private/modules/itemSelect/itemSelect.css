@@ -4,7 +4,8 @@
 	position: absolute;
 	background-color: #fff;
 	width: 400px;
-	height: 200px;
+    height: 200px;
+    max-height: 500px;
 	height: auto;
 	opacity: 0;
 	border-radius: 4px;
