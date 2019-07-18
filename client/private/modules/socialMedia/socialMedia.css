@@ -16,3 +16,27 @@
 .social-modal-toggled{
 	transform: translateX(-200px);
 }
+
+.social-conn{
+
+}.social-conn.online{
+    color: #4caf50;
+}.social-conn.offline{
+    color: #f44336;
+}
+
+
+/* .social-conn{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    bottom: 42px;
+    left: 10px;
+    font-size: 8px;
+    border-radius: 20px;
+    z-index: -1;
+}.social-conn.online{
+    background-color: green;
+}.social-conn.offline{
+    background-color: red;
+} */

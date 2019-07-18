@@ -1,5 +1,5 @@
 .select-button {
-    background-color: #ccc;
+    background-color: #4caf50 !important;
     color: #fff !important;
     margin-top: 10px;
     border-radius: 4px !important;
@@ -27,7 +27,7 @@
 }
 
 .select-button:hover{
-    background-color: #19aec2 !important;
+    background-color: #81c784 !important;
 }
 
 .category-select-modal{

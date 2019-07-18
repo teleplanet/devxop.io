@@ -1,5 +1,12 @@
 <template name="moduleSocialMedia">
-    <div class="navbar-item js-social-button"><i class="material-icons">share</i></div>
+    <div class="navbar-item js-social-button">
+        {{#if fb}}
+            <i class="material-icons social-conn online">share</i>
+        {{else}}
+            <i class="material-icons social-conn offline">share</i>
+        {{/if}}
+        <!-- <div class="navbar-item social-offline"><i class="material-icons">link_off</i></div> -->
+    </div>
 
     <div class="social-modal">
         {{#if fb}}
@@ -7,11 +14,26 @@
             <div class="col">
                 <div class="title">Facebook</div>
             </div>
-
         </div>
         <div class="row">
             <div class="col">
                 <p>Welcome {{fb.user.name}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="sub-title">Your pages:</div>
+
+                <form action="#">
+                    {{#each page in fb.pages.data}}
+                    <p>
+                        <label>
+                            <input class="js-checked-fb-page" data-fb-page="{{page.id}}" name="group1" type="radio" />
+                            <span>{{page.name}}</span>
+                        </label>
+                    </p>
+                    {{/each}}
+                </form>
             </div>
         </div>
         {{else}}

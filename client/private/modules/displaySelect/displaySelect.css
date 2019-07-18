@@ -1,34 +1,4 @@
-.select-button {
-    background-color: #ccc;
-    color: #fff !important;
-    margin-top: 10px;
-    border-radius: 4px !important;
-    border: none !important;
-    font-size: 18px !important;
-    font-weight: 300 !important;
-    padding: 6px 24px !important;
-    box-shadow: none !important;
-    height: auto !important;
-    line-height: none !important;
-    -webkit-transition: background-color .2s ease-in-out;
-    -moz-transition: background-color .2s ease-in-out;
-    transition: background-color .2s ease-in-out;
-    cursor: pointer;
-    text-align: center;
-    line-height: 35px;
 
-}
-
-.select-button > i{
-    font-size: 18px;
-    width: 18px;
-    padding: 10px;
-    float: right;
-}
-
-.select-button:hover{
-    background-color: #19aec2 !important;
-}
 
 .display-select-modal{
 	position: absolute;

@@ -28,7 +28,7 @@ Template.moduleCategorySelect.events({
 
 Template.moduleCategorySelect.helpers({
     'selected': function(){
-        $("#categoryButton").css({"background-color": getRandomColor()});
+        /* $("#categoryButton").css({"background-color": getRandomColor()}); */
 
         return Session.get("module.selectedCategory");
     },

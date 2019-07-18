@@ -39,9 +39,12 @@
     cursor: pointer;
     color: #333;
     height: 63px;
+    border-color: #ccc;
+    border-bottom-style: solid;
+    border-bottom-width: 0px;
     transition: border 100ms ease-out;
 }.navbar-item:hover {
-    border-bottom: 3px solid #3a81d9;
+    border-bottom-width: 3px;
 }
 
 .navbar-item i{
