@@ -6,6 +6,12 @@
 }); */
 
 Template.moduleSocialMedia.events({
+    'change .js-checked-fb-page': function(event){
+        let fbPage = $(event.target).data("fb-page"); //fb page id
+
+        Session.set("fb-selected-page", fbPage);
+
+    },
     'click .js-social-button':function(event){
         event.preventDefault();
         $('.social-modal').toggleClass('social-modal-toggled');
@@ -36,7 +42,15 @@ Template.moduleSocialMedia.events({
     },
     'click .js-create-post': function () {
 
-        FB.api('/me/accounts', async function (response) {
+
+        fbPage = Session.get("fb-selected-page");
+
+        if(!fbPage){
+            console.log("no fb page selected!");
+        }else{
+            
+        }
+        /* FB.api('/me/accounts', async function (response) {
             if (response.error) {
                 console.log(response);
             } else {
@@ -60,7 +74,7 @@ Template.moduleSocialMedia.events({
                 console.log(responseFB);
             }
 
-        });
+        }); */
     }
 });
 

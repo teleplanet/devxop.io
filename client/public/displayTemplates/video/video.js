@@ -1,5 +1,15 @@
 
+Template.displayVideo.onRendered(function () {
+    console.log('onRendered');
+
+    Session.set("video-download", false);
+
+});
+
 Template.displayVideo.helpers({
+    'download': function () {
+        return Session.get("video-download");
+    },
     'video': function () {
 
         /* if(!Session.get("module.videoUpload"))
@@ -10,19 +20,18 @@ Template.displayVideo.helpers({
         return Videos.findOne({ "_id": Session.get("template").video_id });
     },
     'videoUrl': function (url) {
-        console.log(url)
+        Session.set("video-download", true);
+        //var url = window.URL.createObjectURL(document.location.origin + url);
 
         $("#video").attr({
             "src": url,
-            "autoplay": "autoplay",        
+            "autoplay": "autoplay",
         });
-
-        //var url = window.URL.createObjectURL(document.location.origin + url);
 
         var req = new XMLHttpRequest();
         req.open('GET', document.location.origin + url, true);
         req.responseType = 'blob';
-
+        req.onprogress = updateProgress;
         req.onload = function () {
             // Onload is triggered even on 404
             // so we need to check the status code
@@ -35,15 +44,30 @@ Template.displayVideo.helpers({
 
                 $("#video").attr({
                     "src": vid,
-                    "autoplay": "autoplay",        
-                })
+                    "autoplay": "autoplay",
+                });
                 //console.log(vid);
+
+                Session.set("video-download", false);
             }
         }
         req.onerror = function () {
             // Error
+            Session.set("video-download", false);
         }
 
         req.send();
     }
 });
+
+function updateProgress(evt) {
+    if (evt.lengthComputable) {  // evt.loaded the bytes the browser received
+        // evt.total the total bytes set by the header
+        // jQuery UI progress bar to show the progress on screen
+        var percentComplete = (evt.loaded / evt.total) * 100;
+        //$('#progressbar').progressbar( "option", "value", percentComplete );
+        /* console.log("video progress: " + percentComplete); */
+
+        $('.js-download-progress').css("width", percentComplete + "%");
+    }
+}   
