@@ -9,7 +9,7 @@
 	-webkit-box-shadow: 0 0 5px#888;
     box-shadow: 0 0 5px #888;
     transform: translateX(200px) ;
-    transition: all 1s;
+    transition: all 600ms;
     color: #333;
 }
 

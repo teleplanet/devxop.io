@@ -1,9 +1,9 @@
 
 
 
-/* Template.moduleSocialMedia.onRendered(function(){
+Template.moduleSocialMedia.onRendered(function(){
     initFb();
-}); */
+});
 
 Template.moduleSocialMedia.events({
     'change .js-checked-fb-page': function(event){
@@ -43,12 +43,45 @@ Template.moduleSocialMedia.events({
     'click .js-create-post': function () {
 
 
-        fbPage = Session.get("fb-selected-page");
+        let fbPage = Session.get("fb-selected-page");
+        let itemToPost = Session.get("module.selecteditem");
 
         if(!fbPage){
             console.log("no fb page selected!");
         }else{
-            
+            console.log("Fb page: " + fbPage);
+            if(itemToPost){
+                console.log("Item to post: " + itemToPost.name);
+
+                FB.api('/me/accounts', async function (response) {
+                    if (response.error) {
+                        console.log(response);
+                    } else {
+                        console.log(response);
+                        let data = response.data[0];
+        
+                        var imageData = itemToPost["image_thumb"];
+        
+                        var blob = dataURItoBlob(imageData);
+        
+                        let formData = new FormData();
+                        formData.append('access_token', data.access_token);
+                        formData.append('source', blob);
+                        formData.append('message', itemToPost["info_en"]);
+        
+                        let responseFB = await fetch('https://graph.facebook.com/' + data.id + '/photos', {
+                            body: formData,
+                            method: 'post'
+                        });
+                        responseFB = await responseFB.json();
+        
+                        console.log(responseFB);
+                    }
+        
+                });
+            }else{
+
+            }
         }
         /* FB.api('/me/accounts', async function (response) {
             if (response.error) {
