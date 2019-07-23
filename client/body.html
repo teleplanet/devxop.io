@@ -41,11 +41,19 @@
         cookie: true,
         xfbml: true,
         version: 'v3.3'
+      }, function(err,data){
+        if(err){
+          console.log(err);
+        }else{
+          console.log(data);
+        }
       });
 
       FB.AppEvents.logPageView();
 
-     initFB();
+
+      initFB();
+      //Session.set("fbInitialized", true);
     };
 
     (function (d, s, id) {

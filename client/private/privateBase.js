@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.collapsible');
 	var instances = M.Dropdown.init(elems, {});
 	
-	console.log(instances);
+	//console.log(instances);
 
 	
   });

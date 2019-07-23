@@ -22,6 +22,7 @@ Meteor.startup(function () {
 
 
 initFB = function () {
+
 	FB.getLoginStatus(function (response) {
 		if (response.status === 'connected') {
 			// The user is logged in and has authenticated your
@@ -37,6 +38,7 @@ initFB = function () {
 			//console.log(response);
 
 			console.log("FACEBOOK USER CONNECTED!");
+			Session.set("facebook", response);
 		} else if (response.status === 'not_authorized') {
 			// The user hasn't authorized your application.  They
 			// must click the Login button, or you must call FB.login

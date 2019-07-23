@@ -2,7 +2,7 @@
 
 
 Template.moduleSocialMedia.onRendered(function(){
-    initFb();
+    //initFb();
 });
 
 Template.moduleSocialMedia.events({
@@ -41,13 +41,13 @@ Template.moduleSocialMedia.events({
         }, { perms: 'publish_pages,instagram_basic' });
     },
     'click .js-create-post': function () {
-
-
+ 
         let fbPage = Session.get("fb-selected-page");
         let itemToPost = Session.get("module.selecteditem");
 
         if(!fbPage){
             console.log("no fb page selected!");
+            notifyMessage("Please select a facebook page to post to.", "danger");
         }else{
             console.log("Fb page: " + fbPage);
             if(itemToPost){
@@ -65,9 +65,15 @@ Template.moduleSocialMedia.events({
                         var blob = dataURItoBlob(imageData);
         
                         let formData = new FormData();
+                        formData.append('published', true);
                         formData.append('access_token', data.access_token);
                         formData.append('source', blob);
-                        formData.append('message', itemToPost["info_en"]);
+                        formData.append('message', "# " + itemToPost.name + " 1" + 
+                            "\n" + "**[PT-EN]**" +
+                            "\n" + itemToPost["info_pt"] + "\n" +
+                            "\n" + itemToPost["info_en"] + "\n" +
+                            /* "\n" + "Price: " +  */ "\n" + itemToPost.price + "€");
+                        formData.append('formatting', "MARKDOWN");
         
                         let responseFB = await fetch('https://graph.facebook.com/' + data.id + '/photos', {
                             body: formData,
@@ -75,7 +81,12 @@ Template.moduleSocialMedia.events({
                         });
                         responseFB = await responseFB.json();
         
-                        console.log(responseFB);
+                        
+
+                        if(responseFB.id && responseFB.post_id){
+                            notifyMessage("Post has been created! Check your facebook page.", "success");
+                            console.log(responseFB);
+                        }
                     }
         
                 });
@@ -115,6 +126,15 @@ Template.moduleSocialMedia.events({
 Template.moduleSocialMedia.helpers({
     'fb': function(){
         return Session.get("fb");
+    },
+    'selectedItem': function(){
+        let item = Session.get("module.selecteditem");
+
+        if(!item){
+            return "select item first...";
+        }else{
+            return item.name;
+        }
     }
 });
 
