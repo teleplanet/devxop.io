@@ -59,6 +59,8 @@ Template.moduleSocialMedia.events({
                     } else {
                         console.log(response);
                         let data = response.data[0];
+
+                        console.log(data);
         
                         var imageData = itemToPost["image_thumb"];
         
@@ -68,9 +70,9 @@ Template.moduleSocialMedia.events({
                         formData.append('published', true);
                         formData.append('access_token', data.access_token);
                         formData.append('source', blob);
-                        formData.append('formatting', "MARKDOWN");
-                        formData.append('message', itemToPost.name + 
-                            "\n" + "[PT-EN]" +
+                        /* formData.append('title', itemToPost.name); */
+                        formData.append('message', "#" + itemToPost.name + "\n" + 
+                            "\n" + "**[PT-EN]**" +
                             "\n" + itemToPost["info_pt"] + "\n" +
                             "\n" + itemToPost["info_en"] + "\n" +
                             /* "\n" + "Price: " +  */ "\n" + itemToPost.price + "€");
