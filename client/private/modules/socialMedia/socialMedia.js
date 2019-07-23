@@ -68,12 +68,13 @@ Template.moduleSocialMedia.events({
                         formData.append('published', true);
                         formData.append('access_token', data.access_token);
                         formData.append('source', blob);
-                        formData.append('message', "# " + itemToPost.name + " 1" + 
-                            "\n" + "**[PT-EN]**" +
+                        formData.append('formatting', "MARKDOWN");
+                        formData.append('message', itemToPost.name + 
+                            "\n" + "[PT-EN]" +
                             "\n" + itemToPost["info_pt"] + "\n" +
                             "\n" + itemToPost["info_en"] + "\n" +
                             /* "\n" + "Price: " +  */ "\n" + itemToPost.price + "€");
-                        formData.append('formatting', "MARKDOWN");
+                        
         
                         let responseFB = await fetch('https://graph.facebook.com/' + data.id + '/photos', {
                             body: formData,
