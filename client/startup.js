@@ -1,5 +1,8 @@
 import ImageCompressor from 'image-compressor.js';
 
+import Materialize from 'materialize-css';
+global.M = global.Materialize = Materialize;
+
 Meteor.startup(function () {
 	//Get viewport dimensions
 	Session.set('vH', $(document).height());
@@ -16,7 +19,6 @@ Meteor.startup(function () {
 
 
 	Session.set("fb", undefined);
-
 
 });
 

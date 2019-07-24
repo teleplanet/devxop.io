@@ -25,6 +25,8 @@ Template.editItem.onRendered(function () {
             });
         }
     }); */
+    
+    $('.tabs').tabs();
 });
 
 
