@@ -15,7 +15,7 @@ Meteor.startup(function () {
 	}
 
 
-	Session.set("facebook", undefined);
+	Session.set("fb", undefined);
 
 
 });
@@ -39,11 +39,19 @@ initFB = function () {
 
 			console.log("FACEBOOK USER CONNECTED!");
 			console.log('Welcome!  Fetching your information.... ');
-							FB.api('/me', function (response) {
-								console.log(response);
-								console.log('Good to see you, ' + response.name + '.');
-								Session.set("facebook", response);
-							});
+			let fb = {};
+
+			FB.api('/me', function (response) {
+				console.log(response);
+				console.log('Good to see you, ' + response.name + '.');
+				fb["user"] = response;
+
+				FB.api('/me/accounts', function (response) {
+					fb["pages"] = response;
+
+					Session.set("fb", fb);
+				});
+			});
 		} else if (response.status === 'not_authorized') {
 			// The user hasn't authorized your application.  They
 			// must click the Login button, or you must call FB.login
@@ -60,10 +68,18 @@ initFB = function () {
 					FB.login(function (response) {
 						if (!response.error) {
 							console.log('Welcome!  Fetching your information.... ');
+							let fb = {};
+
 							FB.api('/me', function (response) {
 								console.log(response);
 								console.log('Good to see you, ' + response.name + '.');
-								Session.set("facebook", response);
+								fb["user"] = response;
+
+								FB.api('/me/accounts', function (response) {
+									fb["pages"] = response;
+
+									Session.set("fb", fb);
+								});
 							});
 						} else {
 							console.log('User cancelled login or did not fully authorize.');
@@ -72,11 +88,19 @@ initFB = function () {
 				} else {
 					console.log("FACEBOOK USER CONNECTED!");
 					console.log('Welcome!  Fetching your information.... ');
-							FB.api('/me', function (response) {
-								console.log(response);
-								console.log('Good to see you, ' + response.name + '.');
-								Session.set("facebook", response);
-							});
+					let fb = {};
+
+					FB.api('/me', function (response) {
+						console.log(response);
+						console.log('Good to see you, ' + response.name + '.');
+						fb["user"] = response;
+
+						FB.api('/me/accounts', function (response) {
+							fb["pages"] = response;
+
+							Session.set("fb", fb);
+						});
+					});
 				}
 
 
