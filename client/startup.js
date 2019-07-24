@@ -38,7 +38,12 @@ initFB = function () {
 			//console.log(response);
 
 			console.log("FACEBOOK USER CONNECTED!");
-			Session.set("facebook", response);
+			console.log('Welcome!  Fetching your information.... ');
+							FB.api('/me', function (response) {
+								console.log(response);
+								console.log('Good to see you, ' + response.name + '.');
+								Session.set("facebook", response);
+							});
 		} else if (response.status === 'not_authorized') {
 			// The user hasn't authorized your application.  They
 			// must click the Login button, or you must call FB.login
@@ -58,6 +63,7 @@ initFB = function () {
 							FB.api('/me', function (response) {
 								console.log(response);
 								console.log('Good to see you, ' + response.name + '.');
+								Session.set("facebook", response);
 							});
 						} else {
 							console.log('User cancelled login or did not fully authorize.');
@@ -65,7 +71,12 @@ initFB = function () {
 					}, { perms: 'publish_pages,manage_pages,instagram_basic,user_photos,photo_upload,publish_stream' });
 				} else {
 					console.log("FACEBOOK USER CONNECTED!");
-					Session.set("facebook", response);
+					console.log('Welcome!  Fetching your information.... ');
+							FB.api('/me', function (response) {
+								console.log(response);
+								console.log('Good to see you, ' + response.name + '.');
+								Session.set("facebook", response);
+							});
 				}
 
 
