@@ -33,15 +33,85 @@
         </div>
         <div class="card-content">
             <div id="itemStats">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="sub-title">Facebook stats:</div>
+                    </div>
+                </div>
+                {{#if fbConnected}}
+                {{#if fbPost}}
+                <div class="row">
+
+                    <div class="col s4">
+                        <label>Likes</label>
+                        <div class="sub-title">{{fbPost.likes.summary.total_count}}</div>
+                    </div>
+                    <div class="col s4">
+                        <label>shares</label>
+                        <div class="sub-title">{{fbPost.shares.count}}</div>
+                    </div>
+                    <div class="col s4">
+
+                        <label>Comments</label>
+                        <div class="sub-title">{{fbPost.comments.summary.total_count}}</div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <label>Latest comments</label>
+                        {{#each comment in fbPost.comments.data}}
+                        <div class="row">
+                            <div class="col s12">
+                                {{comment.message}}
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+
+                </div>
+                {{else}}
+                <div class="row">
+
+                    <div class="col s12">
+                        <p>You have not created a post with this item yet.</p>
+                        <div class="button js-post-item">Post Item to facebook</div>
+                    </div>
+                </div>
+
+                {{/if}}
+                <!-- ENDIF FB POST -->
+                {{else}}
+                <div class="row">
+                    <div class="col s12">
+                        <p>To view item stats of facebook make sure you are connected to facebook</p>
+                    </div>
+                </div>
+
+                {{/if}}
+                <!-- ENDIF FACEBOOK CONNECTED -->
+
 
             </div><!-- END ITEM STATS TAB -->
             <div id="itemEdit">
                 <div class="row">
-                    <div class="col s6">
-                        <h4>{{item.name}} {{> moduleCategorySelect}}</h4>
+                    <div class="input-field col s6">
+                        <!-- <i class="material-icons prefix small ">account_circle</i> -->
+                        <input id="input-name" type="text" value="{{item.name}}" data-key="name"
+                            class="validate valid plateEdit">
+                        <label class="active" for="input-name">Item Name</label>
+                        <h4> {{> moduleCategorySelect}}</h4>
                     </div>
                     <div class="col s6">
                         {{> moduleImageUpload}}
+
+                        <p>
+                            <label>
+                                <input type="checkbox" class="filled-in plateEdit" data-key="image_flipped"
+                                    checked="{{item.image_flipped}}" />
+                                <span>Flip image</span>
+                            </label>
+                        </p>
                     </div>
                 </div>
                 <div class="row">

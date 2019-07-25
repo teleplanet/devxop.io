@@ -22,8 +22,8 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <div class="sub-title">Post to facebook...</div>
-                <label>(1)Page to post to:</label>
+                <!-- <div class="sub-title">Post to facebook...</div> -->
+                <label>Select your facebook page</label>
                 <form action="#">
                     {{#each page in fb.pages.data}}
                     <p>
@@ -36,7 +36,7 @@
                 </form>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col s12">
                 <label>(2)Select an item:</label>
                 <br>
@@ -47,10 +47,9 @@
             <div class="col s12">
                 <label>(3)Post '{{selectedItem}}' on facebook:</label>
                 <br>
-                <div class="button js-create-post">Post Now!</div><!-- 
-                <div class="js-create-post">Post to facebook</div> -->
+                <div class="button js-create-post">Post Now!</div>
             </div>
-        </div>
+        </div> -->
         {{else}} <!-- ENDIF ELSE FB Connected -->
         <div class="row">
             <div class="col">

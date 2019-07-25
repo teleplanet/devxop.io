@@ -33,10 +33,38 @@ Template.editItem.onRendered(function () {
 Template.editItem.helpers({
     'item': function () {
         return Session.get("item-edit");
+    },
+    'fbConnected': function(){
+        return Session.get("fb");
+    },
+    'fbPost': function(){
+        let fbPost = Session.get("item-edit").fb_post;
+
+        if(fbPost){
+            //?fields=shares,comments.limit(3).summary(true),likes.limit(0).summary(true)
+            FB.api(
+                "/" + fbPost.post_id + "?fields=shares,comments.limit(3).summary(true),likes.limit(0).summary(true)",
+                function (response) {
+                  if (response && !response.error) {
+                    /* handle the result */
+                    console.log(response);
+
+                    Session.set("fb-post-stats", response);
+                  }
+                }
+            );
+            return Session.get("fb-post-stats");
+        }else{
+            return false;
+        }
     }
 });
 
 Template.editItem.events({
+    'click .js-post-item': function(){
+        //fb post item, pageId(optional) params;
+        postToFb(Session.get("item-edit"));
+    },
     'click .js-image-upload-event': function(event){
         console.log(event);
         let image = Session.get("module.imageUpload");
@@ -84,9 +112,9 @@ Template.editItem.events({
         isCheckbox = $(event.target).is(':checkbox');
         if (isCheckbox) {
             if ($(event.target).is(":checked")) {
-                data["visible"] = true;
+                data[key] = true;
             } else {
-                data["visible"] = false;
+                data[key] = false;
             }
         } else {
             console.log("not checkbox");

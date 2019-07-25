@@ -82,6 +82,9 @@ Template.displaySpecials.onRendered(function () {
 
 
 Template.displaySpecials.helpers({
+    'imageFlipped': function(){
+
+    },
     'platesList': function () {
         let plates = Session.get("plates");
 

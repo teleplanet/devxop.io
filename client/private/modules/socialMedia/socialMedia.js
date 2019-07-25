@@ -1,4 +1,104 @@
 
+postToFb = function (item, page) {
+ 
+    let itemToPost = item;//Session.get("module.selecteditem");
+
+    if(!page){
+        page = Session.get("fb").pages.data[0].id
+    }
+        
+    if(!page){
+        console.log("no fb page selected!");
+        notifyMessage("Please select a facebook page to post to.", "danger");
+    }else{
+        let fbPage = page;
+        //let fbPage = Session.get("fb").pages.data[0].id;
+        console.log("Fb page: " + fbPage);
+        if(itemToPost){
+            console.log("Item to post: " + itemToPost.name);
+
+            FB.api('/me/accounts', async function (response) {
+                if (response.error) {
+                    console.log(response);
+                } else {
+                    console.log(response);
+                    let data = response.data[0];
+
+                    console.log(data);
+    
+                    var imageData = itemToPost["image_thumb"];
+    
+                    var blob = dataURItoBlob(imageData);
+    
+                    let formData = new FormData();
+                    formData.append('published', true);
+                    formData.append('access_token', data.access_token);
+                    formData.append('source', blob);
+                    /* formData.append('title', itemToPost.name); */
+                    formData.append('message', "#" + itemToPost.name + "\n" + 
+                        "\n" + "**[PT-EN]**" +
+                        "\n" + itemToPost["info_pt"] + "\n" +
+                        "\n" + itemToPost["info_en"] + "\n" +
+                        /* "\n" + "Price: " +  */ "\n" + itemToPost.price + "€");
+                    
+    
+                    let responseFB = await fetch('https://graph.facebook.com/' + data.id + '/photos', {
+                        body: formData,
+                        method: 'post'
+                    });
+                    responseFB = await responseFB.json();
+    
+                    
+
+                    if(responseFB.id && responseFB.post_id){
+                        notifyMessage("Post has been created! Check your facebook page.", "success");
+                        console.log(responseFB);
+
+                        let data =  {
+                            "fb_post": responseFB
+                        }
+
+                        Meteor.call("items.edit", item._id, data, function(err, res){
+                            if(err){
+
+                            }else{
+                                console.log("fb post data has been saved to item: " + item.name);
+                            }
+                        });
+                    }
+                }
+    
+            });
+        }else{
+
+        }
+    }
+    /* FB.api('/me/accounts', async function (response) {
+        if (response.error) {
+            console.log(response);
+        } else {
+            let data = response.data[0];
+
+            var imageData = Items.findOne().image_thumb;
+
+            var blob = dataURItoBlob(imageData);
+
+            let formData = new FormData();
+            formData.append('access_token', data.access_token);
+            formData.append('source', blob);
+            formData.append('message', "this is a test on price");
+
+            let responseFB = await fetch('https://graph.facebook.com/' + data.id + '/photos', {
+                body: formData,
+                method: 'post'
+            });
+            responseFB = await responseFB.json();
+
+            console.log(responseFB);
+        }
+
+    }); */
+}
 
 
 Template.moduleSocialMedia.onRendered(function(){
