@@ -14,8 +14,8 @@
 
 .slideshow-title{
     position: absolute;
-    padding: 20pt;
-    font-size: 45pt !important;
+    padding: 4vh;
+    font-size: 6vh !important;
     color:#fff;
     top: 0;
     z-index: 100;
@@ -25,12 +25,11 @@
 
 .slide-item-description{
     position: absolute;
-    width: 30%;
-    max-width: 780px;
-    min-width: 580px;
-    padding: 20pt;
+    /* max-width: 780px;
+    min-width: 580px; */
+    padding: 4vh;
     background-color: rgba(100, 100, 100, 0.6);
-    font-size: 45pt !important;
+    font-size: 6vh !important;
     color:#fff;
     float: right;
     margin-right: -100%;
@@ -41,7 +40,7 @@
 
 
 .slide-item-description .plate-description{
-    font-size: 20pt !important;
+    font-size: 4vh !important;
     color:#fff;
     transition: all 1s ease-in-out;
 }

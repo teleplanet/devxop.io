@@ -6,6 +6,7 @@ Template.deviceEdit.onRendered(function () {
     if (device) {
         let display = DisplayTemplates.findOne({ "_id": device["selected_display"] });
         if (display) {
+            Session.set("live-display", display);
             Session.set("module.selectedDisplay", display["name"]);
         }
     }
@@ -24,6 +25,9 @@ Template.deviceEdit.helpers({
     'deviceUrl': function(){
         let device = Session.get("device-edit");
         return document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device.auth.access_token;
+    },
+    'liveDisplay': function(){
+        return Session.get("live-display");
     },
     'device': function () {
         return Session.get("device-edit");
