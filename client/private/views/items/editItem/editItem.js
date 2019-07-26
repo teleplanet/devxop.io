@@ -25,6 +25,22 @@ Template.editItem.onRendered(function () {
             });
         }
     }); */
+
+    let fbPostStats = Session.get("fb-post-stats");
+    let fbPost = Session.get("item-edit").fb_post;
+    if(fbPost && !fbPostStats){
+        FB.api(
+            "/" + fbPost.post_id + "?fields=shares,comments.limit(3).summary(true),likes.limit(0).summary(true)",
+            function (response) {
+              if (response && !response.error) {
+                /* handle the result */
+                console.log(response);
+    
+                Session.set("fb-post-stats", response);
+              }
+            }
+        );
+    }
     
     $('.tabs').tabs();
 });
@@ -39,21 +55,33 @@ Template.editItem.helpers({
     },
     'fbPost': function(){
         let fbPost = Session.get("item-edit").fb_post;
+        let fbPostStats = Session.get("fb-post-stats");
 
         if(fbPost){
             //?fields=shares,comments.limit(3).summary(true),likes.limit(0).summary(true)
-            FB.api(
-                "/" + fbPost.post_id + "?fields=shares,comments.limit(3).summary(true),likes.limit(0).summary(true)",
-                function (response) {
-                  if (response && !response.error) {
-                    /* handle the result */
-                    console.log(response);
+            console.log("fb post exists");
+            if(!fbPostStats){
+                console.log("no fb stats on post");
+                
+                FB.api(
+                    "/" + fbPost.post_id + "?fields=shares,comments.limit(3).summary(true),likes.limit(0).summary(true)",
+                    function (response) {
+                      if (response && !response.error) {
+                        /* handle the result */
+                        console.log(response);
 
-                    Session.set("fb-post-stats", response);
-                  }
-                }
-            );
-            return Session.get("fb-post-stats");
+                        Meteor.call("items.edit", Session.get("item-edit")._id, {"fb_post.data": response})
+            
+                        Session.set("fb-post-stats", response);
+                      }else{
+                        Session.set("fb-post-stats", fbPost.data);
+                      }
+                    }
+                );
+            }else{
+                return Session.get("fb-post-stats");
+            }
+            
         }else{
             return false;
         }
