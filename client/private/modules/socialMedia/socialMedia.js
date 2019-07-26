@@ -1,6 +1,6 @@
 
 postToFb = function (item, page) {
- 
+    Session.set("module.processingLoader", true);
     let itemToPost = item;//Session.get("module.selecteditem");
 
     if(!page){
@@ -10,6 +10,7 @@ postToFb = function (item, page) {
     if(!page){
         console.log("no fb page selected!");
         notifyMessage("Please select a facebook page to post to.", "danger");
+        Session.set("module.processingLoader", false);
     }else{
         let fbPage = page;
         //let fbPage = Session.get("fb").pages.data[0].id;
@@ -20,6 +21,8 @@ postToFb = function (item, page) {
             FB.api('/me/accounts', async function (response) {
                 if (response.error) {
                     console.log(response);
+                    Session.set("module.processingLoader", false);
+                    notifyMessage("An error occurred trying to post to facebook", "danger");
                 } else {
                     console.log(response);
                     let data = response.data[0];
@@ -65,12 +68,16 @@ postToFb = function (item, page) {
                                 console.log("fb post data has been saved to item: " + item.name);
                             }
                         });
+                        
                     }
+
+                    Session.set("module.processingLoader", false);
+
                 }
-    
+                
             });
         }else{
-
+            Session.set("module.processingLoader", false);
         }
     }
     /* FB.api('/me/accounts', async function (response) {

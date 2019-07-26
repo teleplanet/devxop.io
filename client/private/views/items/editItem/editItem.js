@@ -91,6 +91,7 @@ Template.editItem.helpers({
 Template.editItem.events({
     'click .js-post-item': function(){
         //fb post item, pageId(optional) params;
+        
         postToFb(Session.get("item-edit"));
     },
     'click .js-image-upload-event': function(event){
