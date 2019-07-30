@@ -20,7 +20,8 @@ Template.displayVideo.helpers({
         return Videos.findOne({ "_id": Session.get("template").video_id });
     },
     'videoUrl': function (url) {
-        Session.set("video-download", true);
+        /* Session.set("video-download", true); */
+        Session.set("module.processingLoader", true);
         //var url = window.URL.createObjectURL(document.location.origin + url);
 
         $("#video").attr({
@@ -48,7 +49,8 @@ Template.displayVideo.helpers({
                 });
                 //console.log(vid);
 
-                Session.set("video-download", false);
+                Session.set("module.processingLoader", false);
+                /* Session.set("video-download", false); */
             }
         }
         req.onerror = function () {

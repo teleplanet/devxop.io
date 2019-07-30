@@ -48,11 +48,6 @@ Template.moduleVideoUpload.events({
                             Session.set("module.processingLoader", false);
 
                             $('.js-video-upload-event').click();
-
-                            /* $("#uploadedVideo").attr({
-                                "src": url,
-                                "autoplay": "autoplay",        
-                            }) */
                         }
                     });
                 }
