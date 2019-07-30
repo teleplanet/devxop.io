@@ -7,7 +7,6 @@
   "dependencies": {
     "@babel/runtime": "^7.4.5",
     "bcrypt": "^3.0.6",
-    "handbrake-js": "^4.0.0",
     "html2canvas": "^1.0.0-rc.3",
     "image-compressor.js": "^1.1.4",
     "materialize-css": "^1.0.0-rc.2",
