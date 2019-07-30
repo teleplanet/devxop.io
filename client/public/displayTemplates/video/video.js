@@ -2,7 +2,9 @@
 Template.displayVideo.onRendered(function () {
     console.log('onRendered');
 
-    Session.set("video-download", false);
+    Session.set("video-download", true);
+
+    //Session.set("module.processingLoader", true);
 
 });
 
@@ -21,44 +23,54 @@ Template.displayVideo.helpers({
     },
     'videoUrl': function (url) {
         /* Session.set("video-download", true); */
-        Session.set("module.processingLoader", true);
+
+
+        
+
+        setTimeout(function () {
+            console.log("waiting 1 second...")
+
+            var req = new XMLHttpRequest();
+            req.open('GET', document.location.origin + url, true);
+            req.responseType = 'blob';
+            req.onprogress = updateProgress;
+            req.onload = function () {
+                // Onload is triggered even on 404
+                // so we need to check the status code
+                if (this.status === 200) {
+                    var videoBlob = this.response;
+                    var vid = URL.createObjectURL(videoBlob); // IE10+
+                    // Video is now downloaded
+                    // and we can set it as source on the video element
+                    //video.src = vid;
+
+                    $("#video").attr({
+                        "src": vid,
+                        "autoplay": "autoplay",
+                    });
+                    //console.log(vid);
+
+                    Session.set("module.processingLoader", false);
+                    Session.set("video-download", false);
+                }
+            }
+            req.onerror = function () {
+                // Error
+                Session.set("video-download", false);
+            }
+
+            req.send();
+        }, 1000);
+
+
         //var url = window.URL.createObjectURL(document.location.origin + url);
 
-        $("#video").attr({
+        /* $("#video").attr({
             "src": url,
             "autoplay": "autoplay",
-        });
+        }); */
 
-        var req = new XMLHttpRequest();
-        req.open('GET', document.location.origin + url, true);
-        req.responseType = 'blob';
-        req.onprogress = updateProgress;
-        req.onload = function () {
-            // Onload is triggered even on 404
-            // so we need to check the status code
-            if (this.status === 200) {
-                var videoBlob = this.response;
-                var vid = URL.createObjectURL(videoBlob); // IE10+
-                // Video is now downloaded
-                // and we can set it as source on the video element
-                //video.src = vid;
 
-                $("#video").attr({
-                    "src": vid,
-                    "autoplay": "autoplay",
-                });
-                //console.log(vid);
-
-                Session.set("module.processingLoader", false);
-                /* Session.set("video-download", false); */
-            }
-        }
-        req.onerror = function () {
-            // Error
-            Session.set("video-download", false);
-        }
-
-        req.send();
     }
 });
 
