@@ -9,12 +9,12 @@
     </div>
 
     <div class="social-modal">
-        {{#if fb}}
         <div class="row social-header">
             <div class="col">
                 <div class="title">Social Management</div>
             </div>
         </div>
+        {{#if fb}}
         <div class="row social-account-info">
             <div class="col">
                 <p>Facebook logged in with: <b>{{fb.user.name}}</b></p>
@@ -22,8 +22,9 @@
         </div>
         <div class="row">
             <div class="col s12">
+                <div class="button js-fb-logout">Logout from facebook</div>
                 <!-- <div class="sub-title">Post to facebook...</div> -->
-                <label>Select your facebook page</label>
+                <!-- <label>Select your facebook page</label>
                 <form action="#">
                     {{#each page in fb.pages.data}}
                     <p>
@@ -33,7 +34,7 @@
                         </label>
                     </p>
                     {{/each}}
-                </form>
+                </form> -->
             </div>
         </div>
         <!-- <div class="row">
@@ -50,19 +51,21 @@
                 <div class="button js-create-post">Post Now!</div>
             </div>
         </div> -->
-        {{else}} <!-- ENDIF ELSE FB Connected -->
-        <div class="row">
+        {{else}}
+        <!-- ENDIF ELSE FB Connected -->
+        <div class="row social-account-info">
             <div class="col">
-                <div class="title">Facebook not connected.</div>
+                <p>You are not logged in with facebook</p>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <div class="js-login-fb">Login with facebook</div>
+                <div class="button js-login-fb">Login with facebook</div>
             </div>
         </div>
 
-        {{/if}} <!-- ENDIF IF FB Connected -->
+        {{/if}}
+        <!-- ENDIF IF FB Connected -->
     </div>
 
 </template>

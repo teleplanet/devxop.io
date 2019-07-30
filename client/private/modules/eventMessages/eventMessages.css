@@ -20,3 +20,8 @@
     background-color: #4caf50;
     transform: translateY(0);
 }
+
+.message-container.info{
+    background-color: #64b5f6;
+    transform: translateY(0);
+}

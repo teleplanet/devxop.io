@@ -3,19 +3,19 @@ postToFb = function (item, page) {
     Session.set("module.processingLoader", true);
     let itemToPost = item;//Session.get("module.selecteditem");
 
-    if(!page){
+    if (!page) {
         page = Session.get("fb").pages.data[0].id
     }
-        
-    if(!page){
+
+    if (!page) {
         console.log("no fb page selected!");
         notifyMessage("Please select a facebook page to post to.", "danger");
         Session.set("module.processingLoader", false);
-    }else{
+    } else {
         let fbPage = page;
         //let fbPage = Session.get("fb").pages.data[0].id;
         console.log("Fb page: " + fbPage);
-        if(itemToPost){
+        if (itemToPost) {
             console.log("Item to post: " + itemToPost.name);
 
             FB.api('/me/accounts', async function (response) {
@@ -28,55 +28,55 @@ postToFb = function (item, page) {
                     let data = response.data[0];
 
                     console.log(data);
-    
+
                     var imageData = itemToPost["image_thumb"];
-    
+
                     var blob = dataURItoBlob(imageData);
-    
+
                     let formData = new FormData();
                     formData.append('published', true);
                     formData.append('access_token', data.access_token);
                     formData.append('source', blob);
                     /* formData.append('title', itemToPost.name); */
-                    formData.append('message', "#" + itemToPost.name + "\n" + 
+                    formData.append('message', "#" + itemToPost.name + "\n" +
                         "\n" + "**[PT-EN]**" +
                         "\n" + itemToPost["info_pt"] + "\n" +
                         "\n" + itemToPost["info_en"] + "\n" +
                         /* "\n" + "Price: " +  */ "\n" + itemToPost.price + "€");
-                    
-    
+
+
                     let responseFB = await fetch('https://graph.facebook.com/' + data.id + '/photos', {
                         body: formData,
                         method: 'post'
                     });
                     responseFB = await responseFB.json();
-    
-                    
 
-                    if(responseFB.id && responseFB.post_id){
+
+
+                    if (responseFB.id && responseFB.post_id) {
                         notifyMessage("Post has been created! Check your facebook page.", "success");
                         console.log(responseFB);
 
-                        let data =  {
+                        let data = {
                             "fb_post": responseFB
                         }
 
-                        Meteor.call("items.edit", item._id, data, function(err, res){
-                            if(err){
+                        Meteor.call("items.edit", item._id, data, function (err, res) {
+                            if (err) {
 
-                            }else{
+                            } else {
                                 console.log("fb post data has been saved to item: " + item.name);
                             }
                         });
-                        
+
                     }
 
                     Session.set("module.processingLoader", false);
 
                 }
-                
+
             });
-        }else{
+        } else {
             Session.set("module.processingLoader", false);
         }
     }
@@ -108,18 +108,28 @@ postToFb = function (item, page) {
 }
 
 
-Template.moduleSocialMedia.onRendered(function(){
+Template.moduleSocialMedia.onRendered(function () {
     //initFb();
 });
 
 Template.moduleSocialMedia.events({
-    'change .js-checked-fb-page': function(event){
+    'change .js-checked-fb-page': function (event) {
         let fbPage = $(event.target).data("fb-page"); //fb page id
 
         Session.set("fb-selected-page", fbPage);
 
     },
-    'click .js-social-button':function(event){
+    'click .js-fb-logout': function () {
+        Session.set("fb", undefined);
+        notifyMessage("You have disconnected your facebook account from devxop", "info");
+        /*  FB.logout(function(response) {
+             // user is now logged out
+             console.log(response);
+             Session.set("fb", undefined);
+             notifyMessage("You have disconnected your facebook account from devxop", "info");
+         }); */
+    },
+    'click .js-social-button': function (event) {
         event.preventDefault();
         $('.social-modal').toggleClass('social-modal-toggled');
 
@@ -148,16 +158,16 @@ Template.moduleSocialMedia.events({
         }, { perms: 'publish_pages,instagram_basic' });
     },
     'click .js-create-post': function () {
- 
+
         let fbPage = Session.get("fb-selected-page");
         let itemToPost = Session.get("module.selecteditem");
 
-        if(!fbPage){
+        if (!fbPage) {
             console.log("no fb page selected!");
             notifyMessage("Please select a facebook page to post to.", "danger");
-        }else{
+        } else {
             console.log("Fb page: " + fbPage);
-            if(itemToPost){
+            if (itemToPost) {
                 console.log("Item to post: " + itemToPost.name);
 
                 FB.api('/me/accounts', async function (response) {
@@ -168,39 +178,39 @@ Template.moduleSocialMedia.events({
                         let data = response.data[0];
 
                         console.log(data);
-        
+
                         var imageData = itemToPost["image_thumb"];
-        
+
                         var blob = dataURItoBlob(imageData);
-        
+
                         let formData = new FormData();
                         formData.append('published', true);
                         formData.append('access_token', data.access_token);
                         formData.append('source', blob);
                         /* formData.append('title', itemToPost.name); */
-                        formData.append('message', "#" + itemToPost.name + "\n" + 
+                        formData.append('message', "#" + itemToPost.name + "\n" +
                             "\n" + "**[PT-EN]**" +
                             "\n" + itemToPost["info_pt"] + "\n" +
                             "\n" + itemToPost["info_en"] + "\n" +
                             /* "\n" + "Price: " +  */ "\n" + itemToPost.price + "€");
-                        
-        
+
+
                         let responseFB = await fetch('https://graph.facebook.com/' + data.id + '/photos', {
                             body: formData,
                             method: 'post'
                         });
                         responseFB = await responseFB.json();
-        
-                        
 
-                        if(responseFB.id && responseFB.post_id){
+
+
+                        if (responseFB.id && responseFB.post_id) {
                             notifyMessage("Post has been created! Check your facebook page.", "success");
                             console.log(responseFB);
                         }
                     }
-        
+
                 });
-            }else{
+            } else {
 
             }
         }
@@ -234,29 +244,27 @@ Template.moduleSocialMedia.events({
 
 
 Template.moduleSocialMedia.helpers({
-    'fb': function(){
+    'fb': function () {
         return Session.get("fb");
     },
-    'selectedItem': function(){
+    'selectedItem': function () {
         let item = Session.get("module.selecteditem");
 
-        if(!item){
+        if (!item) {
             return "select item first...";
-        }else{
+        } else {
             return item.name;
         }
     }
 });
 
 
-$(document).mouseup(function(e)
-{
-     var container2 = $(".social-modal");
+$(document).mouseup(function (e) {
+    var container2 = $(".social-modal");
 
 
-    if(!container2.is(e.target) // if the target of the click isn't the container...
-        && container2.has(e.target).length === 0)
-    {
-    	container2.removeClass("social-modal-toggled");
+    if (!container2.is(e.target) // if the target of the click isn't the container...
+        && container2.has(e.target).length === 0) {
+        container2.removeClass("social-modal-toggled");
     }
 });
