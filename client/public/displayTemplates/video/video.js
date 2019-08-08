@@ -8,6 +8,8 @@ Template.displayVideo.onRendered(function () {
 
 });
 
+
+
 Template.displayVideo.helpers({
     'download': function () {
         return Session.get("video-download");
@@ -24,11 +26,8 @@ Template.displayVideo.helpers({
     'videoUrl': function (url) {
         /* Session.set("video-download", true); */
 
-
-        
-
-        setTimeout(function () {
-            console.log("waiting 1 second...")
+        if (!$("#video").attr('src')) {
+            console.log("no source");
 
             var req = new XMLHttpRequest();
             req.open('GET', document.location.origin + url, true);
@@ -40,14 +39,15 @@ Template.displayVideo.helpers({
                 if (this.status === 200) {
                     var videoBlob = this.response;
                     var vid = URL.createObjectURL(videoBlob); // IE10+
-                    // Video is now downloaded
-                    // and we can set it as source on the video element
-                    //video.src = vid;
 
-                    $("#video").attr({
+                    $("#video").attr('src', vid);
+
+                    /* $("#video").attr({
                         "src": vid,
                         "autoplay": "autoplay",
-                    });
+                        "muted": "muted",
+ 
+                    }); */
                     //console.log(vid);
 
                     Session.set("module.processingLoader", false);
@@ -60,7 +60,12 @@ Template.displayVideo.helpers({
             }
 
             req.send();
-        }, 1000);
+        } else {
+            console.log("contains source!");
+        }
+
+
+
 
 
         //var url = window.URL.createObjectURL(document.location.origin + url);

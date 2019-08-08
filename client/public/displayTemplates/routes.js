@@ -45,6 +45,7 @@ Router.route('/display', {
 								Session.set("template", template);
 								Session.set("device", device);
 								Session.set("plates", finalPlates);
+								Session.set("video", video);
 
 								Router.current().render("display" + template.name.capitalize());
 							}

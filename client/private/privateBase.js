@@ -3,9 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	var instances = M.Dropdown.init(elems, {});
 	
 	//console.log(instances);
-
 	
   });
+
+
+Template.privateBase.onRendered(function(){
+	$(".navbar-logo").css({"background-color": "#5c6bc0", "color": "#fff"});
+    $(".navbar").css({"background-color": "#5c6bc0", "color": "#fff"});
+    $(".navbar-item").css({"color": "#fff"});
+}) ;
+
 
 Template.privateBase.helpers({
 	'route': function(){

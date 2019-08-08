@@ -38,6 +38,8 @@ Highcharts.theme = {
 Highcharts.setOptions(Highcharts.theme);
 
 Template.dashboard.onRendered(function () {
+
+
     Highcharts.chart('dashboard-chart', {
         chart: {
             type: 'area'

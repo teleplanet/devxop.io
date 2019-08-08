@@ -1,7 +1,10 @@
 <template name="displayVideo">
     {{#with video}}
         {{videoUrl this.url}}
-        <video autoplay muted loop class="display-video" id="video"></video>
+        <!-- <div class="video-div"></div> -->
+        <video autoplay muted loop class="display-video" id="video">
+            
+        </video>
     {{/with}}
     <!-- <video autoplay muted loop class="display-video">
         <source src="/promo.mp4" type="video/mp4">
