@@ -1,3 +1,4 @@
+
 Template.devices.onRendered(function () {
     Session.set("module.selectedDisplay", "");
 });

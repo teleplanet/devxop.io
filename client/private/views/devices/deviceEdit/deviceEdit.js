@@ -1,5 +1,7 @@
 /* var image; */
 
+var pingInterval;
+
 Template.deviceEdit.onRendered(function () {
     let device = Session.get("device-edit");
 
@@ -28,22 +30,20 @@ Template.deviceEdit.helpers({
     },
     'isOnline': function () {
         let device = Session.get("device-edit");
-
         let time1 = device.ping_stamp;
-
         if (time1) {
             let time2 = new Date().getTime();
 
             let diff = getDiffSeconds(time2, time1);
 
             if(diff > 40){ //ping stamp update every 30 seconds
-                return "offile";
+                return "Offline";
             }else{
-                return "online";
+                return "Online";
             }
-           
+        
         }else{
-            return "unkown";
+            return "Unkown";
         }
 
     },

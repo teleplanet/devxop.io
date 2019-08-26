@@ -1,3 +1,5 @@
+
+
 Template.displayStatic.helpers({
     'template': function () {
 
