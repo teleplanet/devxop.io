@@ -34,11 +34,14 @@ Template.deviceEdit.helpers({
         if (time1) {
             let time2 = new Date().getTime();
 
-            let diff = getDiffSeconds(time1, time2);
+            let diff = getDiffSeconds(time2, time1);
 
-            console.log(diff);
-
-            return "online";
+            if(diff > 40){ //ping stamp update every 30 seconds
+                return "offile";
+            }else{
+                return "online";
+            }
+           
         }else{
             return "unkown";
         }
