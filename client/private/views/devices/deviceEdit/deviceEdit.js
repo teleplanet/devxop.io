@@ -22,11 +22,29 @@ Template.deviceEdit.onRendered(function () {
 
 
 Template.deviceEdit.helpers({
-    'deviceUrl': function(){
+    'deviceUrl': function () {
         let device = Session.get("device-edit");
         return document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device.auth.access_token;
     },
-    'liveDisplay': function(){
+    'isOnline': function () {
+        let device = Session.get("device-edit");
+
+        let time1 = device.ping_stamp;
+
+        if (time1) {
+            let time2 = new Date().getTime();
+
+            let diff = getDiffSeconds(time1, time2);
+
+            console.log(diff);
+
+            return "online";
+        }else{
+            return "unkown";
+        }
+
+    },
+    'liveDisplay': function () {
         return Session.get("live-display");
     },
     'device': function () {
@@ -119,17 +137,17 @@ Template.deviceEdit.helpers({
 
             //console.log(displayTemplate);
 
-            setTimeout(function(){
+            setTimeout(function () {
                 Session.set("module.imageUpload", displayTemplate.static_image);
             }, 1000);
-            
+
 
             return true;
-        }else{
+        } else {
             return false;
         }
 
-        
+
     },
     'videoDisplay': function () {
         let device = Session.get("device-edit");
@@ -138,17 +156,17 @@ Template.deviceEdit.helpers({
         if (display == "video") {
             let displayTemplate = DisplayTemplates.findOne({ "name": display, "device_id": device._id });
 
-            setTimeout(function(){
+            setTimeout(function () {
                 Session.set("module.videoUpload", displayTemplate["video_id"]);
             }, 1000);
-            
+
 
             return true;
-        }else{
+        } else {
             return false;
         }
 
-        
+
     }
 });
 
@@ -172,10 +190,10 @@ Template.deviceEdit.events({
 
 
                 Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
-                    if (err){
+                    if (err) {
                         console.log(err)
                         notifyMessage("Failed item update", "danger");
-                    }else{
+                    } else {
                         notifyMessage("Item successfully updated", "success");
                     }
                 });
@@ -191,13 +209,13 @@ Template.deviceEdit.events({
 
 
                 Meteor.call("display.templates.insert", data, function (err, data) {
-                    if (err){
+                    if (err) {
                         console.log(err)
                         notifyMessage("Failed item update", "danger");
-                    }else{
+                    } else {
                         notifyMessage("Item successfully updated", "success");
                     }
-                    
+
                 });
             }
         }
@@ -221,10 +239,10 @@ Template.deviceEdit.events({
 
 
                 Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
-                    if (err){
+                    if (err) {
                         console.log(err)
                         notifyMessage("Failed item update", "danger");
-                    }else{
+                    } else {
                         notifyMessage("Item successfully updated", "success");
                     }
                 });
@@ -240,13 +258,13 @@ Template.deviceEdit.events({
 
 
                 Meteor.call("display.templates.insert", data, function (err, data) {
-                    if (err){
+                    if (err) {
                         console.log(err)
                         notifyMessage("Failed item update", "danger");
-                    }else{
+                    } else {
                         notifyMessage("Item successfully updated", "success");
                     }
-                    
+
                 });
             }
         }
@@ -277,10 +295,10 @@ Template.deviceEdit.events({
         }
 
         Meteor.call("devices.edit", device._id, data, function (err, data) {
-            if (err){
+            if (err) {
                 console.log(err)
                 notifyMessage("An error occurred trying to change template", "danger");
-            }else{
+            } else {
                 notifyMessage("Display template status changed!", "success");
             }
 
@@ -303,10 +321,10 @@ Template.deviceEdit.events({
 
 
             Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
-                if (err){
+                if (err) {
                     console.log(err)
                     notifyMessage("Failed item update", "danger");
-                }else{
+                } else {
                     notifyMessage("Item successfully updated", "success");
                 }
             });
@@ -322,10 +340,10 @@ Template.deviceEdit.events({
 
 
             Meteor.call("display.templates.insert", data, function (err, data) {
-                if (err){
+                if (err) {
                     console.log(err)
                     notifyMessage("Failed item update", "danger");
-                }else{
+                } else {
                     notifyMessage("Item successfully updated", "success");
                 }
             });
@@ -354,10 +372,10 @@ Template.deviceEdit.events({
         }
 
         Meteor.call("devices.edit", id, data, function (err, data) {
-            if (err){
+            if (err) {
                 console.log(err)
                 notifyMessage("Failed item update", "danger");
-            }else{
+            } else {
                 notifyMessage("Item successfully updated", "success");
             }
         });

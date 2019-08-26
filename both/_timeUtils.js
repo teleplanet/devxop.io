@@ -3,6 +3,13 @@
 	Functions are also
 */
 
+getDiffSeconds = function(time1, time2){
+        var difference = time1 - time2;
+        var secDifference = Math.floor(difference / 1000); //difference/1000/60/60/24);
+    
+        return secDifference;
+}
+
 getDateFromEpoch = function(epochTime){
     var readableTime = new Date( epochTime * 1000);
     return readableTime;   

@@ -1,8 +1,29 @@
 <template name="displaySpecials">
-    <div id="slideshow">
+    <div class="slideshow-title">
+        {{company.name}} Specials
+
+    </div>
+    <div class="slider fullscreen">
+
+        <ul class="slides">
+            {{#each plate in plates}}
+            <li>
+                <img src="{{plate.image}}">
+                <!-- random image -->
+                <div class="caption slide-caption right-align valign-bottom">
+                    <h3>{{plate.name}}</h3>
+                    <h5>{{plate.info_pt}}</h5>
+                    <h3>{{plate.price}}€</h3>
+                </div>
+            </li>
+            {{/each}}
+
+        </ul>
+    </div>
+    <!-- <div id="slideshow">
         <div class="slideshow-title">
             {{company.name}} Specials
-            <!-- <div class="gsTitle">{{>gsTitle}}</div> -->
+            
         </div>
         <ul id="slides">
             {{#each plate in platesList}}
@@ -15,7 +36,7 @@
             </li>
             {{/each}}
         </ul>
-    </div>
+    </div> -->
 
 </template>
 

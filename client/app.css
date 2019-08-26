@@ -5,3 +5,25 @@
 }.sub-title{
     font-size: 1.3rem !important;
 }
+
+
+.valign-bottom{
+    top: auto !important;
+    bottom: 15% !important;
+}
+
+
+/* ######################## SLIDER DISPLAY ####################*/
+.slide-caption{
+    padding: 4vh;
+    background-color: rgba(100, 100, 100, 0.6);
+    top: auto !important;
+    left: auto !important;
+    bottom: 15% !important;
+    right: 0% !important;
+    width: auto !important;
+    text-align: left !important;
+}.slide-caption > h3, .slide-caption > h5{
+    color:#fff !important;
+    font-weight: 400;
+}

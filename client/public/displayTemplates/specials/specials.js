@@ -5,84 +5,47 @@ var template;
 var plates;
 var device;
 
-
+var langInterval;
 
 Template.displaySpecials.onRendered(function () {
-    template = Session.get("template");
-
-    query = Router.current().params.query;
-
-    Session.set("slideLang", "pt");
-
-    var slide = 0,
-        slides = document.querySelectorAll('.slide-item'),
-        numSlides = slides.length,
-        interval = 12000;
-
-    var langInterval,
-        langCount = 0;
-
-    oldCount = numSlides;
-
-    //oldCount = Plates.find({ "_id": { "$in": Session.get("device").display_items } }).fetch().length;
-    currentSlide = function () {
-
-        //get class list
-        var itemToShow = Math.abs(slide % numSlides);
-        [].forEach.call(slides, function (el) {
-            el.classList.remove('slideActive')
+    $(document).ready(function () {
+        $('.slider').slider({
+            indicators: false,
+            duration: 1000,
+            interval: 8000,
         });
-        //console.log(slides);
-        slides[itemToShow].classList.add('slideActive');
+    });
 
-        //resetProgress();
-        resetInterval();
-    },
-        next = function () {
-            slide++;
-            currentSlide();
-        },
-        prev = function () {
-            slide--;
-            currentSlide();
-        },
-        resetslide = function () {
-            var elm = document.querySelector('#slides > li'),
-                newone = elm.cloneNode(true),
-                x = elm.parentNode.replaceChild(newone, elm);
-        },
-        resetInterval = function () {
-            clearInterval(langInterval);
-            langInterval = setInterval(function () {
-                // Do something every 2 seconds
-                langCount++;
+    $('.slides').bind("DOMSubtreeModified", function () {
+        console.log("changed! updating slider");
+        setTimeout(function () {
+            $('.slider').slider({
+                indicators: false,
+                duration: 1000,
+                interval: 8000,
+            });
+        }, 2000);
 
-                if (langCount == 1) {
-                    Session.set("slideLang", "en");
-                } else if (langCount == 2) {
-                    Session.set("slideLang", "es");
-                } else {
-                    langCount = 0;
-                    Session.set("slideLang", "pt");
-                }
-
-            }, interval / 3);
-
-            clearInterval(autonext);
-            autonext = setInterval(function () {
-                slide++;
-                currentSlide();
-            }, interval);
-        },
-        autonext = setInterval(function () {
-            next();
-        }, interval);
+    });
 });
 
 
 
+
+
 Template.displaySpecials.helpers({
-    'imageFlipped': function(){
+    'plates': function () {
+
+
+        return Session.get("plates");
+    },
+    'plateLang': function (plate) {
+        let text = plate["info_" + Session.get("slideLang")];
+
+        return text;
+
+    }
+    /* 'imageFlipped': function(){
 
     },
     'platesList': function () {
@@ -123,7 +86,7 @@ Template.displaySpecials.helpers({
 
         return text;
 
-    }
+    } */
 });
 
 
