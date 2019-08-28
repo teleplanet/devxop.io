@@ -18,8 +18,9 @@ Template.deviceEdit.onRendered(function () {
     //$('.device-template-load').load(document.location.origin+ "/display" + template.name.capitalize());
     console.log(device.auth.access_token)
     console.log("Device link at:" + document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device.auth.access_token);
-});
 
+    $('.tabs').tabs();
+});
 
 
 
@@ -36,13 +37,13 @@ Template.deviceEdit.helpers({
 
             let diff = getDiffSeconds(time2, time1);
 
-            if(diff > 40){ //ping stamp update every 30 seconds
+            if (diff > 40) { //ping stamp update every 30 seconds
                 return "Offline";
-            }else{
+            } else {
                 return "Online";
             }
-        
-        }else{
+
+        } else {
             return "Unkown";
         }
 
@@ -174,6 +175,57 @@ Template.deviceEdit.helpers({
 });
 
 Template.deviceEdit.events({
+    'click .js-add-item': function () {
+        itemListModal(function (err, data) {
+            if (err) {
+                console.log("user cancele item selection");
+            } else {
+                let device = Session.get("device-edit");
+                let item = data;
+                let display = Session.get("module.selectedDisplay");
+
+                displayTemplate = DisplayTemplates.findOne({ "name": display, "user_id": Meteor.userId(), "device_id": device._id });
+
+                if (displayTemplate) {
+                    displayTemplate.display_items.push(item._id)
+
+                    let data = {
+                        "display_items": displayTemplate.display_items
+                    };
+
+
+
+                    Meteor.call("display.templates.edit", displayTemplate._id, data, function (err, data) {
+                        if (err) {
+                            console.log(err)
+                            notifyMessage("Failed item update", "danger");
+                        } else {
+                            notifyMessage("Item successfully updated", "success");
+                        }
+                    });
+                } else {
+
+                    let data = {
+                        "name": display,
+                        "display_items": [item._id],
+                        "user_id": Meteor.userId(),
+                        "device_id": device._id
+                    };
+
+
+
+                    Meteor.call("display.templates.insert", data, function (err, data) {
+                        if (err) {
+                            console.log(err)
+                            notifyMessage("Failed item update", "danger");
+                        } else {
+                            notifyMessage("Item successfully updated", "success");
+                        }
+                    });
+                }
+            }
+        });
+    },
     'click .js-image-upload-event': function (event) {
         let display = Session.get("module.selectedDisplay");
 
