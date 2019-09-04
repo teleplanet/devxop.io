@@ -7,3 +7,9 @@ Meteor.publish('itemsSubscriptionsPublic', function(items){
 
 	return Items.find({"_id": { "$in" : items} });
 });
+
+Meteor.publish('items.public', function(){
+
+
+	return Items.find({});
+});

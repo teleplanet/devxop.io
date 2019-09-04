@@ -324,7 +324,7 @@ Template.deviceEdit.events({
             }
         }
     },
-    'change .js-live-switch': function (event) {
+    'click .js-live-switch': function (event) {
         let data = {};
         let device = Session.get("device-edit");
 
@@ -337,8 +337,9 @@ Template.deviceEdit.events({
             return;
         }
 
+        data["selected_display"] = displayTemplate._id;
 
-        isCheckbox = $(event.target).is(':checkbox');
+        /* isCheckbox = $(event.target).is(':checkbox');
         if (isCheckbox) {
             if ($(event.target).is(":checked")) {
                 data["selected_display"] = displayTemplate._id;
@@ -347,7 +348,7 @@ Template.deviceEdit.events({
             }
         } else {
             console.log("not checkbox");
-        }
+        } */
 
         Meteor.call("devices.edit", device._id, data, function (err, data) {
             if (err) {
