@@ -24,8 +24,8 @@ Template.moduleImageUpload.events({
         if (ev.files && ev.files[0]) {
             new ImageCompressor(ev.files[0], {
                 quality: .8,
-                toWidth: 720,
-                toHeight: 480,
+                width: 720,
+                height: 480,
                 success(result) {
                     blobToDataURL(result, function(dataurl){
                         Session.set("module.imageUploadThumb", dataurl);
