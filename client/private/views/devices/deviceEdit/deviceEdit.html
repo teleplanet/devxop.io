@@ -12,6 +12,8 @@
                         <br>
                         <label>Status</label>
                         <p>{{isOnline}}</p>
+                        <br>
+                        <a href="{{deviceUrl}}" target="_blank">Live view here!</a>
                     </div>
                 </div>
                 <!-- <div class="card-action">
@@ -24,23 +26,40 @@
         <div class="card">
             <div class="card-content">
                 <div class="row">
-                    <div class="input-field col s6">
-                        <div class="sub-title">Device Name</div>
-                        <!-- <h4>{{device.name}}</h4> -->
+                    <div class="input-field col s12">
                         <input id="input-device-name" type="text" value="{{device.name}}" data-key="name"
                             class="validate valid deviceEdit">
-                        <!-- 
-                                <label class="active" for="input-device-name"></label> -->
                     </div>
-                    <div class="col s6">
-                        <div class="sub-title">Displayed Template</div>
-                        {{> moduleDisplaySelect}}
-                        <!-- <div class="device-template-load">
-                                    <iframe id="templateLoad" src="{{templateLoad}}"></iframe>
-                                </div> -->
-                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
                     <div class="col s12">
-                        <a href="{{deviceUrl}}" target="_blank">Live view here!</a>
+                        <div class="sub-title">Selected Display</div>
+                        <div class="card-action">
+                            {{> moduleDisplaySelect}}
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-title">Template Status</div>
+                <div class="card-action">
+                    <div class="row">
+                        <div class="col s12">
+
+                            {{#if displayTemplateVisible}}
+                            <p>Current template is live!</p>
+                            {{else}}
+                            <p>Current template is offline. Click "Go Live!" to make this your primary template
+                                being
+                                displayed.</p>
+                            <div class="button go-live js-live-switch" data-device-id="{{device._id}}">Go Live!
+                            </div>
+                            {{/if}}
+                        </div>
                     </div>
                 </div>
                 {{#if hasDisplay}}
@@ -67,12 +86,10 @@
                     <!-- ################### NORMAL TEMPLATE DISPLAY ############### -->
                     <div class="row">
                         {{#each item in selectedDisplayItems}}
-                        <div class="col s4">
+                        <div class="col s12 m6 l3">
                             <div class="card">
                                 <div class="card-image" style="overflow: inherit;">
                                     <img src="{{item.image_thumb}}">
-                                    <!-- <a class="btn-floating btn-large halfway-fab waves-effect waves-light red js-items-card-select"
-                                                                data-item-id="{{item._id}}"><i class="material-icons">open_in_new</i></a> -->
                                     <a class="btn-floating halfway-fab waves-effect waves-light red">
                                         <i class="material-icons js-display-item-remove"
                                             data-item-id="{{item._id}}">remove</i>
@@ -80,28 +97,10 @@
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title activator grey-text text-darken-4"
-                                        style="font-size: 20px;">{{truncate item.name 24}}</span>
+                                        style="font-size: 20px;">{{item.name}}</span>
                                 </div>
-                                <!-- <div class="card-action">
-                                    <a class="js-display-item-remove" style="cursor: pointer;"
-                                        data-item-id="{{item._id}}">Remove Item
-                                    </a>
-                                </div> -->
 
                             </div>
-                            <!-- <div class="list-items-card js-items-card-select" data-item-id="{{item._id}}">
-                                                    <div class="items-card-image" style="background-image: url({{item.image_thumb}})"></div>
-                                                    <div class="items-card-name">
-                                                        <h5>{{item.name}}</h5>
-                                                        <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">
-                                                            Remove Item
-                                                        </div>
-                                                    </div>
-                                                    <div class="items-card-info ellipsis">
-                                                                <div class="select-button danger js-display-item-remove" data-item-id="{{item._id}}">Remove Item
-                                                                </div>
-                                                            </div>
-                                                </div> -->
                         </div>
                         {{else}}
                         <p>You have no items selected to display</p>
@@ -110,8 +109,6 @@
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            <!-- <div class="sub-title">Add item to display</div>
-                            {{> moduleItemSelect}} -->
                             <a class="btn-floating btn-large waves-effect waves-light blue right js-add-item"><i
                                     class="material-icons">add</i></a>
                         </div>
@@ -121,28 +118,6 @@
                     <!-- ENDIF VIDEO DISPLAY -->
                     {{/if}}
                     <!-- ENDIF STATIC DISPLAY -->
-                </div>
-                <div class="sub-title">Template Status</div>
-                <div class="card-action">
-                    <div class="row">
-                        <div class="col s12">
-                            
-                            {{#if displayTemplateVisible}}
-                            <p>Current template is live!</p>
-                            {{else}}
-                            <p>Current template is offline. Click "Go Live!" to make this your primary template being displayed.</p>
-                            <div class="button go-live js-live-switch" data-device-id="{{device._id}}">Go Live!</div>
-                            {{/if}}
-
-                            <!-- <div class="switch">
-                                    <label>
-                                        <input class="js-live-switch" data-device-id="{{device._id}}" type="checkbox"
-                                            value="{{displayTemplateVisible}}" checked="{{displayTemplateVisible}}">
-                                        <span class="lever" style="transform: scale(1.8);"></span>
-                                    </label>
-                                </div> -->
-                        </div>
-                    </div>
                 </div>
 
 

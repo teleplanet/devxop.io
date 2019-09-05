@@ -100,18 +100,10 @@
                         <input id="input-name" type="text" value="{{item.name}}" data-key="name"
                             class="validate valid plateEdit">
                         <label class="active" for="input-name">Item Name</label>
-                        <h4> {{> moduleCategorySelect}}</h4>
+                        {{> moduleCategorySelect}}
                     </div>
                     <div class="col s6">
                         {{> moduleImageUpload}}
-
-                        <p>
-                            <label>
-                                <input type="checkbox" class="filled-in plateEdit" data-key="image_flipped"
-                                    checked="{{item.image_flipped}}" />
-                                <span>Flip image</span>
-                            </label>
-                        </p>
                     </div>
                 </div>
                 <div class="row">
@@ -156,7 +148,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <div class="select-button danger js-item-remove">Delete Item</div>
+                        <div class="button danger right js-item-remove">Delete Item</div>
                     </div>
                 </div>
             </div><!-- END ITEM EDIT TAB -->

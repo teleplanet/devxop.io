@@ -6,17 +6,17 @@
             <option value="{{display}}">{{display}}</option>
         {{/each}}
     </select> -->
-    <button class="select-button" id="displayButton">
+    <div class="button" id="displayButton">
         {{#if selected}}
         {{selected}}
         {{else}}
         Select display
-        {{/if}}<i class="material-icons">photo_size_select</i>
-    </button>
+        {{/if}}<i class="material-icons">expand_more</i>
+    </div>
 
     <div class="display-select-modal">
         {{#each display in displayList}}
-        <div class="select-list-button js-display-selected" data-display="{{display}}">{{display}}</div>
+        <div class="button list-button js-display-selected" data-display="{{display}}">{{display}}</div>
         {{else}}
         No displays available
         {{/each}}
