@@ -22,3 +22,28 @@ dataURItoBlob = function(dataURI) {
     return blob;
   
   }
+
+  // The function that scales an images with canvas then runs a callback.
+scaleImage = function(url, width, height, callback) {
+    var img = new Image(),
+        width = width,
+        height = height,
+        callback;
+
+    // When the images is loaded, resize it in canvas.
+    img.onload = function () {
+        var canvas = document.createElement("canvas"),
+            ctx = canvas.getContext("2d");
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // draw the img into canvas
+        ctx.drawImage(this, 0, 0, width, height);
+
+        // Run the callback on what to do with the canvas element.
+        callback(canvas);
+    };
+
+    img.src = url;
+}

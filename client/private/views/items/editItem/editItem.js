@@ -95,7 +95,7 @@ Template.editItem.events({
         postToFb(Session.get("item-edit"));
     },
     'click .js-image-upload-event': function(event){
-        console.log(event);
+        //console.log(event);
         let image = Session.get("module.imageUpload");
         let thumb = Session.get("module.imageUploadThumb");
         let id = Session.get("item-edit")["_id"];

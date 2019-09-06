@@ -8,7 +8,7 @@ Template.moduleImageUpload.onRendered(function () {
 Template.moduleImageUpload.helpers({
     'imageUrl': function () {
 
-        if(!Session.get("module.imageUpload"))
+        if (!Session.get("module.imageUpload"))
             return;
 
         return Session.get("module.imageUpload");
@@ -22,51 +22,63 @@ Template.moduleImageUpload.events({
         Session.set("module.processingLoader", true);
 
         if (ev.files && ev.files[0]) {
-            new ImageCompressor(ev.files[0], {
-                quality: .8,
-                width: 720,
-                height: 480,
-                success(result) {
-                    blobToDataURL(result, function(dataurl){
-                        Session.set("module.imageUploadThumb", dataurl);
-                    });
 
-                },
-                error(e) {
-                    console.log(e.message);
-                },
-            });
-
-
-            new ImageCompressor(ev.files[0], {
-                quality: .8,
-                width: 1920,
-                height: 1080,
-                success(result) {
-                    blobToDataURL(result, function(dataurl){
-                        Session.set("module.imageUpload", dataurl);
-
-                        //stop loader
-                        Session.set("module.processingLoader", false);
-
-                        $('.js-image-upload-event').click();
-                    });
-
-                },
-                error(e) {
-                    console.log(e.message);
-                },
-            });
-
-            /* var reader = new FileReader();
+            var reader = new FileReader();
 
             reader.onload = function (e) {
-                console.log("Session | module.imageUpload: " + reader.result.length);
+                var data = e.target.result;
 
-                //Session.set("module.imageUpload", e.target.result);
+                //SCALE IMAGE TO EXACT DIMENSIONS OF 480p
+                scaleImage(data, 720, 480, function (canvas) {
+                    // save canvas image as data url (png format by default)
+                    var blob = dataURItoBlob(canvas.toDataURL());
+
+                    new ImageCompressor(blob, {
+                        quality: .8,
+                        width: 720,
+                        height: 480,
+                        success(result) {
+                            blobToDataURL(result, function (dataurl) {
+                                Session.set("module.imageUploadThumb", dataurl);
+                            });
+        
+                        },
+                        error(e) {
+                            console.log(e.message);
+                        },
+                    });
+                    
+                });
+
+                //SCALE IMAGE TO EXACT DIMENSIONS OF 1080p
+                scaleImage(data, 1920, 1080, function (canvas) {
+                    // save canvas image as data url (png format by default)
+                    var blob = dataURItoBlob(canvas.toDataURL());
+        
+                    new ImageCompressor(blob, {
+                        quality: .8,
+                        width: 1920,
+                        height: 1080,
+                        success(result) {
+                            blobToDataURL(result, function (dataurl) {
+                                Session.set("module.imageUpload", dataurl);
+        
+                                //stop loader
+                                Session.set("module.processingLoader", false);
+        
+                                $('.js-image-upload-event').click();
+                            });
+        
+                        },
+                        error(e) {
+                            console.log(e.message);
+                        },
+                    });
+                    
+                });
             };
 
-            let dataURL = reader.readAsDataURL(ev.files[0]); */
+            reader.readAsDataURL(ev.files[0]);
 
         }
     },
