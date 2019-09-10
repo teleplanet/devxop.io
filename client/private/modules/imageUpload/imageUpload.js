@@ -47,6 +47,8 @@ Template.moduleImageUpload.events({
                             console.log(e.message);
                         },
                     });
+
+                    
                     
                 });
 

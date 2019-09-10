@@ -45,10 +45,6 @@ scaleImage = function (url, width, height, callback) {
         var y = (canvas.height / 2) - (img.height / 2) * scale;
         ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
 
-
-        // draw the img into canvas
-        //ctx.drawImage(this, 0, 0, width, height);
-
         // Run the callback on what to do with the canvas element.
         callback(canvas);
     };

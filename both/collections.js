@@ -23,6 +23,8 @@ Items = new Meteor.Collection('items');
 
 Categories = new Meteor.Collection('categories');
 
+Collections = new Meteor.Collection('collections');
+
 DisplayTemplates = new Meteor.Collection('displayTemplates');
 
 /* Videos = new Meteor.Collection("videos");

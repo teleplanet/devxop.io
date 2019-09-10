@@ -1,0 +1,68 @@
+<template name="collections">
+  <div class="row">
+    <div class="col s12">
+      <a class="btn-floating btn-large waves-effect waves-light red right js-add-collection"><i
+          class="material-icons">add</i></a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <ul class="collapsible">
+        {{#each col in collections}}
+
+        <li>
+          <div class="collapsible-header">
+            <!-- <i class="material-icons">filter_drama</i> -->{{col.name}}</div>
+          <div class="collapsible-body">
+            <div class="row">
+              <div class="sub-title">Collection Name</div>
+              <div class="divider"></div>
+              <div class="input-field col s12">
+                <input  type="text" value="{{col.name}}" data-key="name" data-collection-id="{{col._id}}"
+                  class="validate valid js-collection-edit">
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="sub-title">Collection Items</div>
+                <div class="divider"></div>
+                {{#each item in colItems (col.items) }}
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image" style="overflow: inherit;">
+                            <img src="{{item.image_thumb}}">
+                            <a class="btn-floating halfway-fab waves-effect waves-light red">
+                                <i class="material-icons js-collection-item-remove"
+                                    data-item-id="{{item._id}}" data-collection-id="{{col._id}}">remove</i>
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4"
+                                style="font-size: 20px;">{{item.name}}</span>
+                        </div>
+
+                    </div>
+                </div>
+                {{else}}
+                <p>You have no items selected to display</p>
+                {{/each}}
+
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <a class="btn-floating btn-large waves-effect waves-light blue right js-add-item"><i
+                            class="material-icons" data-item-id="{{item._id}}" data-collection-id="{{col._id}}">add</i></a>
+                </div>
+            </div>
+          </div>
+        </li>
+
+        {{else}}
+        <li>
+          <div class="collapsible-header disabled">There are no collections available, please create one above!</div>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</template>
