@@ -21,14 +21,13 @@ Template.collections.helpers({
 });
 
 Template.collections.events({
-    'click .js-add-item': function () {
+    'click .js-add-item': function (event) {
         let collectionId = $(event.target).data('collection-id');
-        let itemId = $(event.target).data('item-id');
         itemListModal(function (err, item) {
             if (err) {
                 //console.log("user canceled item selection");
             } else {
-                let collectionItems = Collections.findOne({ "_id": collectionId }).items;
+                let collectionItems = Collections.findOne({"_id": collectionId}).items;
 
                 collectionItems.push(item._id)
 
