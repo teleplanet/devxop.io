@@ -33,9 +33,11 @@ Template.publicCompany.onRendered(function () {
                                 console.log(err);
                             } else {
                                 col["items"] = items;
+                                col["timestamp"] = new Date().getTime();
     
     
                                 MenuCollections.insert(col);
+                                
                             }
                         });
     
@@ -51,9 +53,25 @@ Template.publicCompany.onRendered(function () {
 
 
 Template.publicCompany.helpers({
-    'collections': function () {
-        return MenuCollections.find().fetch();
+    'collections': function () {    
+        let company = Session.get("publicCompany");
+        let menu = MenuCollections.find().fetch();
+        let final = [];
+        
+        
+        if(company && menu){
+            let menuCol = company.public_collections;
+            for(let i = 0; i < menuCol.length; i++){
+                let col = MenuCollections.findOne({"collection_id": menuCol[i]});
+                //console.log(col);
+                if(col){
+                    final.push(col);
+                }
+            }
+            //console.log(final);
+        }
 
+        return final;
     },
     'company': function () {
 
