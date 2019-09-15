@@ -1,0 +1,22 @@
+<template name="moduleCollectionSelectModal">
+    <div class="collection-list-modal">
+        <div class="row">
+            <div class="col s12">
+                <i class="medium material-icons js-collection-list-cancel">close</i>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="collection">
+                {{#each col in collections}}
+                <li class="collection-item js-collection-selected" data-collection-id="{{col._id}}">{{col.name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col s6">
+
+            </div>
+        </div>
+    </div>
+    <div class="collection-list-background"></div>
+</template>

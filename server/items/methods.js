@@ -26,5 +26,10 @@ Meteor.methods({
 
         return true;
 
-    }
+    },
+    'items.docs': function (query) {
+        //console.log(data);
+        return Items.find(query).fetch();
+        
+    },
 })

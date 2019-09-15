@@ -1,4 +1,4 @@
-Router.route('/prints',{
+/* Router.route('/prints',{
 	name: 'menu',
 	controller: 'PrivateController',
 	action: function(){
@@ -6,4 +6,4 @@ Router.route('/prints',{
 		this.render('menu');
 
 	},
-});
+}); */

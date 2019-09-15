@@ -1,6 +1,7 @@
 import ImageCompressor from 'image-compressor.js';
 
 import Materialize from 'materialize-css';
+import $ from "jquery";
 global.M = global.Materialize = Materialize;
 
 Meteor.startup(function () {

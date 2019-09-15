@@ -7,8 +7,11 @@
   "dependencies": {
     "@babel/runtime": "^7.4.5",
     "bcrypt": "^3.0.6",
+    "dist": "^0.1.2",
     "html2canvas": "^1.0.0-rc.3",
     "image-compressor.js": "^1.1.4",
+    "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
     "materialize-css": "^1.0.0-rc.2",
     "meteor-node-stubs": "^0.3.2",
     "simpl-schema": "^1.5.5"

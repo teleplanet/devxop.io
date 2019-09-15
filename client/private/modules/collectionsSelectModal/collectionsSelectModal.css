@@ -1,0 +1,53 @@
+.collection-list-modal{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+	opacity: 0;
+	border-radius: 4px;
+    -moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-webkit-transform: scale(0);
+	-ms-transform: scale(0);
+	transform: scale(0);
+	will-change: transform;
+	-webkit-transform-origin: 50% 0;
+	-ms-transform-origin: 50% 0;
+	transform-origin: 50% 0;
+	-webkit-transition: -webkit-transform .2s cubic-bezier(.4,0,.2,1),opacity .2s cubic-bezier(.4,0,.2,1);
+	transition: transform .2s cubic-bezier(.4,0,.2,1),opacity .2s cubic-bezier(.4,0,.2,1);
+	z-index: -1;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.js-collection-list-cancel {
+    color: #fff !important;
+    float: right;
+}
+
+.collection-list-modal-toggled{
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	z-index: 1045;
+}
+
+
+.collection-list-modal-toggled ~ .collection-list-background{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background:rgba(96, 96, 96, 0.9);
+}
+
+
+/* LIST collection BOX */
+.list-collection-card{
+    height: 400px;
+    background-color: red;
+    margin-bottom: 20px;
+}

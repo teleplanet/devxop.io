@@ -1,0 +1,40 @@
+
+  
+  .sortable-section {
+    position: relative;
+    min-height: 280px;
+  }
+  
+  .non-sortable-text {
+    position: absolute;
+    bottom: 70px;
+    height: 75px;
+    margin: 0;
+  }
+  
+  .sortable-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .sortable-list-item {
+    margin-bottom: 15px;
+    padding: 22px;
+    color: #6e6e6e;
+    background-color: white;
+    border: 1px solid rgba(110, 110, 110, 0.3);
+    border-radius: 3px;
+    cursor: move;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .sortable-list-item.not-sortable {
+    cursor: initial;
+  }
+  
+  .sortable-list-item-placeholder {
+    margin-bottom: 20px;
+    background: rgba(112, 201, 197, 0.2);
+    border: 1px dashed #70C9C5;
+  }
