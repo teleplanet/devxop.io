@@ -29,7 +29,35 @@ Meteor.methods({
     },
     'collections.docs': function (query) {
         //console.log(data);
-        return Collections.find(query).fetch();
+        let final = [];
+        let collections = Collections.find(query).fetch();
+        
+
+        for (let i = 0; i < collections.length;  i++) {
+            let col = collections[i];
+    
+            /* col["collection_id"] = col._id;
+
+            delete col._id; */
+            
+            let query = {
+                "_id": {
+                    "$in": col.items
+                }
+            };
+
+            let items = Items.find(query).fetch();
+    
+            col["items"] = items;
+            col["timestamp"] = new Date().getTime();
+
+
+            final.push(col);
+
+        }
+
+
+        return final;
         
     },
 })
