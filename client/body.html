@@ -23,7 +23,6 @@
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
 
-  <script async src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
 
 
@@ -41,16 +40,17 @@
 
 
   <script>
+
     window.fbAsyncInit = function () {
       FB.init({
         appId: '463101157581514',
         cookie: true,
         xfbml: true,
         version: 'v3.3'
-      }, function(err,data){
-        if(err){
+      }, function (err, data) {
+        if (err) {
           console.log(err);
-        }else{
+        } else {
           console.log(data);
         }
       });
@@ -58,10 +58,9 @@
       FB.AppEvents.logPageView();
 
 
-      initFB();
+
       //Session.set("fbInitialized", true);
     };
-
     (function (d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) { return; }
@@ -71,14 +70,15 @@
     }(document, 'script', 'facebook-jssdk'));
   </script>
 
+  <script async src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 </head>
 
 <body>
-  
+
   <div class="background-body"></div>
-  
+
   {{> moduleProcessingLoader}}
-	{{> moduleEventMessages}}
+  {{> moduleEventMessages}}
   {{> moduleConfirmPopup}}
   {{> moduleItemListPopup}}
   {{> moduleCollectionSelectModal}}

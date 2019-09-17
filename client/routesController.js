@@ -68,6 +68,8 @@ PrivateController = RouteController.extend({
 			Session.set("company", Companies.findOne({"_id": Meteor.user().profile.company}));
 			//set session
 			Session.set("user", Meteor.user());
+
+			initFB();
 			
 		} else { this.render('Loading'); }
 	}

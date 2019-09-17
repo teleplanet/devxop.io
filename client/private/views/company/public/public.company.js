@@ -3,6 +3,7 @@ MenuCollections = new Mongo.Collection('menuCollections', { connection: null });
 Template.publicCompany.onRendered(function () {
 
     this.sessionWatcher = Session.watch('publicCompany', function (value) {
+        Session.set("module.processingLoader", true);
         let company = Session.get("publicCompany");
 
         if (company && company.public_collections) {
@@ -37,6 +38,7 @@ Template.publicCompany.onRendered(function () {
                         }
 
                         Session.set("publicCollections", final);
+                        Session.set("module.processingLoader");
                     }
 
 

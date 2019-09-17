@@ -46,7 +46,7 @@ Meteor.methods({
                 }
             };
 
-            let items = Items.find(query).fetch();
+            let items = Items.find(query, {fields: {image:0}}).fetch();
     
             col["items"] = items;
             col["timestamp"] = new Date().getTime();
