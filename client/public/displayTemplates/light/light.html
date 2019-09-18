@@ -4,7 +4,7 @@
             Sugestão Light
         </div>
         {{#if hasPlates}}
-            <div class="light-bubble-main" style="background-image: url({{platePrimary.image}})">
+            <div class="light-bubble-main" style="background-image: url({{imageUrl platePrimary.image}})">
                 <div class="bubble-main-info">
                     <div class="main-info-title">{{platePrimary.name}}</div>
                     <div class="main-info-cal">{{platePrimary.kcal}}Kcal</div>
@@ -13,7 +13,7 @@
             <div class="content-light-total-cal">
                 {{menuTotals.kcal}}Kcal
             </div>
-            <div class="light-bubble-secondary" style="background-image: url({{plateSecondary.image}})">
+            <div class="light-bubble-secondary" style="background-image: url({{imageUrl plateSecondary.image}})">
                 <div class="bubble-secondary-info">
                     <div class="secondary-info-title">{{plateSecondary.name}}</div>
                     <div class="secondary-info-cal">{{plateSecondary.kcal}}Kcal</div>

@@ -29,13 +29,12 @@ EmptyController = RouteController.extend({
 
 DisplayController = RouteController.extend({
 	layoutTemplate: 'displayBase',
-	/* waitOn: function(){
+	waitOn: function(){
 		return [
-			Meteor.subscribe('itemsSubscriptionsImage'),
-			Meteor.subscribe('devicesSubscriptions'),
-			Meteor.subscribe('displayTemplatesSubscriptions')
+			Meteor.subscribe('images'),
+			Meteor.subscribe('thumbnails')
 		];
-	} */
+	}
 });
 
 //Controller for private routes
@@ -55,7 +54,9 @@ PrivateController = RouteController.extend({
 			Meteor.subscribe('devicesSubscriptions'),
 			Meteor.subscribe('displayTemplatesSubscriptions'),
 			Meteor.subscribe('videos'),
-			Meteor.subscribe('collections.private')
+			Meteor.subscribe('collections.private'),
+			Meteor.subscribe('images'),
+			Meteor.subscribe('thumbnails')
 		];
 	},
 	action: function(){

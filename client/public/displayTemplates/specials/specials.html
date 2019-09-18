@@ -1,65 +1,24 @@
 <template name="displaySpecials">
+
     <div class="slideshow-title">
         {{company.name}} Specials
 
     </div>
-    <div class="slider fullscreen">
+    <div class="carousel carousel-slider center fullscreen">
+        {{#each plate in plates}}
+        <div class="carousel-item fullscreen" href="#{{plate.image}}">
+            <!-- <img src="{{imageUrl plate.image}}"> -->
+            <div class="carousel-image" style="background-image: url({{imageUrl plate.image}})">
 
-        <ul class="slides">
-            {{#each plate in plates}}
-            <li>
-                <img src="{{plate.image}}">
-                <!-- random image -->
-                <div class="caption slide-caption right-align valign-bottom">
-                    <h3>{{plate.name}}</h3>
-                    <h5>{{plate.info_pt}}</h5>
-                    <h3>{{plate.price}}€</h3>
-                </div>
-            </li>
-            {{/each}}
+            </div>
 
-        </ul>
-    </div>
-    <!-- <div id="slideshow">
-        <div class="slideshow-title">
-            {{company.name}} Specials
-            
+            <div class="caption slide-caption right-align valign-bottom">
+                <h3>{{plate.name}}</h3>
+                <h5>{{plate.info_pt}}</h5>
+                <h3>{{plate.price}}€</h3>
+            </div>
         </div>
-        <ul id="slides">
-            {{#each plate in platesList}}
-            <li class="slide-item slideActive" style="background-image: url({{plate.image}})">
-                <div class="slide-item-description lang-pt">
-                    {{plate.name}}<br>
-                    <div class="plate-description">{{plateLang plate}}</div>
-                    {{plate.price}}€
-                </div>
-            </li>
-            {{/each}}
-        </ul>
-    </div> -->
+        {{/each}}
+    </div>
 
-</template>
-
-<template name="gsTitle">
-    <svg viewBox="0 0 1000 800">
-        <symbol id="s-text">
-            <text text-anchor="middle" x="50%" y="35%" class="text--line">
-                G's
-            </text>
-            <text text-anchor="middle" x="50%" y="48%" class="text--line2">
-                Bistro
-            </text>
-
-        </symbol>
-
-        <g class="g-ants">
-            <use xlink:href="#s-text" class="text-copy"></use>
-            <use xlink:href="#s-text" class="text-copy"></use>
-            <use xlink:href="#s-text" class="text-copy"></use>
-            <use xlink:href="#s-text" class="text-copy"></use>
-            <use xlink:href="#s-text" class="text-copy"></use>
-        </g>
-
-
-    </svg>
 </template>

@@ -75,7 +75,7 @@ Template.company.events({
                 console.log(err);
             } else {
 
-            }
+            }publicCollections
         });
     },
     'click .js-remove-public-collection': function () {

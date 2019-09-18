@@ -11,6 +11,8 @@ Router.route('/display', {
 
 		return [
 			Meteor.subscribe('devicesSubscriptionsPublic', deviceId),
+			Meteor.subscribe('images'),
+			Meteor.subscribe('thumbnails')
 		]
 	},
 	action: function () {
@@ -38,6 +40,7 @@ Router.route('/display', {
 						Deps.autorun(function () {
 							var subscription2 = Meteor.subscribe('itemsSubscriptionsPublic', template.display_items);
 							var subscriptionVideo = Meteor.subscribe('videos');
+							
 							if (subscription2.ready() && subscriptionVideo) {
 								let finalPlates = Items.find().fetch();
 								let video = Videos.findOne({"_id": template.video_id});

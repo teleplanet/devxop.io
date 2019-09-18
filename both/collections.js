@@ -48,6 +48,52 @@ Videos = new FS.Collection("videos", {
 });
 
 
+var imageStore = new FS.Store.FileSystem('images');
+var thumbsStore = new FS.Store.FileSystem('thumbnails');
+
+Images = new FS.Collection('images', {
+    stores: [imageStore]
+});
+
+Thumbnails = new FS.Collection('thumbnails', {
+    stores: [thumbsStore]
+});
+
+
+Images.allow({
+    'insert': function () {
+        // add custom authentication code here
+        return true;
+    },
+    'update': function () {
+        // add custom authentication code here
+        return true;
+    },
+    'remove': function() {
+        return true;
+    },
+    'download': function() {
+        return true;
+    }
+});
+
+Thumbnails.allow({
+    'insert': function () {
+        // add custom authentication code here
+        return true;
+    },
+    'update': function () {
+        // add custom authentication code here
+        return true;
+    },
+    'remove': function() {
+        return true;
+    },
+    'download': function() {
+        return true;
+    }
+});
+
 
 Videos.allow({
     'insert': function () {

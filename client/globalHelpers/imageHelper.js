@@ -3,6 +3,38 @@ Template.registerHelper("getUrlFromBlob", function (blob) {
 	return URL.createObjectURL(blob);
 });
 
+Template.registerHelper("imageUrl", function (id) {
+    return imageUrl(id);
+});
+
+imageUrl = function(id){
+    let img = Images.findOne({"_id": id});
+
+
+    let url = "";
+    if(img){
+        url = img.url();
+    }
+
+    return  document.location.origin + url +'?'+new Date().getTime();
+}
+
+Template.registerHelper("thumbUrl", function (id) {
+
+    return thumbUrl(id);
+});
+
+thumbUrl = function(id){
+    let thumb = Thumbnails.findOne({"_id": id});
+    
+    let url = "";
+    if(thumb){
+        url = thumb.url();
+    }
+
+    return document.location.origin + url +'?'+new Date().getTime();
+}
+
 //**dataURL to blob**
 dataURLtoBlob = function(dataurl) {
     var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
