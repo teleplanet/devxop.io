@@ -1,0 +1,79 @@
+.company-header{
+    width: 100%;
+    height: 400px;
+    background-origin: content-box;
+    background-size: cover;
+    background-position: center;
+}
+
+.company-content{
+    width: 80%;
+    max-width: 1000px;
+    position: absolute;
+    z-index: 1000;
+    left: 10%;
+    right: 10%;
+    top: 200px;
+}
+
+@media only screen and (min-width: 1250px) {
+    .company-content{
+        left: calc(50% - 500px);
+        right: calc(50% - 500px);
+    }
+}
+
+.company-description{
+    background-color: #fff;
+    position: relative;
+    width: 100%;
+    float: left;
+    height: 400px;
+    padding: 5%;
+}.company-description > h3, .company-description > h2, .company-description > h1{
+    width: 100%;
+    color: #333;
+    padding-bottom: 20px;
+}
+
+.company-collection{
+    padding-top: 40px;
+    padding-bottom: 40px;
+    float: left;
+    width: 100%;
+    position: relative;
+}.company-collection > h4{
+    font-weight: 500;
+}
+
+.company-item{
+    height: 270px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #ccc;
+}
+
+.company-item-info{
+    width: calc(100% - 210px);
+    float: left;
+}
+.company-item-info > h5{
+    padding-bottom: 20px;
+}.company-item-info > p{
+    height: 100px;
+    text-overflow: ellipsis;
+    opacity: .7;
+}
+
+.company-item-image{
+    width: 210px;
+    height: 190px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: left;
+    background-origin: content-box;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #ccc;
+}
+

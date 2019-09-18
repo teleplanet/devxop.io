@@ -1,6 +1,13 @@
 Router.route('/menu/:company',{
 	name: "publicCompany",
 	controller: 'EmptyController',
+	waitOn: function () {
+
+		return [
+			Meteor.subscribe('images'),
+			Meteor.subscribe('thumbnails')
+		]
+	},
 	action: function(){
 
 		let company = Router.current().params.company;

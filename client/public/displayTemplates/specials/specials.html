@@ -1,10 +1,10 @@
 <template name="displaySpecials">
 
-    <div class="slideshow-title">
+    <!-- <div class="slideshow-title">
         {{company.name}} Specials
 
-    </div>
-    <div class="carousel carousel-slider center fullscreen">
+    </div> -->
+    <div id="slider" class="carousel carousel-slider center fullscreen">
         {{#each plate in plates}}
         <div class="carousel-item fullscreen" href="#{{plate.image}}">
             <!-- <img src="{{imageUrl plate.image}}"> -->

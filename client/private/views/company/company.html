@@ -27,6 +27,11 @@
                     </div>
                     <div class="row">
                         <div class="col s12">
+                            {{> moduleImageUpload}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
                             <h4>Menu Endpoint</h4>
                             <p>Please write a name for an endpoint you would like your clients to visit.</p>
                             <div class="input-field col s12">
@@ -67,7 +72,8 @@
                                 <ul class="sortable-list active">
                                     {{#each colId in company.public_collections}}
                                     <li class="sortable-list-item" data-col-id="{{colId}}"><span
-                                            class="fa fa-icon fa-ellipsis-v"></span> {{getCollection colId "name"}} <a class="js-remove-public-collection" data-col-id="{{colId}}">Remove</a></li>
+                                            class="fa fa-icon fa-ellipsis-v"></span> {{getCollection colId "name"}} <a
+                                            class="js-remove-public-collection" data-col-id="{{colId}}">Remove</a></li>
                                     {{else}}
                                     <p>There are no public collections available</p>
                                     {{/each}}

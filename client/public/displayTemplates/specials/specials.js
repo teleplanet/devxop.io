@@ -1,27 +1,32 @@
-var oldCount;
-
-var items;
-var template;
-var plates;
-var device;
-
-var langInterval;
 var interval;
+var refreshInit = 1;
 
 Template.displaySpecials.onRendered(function () {
+    $('#slider').carousel({
+        fullWidth: true,
+        duration: 0,
+    });
 
     this.sessionWatcher = Session.watch('plates', function (value) {
-        console.log("Session changed -> updating slider.");
-        $('.carousel.carousel-slider').carousel({
-            fullWidth: true,
-            duration: 0,
-        });
+        console.log("Plates session changed!");
+        if(refreshInit == 1){
+            console.log("Session watcher startup.");
+            refreshInit = 2;//set variable so that next update refreshes page
+        }else{
+            console.log("Refreshing page...");
+            location.reload();
+        }
 
-        interval = setInterval(function(){
-            $('.carousel.carousel-slider').carousel("next");
-        }, 8000)
-        
     });
+
+    interval = setInterval(function () {
+        let count = Session.get("plates").length;
+        //console.log(count);
+        if (count > 1) {
+            $('.carousel.carousel-slider').carousel("next");
+        }
+
+    }, 8000)
 });
 
 

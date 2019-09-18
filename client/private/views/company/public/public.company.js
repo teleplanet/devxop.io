@@ -2,6 +2,8 @@ MenuCollections = new Mongo.Collection('menuCollections', { connection: null });
 
 Template.publicCompany.onRendered(function () {
 
+    $("#body").css("overflow-y", "auto");
+
     this.sessionWatcher = Session.watch('publicCompany', function (value) {
         Session.set("module.processingLoader", true);
         let company = Session.get("publicCompany");
@@ -50,6 +52,9 @@ Template.publicCompany.onRendered(function () {
 
 
 Template.publicCompany.helpers({
+    'getThumb':function(){
+        return thumbUrl(Session.get("publicCompany").image_thumb);
+    },
     'collections': function () {
 
 

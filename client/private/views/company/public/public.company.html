@@ -1,5 +1,36 @@
 <template name="publicCompany">
-    <div class="row">
+
+    <div class="company-header" style="background-image: url({{imageUrl company.image}})"></div>
+
+    <div class="company-content">
+        <div class="company-description">
+            <h2>{{company.name}}</h2>
+            <p>{{{company.description}}}</p>
+        </div>
+
+        {{#each collection in collections}}
+        <div class="company-collection">
+            <h4>{{collection.name}}</h4>
+            {{#each item in collection.items}}
+            <div class="company-item">
+                <div class="company-item-info">
+                    <h5>{{item.name}}</h5>
+                    <p>{{item.info_en}}</p>
+                    <h5>{{item.price}}€ · {{item.kcal}}Kcal</h5>
+                </div>
+                <div class="company-item-image" style="background-image: url({{thumbUrl item.image_thumb}})">
+
+                </div>
+            </div>
+            {{/each}}
+
+        </div>
+        {{/each}}
+
+    </div>
+
+
+    <!-- <div class="row">
         <div class="col s12">
             <h2 class="center">{{company.name}}</h2>
             <br>
@@ -38,15 +69,8 @@
                 {{/each}}
             </div>
             {{else}}
-            <!-- <p>No collections public</p> -->
             {{/each}}
 
         </div>
-    </div>
-
-
-
-
-
-
+    </div> -->
 </template>

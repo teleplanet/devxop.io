@@ -60,6 +60,48 @@ Template.company.helpers({
 
 
 Template.company.events({
+    'click .js-image-upload-event': function(){
+        let image = Session.get("module.imageUpload");
+        let thumb = Session.get("module.imageUploadThumb");
+        let company = Session.get("company");
+
+        let data = {};
+
+        var imageObj = new FS.File(dataURItoBlob(image));
+        imageObj['user_id'] = Meteor.userId();
+        Images.insert(imageObj, function (err, image) {
+            // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+            if (err) {
+                console.log(err);
+            } else {
+                data['image'] = image._id;
+                Images.remove({"_id": company.image});
+
+                var thumbObj = new FS.File(dataURItoBlob(thumb));
+                thumbObj['user_id'] = Meteor.userId();
+                Thumbnails.insert(thumbObj, function (err, thumbnail) {
+                    // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        data['image_thumb'] = thumbnail._id;
+                        Thumbnails.remove({"_id": company.image_thumb});
+
+                        Meteor.call("company.edit", company._id, data, function (err, data) {
+                            if (err) {
+                                console.log(err)
+                                notifyMessage("Failed image upload", "danger");
+                            } else {
+                                notifyMessage("Image successfully updated", "success");
+                            }
+                        });
+
+                    }
+                });
+
+            }
+        });
+    },
     'change .js-company-edit': function (event) {
         let company = Session.get("company");
 
