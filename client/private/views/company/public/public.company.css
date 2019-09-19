@@ -36,6 +36,32 @@
     .company-item-modal-toggled{
         transform: translateX(1%) !important;
     }
+
+
+    .company-item{
+        height: auto;
+        float: left;
+    }
+    
+    .company-item-info{
+        width: calc(100% - 25%);
+        float: left;
+    }
+    .company-item-info > h5{
+        padding-bottom: 1%;
+        float: left;
+
+    }.company-item-info > p{
+        height: auto;
+        opacity: .7;
+        float: left;
+    }
+    
+    .company-item-image{
+        float: left;
+        width: 25%;
+        height: 25vh;
+    }
 }
 
 @media only screen and (min-width: 1250px) {
