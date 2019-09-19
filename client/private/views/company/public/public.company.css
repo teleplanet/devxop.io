@@ -42,6 +42,7 @@
         width: 100% !important;
         height: auto;
         float: left;
+        padding-bottom: 10px;
     }
     
     .company-item-info{
@@ -88,7 +89,8 @@
     position: relative;
     width: 100%;
     float: left;
-    height: 400px;
+    height: auto;
+    min-height: 400px;
     padding: 5%;
 }.company-description > h3, .company-description > h2, .company-description > h1{
     width: 100%;
