@@ -21,6 +21,16 @@
         left: calc(50% - 500px);
         right: calc(50% - 500px);
     }
+
+
+    .company-item-modal{
+        width: 50% !important;
+        transform: translateX(101%) !important;
+    }
+    
+    .company-item-modal-toggled{
+        transform: translateX(1%) !important;
+    }
 }
 
 .company-description{
@@ -77,3 +87,32 @@
     border: 2px solid #ccc;
 }
 
+
+
+.company-item-modal{
+	position: fixed;
+    background-color: #fff;
+    width: 400px;
+    height: 100vh;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    transform: translateX(405px);
+    transition: all 600ms;
+    color: #333;
+    right: 0;
+    top: 0;
+    z-index: 2000;
+}
+
+.company-item-modal-toggled{
+	transform: translateX(5px);
+}
+
+.company-item-modal > .company-item-header{
+    height: 40%;
+    width: 100%;
+    background-origin: content-box;
+    background-size: cover;
+    background-position: center;
+}

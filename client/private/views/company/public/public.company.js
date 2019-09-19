@@ -63,5 +63,42 @@ Template.publicCompany.helpers({
     'company': function () {
 
         return Session.get("publicCompany");
+    },
+    'selectedItem': function(){
+        return Session.get("publicSelectedItem");
+    }
+});
+
+Template.publicCompany.events({
+    'click .js-company-item': function(event){
+        let itemId = $(event.currentTarget).data("item-id"); 
+
+        let collections = Session.get("publicCollections");
+        for (let z = 0; z < collections.length; z++) {
+            let items = collections[z].items;
+            //console.log(items);
+            for(let i = 0; i < items.length; i++){
+                //console.log(items[i]);
+                //console.log(itemId);
+                if(items[i]._id == itemId){
+                    //console.log(items[i]);
+                    Session.set("publicSelectedItem", items[i]);
+                }
+            }
+        }
+
+        $(".company-item-modal").toggleClass("company-item-modal-toggled");
+        $("#body").css("overflow-y", "hidden");
+    }
+});
+
+$(document).mouseup(function (e) {
+    var container2 = $(".company-item-modal");
+
+
+    if (!container2.is(e.target) // if the target of the click isn't the container...
+        && container2.has(e.target).length === 0) {
+        container2.removeClass("company-item-modal-toggled");
+        $("#body").css("overflow-y", "auto");
     }
 });
