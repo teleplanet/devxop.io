@@ -39,28 +39,30 @@
 
 
     .company-item{
+        width: 100% !important;
         height: auto;
         float: left;
     }
     
     .company-item-info{
-        width: calc(100% - 25%);
+        width: 70% !important;
         float: left;
     }
     .company-item-info > h5{
         padding-bottom: 1%;
         float: left;
-
+        width: 70%;
     }.company-item-info > p{
         height: auto;
+        width: 70%;
         opacity: .7;
         float: left;
     }
     
     .company-item-image{
         float: left;
-        width: 25%;
-        height: 25vh;
+        width: 30% !important;
+        height: 15vh !important;
     }
 }
 
