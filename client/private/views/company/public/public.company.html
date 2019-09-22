@@ -8,11 +8,11 @@
     </div>
     <div class="row">
         <div class="col s12">
-            <h2>Ready</h2>
+            <h2>Ready <b>({{readyPagers.length}})</b></h2>
             <div class="divider"></div>
             <p>Here you can find if your food is ready for pick-up!</p>
             {{#each pager in readyPagers}}
-            <div class="col s12 m6 l3">
+            <div class="col s6 m6 l3">
                 <div class="card state{{pager.state}} card-pulse" >
                     <div class="card-content white-text">
                         <span class="card-title">{{pager.name}}</span>
@@ -27,11 +27,11 @@
     </div>
     <div class="row">
         <div class="col s12">
-            <h2>Preparing</h2>
+            <h2>Preparing <b>({{preparingPagers.length}})</b></h2>
             <div class="divider"></div>
             <p>Pagers here mean that the food is still currently being prepared</p>
             {{#each pager in preparingPagers}}
-            <div class="col s12 m6 l3">
+            <div class="col s6 m6 l3">
                 <div class="card state{{pager.state}}">
                     <div class="card-content white-text">
                         <span class="card-title">{{pager.name}}</span>

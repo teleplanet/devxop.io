@@ -68,7 +68,13 @@ Template.publicCompany.helpers({
         return Session.get("publicSelectedItem");
     },
     'readyPagers': function(){
-        return Pagers.find({"state": 3}).fetch();
+
+        let ready = Pagers.find({"state": 3}).fetch();
+
+        if(ready.length > 0)
+            $("div").animate({ scrollTop: 0 }, "slow");
+
+        return ready;
     },
     'preparingPagers': function(){
         return Pagers.find({"state": 2}).fetch();
