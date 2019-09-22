@@ -8,6 +8,23 @@ LatestLocations = new Meteor.Collection('latestLocations');
 
 LocationHistory = new Meteor.Collection('locationHistory');
 
+Pagers = new Meteor.Collection('pagers');
+
+Pagers.allow({
+    insert: function (userId, doc) {
+        // the user must be logged in, and the document must be owned by the user
+        return true;
+    },
+    update: function (userId, doc, fields, modifier) {
+        // can only change your own documents
+        return true;
+    },
+    remove: function (userId, doc) {
+        // can only remove your own documents
+        return true;
+    }
+});
+
 
 Companies = new Meteor.Collection('companies');
 
@@ -69,10 +86,10 @@ Images.allow({
         // add custom authentication code here
         return true;
     },
-    'remove': function() {
+    'remove': function () {
         return true;
     },
-    'download': function() {
+    'download': function () {
         return true;
     }
 });
@@ -86,10 +103,10 @@ Thumbnails.allow({
         // add custom authentication code here
         return true;
     },
-    'remove': function() {
+    'remove': function () {
         return true;
     },
-    'download': function() {
+    'download': function () {
         return true;
     }
 });
@@ -104,10 +121,10 @@ Videos.allow({
         // add custom authentication code here
         return true;
     },
-    'remove': function() {
+    'remove': function () {
         return true;
     },
-    'download': function() {
+    'download': function () {
         return true;
     }
 });

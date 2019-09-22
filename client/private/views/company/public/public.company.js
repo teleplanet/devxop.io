@@ -2,9 +2,9 @@ MenuCollections = new Mongo.Collection('menuCollections', { connection: null });
 
 Template.publicCompany.onRendered(function () {
 
-    $("#body").css("overflow-y", "auto");
+    /* $("#body").css("overflow-y", "auto"); */
 
-    this.sessionWatcher = Session.watch('publicCompany', function (value) {
+    /* this.sessionWatcher = Session.watch('publicCompany', function (value) {
         Session.set("module.processingLoader", true);
         let company = Session.get("publicCompany");
 
@@ -47,7 +47,7 @@ Template.publicCompany.onRendered(function () {
                 }
             });
         }
-    });
+    }); */
 });
 
 
@@ -66,6 +66,23 @@ Template.publicCompany.helpers({
     },
     'selectedItem': function(){
         return Session.get("publicSelectedItem");
+    },
+    'readyPagers': function(){
+        return Pagers.find({"state": 3}).fetch();
+    },
+    'preparingPagers': function(){
+        return Pagers.find({"state": 2}).fetch();
+    },
+    'getStateDescription': function(state){
+        if(state == 1){
+            return "Pager is not in use.";
+        }else if(state == 2){
+            return "Your food is currently being prepared. May take up to 15min.";
+        }else if(state == 3){
+            return "Your food is ready! Please go get it!"
+        }else{
+            return "";
+        }
     }
 });
 
@@ -99,6 +116,6 @@ $(document).mouseup(function (e) {
     if (!container2.is(e.target) // if the target of the click isn't the container...
         && container2.has(e.target).length === 0) {
         container2.removeClass("company-item-modal-toggled");
-        $("#body").css("overflow-y", "auto");
+       /*  $("#body").css("overflow-y", "auto"); */
     }
 });

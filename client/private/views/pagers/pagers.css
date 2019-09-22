@@ -1,0 +1,89 @@
+.pager-action > a{
+    cursor: pointer;
+
+}.pager-action > a.active{
+    background-color: #ff8a80 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+.card-pulse{
+        box-shadow: 0 0 0 rgba(244,67,54, 0.9);
+        animation: card-pulse 2s infinite;
+        border: 2px solid #b71c1c;
+}
+
+@-webkit-keyframes card-pulse {
+    0% {
+      -webkit-box-shadow: 0 0 0 0 rgba(244,67,54, 0.9);
+    }
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(244,67,54, 0);
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(244,67,54, 0);
+    }
+  }
+  @keyframes card-pulse {
+    0% {
+      -moz-box-shadow: 0 0 0 0 rgba(244,67,54, 0.9);
+      box-shadow: 0 0 0 0 rgba(244,67,54, 0.9);
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(244,67,54, 0);
+        box-shadow: 0 0 0 10px rgba(244,67,54, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(244,67,54, 0);
+        box-shadow: 0 0 0 0 rgba(244,67,54, 0);
+    }
+  }
+
+.card-tabs{
+    
+}
+.card-tab-item{
+    width: calc((100% - 2px) / 3);
+    float: left;
+    cursor: pointer;
+    background-color: #e5e5e5;
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}.card-tab-item:hover{
+    background-color: #ff8a80;
+}.card-tab-item.active{
+    background-color: #ff8a80;
+}
+
+.card-tab-item:nth-child(1), .card-tab-item:nth-child(2){
+    border-right: 1px solid #fff;
+}
+
+.state1{
+    background-color: #009688 !important;
+}.state1 > #stateDescription {
+    content: "Pager is not in use.";
+}
+
+.state2{
+    background-color: #03a9f4 !important;
+}.state2 > #stateDescription {
+    content: "Your food is currently being prepared. May take up to 15min.";
+}
+
+
+.state3{
+    background-color: #f44336 !important;
+}.state3 > #stateDescription {
+    content: "Your food is ready! Please go get it!";
+}
+
+
+.state-description{
+    font-size: 18px !important;
+    color: #fff !important;
+
+}
+

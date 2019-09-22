@@ -1,0 +1,38 @@
+<template name="pagers">
+    <div class="row">
+        <div class="col">
+            <h2></h2>
+        </div>
+    </div>
+    <div class="row">
+        {{#each pager in pagers}}
+        <div class="col s12 m6 l3">
+            <div class="card state{{pager.state}}">
+                <div class="card-content white-text">
+                    <span class="card-title">{{pager.name}}</span>
+                    <p class="state-description"></p>
+                </div>
+                <div class="card-tabs">
+                    <div data-pager-id="{{pager._id}}" data-state="1" class="card-tab-item js-state-select {{isActive pager.state 1}}">
+                        Inactive
+                    </div>
+                    <div data-pager-id="{{pager._id}}" data-state="2" class="card-tab-item js-state-select {{isActive pager.state 2}}">
+                        Preparing
+                    </div>
+                    <div data-pager-id="{{pager._id}}" data-state="3" class="card-tab-item js-state-select {{isActive pager.state 3}}">
+                        Finished
+                    </div>
+                    <!-- <ul id="pager-tabs" class="tabs tabs-fixed-width">
+                        <li class="tab pager-action"><a href="#{{pager.index}}inactive" data-pager-id="{{pager._id}}" data-state="1" class="active js-state-select">Inactive</a></li>
+                        <li class="tab pager-action"><a href="#{{pager.index}}preparing" data-pager-id="{{pager._id}}" data-state="2" class="js-state-select">Preparing</a></li>
+                        <li class="tab pager-action"><a href="#{{pager.index}}finished" data-pager-id="{{pager._id}}" data-state="3" class="js-state-select">Finished</a></li>
+                    </ul> -->
+                </div>
+                <!-- <div class="card-action pager-action">
+                    <div></div>>
+                </div> -->
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</template>

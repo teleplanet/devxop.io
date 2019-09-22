@@ -24,7 +24,12 @@ PublicController = RouteController.extend({
 });
 
 EmptyController = RouteController.extend({
-	layoutTemplate: 'emptyBase'
+	layoutTemplate: 'emptyBase',
+	waitOn: function(){
+		return [
+			Meteor.subscribe('pagers'),
+		];
+	}
 });
 
 DisplayController = RouteController.extend({

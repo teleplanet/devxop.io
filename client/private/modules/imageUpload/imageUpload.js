@@ -48,7 +48,7 @@ Template.moduleImageUpload.events({
                                 //SCALE IMAGE TO EXACT DIMENSIONS OF 1080p
                                 scaleImage(data, 1920, 1080, function (canvas) {
                                     // save canvas image as data url (png format by default)
-                                    var blob = dataURItoBlob(canvas.toDataURL());
+                                    var blob = dataURItoBlob(canvas.toDataURL("image/jpeg"));
 
                                     new ImageCompressor(blob, {
                                         quality: .6,
