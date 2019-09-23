@@ -24,19 +24,46 @@ webpush.setVapidDetails(
  */
 
 Meteor.methods({
-  'notifications.subscribe': function (sub) {
-    PushNotifications.insert({
-      payload: sub,
+  'notifications.validate': function (data) {
+    
+    let sub = PushNotifications.findOne(data);
+
+    if(!sub){
+      return;
+    }else{
+      return sub;
+    }
+  },
+  'notifications.subscribe': function (data) {
+
+    PushNotifications.remove({"company_id": data.company_id, "user_fingerprint": data.user_fingerprint}, function(err){
+      PushNotifications.insert(data);
     });
   },
-  'notifications.pagers': function () {
+  'notifications.unsubscribe': function (data) {
+    data.pager = data.pager.toString();
+    let sub = PushNotifications.findOne(data);
 
-    let notifications = PushNotifications.find().fetch();
+    if(sub){
+      PushNotifications.remove(sub._id);
+    }
+    
+  },
+  'notifications.notify': function (data) {
+
+    data.pager = data.pager.toString();
+    let sub = PushNotifications.findOne(data);
+
+    if(sub){
+      webpush.sendNotification(JSON.parse(sub.payload), "Pager(" + sub.pager+")");
+    }
+
+    /* let notifications = PushNotifications.find().fetch();
 
     for(let i = 0; i < notifications.length; i++){
       //console.log(notifications[i]);
       webpush.sendNotification(JSON.parse(notifications[i].payload), 'Your Push Payload Text');
-    }
+    } */
   },
 })
 

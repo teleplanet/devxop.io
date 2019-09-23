@@ -1,6 +1,6 @@
 Router.route('/pagers',{
 	name: "pagers",
-	controller: 'EmptyController',
+	controller: 'PrivateController',
 	action: function(){
 
 		this.render('pagers');

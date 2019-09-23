@@ -21,15 +21,15 @@ function urlB64ToUint8Array(base64String) {
     return outputArray;
 }
 
-self.addEventListener('push', function (event) {
-    console.log(event.data.text());
+self.addEventListener('push', function (data) {
+    //console.log(event.data.text());
 
     console.log('[Service Worker] Push Received.');
-    console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+    //console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-    const title = "Pager.io (G's Bistro)";
+    const title = "devxop.com Virtual Pager";
     const options = {
-        body: "Pager Alarm! Your food is ready",
+        body: "Pager Alarm!",
         icon: 'images/icon.png',
         badge: 'images/badge.png'
     };

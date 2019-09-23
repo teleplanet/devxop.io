@@ -44,7 +44,7 @@ Router.route('/gsbistro',{
 
 		let company = Router.current().params.company;
 		
-		/* Meteor.call("company.doc", {"endpoint": company}, function(err, doc){
+		Meteor.call("company.doc", {"endpoint": "gsbistro"}, function(err, doc){
 
 
 			if(err){
@@ -53,7 +53,7 @@ Router.route('/gsbistro',{
 				Session.set("publicCompany", doc);
 			}
 			
-		}); */
+		});
 
 		this.render('publicCompany');
 

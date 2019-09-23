@@ -1,0 +1,24 @@
+.select-pager{
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+}.select-pager > input{
+    padding: 30px !important;
+    -webkit-appearance: none; 
+    margin: 0;
+    font-size: 48px !important;
+    font-weight: bold;
+    width: 80px !important;
+    text-align: center;
+
+}
+
+
+.select-pager > input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+.select-pager > input::-webkit-outer-spin-button,
+.select-pager > input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}

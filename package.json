@@ -13,7 +13,7 @@
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
     "materialize-css": "^1.0.0-rc.2",
-    "meteor-node-stubs": "^0.3.2",
+    "meteor-node-stubs": "^0.3.3",
     "simpl-schema": "^1.5.5",
     "web-push": "^3.3.5"
   }

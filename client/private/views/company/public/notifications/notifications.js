@@ -1,3 +1,4 @@
+
 const applicationServerPublicKey = 'BA477LIzpRITyZ83BaNVX5mjUOiNok2p0Kt9k7elV8sjmtro_kfwpcdVcD5JxVEGNyW5-P1QRny2n-K4GGodSi0';
 
 let pushButton = null;
@@ -5,19 +6,6 @@ let pushButton = null;
 let isSubscribed = false;
 let swRegistration = null;
 
-self.addEventListener('push', function (event) {
-    console.log('[Service Worker] Push Received.');
-    console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
-
-    const title = 'Push Codelab';
-    const options = {
-        body: 'Yay it works.',
-        icon: 'images/icon.png',
-        badge: 'images/badge.png'
-    };
-
-    event.waitUntil(self.registration.showNotification(title, options));
-});
 
 function urlB64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -59,20 +47,43 @@ function updateSubscriptionOnServer(subscription) {
         $('.js-subscription-details');
 
     if (subscription) {
+        /* Session.set("push.subscription", subscription); */
         let sub = JSON.stringify(subscription);
 
+        let data = {
+            payload: sub,
+            user_fingerprint: Session.get("fingerprint"),
+            company_id: Session.get("publicCompany")._id,
+            pager: Session.get("pager.number"),
+            created: new Date().getTime()
+        }
 
-        Meteor.call("notifications.subscribe", sub, function (err, data) {
+
+        Meteor.call("notifications.subscribe", data, function (err, data) {
             if (err) { }
             else {
                 console.log("[ServiceWorker] Pager subscribed: " + data);
             }
         });
 
-        subscriptionJson.text(sub);
-        subscriptionDetails.removeClass('is-invisible');
+        //subscriptionJson.text(sub);
+        //subscriptionDetails.removeClass('is-invisible');
     } else {
-        subscriptionDetails.addClass('is-invisible');
+        //subscriptionDetails.addClass('is-invisible');
+
+        let data = {
+            user_fingerprint: Session.get("fingerprint"),
+            company_id: Session.get("publicCompany")._id
+        }
+
+        Meteor.call("notifications.unsubscribe", data, function (err, data) {
+            if (err) { }
+            else {
+                console.log("[ServiceWorker] Pager unsubscribed");
+
+                /* Session.set("push.subscription", false); */
+            }
+        });
     }
 }
 
@@ -90,11 +101,11 @@ subscribeUser = function () {
 
             isSubscribed = true;
 
-            updateBtn();
+            //updateBtn();
         })
         .catch(function (err) {
             console.log('Failed to subscribe the user: ', err);
-            updateBtn();
+            //updateBtn();
         });
 }
 
@@ -123,7 +134,7 @@ unsubscribeUser = function () {
             console.log('User is unsubscribed.');
             isSubscribed = false;
 
-            updateBtn();
+            //updateBtn();
         });
 }
 
@@ -134,22 +145,62 @@ function initializeUI() {
         .then(function (subscription) {
             isSubscribed = !(subscription === null);
 
-            updateSubscriptionOnServer(subscription);
+            let query = {
+                user_fingerprint: Session.get("fingerprint"),
+                company_id: Session.get("publicCompany")._id
+            };
 
-            if (isSubscribed) {
-                console.log('User IS subscribed.');
-                console.log(subscription);
+            Meteor.call("notifications.validate", query, function (err, data) {
+                if (err) {
+                    console.log(err);
+                }
 
-                console.log(JSON.stringify(subscription));
-            } else {
-                console.log('User is NOT subscribed.');
-            }
+                if (data) {
 
-            updateBtn();
+
+                    console.log(data);
+
+                    updateSubscriptionOnServer(subscription);
+
+                    if (isSubscribed) {
+                        console.log('User IS subscribed.');
+                        console.log(subscription);
+
+                        console.log(JSON.stringify(subscription));
+                    } else {
+                        console.log('User is NOT subscribed.');
+                    }
+                } else {
+                    unsubscribeUser();
+                    console.log('User is NOT subscribed.');
+                }
+            });
+
+
+
+            //updateBtn();
         });
 }
 
 Template.notification.onRendered(function () {
+
+    let query = {
+        user_fingerprint: Session.get("fingerprint"),
+        company_id: Session.get("publicCompany")._id
+    };
+
+    // Subscribe
+    var subs = this.subscribe("publicPushNotifications", query);
+
+    // Do reactive stuff when subscribe is ready
+    this.autorun(function () {
+        if (!subs.ready())
+            return;
+        
+        Session.set("push.subscription", PushNotifications.findOne());
+    });
+
+
     pushButton = $('.js-push-btn');
 
     Notification.requestPermission(function (result) {
@@ -177,14 +228,38 @@ Template.notification.onRendered(function () {
 
 });
 
+
+Template.notification.helpers({
+    'subscription': function () {
+        return Session.get("push.subscription");
+    }
+})
+
 Template.notification.events({
-    'click .js-push-btn': function () {
-        console.log("clicked!");
-        pushButton.hide();
-        if (isSubscribed) {
-            unsubscribeUser();
+    'change .js-pager-number': function (event) {
+        let num = $(event.target).val();
+
+        Session.set("pager.number", num);
+
+    },
+    'click .js-sub-push': function () {
+
+        let num = Session.get("pager.number");
+
+        if (!num || num <= 0 || num >= 25) {
+
         } else {
-            subscribeUser();
+            //pushButton.hide();
+            if (isSubscribed) {
+                unsubscribeUser();
+            } else {
+                subscribeUser();
+            }
         }
+
+    },
+    'click .js-unsub-push': function () {
+        unsubscribeUser();
+
     }
 })

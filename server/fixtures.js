@@ -93,11 +93,6 @@ dbFixtures = function () {
 
     } */
     
-    let pagers = Pagers.find().fetch();
-
-    if (pagers.length < 1) {
-        console.log('[FXT] Setting up 24 virtual pagers');
-    }
 
     let companies = Companies.find().fetch();
 

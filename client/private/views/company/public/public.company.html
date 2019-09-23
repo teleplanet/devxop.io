@@ -1,15 +1,13 @@
 <template name="publicCompany">
 
     <div class="row">
-        <div class="col">
-            <h2>Virtual Pages</h2>
-            <p>View the status of your order by looking for the number of your pager!</p>
-
+        <div class="col s12">
+            <h2 class="center">Virtual Pager</h2>
             {{> notification}}
         </div>
     </div>
     <div class="row">
-        <div class="col s12">
+        <div class="col s12 m6 l6">
             <h2>Ready <b>({{readyPagers.length}})</b></h2>
             <div class="divider"></div>
             <p>Here you can find if your food is ready for pick-up!</p>
@@ -26,9 +24,7 @@
             <p>Currently there are no active pagers available.</p>
             {{/each}}
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
+        <div class="col s12 m6 l6">
             <h2>Preparing <b>({{preparingPagers.length}})</b></h2>
             <div class="divider"></div>
             <p>Pagers here mean that the food is still currently being prepared</p>

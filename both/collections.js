@@ -10,6 +10,11 @@ LocationHistory = new Meteor.Collection('locationHistory');
 
 
 PushNotifications = new Meteor.Collection('pushNotifications');
+
+if(Meteor.isServer){
+    PushNotifications._ensureIndex( { "created": 1 }, { expireAfterSeconds: 25 * 60 } );
+}
+
 PushNotifications.allow({
     insert: function (userId, doc) {
         // the user must be logged in, and the document must be owned by the user

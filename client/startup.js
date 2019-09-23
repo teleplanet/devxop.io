@@ -9,6 +9,10 @@ Meteor.startup(function () {
 	Session.set('vH', $(document).height());
 	Session.set('vW', $(document).width());
 
+	//set or get user fingerprint (unique id identifier)´
+	// sets a session -> "fingerprint"
+	fingerprint();
+
 	switch (process.env.NODE_ENV) {
 		case 'development':
 			console.log('[ENV: Development]\nClient Startup @' + moment().format('HH:mm:ss'));
