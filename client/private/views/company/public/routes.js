@@ -36,7 +36,8 @@ Router.route('/gsbistro',{
 		return [
 			/* Meteor.subscribe('images'),
 			Meteor.subscribe('thumbnails') */
-			Meteor.subscribe("pagers")
+			Meteor.subscribe("pagers"),
+			Meteor.subscribe("pushNotifications")
 		]
 	},
 	action: function(){
