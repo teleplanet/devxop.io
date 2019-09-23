@@ -9,6 +9,7 @@
 
 .card-pulse{
         
+    
         animation: card-pulse 2s infinite;
         /* border: 2px solid #b71c1c; */
 }
