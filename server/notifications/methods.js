@@ -25,7 +25,7 @@ webpush.setVapidDetails(
 
 Meteor.methods({
   'notifications.validate': function (data) {
-    
+
     let sub = PushNotifications.findOne(data);
 
     if(!sub){
@@ -41,21 +41,24 @@ Meteor.methods({
     });
   },
   'notifications.unsubscribe': function (data) {
-    data.pager = data.pager.toString();
+    if(data.pager)
+      data.pager = data.pager.toString();
+    
+    
     let sub = PushNotifications.findOne(data);
-
     if(sub){
       PushNotifications.remove(sub._id);
     }
     
   },
   'notifications.notify': function (data) {
-
     data.pager = data.pager.toString();
     let sub = PushNotifications.findOne(data);
 
     if(sub){
       webpush.sendNotification(JSON.parse(sub.payload), "Pager(" + sub.pager+")");
+    }else{
+      console.log("couldnt find sub to send notification");
     }
 
     /* let notifications = PushNotifications.find().fetch();

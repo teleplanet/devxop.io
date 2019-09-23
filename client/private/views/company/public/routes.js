@@ -5,23 +5,14 @@ Router.route('/menu/:company',{
 
 		return [
 			Meteor.subscribe('images'),
-			Meteor.subscribe('thumbnails')
+			Meteor.subscribe('thumbnails'),
+			Meteor.subscribe("publicCompany", Router.current().params.company)
 		]
 	},
 	action: function(){
 
-		let company = Router.current().params.company;
+		Session.set("publicCompany", Companies.findOne());
 		
-		Meteor.call("company.doc", {"endpoint": company}, function(err, doc){
-
-
-			if(err){
-				console.log(err);
-			}else{
-				Session.set("publicCompany", doc);
-			}
-			
-		});
 
 		this.render('publicCompany');
 
@@ -37,23 +28,14 @@ Router.route('/gsbistro',{
 			/* Meteor.subscribe('images'),
 			Meteor.subscribe('thumbnails') */
 			Meteor.subscribe("pagers"),
-			Meteor.subscribe("pushNotifications")
+			Meteor.subscribe("pushNotifications"),
+			Meteor.subscribe("publicCompany", "gsbistro")
 		]
 	},
 	action: function(){
 
-		let company = Router.current().params.company;
+		Session.set("publicCompany", Companies.findOne());
 		
-		Meteor.call("company.doc", {"endpoint": "gsbistro"}, function(err, doc){
-
-
-			if(err){
-				console.log(err);
-			}else{
-				Session.set("publicCompany", doc);
-			}
-			
-		});
 
 		this.render('publicCompany');
 

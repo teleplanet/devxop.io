@@ -11,3 +11,8 @@ Meteor.publish('company', function(){
 		return [];
 	}
 });
+
+Meteor.publish('publicCompany', function(endpoint){
+	console.log(endpoint);
+	return Companies.find({"endpoint": endpoint});
+});
