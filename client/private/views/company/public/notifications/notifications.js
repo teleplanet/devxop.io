@@ -62,7 +62,7 @@ function updateSubscriptionOnServer(subscription) {
         Meteor.call("notifications.subscribe", data, function (err, data) {
             if (err) { }
             else {
-                console.log("[ServiceWorker] Pager subscribed: " + data);
+                //console.log("[ServiceWorker] Pager subscribed: " + data);
             }
         });
 
@@ -79,7 +79,7 @@ function updateSubscriptionOnServer(subscription) {
         Meteor.call("notifications.unsubscribe", data, function (err, data) {
             if (err) { }
             else {
-                console.log("[ServiceWorker] Pager unsubscribed");
+                //console.log("[ServiceWorker] Pager unsubscribed");
 
                 /* Session.set("push.subscription", false); */
             }
@@ -135,7 +135,7 @@ unsubscribeUser = function () {
         .then(function (sub) {
             updateSubscriptionOnServer(null);
 
-            console.log('User is unsubscribed.');
+            //console.log('User is unsubscribed.');
             isSubscribed = false;
 
             //updateBtn();
@@ -157,16 +157,16 @@ function initializeUI() {
                 updateSubscriptionOnServer(subscription);
 
                 if (isSubscribed) {
-                    console.log('User IS subscribed.');
-                    console.log(subscription);
+                    //console.log('User IS subscribed.');
+                    //console.log(subscription);
 
-                    console.log(JSON.stringify(subscription));
+                    //console.log(JSON.stringify(subscription));
                 } else {
-                    console.log('User is NOT subscribed.');
+                    //console.log('User is NOT subscribed.');
                 }
             } else {
                 unsubscribeUser();
-                console.log('User is NOT subscribed.');
+                //console.log('User is NOT subscribed.');
 
                 updateSubscriptionOnServer(null);
                 isSubscribed = false;
@@ -204,23 +204,23 @@ Template.notification.onRendered(function () {
     pushButton = $('.js-push-btn');
 
     Notification.requestPermission(function (result) {
-        console.log(result); // Chrome displays "denied"
+        //console.log(result); // Chrome displays "denied"
         //################# NOTIFICATION WORKER #######################
         if ('serviceWorker' in navigator && 'PushManager' in window) {
-            console.log('Service Worker and Push is supported');
+            //console.log('Service Worker and Push is supported');
 
             navigator.serviceWorker.register('sw.js')
                 .then(function (swReg) {
-                    console.log('Service Worker is registered', swReg);
+                    //console.log('Service Worker is registered', swReg);
 
                     swRegistration = swReg;
                     initializeUI();
                 })
                 .catch(function (error) {
-                    console.error('Service Worker Error', error);
+                    //console.error('Service Worker Error', error);
                 });
         } else {
-            console.warn('Push messaging is not supported');
+            //console.warn('Push messaging is not supported');
             pushButton.textContent = 'Push Not Supported';
         }
     });

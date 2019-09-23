@@ -13,6 +13,6 @@ Meteor.publish('company', function(){
 });
 
 Meteor.publish('publicCompany', function(endpoint){
-	console.log(endpoint);
+	//console.log(endpoint);
 	return Companies.find({"endpoint": endpoint});
 });

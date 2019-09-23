@@ -21,7 +21,7 @@ function urlB64ToUint8Array(base64String) {
     return outputArray;
 }
 
-self.addEventListener('push', function (data) {
+self.addEventListener('push', function (event) {
     //console.log(event.data.text());
 
     console.log('[Service Worker] Push Received.');

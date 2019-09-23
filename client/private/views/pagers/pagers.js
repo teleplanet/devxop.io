@@ -44,7 +44,7 @@ Template.pagers.events({
         let state = $(event.target).data("state");
 
         if (state == 1) {
-            console.log("show popup");
+            //console.log("show popup");
             //here we assume that user wants to reset pager, meaning the food has been delivered.
             confirmPopup({
                 title: "Pager status will be reset",
@@ -54,7 +54,7 @@ Template.pagers.events({
             },
                 function (canceled, confirmed) {
                     if (canceled) {
-                        console.log("Pager reset canceled.");
+                        //console.log("Pager reset canceled.");
                     } else if (confirmed) {
 
                         let data = {
