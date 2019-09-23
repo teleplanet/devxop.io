@@ -24,7 +24,7 @@ function urlB64ToUint8Array(base64String) {
 self.addEventListener('push', function (event) {
     //console.log(event.data.text());
 
-    console.log('[Service Worker] Push Received.');
+    //console.log('[Service Worker] Push Received.');
     //console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
     const title = "devxop.com Virtual Pager";
