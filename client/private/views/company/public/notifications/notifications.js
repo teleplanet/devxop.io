@@ -231,6 +231,8 @@ Template.notification.events({
 
         let num = $(".js-pager-number").val();//Session.get("pager.number");
 
+        console.log(num);
+
         if (!num || num <= 0 || num >= 25) {
             alert("no pager number inserted");
         } else {
