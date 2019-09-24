@@ -1,13 +1,11 @@
 
 const applicationServerPublicKey = 'BA477LIzpRITyZ83BaNVX5mjUOiNok2p0Kt9k7elV8sjmtro_kfwpcdVcD5JxVEGNyW5-P1QRny2n-K4GGodSi0';
 
-let pushButton = null;
-
-let isSubscribed = false;
+isSubscribed = false;
 swRegistration = null;
 
 
-function urlB64ToUint8Array(base64String) {
+urlB64ToUint8Array = function(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
     const base64 = (base64String + padding)
         .replace(/\-/g, '+')
@@ -22,24 +20,7 @@ function urlB64ToUint8Array(base64String) {
     return outputArray;
 }
 
-function updateBtn() {
-    if (Notification.permission === 'denied') {
-        pushButton.text('Push Messaging Blocked.');
-        pushButton.hide();
-        updateSubscriptionOnServer(null);
-        return;
-    }
-
-    if (isSubscribed) {
-        pushButton.text('Disable Push Messaging');
-    } else {
-        pushButton.text('Enable Push Messaging');
-    }
-
-    pushButton.show();
-}
-
-function updateSubscriptionOnServer(subscription) {
+updateSubscriptionOnServer = function(subscription) {
     // TODO: Send subscription to application server
     if (subscription) {
         let sub = JSON.stringify(subscription);
@@ -154,24 +135,6 @@ function initializeUI() {
 
 Template.notification.onRendered(function () {
 
-    /* $("#sub-push").click(function () {
-        let num = $(".js-pager-number").val();
-
-        if (!num || num <= 0 || num >= 25) {
-
-        } else {
-            if (isSubscribed) {
-                unsubscribeUser();
-            } else {
-                subscribeUser();
-            }
-        }
-    });
-
-    $("#unsub-push").click(function () {
-        unsubscribeUser();
-    }); */
-
     let query = {
         user_fingerprint: Session.get("fingerprint"),
         company_id: Companies.findOne()._id
@@ -188,9 +151,8 @@ Template.notification.onRendered(function () {
 
         Session.set("push.subscription", PushNotifications.findOne());
 
-        //console.log(Session.get("push.subscription"));
         if (!Session.get("push.subscription")) {
-            unsubscribeUser();
+            //unsubscribeUser();
             isSubscribed = false;
         } else {
             isSubscribed = true;
