@@ -137,29 +137,6 @@ function initializeUI() {
 
 Template.notification.onRendered(function () {
 
-    const subBtn = document.querySelector('sub-push');
-    subBtn.addEventListener('click', event => {
-        event.preventDefault();
-        let num = Session.get("pager.number");
-
-        if (!num || num <= 0 || num >= 25) {
-            alert("please insert a pager number");
-        } else {
-            //pushButton.hide();
-            if (isSubscribed) {
-                unsubscribeUser();
-            } else {
-                subscribeUser();
-            }
-        }
-    });
-
-    const unsubBtn = document.querySelector('unsub-push');
-    unsubBtn.addEventListener('click', event => {
-        event.preventDefault();
-        unsubscribeUser();
-    });
-
     /* $(".js-sub-push").click(function () {
         let num = Session.get("pager.number");
 
@@ -240,10 +217,31 @@ Template.notification.helpers({
 
 Template.notification.events({
     'change .js-pager-number': function (event) {
-        event.preventDefault();
         let num = $(event.target).val();
 
         Session.set("pager.number", num);
 
     },
+    'click #sub-push': function (event) {
+        event.preventDefault();
+
+        let num = $(".js-pager-number").val();//Session.get("pager.number");
+
+        if (!num || num <= 0 || num >= 25) {
+            alert("no pager number inserted");
+        } else {
+            //pushButton.hide();
+            if (isSubscribed) {
+                unsubscribeUser();
+            } else {
+                subscribeUser();
+            }
+        }
+
+    },
+    'click #unsub-push': function (event) {
+        event.preventDefault();
+        unsubscribeUser();
+
+    }
 })
