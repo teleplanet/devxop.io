@@ -177,7 +177,7 @@ Template.notification.onRendered(function () {
 
         Session.set("push.subscription", PushNotifications.findOne());
 
-
+        console.log(Session.get("push.subscription"));
         if (!Session.get("push.subscription")) {
             unsubscribeUser();
             isSubscribed = false;
