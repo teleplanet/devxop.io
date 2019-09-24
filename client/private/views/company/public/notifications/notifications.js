@@ -41,13 +41,7 @@ function updateBtn() {
 
 function updateSubscriptionOnServer(subscription) {
     // TODO: Send subscription to application server
-
-    const subscriptionJson = $('.js-subscription-json');
-    const subscriptionDetails =
-        $('.js-subscription-details');
-
     if (subscription) {
-        /* Session.set("push.subscription", subscription); */
         let sub = JSON.stringify(subscription);
 
         let data = {
@@ -58,32 +52,23 @@ function updateSubscriptionOnServer(subscription) {
             created: new Date().getTime()
         }
 
-
-        Meteor.call("notifications.subscribe", data, function (err, data) {
-            if (err) { }
-            else {
-                //console.log("[ServiceWorker] Pager subscribed: " + data);
+        PushNotifications.insert(data, function (err) {
+            if (err) {
+                console.log(err);
             }
         });
 
-        //subscriptionJson.text(sub);
-        //subscriptionDetails.removeClass('is-invisible');
     } else {
-        //subscriptionDetails.addClass('is-invisible');
 
-        let data = {
-            user_fingerprint: Session.get("fingerprint"),
-            company_id: Session.get("publicCompany")._id
+        let sub = Session.get("push.subscription");
+
+        if (sub) {
+            PushNotifications.remove(sub._id, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
         }
-
-        Meteor.call("notifications.unsubscribe", data, function (err, data) {
-            if (err) { }
-            else {
-                //console.log("[ServiceWorker] Pager unsubscribed");
-
-                /* Session.set("push.subscription", false); */
-            }
-        });
     }
 }
 
@@ -95,16 +80,15 @@ subscribeUser = function () {
     })
         .then(function (subscription) {
             console.log('User is subscribed.');
-
-
             updateSubscriptionOnServer(subscription);
 
-            isSubscribed = true;
+            //isSubscribed = true;
 
             //updateBtn();
         })
         .catch(function (err) {
             console.log('Failed to subscribe the user: ', err);
+            updateSubscriptionOnServer(null);
             //updateBtn();
         });
 }
@@ -113,18 +97,16 @@ unsubscribeUser = function () {
     swRegistration.pushManager.getSubscription()
         .then(function (subscription) {
             if (subscription) {
-                let sub = JSON.stringify(subscription);
 
-                let data = { _id: Session.get("push.subscription")._id };
+                let sub = Session.get("push.subscription");
 
-                //here we reset push notification by removing user notifications option
-                Meteor.call("notifications.unsubscribe", data, function (err) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-
-                    }
-                });
+                if (sub) {
+                    PushNotifications.remove(sub._id, function (err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                }
 
                 return subscription.unsubscribe();
             }
@@ -134,43 +116,22 @@ unsubscribeUser = function () {
         })
         .then(function (sub) {
             updateSubscriptionOnServer(null);
-            //console.log('User is unsubscribed.');
-            isSubscribed = false;
-
-            //updateBtn();
         });
 }
 
 function initializeUI() {
-
     // Set the initial subscription value
     swRegistration.pushManager.getSubscription()
         .then(function (subscription) {
-            isSubscribed = !(subscription === null);
-
-
             let sub = Session.get("push.subscription");
 
             if (sub) {
 
                 updateSubscriptionOnServer(subscription);
-
-                if (isSubscribed) {
-                    //console.log('User IS subscribed.');
-                    //console.log(subscription);
-
-                    //console.log(JSON.stringify(subscription));
-                } else {
-                    //console.log('User is NOT subscribed.');
-                }
             } else {
                 unsubscribeUser();
-                //console.log('User is NOT subscribed.');
-
                 updateSubscriptionOnServer(null);
-                isSubscribed = false;
             }
-            //updateBtn();
         });
 }
 
@@ -182,14 +143,13 @@ Template.notification.onRendered(function () {
         if (!num || num <= 0 || num >= 25) {
 
         } else {
-            //pushButton.hide();
             if (isSubscribed) {
                 unsubscribeUser();
             } else {
                 subscribeUser();
             }
         }
-    });     
+    });
 
     $(".js-unsub-push").click(function () {
         unsubscribeUser();
@@ -201,7 +161,6 @@ Template.notification.onRendered(function () {
     };
 
     var self = this;
-
     // Subscribe
     self.subscribe("publicPushNotifications", query);
 
@@ -215,6 +174,9 @@ Template.notification.onRendered(function () {
 
         if (!Session.get("push.subscription")) {
             unsubscribeUser();
+            isSubscribed = false;
+        } else {
+            isSubscribed = true;
         }
 
     });
@@ -222,28 +184,20 @@ Template.notification.onRendered(function () {
     pushButton = $('.js-push-btn');
 
     Notification.requestPermission(function (result) {
-        //console.log(result); // Chrome displays "denied"
-        //################# NOTIFICATION WORKER #######################
         if ('serviceWorker' in navigator && 'PushManager' in window) {
-            //console.log('Service Worker and Push is supported');
 
             navigator.serviceWorker.register('/sw.js')
                 .then(function (swReg) {
-                    //console.log('Service Worker is registered', swReg);
-
                     swRegistration = swReg;
                     initializeUI();
 
-                    
+
                     Session.set("push.supported", true);
                 })
                 .catch(function (error) {
-                    //console.error('Service Worker Error', error);
                     Session.set("push.supported", false);
                 });
         } else {
-            //console.warn('Push messaging is not supported');
-            //pushButton.textContent = 'Push Not Supported';
             Session.set("push.supported", false);
         }
     });
@@ -256,7 +210,7 @@ Template.notification.helpers({
     'subscription': function () {
         return Session.get("push.subscription");
     },
-    'pushSupported': function (){
+    'pushSupported': function () {
         return Session.get("push.supported");
     }
 })
@@ -268,7 +222,7 @@ Template.notification.events({
         Session.set("pager.number", num);
 
     },
-    'click .js-sub-push': function () {
+    'click #sub-push': function () {
 
         let num = Session.get("pager.number");
 
@@ -284,8 +238,8 @@ Template.notification.events({
         }
 
     },
-    'click .js-unsub-push': function () {
-       unsubscribeUser();
+    'click #unsub-push': function () {
+        unsubscribeUser();
 
     }
 })

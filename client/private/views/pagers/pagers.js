@@ -44,9 +44,21 @@ Template.pagers.events({
         let state = $(event.target).data("state");
 
         if (state == 1) {
-            //console.log("show popup");
+            let data = {
+                pager: pagerNum,
+                company_id: Session.get("company")._id
+            };
+
+            //here we reset push notification by removing user notifications option
+            Meteor.call("notifications.unsubscribe", data, function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+
+                }
+            });
             //here we assume that user wants to reset pager, meaning the food has been delivered.
-            confirmPopup({
+            /* confirmPopup({
                 title: "Pager status will be reset",
                 msg: "Are you sure you want to reset pager? User notification subscription will also be removed. User will need to subscribe again to me notified.",
                 btn_type: "danger",
@@ -71,7 +83,7 @@ Template.pagers.events({
                             }
                         });
                     }
-                });
+                }); */
         }else if(state == 3) {
 
             let data = {

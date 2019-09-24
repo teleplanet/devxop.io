@@ -3,13 +3,15 @@
         {{#if pushSupported}}
         <div class="select-pager">
             {{#if subscription}}
-            <p>Your are currently waiting to be notified. If you notice your food is taking longer than expected. Please return to the location of your order.</p>
-            <div class="button center med-width margin js-unsub-push">Stop Notifications!</div>
+            <h4>Pager {{subscription.pager}}</h4>
+            <p>You will be notified on this pager. Please be aware of notification.</p>
+            <br>
+            <div id="unsub-push" class="button center med-width margin js-unsub-push">Stop Notifications!</div>
             {{else}}
             <p>View the status of your order by keeping track of your virtual pager. Click below to subscribe to notifications</p>
             <h4><label for="">Please insert your pager number</label></h4>
             <input type="number" placeholder="5" class="js-pager-number">
-            <div class="button center med-width margin js-sub-push">Get Notifications!</div>
+            <div id="sub-push" class="button center med-width margin js-sub-push">Get Notifications!</div>
             {{/if}}
         </div>
         {{else}}
