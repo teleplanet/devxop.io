@@ -6,12 +6,12 @@
             <h4>Pager {{subscription.pager}}</h4>
             <p>You will be notified on this pager. Please be aware of notification.</p>
             <br>
-            <div id="unsub-push" class="button center med-width margin js-unsub-push">Stop Notifications!</div>
+            <button id="unsub-push" class="button center med-width margin js-unsub-push">Stop Notifications!</button>
             {{else}}
             <p>View the status of your order by keeping track of your virtual pager. Click below to subscribe to notifications</p>
             <h4><label for="">Please insert your pager number</label></h4>
             <input type="number" placeholder="5" class="js-pager-number">
-            <div id="sub-push" class="button center med-width margin js-sub-push">Get Notifications!</div>
+            <button id="sub-push" class="button center med-width margin js-sub-push">Get Notifications!</button>
             {{/if}}
         </div>
         {{else}}
