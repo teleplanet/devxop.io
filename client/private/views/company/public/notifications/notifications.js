@@ -274,7 +274,7 @@ Template.notification.events({
 
     },
     'click .js-unsub-push': function () {
-       // unsubscribeUser();
+       unsubscribeUser();
 
     }
 })
