@@ -4,7 +4,7 @@ const applicationServerPublicKey = 'BA477LIzpRITyZ83BaNVX5mjUOiNok2p0Kt9k7elV8sj
 let pushButton = null;
 
 let isSubscribed = false;
-let swRegistration = null;
+swRegistration = null;
 
 
 function urlB64ToUint8Array(base64String) {
@@ -179,7 +179,7 @@ Template.notification.onRendered(function () {
 
         Session.set("push.subscription", PushNotifications.findOne());
 
-        console.log(Session.get("push.subscription"));
+        //console.log(Session.get("push.subscription"));
         if (!Session.get("push.subscription")) {
             unsubscribeUser();
             isSubscribed = false;
@@ -202,10 +202,10 @@ Template.notification.onRendered(function () {
                         Session.set("push.supported", false);
                     });
 
-                const promise = new Promise(resolve => {
+                /* const promise = new Promise(resolve => {
                     if (navigator.serviceWorker.controller) return resolve();
                     navigator.serviceWorker.addEventListener('controllerchange', e => resolve());
-                });
+                }); */
 
                 /* promise.then(() => {
                     //navigator.serviceWorker.controller.postMessage();
