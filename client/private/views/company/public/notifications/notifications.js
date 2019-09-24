@@ -88,6 +88,7 @@ function updateSubscriptionOnServer(subscription) {
 }
 
 subscribeUser = function () {
+    Session.set("module.processingLoader", true);
     const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
     swRegistration.pushManager.subscribe({
         userVisibleOnly: true,
@@ -101,21 +102,25 @@ subscribeUser = function () {
 
             isSubscribed = true;
 
+            Session.set("module.processingLoader", false);
+
             //updateBtn();
         })
         .catch(function (err) {
             console.log('Failed to subscribe the user: ', err);
+            Session.set("module.processingLoader", false);
             //updateBtn();
         });
 }
 
 unsubscribeUser = function () {
+    Session.set("module.processingLoader", true);
     swRegistration.pushManager.getSubscription()
         .then(function (subscription) {
             if (subscription) {
                 let sub = JSON.stringify(subscription);
 
-                let data = {_id: Session.get("push.subscription")._id};
+                let data = { _id: Session.get("push.subscription")._id };
 
                 //here we reset push notification by removing user notifications option
                 Meteor.call("notifications.unsubscribe", data, function (err) {
@@ -124,6 +129,7 @@ unsubscribeUser = function () {
                     } else {
 
                     }
+                    Session.set("module.processingLoader", false);
                 });
 
                 return subscription.unsubscribe();
@@ -131,10 +137,11 @@ unsubscribeUser = function () {
         })
         .catch(function (error) {
             console.log('Error unsubscribing', error);
+            Session.set("module.processingLoader", false);
         })
         .then(function (sub) {
             updateSubscriptionOnServer(null);
-
+            Session.set("module.processingLoader", false);
             //console.log('User is unsubscribed.');
             isSubscribed = false;
 
@@ -176,7 +183,25 @@ function initializeUI() {
 }
 
 Template.notification.onRendered(function () {
-    
+
+    $(".js-sub-push").click(function () {
+        let num = Session.get("pager.number");
+
+        if (!num || num <= 0 || num >= 25) {
+
+        } else {
+            //pushButton.hide();
+            if (isSubscribed) {
+                unsubscribeUser();
+            } else {
+                subscribeUser();
+            }
+        }
+    });     
+
+    $(".js-unsub-push").click(function () {
+        unsubscribeUser();
+    });
 
     let query = {
         user_fingerprint: Session.get("fingerprint"),
@@ -196,10 +221,10 @@ Template.notification.onRendered(function () {
         Session.set("push.subscription", PushNotifications.findOne());
 
 
-        if(!Session.get("push.subscription")){
+        if (!Session.get("push.subscription")) {
             unsubscribeUser();
         }
-        
+
     });
 
     pushButton = $('.js-push-btn');
@@ -245,22 +270,11 @@ Template.notification.events({
     },
     'click .js-sub-push': function () {
 
-        let num = Session.get("pager.number");
-
-        if (!num || num <= 0 || num >= 25) {
-
-        } else {
-            //pushButton.hide();
-            if (isSubscribed) {
-                unsubscribeUser();
-            } else {
-                subscribeUser();
-            }
-        }
+        
 
     },
     'click .js-unsub-push': function () {
-        unsubscribeUser();
+       // unsubscribeUser();
 
     }
 })
