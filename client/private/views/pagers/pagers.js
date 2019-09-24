@@ -67,7 +67,7 @@ Template.pagers.events({
                             if (err) {
                                 console.log(err);
                             } else {
-
+                                
                             }
                         });
                     }

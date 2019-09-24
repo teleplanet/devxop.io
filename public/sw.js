@@ -21,17 +21,38 @@ function urlB64ToUint8Array(base64String) {
     return outputArray;
 }
 
+self.addEventListener('message', event => {
+    if (!event.data) {
+        return;
+    }
+
+    if (event.data === 'skipWaiting') {
+        self.skipWaiting();
+    }
+});
+
+
+
 self.addEventListener('push', function (event) {
-    //console.log(event.data.text());
+    console.log(event.data.text());
+
+
+
+    let data = event.data.text();
+
+    data = JSON.parse(data);
 
     //console.log('[Service Worker] Push Received.');
     //console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-    const title = "devxop.com Virtual Pager";
-    const options = {
-        body: "Pager Alarm!",
-        icon: 'images/icon.png',
-        badge: 'images/badge.png'
+    let title = data.company["name"] + " (Pager " + data.pager + ")";
+    let options = {
+        body: "Your virtual pager has been called! Please return to the appropriate location.",
+        icon: "images/pager.png",
+        badge: "images/pager.png",
+        data: {
+            endpoint: data.company.endpoint,
+        }
     };
 
     event.waitUntil(self.registration.showNotification(title, options));
@@ -40,10 +61,14 @@ self.addEventListener('push', function (event) {
 self.addEventListener('notificationclick', function (event) {
     console.log('[Service Worker] Notification click Received.');
 
+    let data = event.data.text();
+
+    data = JSON.parse(data);
+
     event.notification.close();
 
     event.waitUntil(
-        clients.openWindow('https://developers.google.com/web/')
+        clients.openWindow('https://devxop.com/' + data["endpoint"]);
     );
 });
 

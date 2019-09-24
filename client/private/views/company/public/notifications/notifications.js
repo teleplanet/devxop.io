@@ -176,6 +176,7 @@ function initializeUI() {
 }
 
 Template.notification.onRendered(function () {
+    
 
     let query = {
         user_fingerprint: Session.get("fingerprint"),

@@ -51,3 +51,28 @@ scaleImage = function (url, width, height, callback) {
 
     img.src = url;
 }
+
+
+imageUrl = function(id){
+    let img = Images.findOne({"_id": id});
+
+
+    let url = "";
+    if(img){
+        url = img.url();
+    }
+
+    return  document.location.origin + url +'?'+new Date().getTime();
+}
+
+
+thumbUrl = function(id){
+    let thumb = Thumbnails.findOne({"_id": id});
+    
+    let url = "";
+    if(thumb){
+        url = thumb.url();
+    }
+
+    return document.location.origin + url +'?'+new Date().getTime();
+}
