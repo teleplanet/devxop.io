@@ -52,6 +52,15 @@ function updateSubscriptionOnServer(subscription) {
             created: new Date().getTime()
         }
 
+        let old = PushNotifications.findOne({ company_id: data.company_id, page: data.pager });
+        if (old) {
+            PushNotifications.remove(sub._id, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+
         PushNotifications.insert(data, function (err) {
             if (err) {
                 console.log(err);
@@ -130,7 +139,7 @@ function initializeUI() {
         .then(function (subscription) {
             let sub = Session.get("push.subscription");
 
-            if (sub) {
+            if (subscription && sub) {
 
                 updateSubscriptionOnServer(subscription);
             } else {
@@ -187,36 +196,35 @@ Template.notification.onRendered(function () {
             isSubscribed = true;
         }
 
-        Notification.requestPermission(function (result) {
-            if ('serviceWorker' in navigator && 'PushManager' in window) {
-
-                navigator.serviceWorker.register('/sw.js')
-                    .then(function (swReg) {
-                        swRegistration = swReg;
-                        initializeUI();
-
-
-                        Session.set("push.supported", true);
-                    })
-                    .catch(function (error) {
-                        Session.set("push.supported", false);
-                    });
-
-                /* const promise = new Promise(resolve => {
-                    if (navigator.serviceWorker.controller) return resolve();
-                    navigator.serviceWorker.addEventListener('controllerchange', e => resolve());
-                }); */
-
-                /* promise.then(() => {
-                    //navigator.serviceWorker.controller.postMessage();
-                }); */
-            } else {
-                Session.set("push.supported", false);
-            }
-        });
-
     });
 
+    Notification.requestPermission(function (result) {
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+
+            navigator.serviceWorker.register('/sw.js')
+                .then(function (swReg) {
+                    swRegistration = swReg;
+                    initializeUI();
+
+
+                    Session.set("push.supported", true);
+                })
+                .catch(function (error) {
+                    Session.set("push.supported", false);
+                });
+
+            /* const promise = new Promise(resolve => {
+                if (navigator.serviceWorker.controller) return resolve();
+                navigator.serviceWorker.addEventListener('controllerchange', e => resolve());
+            }); */
+
+            /* promise.then(() => {
+                //navigator.serviceWorker.controller.postMessage();
+            }); */
+        } else {
+            Session.set("push.supported", false);
+        }
+    });
 
 });
 
