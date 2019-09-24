@@ -114,7 +114,7 @@ unsubscribeUser = function () {
 
 }
 
-function initializeUI() {
+initializeUI = function() {
     // Set the initial subscription value
     swRegistration.pushManager.getSubscription()
         .then(function (subscription) {
@@ -174,15 +174,6 @@ Template.notification.onRendered(function () {
                 .catch(function (error) {
                     Session.set("push.supported", false);
                 });
-
-            /* const promise = new Promise(resolve => {
-                if (navigator.serviceWorker.controller) return resolve();
-                navigator.serviceWorker.addEventListener('controllerchange', e => resolve());
-            }); */
-
-            /* promise.then(() => {
-                //navigator.serviceWorker.controller.postMessage();
-            }); */
         } else {
             Session.set("push.supported", false);
         }
