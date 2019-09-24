@@ -94,6 +94,9 @@ subscribeUser = function () {
 }
 
 unsubscribeUser = function () {
+
+    if(swRegistration)
+
     swRegistration.pushManager.getSubscription()
         .then(function (subscription) {
             if (subscription) {
@@ -132,6 +135,9 @@ function initializeUI() {
                 unsubscribeUser();
                 updateSubscriptionOnServer(null);
             }
+        })
+        .catch(function (error) {
+            console.log('Error unsubscribing', error);
         });
 }
 
@@ -179,27 +185,25 @@ Template.notification.onRendered(function () {
             isSubscribed = true;
         }
 
-    });
+        Notification.requestPermission(function (result) {
+            if ('serviceWorker' in navigator && 'PushManager' in window) {
+    
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function (swReg) {
+                        swRegistration = swReg;
+                        initializeUI();
+    
+    
+                        Session.set("push.supported", true);
+                    })
+                    .catch(function (error) {
+                        Session.set("push.supported", false);
+                    });
+            } else {
+                Session.set("push.supported", false);
+            }
+        });
 
-    pushButton = $('.js-push-btn');
-
-    Notification.requestPermission(function (result) {
-        if ('serviceWorker' in navigator && 'PushManager' in window) {
-
-            navigator.serviceWorker.register('/sw.js')
-                .then(function (swReg) {
-                    swRegistration = swReg;
-                    initializeUI();
-
-
-                    Session.set("push.supported", true);
-                })
-                .catch(function (error) {
-                    Session.set("push.supported", false);
-                });
-        } else {
-            Session.set("push.supported", false);
-        }
     });
 
 
