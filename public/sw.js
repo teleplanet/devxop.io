@@ -67,9 +67,7 @@ self.addEventListener('notificationclick', function (event) {
 
     event.notification.close();
 
-    event.waitUntil(
-        clients.openWindow('https://devxop.com/' + data["endpoint"]);
-    );
+    event.waitUntil(clients.openWindow('https://devxop.com/' + data["endpoint"]));
 });
 
 self.addEventListener('pushsubscriptionchange', function (event) {

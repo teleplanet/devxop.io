@@ -36,9 +36,7 @@ Meteor.methods({
   },
   'notifications.subscribe': function (data) {
 
-    PushNotifications.remove({ "company_id": data.company_id, "user_fingerprint": data.user_fingerprint }, function (err) {
-      PushNotifications.insert(data);
-    });
+    PushNotifications.insert(data);
   },
   'notifications.unsubscribe': function (data) {
     if (data.pager)
