@@ -28,7 +28,6 @@ Router.route('/gsbistro',{
 			/* Meteor.subscribe('images'),
 			Meteor.subscribe('thumbnails') */
 			Meteor.subscribe("pagers"),
-			Meteor.subscribe("pushNotifications"),
 			Meteor.subscribe("publicCompany", "gsbistro")
 		]
 	},

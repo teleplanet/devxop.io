@@ -36,7 +36,14 @@ Meteor.methods({
   },
   'notifications.subscribe': function (data) {
 
-    PushNotifications.insert(data);
+    let sub = PushNotifications.findOne({"user_fingerprint": data.user_fingerprint, "company_id": data.company_id});
+    if (sub) {
+      PushNotifications.remove(sub._id, function(){
+        PushNotifications.insert(data);
+      });
+    }else{
+      PushNotifications.insert(data);
+    }
   },
   'notifications.unsubscribe': function (data) {
     if (data.pager)
