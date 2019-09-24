@@ -95,31 +95,33 @@ subscribeUser = function () {
 
 unsubscribeUser = function () {
 
-    if(swRegistration)
+    if (swRegistration) {
+        swRegistration.pushManager.getSubscription()
+            .then(function (subscription) {
+                if (subscription) {
 
-    swRegistration.pushManager.getSubscription()
-        .then(function (subscription) {
-            if (subscription) {
+                    let sub = Session.get("push.subscription");
 
-                let sub = Session.get("push.subscription");
+                    if (sub) {
+                        PushNotifications.remove(sub._id, function (err) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    }
 
-                if (sub) {
-                    PushNotifications.remove(sub._id, function (err) {
-                        if (err) {
-                            console.log(err);
-                        }
-                    });
+                    return subscription.unsubscribe();
                 }
+            })
+            .catch(function (error) {
+                console.log('Error unsubscribing', error);
+            })
+            .then(function (sub) {
+                updateSubscriptionOnServer(null);
+            });
+    }
 
-                return subscription.unsubscribe();
-            }
-        })
-        .catch(function (error) {
-            console.log('Error unsubscribing', error);
-        })
-        .then(function (sub) {
-            updateSubscriptionOnServer(null);
-        });
+
 }
 
 function initializeUI() {
@@ -143,7 +145,7 @@ function initializeUI() {
 
 Template.notification.onRendered(function () {
 
-    $("#sub-push").click(function () {
+    /* $("#sub-push").click(function () {
         let num = $(".js-pager-number").val();
 
         if (!num || num <= 0 || num >= 25) {
@@ -159,7 +161,7 @@ Template.notification.onRendered(function () {
 
     $("#unsub-push").click(function () {
         unsubscribeUser();
-    });
+    }); */
 
     let query = {
         user_fingerprint: Session.get("fingerprint"),
@@ -187,18 +189,27 @@ Template.notification.onRendered(function () {
 
         Notification.requestPermission(function (result) {
             if ('serviceWorker' in navigator && 'PushManager' in window) {
-    
+
                 navigator.serviceWorker.register('/sw.js')
                     .then(function (swReg) {
                         swRegistration = swReg;
                         initializeUI();
-    
-    
+
+
                         Session.set("push.supported", true);
                     })
                     .catch(function (error) {
                         Session.set("push.supported", false);
                     });
+
+                const promise = new Promise(resolve => {
+                    if (navigator.serviceWorker.controller) return resolve();
+                    navigator.serviceWorker.addEventListener('controllerchange', e => resolve());
+                });
+
+                /* promise.then(() => {
+                    //navigator.serviceWorker.controller.postMessage();
+                }); */
             } else {
                 Session.set("push.supported", false);
             }
@@ -231,7 +242,8 @@ Template.notification.events({
 
         let num = $(".js-pager-number").val();//Session.get("pager.number");
 
-        console.log(num);
+
+        //console.log(num);
 
         if (!num || num <= 0 || num >= 25) {
             alert("no pager number inserted");
