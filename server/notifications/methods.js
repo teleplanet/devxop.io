@@ -36,12 +36,12 @@ Meteor.methods({
   },
   'notifications.subscribe': function (data) {
 
-    let sub = PushNotifications.findOne({"user_fingerprint": data.user_fingerprint, "company_id": data.company_id});
+    let sub = PushNotifications.findOne({ "user_fingerprint": data.user_fingerprint, "company_id": data.company_id });
     if (sub) {
-      PushNotifications.remove(sub._id, function(){
+      PushNotifications.remove(sub._id, function () {
         PushNotifications.insert(data);
       });
-    }else{
+    } else {
       PushNotifications.insert(data);
     }
   },
@@ -58,28 +58,39 @@ Meteor.methods({
   },
   'notifications.notify': function (data) {
     data.pager = data.pager.toString();
-    let sub = PushNotifications.findOne(data);
-
-    if (sub) {
-      let company = Companies.findOne({ "_id": sub.company_id },
-        { fields: { 
-          name: 1,
-          _id: 0,
-          image_thumb: 1,
-          endpoint: 1
-        } 
-      });
-
-      //company.image_thumb = thumbUrl(company.image_thumb);
-
-      let data = {
-        company: company,
-        pager: sub.pager
-      };
+    let subs = PushNotifications.find({ "company_id": data.company_id }).fetch();
 
 
 
-      webpush.sendNotification(JSON.parse(sub.payload), JSON.stringify(data));
+    if (subs) {
+
+      for (let i = 0; i < subs.length; i++) {
+        if (subs[i].pager == data.pager) {
+          let sub = subs[i];
+          let company = Companies.findOne({ "_id": sub.company_id },
+            {
+              fields: {
+                name: 1,
+                _id: 0,
+                image_thumb: 1,
+                endpoint: 1
+              }
+            });
+
+          //company.image_thumb = thumbUrl(company.image_thumb);
+
+          let data = {
+            company: company,
+            pager: sub.pager
+          };
+
+
+
+          webpush.sendNotification(JSON.parse(sub.payload), JSON.stringify(data));
+          break;
+        }
+      }
+
     } else {
       console.log("couldnt find sub to send notification");
     }
