@@ -88,7 +88,6 @@ function updateSubscriptionOnServer(subscription) {
 }
 
 subscribeUser = function () {
-    Session.set("module.processingLoader", true);
     const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
     swRegistration.pushManager.subscribe({
         userVisibleOnly: true,
@@ -102,19 +101,15 @@ subscribeUser = function () {
 
             isSubscribed = true;
 
-            Session.set("module.processingLoader", false);
-
             //updateBtn();
         })
         .catch(function (err) {
             console.log('Failed to subscribe the user: ', err);
-            Session.set("module.processingLoader", false);
             //updateBtn();
         });
 }
 
 unsubscribeUser = function () {
-    Session.set("module.processingLoader", true);
     swRegistration.pushManager.getSubscription()
         .then(function (subscription) {
             if (subscription) {
@@ -129,7 +124,6 @@ unsubscribeUser = function () {
                     } else {
 
                     }
-                    Session.set("module.processingLoader", false);
                 });
 
                 return subscription.unsubscribe();
@@ -137,11 +131,9 @@ unsubscribeUser = function () {
         })
         .catch(function (error) {
             console.log('Error unsubscribing', error);
-            Session.set("module.processingLoader", false);
         })
         .then(function (sub) {
             updateSubscriptionOnServer(null);
-            Session.set("module.processingLoader", false);
             //console.log('User is unsubscribed.');
             isSubscribed = false;
 
@@ -241,13 +233,18 @@ Template.notification.onRendered(function () {
 
                     swRegistration = swReg;
                     initializeUI();
+
+                    
+                    Session.set("push.supported", true);
                 })
                 .catch(function (error) {
                     //console.error('Service Worker Error', error);
+                    Session.set("push.supported", false);
                 });
         } else {
             //console.warn('Push messaging is not supported');
-            pushButton.textContent = 'Push Not Supported';
+            //pushButton.textContent = 'Push Not Supported';
+            Session.set("push.supported", false);
         }
     });
 
@@ -258,6 +255,9 @@ Template.notification.onRendered(function () {
 Template.notification.helpers({
     'subscription': function () {
         return Session.get("push.subscription");
+    },
+    'pushSupported': function (){
+        return Session.get("push.supported");
     }
 })
 
@@ -270,7 +270,18 @@ Template.notification.events({
     },
     'click .js-sub-push': function () {
 
-        
+        let num = Session.get("pager.number");
+
+        if (!num || num <= 0 || num >= 25) {
+
+        } else {
+            //pushButton.hide();
+            if (isSubscribed) {
+                unsubscribeUser();
+            } else {
+                subscribeUser();
+            }
+        }
 
     },
     'click .js-unsub-push': function () {
