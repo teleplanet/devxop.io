@@ -217,13 +217,14 @@ Template.notification.helpers({
 
 Template.notification.events({
     'change .js-pager-number': function (event) {
+        event.preventDefault();
         let num = $(event.target).val();
 
         Session.set("pager.number", num);
 
     },
-    'click #sub-push': function () {
-
+    'click #sub-push': function (event) {
+        event.preventDefault();
         let num = Session.get("pager.number");
 
         if (!num || num <= 0 || num >= 25) {
@@ -238,7 +239,8 @@ Template.notification.events({
         }
 
     },
-    'click #unsub-push': function () {
+    'click #unsub-push': function (event) {
+        event.preventDefault();
         unsubscribeUser();
 
     }
