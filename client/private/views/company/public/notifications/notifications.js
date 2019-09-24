@@ -137,7 +137,30 @@ function initializeUI() {
 
 Template.notification.onRendered(function () {
 
-    $(".js-sub-push").click(function () {
+    const subBtn = document.querySelector('sub-push');
+    subBtn.addEventListener('click', event => {
+        event.preventDefault();
+        let num = Session.get("pager.number");
+
+        if (!num || num <= 0 || num >= 25) {
+            alert("please insert a pager number");
+        } else {
+            //pushButton.hide();
+            if (isSubscribed) {
+                unsubscribeUser();
+            } else {
+                subscribeUser();
+            }
+        }
+    });
+
+    const unsubBtn = document.querySelector('unsub-push');
+    unsubBtn.addEventListener('click', event => {
+        event.preventDefault();
+        unsubscribeUser();
+    });
+
+    /* $(".js-sub-push").click(function () {
         let num = Session.get("pager.number");
 
         if (!num || num <= 0 || num >= 25) {
@@ -153,7 +176,7 @@ Template.notification.onRendered(function () {
 
     $(".js-unsub-push").click(function () {
         unsubscribeUser();
-    });
+    }); */
 
     let query = {
         user_fingerprint: Session.get("fingerprint"),
@@ -223,25 +246,4 @@ Template.notification.events({
         Session.set("pager.number", num);
 
     },
-    'click #sub-push': function (event) {
-        event.preventDefault();
-        let num = Session.get("pager.number");
-
-        if (!num || num <= 0 || num >= 25) {
-
-        } else {
-            //pushButton.hide();
-            if (isSubscribed) {
-                unsubscribeUser();
-            } else {
-                subscribeUser();
-            }
-        }
-
-    },
-    'click #unsub-push': function (event) {
-        event.preventDefault();
-        unsubscribeUser();
-
-    }
 })
