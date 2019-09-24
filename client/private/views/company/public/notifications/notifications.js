@@ -137,8 +137,8 @@ function initializeUI() {
 
 Template.notification.onRendered(function () {
 
-    /* $(".js-sub-push").click(function () {
-        let num = Session.get("pager.number");
+    $("#sub-push").click(function () {
+        let num = $(".js-pager-number").val();
 
         if (!num || num <= 0 || num >= 25) {
 
@@ -151,9 +151,9 @@ Template.notification.onRendered(function () {
         }
     });
 
-    $(".js-unsub-push").click(function () {
+    $("#unsub-push").click(function () {
         unsubscribeUser();
-    }); */
+    });
 
     let query = {
         user_fingerprint: Session.get("fingerprint"),
