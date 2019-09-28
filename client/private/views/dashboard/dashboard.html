@@ -1,49 +1,53 @@
 <template name="dashboard">
-    <!-- <div class="row">
-        <div class="col s4">
-            <div class="card small">
-                <div class="card-content">
-                    <span class="card-title">Company</span>
-                    <p>{{company.name}}</p>
+    <section class="dashboard-counts section-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Count item widget-->
+                <div class="col-md-3 col-sm-12">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-user"></i></div>
+                        <div class="name"><strong class="text-uppercase">Total
+                                Devices</strong><span>Devices connected to this account</span>
+                            <div class="count-number">{{counts.devices}}/4</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col s4">
-            <div class="card small">
-                <div class="card-content">
-                    <span class="card-title">User</span>
-                    <p>{{user.name}}</p>
+                <!-- Count item widget-->
+                <div class="col-md-3 col-sm-12">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-padnote"></i></div>
+                        <div class="name"><strong class="text-uppercase">Total Items</strong>
+                            <span>Total items created</span>
+                            <div class="count-number">{{counts.items}}/100</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col s4">
-            <div class="card small">
-                <div class="card-content">
-                    <span class="card-title">Connect </span>
-                    <p>
-                        <div class="social-btn notConnected">Fb</div>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <div class="row">
-        <div class="col s12">
 
-            <!-- {{> moduleItemSelectModal}} -->
-            <!-- <div id="dashboard-chart" class="card-panel"></div> -->
-        </div>
-
-    </div>
-    <!-- <div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title">Video Upload</span>
-                    {{> moduleVideoUpload}}
+                <div class="col-sm-12 col-md-3">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-padnote"></i></div>
+                        <div class="name"><strong class="text-uppercase">Collections</strong>
+                            <span>The count of total collections</span>
+                            <div class="count-number">{{counts.collections}}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Count item widget-->
+                <div class="col-md-3 col-sm-12">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-check"></i></div>
+                        <div class="name"><strong class="text-uppercase">Social Media</strong>
+                            <span>Check if connected to facebook</span>
+                            <div class="count-number">--</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div> -->
+    </section>
+
+    <section class="section-header section-padding">
+        <!-- <canvas id="lineChart" width="443" height="221" class="chartjs-render-monitor" style="display: block; width: 443px; height: 221px;"></canvas> -->
+    </section>
 
 </template>

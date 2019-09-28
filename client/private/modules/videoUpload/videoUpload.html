@@ -2,24 +2,36 @@
     <!-- div id="uploadedVideo" class="uploaded-image" style="background-image: url( {{imageUrl}})"></div> -->
 
     {{#with video}}
-        {{#if isUploaded}}
-            <!-- <video id="uploadedVideo" poster="{{url 'thumb'}}" class="uploaded-image" loop autoplay></video> -->
-            {{name}}
-        {{else}}
-            <p>Loading video....</p>
-        {{/if}}
+    {{#if isUploaded}}
+    <!-- <video id="uploadedVideo" poster="{{url 'thumb'}}" class="uploaded-image" loop autoplay></video> -->
+    {{name}}
+    {{else}}
+    <p>Loading video....</p>
+    {{/if}}
     {{/with}}
     <div class="js-video-upload-event"></div>
+    <br>
     <form action="#">
-        <div class="file-field input-field">
-            <div class="button select-button">
-                <span>Upload video...</span>
-                <input id="videoUploadButton" type="file">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="videoFileDescription">Upload</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="videoUploadButton"
+                    aria-describedby="videoFileDescription">
+                <label class="custom-file-label" for="videoUploadButton">Choose file</label>
             </div>
             <div class="file-path-wrapper">
-                <input hidden class="file-path validate" type="text">
-            </div>
+                    <input hidden class="button file-path validate" type="text">
+                </div>
         </div>
+<!--         <div class="file-field input-field">
+
+            <input id="videoUploadButton" class="custom-file-input button" type="file" value="button">
+            <div class="file-path-wrapper">
+                <input hidden class="button file-path validate" type="text">
+            </div>
+        </div> -->
     </form>
 
     <!-- <div class="button select-button js-video-save">Save video</div> -->

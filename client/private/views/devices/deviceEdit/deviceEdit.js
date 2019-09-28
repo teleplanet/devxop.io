@@ -19,7 +19,9 @@ Template.deviceEdit.onRendered(function () {
     console.log(device.auth.access_token)
     console.log("Device link at:" + document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device.auth.access_token);
 
-    $('.tabs').tabs();
+    //$('.tabs').tabs();
+
+    $('.collapse').collapse()
 });
 
 

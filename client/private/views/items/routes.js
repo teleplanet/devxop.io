@@ -3,6 +3,7 @@ Router.route('/items',{
 	controller: 'PrivateController',
 	action: function(){
 
+		Session.set("route", "Items");
 		this.render('items');
 
 	},
@@ -14,11 +15,8 @@ Router.route('/items',{
 Router.route('/item/create', {
 	controller: 'PrivateController',
 	action: function(){
-	  if(this.ready()){
-		this.render('createItemCheck');
-	  }else{
-		this.render('loader');
-	  }
+		Session.set("route", "Item / Create");
+		this.render('createItem');
 	},
   });
 
@@ -31,6 +29,8 @@ Router.route('/item/create', {
 		console.log("Session | item-edit: " + item._id);
 		Session.set('item-edit', item);
 
+		Session.set("route", "Item / Edit");
+
 		this.render("editItem");
 	  }else{
 		this.render('loader');
@@ -38,7 +38,7 @@ Router.route('/item/create', {
 	},
   });
   
-  Router.route('/item/create/validate/:title', {
+  /* Router.route('/item/create/validate/:title', {
 	controller: 'PrivateController',
 	action: function(){
 	  if(this.ready()){
@@ -73,7 +73,7 @@ Router.route('/item/create', {
 	  }
 	},
   });
-  
+   */
   Router.route('/item/view/:itemid', {
 	controller: 'PrivateController',
 	//fastRender: true,

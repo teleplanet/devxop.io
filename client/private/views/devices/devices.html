@@ -1,5 +1,72 @@
 <template name="devices">
-    {{#each device in listDevices}}
+    <section class="dashboard-counts section-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Count item widget-->
+                <div class="col-6">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-user"></i></div>
+                        <div class="name"><strong class="text-uppercase">Total
+                                Devices</strong><span>Offline/Online</span>
+                            <div class="count-number">{{listDevices.length}}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Count item widget-->
+                <div class="col-6">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-padnote"></i></div>
+                        <div class="name"><strong class="text-uppercase">Device Quota</strong><span>Quota base on
+                                account subscription</span>
+                            <div class="count-number">{{listDevices.length}}/4</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Count item widget-->
+                <!-- <div class="col-xl-4 col-md-4 col-6">
+                    <div class="wrapper count-title d-flex">
+                        <div class="icon"><i class="icon-check"></i></div>
+                        <div class="name"><strong class="text-uppercase">New Quotes</strong><span>Last 2 months</span>
+                            <div class="count-number">342</div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+    <section class="dashboard-header section-padding">
+        <div class="row">
+            <div class="col 12">
+                <h2>Your Devices</h2>
+                <p>Below you will find all devices connected to your account.</p>
+            </div>
+        </div>
+    </section>
+    <section class="statistics section-padding">
+        <div class="container-fluid">
+            <div class="row d-flex">
+                {{#each device in listDevices}}
+                <div class="col-lg-4">
+                    <!-- Income-->
+                    <div class="card card-select text-center js-devices-card-select" data-item-id="{{device._id}}">
+                        <!-- <div class="icon"><i class="icon-line-chart"></i></div> -->
+                        <h2>{{device.name}}</h2>
+                        <p>Template:</p>
+                        <strong class="text-primary">{{getLiveDisplay device}}</strong>
+                        <!-- <div class="number">126,418</div><strong class="text-primary">All Income</strong> -->
+                        <p></p>
+                        <div class="card-footer {{getStatus device 'class' }}">
+                            {{getStatus device "text" }}
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+        
+
+    <!-- {{#each device in listDevices}}
     <div class="row">
         <div class="col s12 m12">
             <div class="card">
@@ -24,5 +91,5 @@
             </div>
         </div>
     </div>
-    {{/each}}
+    {{/each}} -->
 </template>

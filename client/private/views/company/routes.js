@@ -3,6 +3,7 @@ Router.route('/company',{
 	controller: 'PrivateController',
 	action: function(){
 
+		Session.set("route", "Company / " + Session.get("company").name);
 		this.render('company');
 
 	},

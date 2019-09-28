@@ -25,26 +25,67 @@ Template.createItem.events({
     event.preventDefault();
 
     var data = {
-      'name': Session.get("item-creation").title,
+      'name': $('#input-name').val(),
       'price': $('#input-price').val(),
       'kcal': $('#input-kcal').val(),
-      'info_en': $('#input-info-en').val(),
-      'info_es': $('#input-info-es').val(),
-      'info_pt': $('#input-info-pt').val(),
-      'category': Session.get("module.selectedCategory")["_id"],
-      'image': Session.get("module.imageUpload"),
-      'image_thumb': Session.get("module.imageUploadThumb"),
+      'description': $('#input-description').val(),
+      'image': "",
+      'image_thumb': "",
       'visible': true
     }
 
+    if (!data.name) {
+      notifyMessage("Please make sure name is input.", "danger");
+      return;
+    }
 
-    Meteor.call("items.insert", data, function (err, data) {
+    let image = Session.get("module.imageUpload");
+    let thumb = Session.get("module.imageUploadThumb");
+
+
+    Meteor.call("items.insert", data, function (err, itemId) {
       if (err) {
         console.log(err)
         notifyMessage("An error occurred creating item.", "danger");
       } else {
-        Router.go("/")
-        notifyMessage("New item created!", "success");
+        //Router.go("/items")
+        //notifyMessage("New item created!", "success");
+
+        let data = {};
+
+        var imageObj = new FS.File(dataURItoBlob(image));
+        imageObj['user_id'] = Meteor.userId();
+        Images.insert(imageObj, function (err, image) {
+          // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+          if (err) {
+            console.log(err);
+          } else {
+            data['image'] = image._id;
+
+            var thumbObj = new FS.File(dataURItoBlob(thumb));
+            thumbObj['user_id'] = Meteor.userId();
+            Thumbnails.insert(thumbObj, function (err, thumbnail) {
+              // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+              if (err) {
+                console.log(err);
+              } else {
+                data['image_thumb'] = thumbnail._id;
+
+                Meteor.call("items.edit", itemId, data, function (err, data) {
+                  if (err) {
+                    console.log(err)
+                    notifyMessage("Failed item update", "danger");
+                  } else {
+                    notifyMessage("Item successfully created", "success");
+                  }
+                });
+
+
+              }
+            });
+
+          }
+        });
       }
 
     });
@@ -54,16 +95,6 @@ Template.createItem.events({
   }
 });
 
-
-Template.createItemCheck.events({
-  'click .js-check-item': function (event, template) {
-    event.preventDefault();
-
-    var title = template.find("#item-create-check-input").value;
-
-    Router.go("/item/create/validate/" + title);
-  }
-});
 
 
 

@@ -1,0 +1,86 @@
+<template name="editCollection">
+    <section class="section-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3">
+                    <header>
+                        <h1 class="h3 display">Details </h1>
+                    </header>
+                </div>
+                <div class="col-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <label>Name</label>
+                            <input type="text" class="form-control" placeholder="Collection name...">
+
+                            <label>Description</label>
+                            <input type="text" class="form-control"
+                                placeholder="Write a description about what this collection is about...">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="divider"></div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3">
+                    <header>
+                        <h1 class="h3 display">Products </h1>
+                    </header>
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-12 p-3">
+                            <div class="button med-width icon back-blue float-right js-add-item">
+                                <i class="material-icons">add</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{#each item in collectionItems (collection.items) }}
+                        <div class="col-3">
+                            <div class="card">
+                                <img src="{{thumbUrl item.image_thumb}}" class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{item.name}}</h5>
+                                    <p class="card-text">
+                                        <!-- <a class="btn-floating halfway-fab waves-effect waves-light red">
+                                                <i class="material-icons js-display-item-remove"
+                                                    data-item-id="{{item._id}}">remove</i>
+                                            </a> -->
+                                        <div class="button float-left js-collection-item-remove"
+                                            data-item-id="{{item._id}}">
+                                            Remove Item</div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{else}}
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p>You have no items selected to display</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        {{/each}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

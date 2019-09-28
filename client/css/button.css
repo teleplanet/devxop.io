@@ -14,21 +14,41 @@ button, input[type="submit"], input[type="reset"] {
     color: #666 !important;
     display: block;
   position: relative;
-  float: left;
   padding: 10px 25px;
   text-align: center;
   border-radius: 5px;
   transition: all 0.2s ;
   cursor: pointer;
   margin-top: 10px;
-  min-width: 200px;
-  text-transform: capitalize;
+  text-transform: capitalize;   
+  text-decoration: none !important;
+}
+
+.button.icon{
+    display: inline-block;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    padding: 0;
+    background-color: #26a69a;
+    border-radius: 50%;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+    cursor: pointer;
+    vertical-align: middle;
+}.button.icon > i{
+    float: none;
+    margin: auto;
+    font-size: 25px;
+    line-height: 55px;
 }
 
 .button > i{
     font-size: 18px;
-    width: 18px;
-    padding: 2px;
     float: right;
 }
 

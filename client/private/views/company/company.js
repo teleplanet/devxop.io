@@ -1,13 +1,14 @@
 Template.company.onRendered(function () {
+
     /* add unique id to each list item*/
-    $('.sortable-section').find('li').each(function (index, elem) {
-
-        $(elem).attr('id', 'sortable-list-item-' + (index));
-
-    });
+    /*  $('.sortable-section').find('li').each(function (index, elem) {
+ 
+         $(elem).attr('id', 'sortable-list-item-' + (index));
+ 
+     }); */
 
     /* initialize jQuery UI sortable */
-    $('.sortable-list').sortable({
+    /* $('.sortable-list').sortable({
         placeholder: 'sortable-list-item-placeholder',
         cursor: 'move',
         delay: 150,
@@ -17,13 +18,6 @@ Template.company.onRendered(function () {
             $(this).attr('data-previndex', ui.item.index());
         },
         update: function (e, ui) {
-            // gets the new and old index then removes the temporary attribute
-            /* var newIndex = ui.item.index();
-            var oldIndex = $(this).attr('data-previndex');
-            var element_id = ui.item.attr('id');
-            console.log('id of Item moved: ');
-            console.log(element_id+' old position = '+oldIndex+' new position = '+newIndex); */
-
             let data = {
                 public_collections: []
             };
@@ -48,7 +42,13 @@ Template.company.onRendered(function () {
 
     $(".sortable-list").disableSelection();
 
-    $(".selector").sortable("option", "forceHelperSize", true);
+    $(".selector").sortable("option", "forceHelperSize", true); */
+
+    setTimeout(function () {
+        let company = Session.get("company");
+        Session.set("module.imageUpload", Images.findOne({ "_id": company.image }).url());
+    }, 2000)
+
 
 });
 
@@ -60,7 +60,7 @@ Template.company.helpers({
 
 
 Template.company.events({
-    'click .js-image-upload-event': function(){
+    'click .js-image-upload-event': function () {
         let image = Session.get("module.imageUpload");
         let thumb = Session.get("module.imageUploadThumb");
         let company = Session.get("company");
@@ -75,7 +75,7 @@ Template.company.events({
                 console.log(err);
             } else {
                 data['image'] = image._id;
-                Images.remove({"_id": company.image});
+                Images.remove({ "_id": company.image });
 
                 var thumbObj = new FS.File(dataURItoBlob(thumb));
                 thumbObj['user_id'] = Meteor.userId();
@@ -85,7 +85,7 @@ Template.company.events({
                         console.log(err);
                     } else {
                         data['image_thumb'] = thumbnail._id;
-                        Thumbnails.remove({"_id": company.image_thumb});
+                        Thumbnails.remove({ "_id": company.image_thumb });
 
                         Meteor.call("company.edit", company._id, data, function (err, data) {
                             if (err) {
@@ -117,7 +117,7 @@ Template.company.events({
                 console.log(err);
             } else {
 
-            }publicCollections
+            } publicCollections
         });
     },
     'click .js-remove-public-collection': function () {

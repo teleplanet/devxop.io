@@ -14,7 +14,7 @@ Meteor.methods({
 
         let id = Items.insert(data);
 
-        return true;
+        return id;
 
     },
     'items.remove': function (itemId) {

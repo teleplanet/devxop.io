@@ -42,7 +42,7 @@ Template.editItem.onRendered(function () {
         );
     }
 
-    $('.tabs').tabs();
+    //$('.tabs').tabs();
 });
 
 

@@ -8,16 +8,7 @@ Router.route('/dashboard',{
 
 		//Render dashboards according to user role
 		if(Meteor.user()){
-			/* //If user is admin, render admin dashboard
-			if(Roles.userIsInRole(Meteor.userId(), 'admin')){
-				this.render('dashboard');
-			}
-			//else render staff dashboard
-			else{
-				//this.render('staffDashboard');
-			} */
-			
-			this.render("headerBanner", {to: 'banner'})
+			Session.set("route", "Dashboard");
             this.render('dashboard');
 		}
 

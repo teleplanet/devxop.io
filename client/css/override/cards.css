@@ -1,6 +1,11 @@
-.card .card-content .card-title {
+.card .card-body .card-title {
     height: 64px;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-top: 5px;
+}
+
+
+.card-col-4{
+    column-count: 4;
 }
