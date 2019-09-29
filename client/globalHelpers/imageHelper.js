@@ -3,6 +3,10 @@ Template.registerHelper("getUrlFromBlob", function (blob) {
 	return URL.createObjectURL(blob);
 });
 
+Template.registerHelper("videoUrl", function (id) {
+    return videoUrl(id);
+});
+
 Template.registerHelper("imageUrl", function (id) {
     return imageUrl(id);
 });

@@ -1,3 +1,46 @@
 <template name="display">
-    
+    {{#if getDisplay "static"}}
+    <div class="full-static" style="background-image: url({{imageUrl static}})"></div>
+    {{/if}}
+
+
+
+    {{#if getDisplay "video"}}
+    <!-- Start video hero -->
+    <div class="video-hero jquery-background-video-wrapper demo-video-wrapper">
+        <video class="jquery-background-video" autoplay muted loop>
+            <!-- poster="https://d2ezlykacdqcnj.cloudfront.net/_assets/home-video/beach-waves-loop.jpg"> -->
+            <source src="{{videoUrl video}}"
+                type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="page-width">
+            <div class="video-hero--content">
+                <h2>Background Video Demo</h2>
+                <p>Full width video hero</p>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+
+
+
+    {{#if getDisplay "url"}}
+    <p>URL</p>
+    {{/if}}
+
+
+
+
+    {{#if getDisplay "code"}}
+    <p>Code</p>
+    {{/if}}
+
+
+
+
+    {{#if getDisplay "slider"}}
+    <p>Slider</p>
+    {{/if}}
 </template>

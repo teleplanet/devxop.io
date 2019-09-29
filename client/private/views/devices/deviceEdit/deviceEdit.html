@@ -56,30 +56,39 @@
 
 
                             {{#if getDisplay displayType "video"}}
-                            <p>is video</p>
+                            <div class="col-12">
+                                {{> moduleVideoUpload}}
+                            </div>
                             {{/if}}
 
 
 
 
                             {{#if getDisplay displayType "url"}}
-                            <p>is URL</p>
+                            <div class="col-12">
+                                <p>Type in a url of a website you want to display on the screen.</p>
+                                <input type="text" placeholder="Any url..." value="{{displayType.url.url}}"
+                                    class="form-control js-url-edit">
+                            </div>
                             {{/if}}
 
 
 
 
                             {{#if getDisplay displayType "code"}}
-                            <p>is code</p>
+                            <div class="col-12">
+                                <p>Type in a code you want to inject to the screen.</p>
+                                <textarea class="form-control js-code-edit" style="min-height: 200px;"
+                                    value="{{displayType.code.code}}"></textarea>
+                            </div>
                             {{/if}}
 
 
 
 
                             {{#if getDisplay displayType "slider"}}
-                            <p>is slider</p>
-                            <div class="row">
-                                {{#each item in displayType.items}}
+                            <div class="col-12">
+                                {{#each item in getItems displayType.items }}
                                 <div class="card col-3 p-0">
                                     <img src="{{thumbUrl item.image_thumb}}" class="card-img-top" alt="">
                                     <div class="card-body">
@@ -94,11 +103,9 @@
                                 <p>You have no items selected to display</p>
                                 {{/each}}
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="button back-blue icon float-right js-add-item">
-                                        <i class="material-icons">add</i>
-                                    </div>
+                            <div class="col-12">
+                                <div class="button back-blue icon float-right js-add-item">
+                                    <i class="material-icons">add</i>
                                 </div>
                             </div>
                             {{/if}}

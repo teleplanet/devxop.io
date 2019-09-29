@@ -11,7 +11,7 @@ Template.deviceEdit.onRendered(function () {
 
         /* ########### DEVICE DISPLAY TYPES SETUP ################ */
         let data = {
-            display_types: device.display_types
+            display_types: device["display_types"]
         };
 
         for (let i = 0; i < displayTypes.length; i++) {
@@ -27,7 +27,7 @@ Template.deviceEdit.onRendered(function () {
 
         }
 
-        if (typeof device["display_types"] === 'undefined' || Object.keys(data.display_types).length !== Object.keys(device.display_types).length) {
+        if (typeof device["display_types"] === 'undefined') {
             //display types are missing... adding
             Meteor.call("devices.edit", device._id, data, function (err, data) {
                 if (err)
@@ -37,7 +37,16 @@ Template.deviceEdit.onRendered(function () {
             });
         } else {
             //object is empty, meaning device already contains all display types
+            if (Object.keys(data.display_types).length !== Object.keys(device.display_types).length) {
+                Meteor.call("devices.edit", device._id, data, function (err, data) {
+                    if (err)
+                        console.log(err);
+
+                    console.log("device updated");
+                });
+            }
         }
+
     }
 
 
@@ -62,7 +71,17 @@ Template.deviceEdit.helpers({
             return false;
         }
 
+        if (selected.name == type && selected.name == "video") {
+            setTimeout(function () {
+                Session.set("module.videoUpload", Session.get("device-edit").display_types.video.video);
+            }, 1000);
+
+        }
+
         return selected.name == type;
+    },
+    'getItems': function (items) {
+        return Items.find({ "_id": { "$in": items } }).fetch();
     },
     'selectedDisplayIsLive': function () {
         let device = Session.get("device-edit");
@@ -146,13 +165,12 @@ Template.deviceEdit.events({
 
                 if (typeof device.display_types[display]["items"] === "undefined") {
                     device.display_types[display]["items"] = [item._id];
-                }else{
+                } else {
                     device.display_types[display]["items"].push(item._id)
                 }
 
-                
                 let data = {
-                    "display_types": device.display_types[display]
+                    "display_types": device.display_types
                 };
 
                 Meteor.call("devices.edit", device._id, data, function (err, data) {
@@ -167,4 +185,115 @@ Template.deviceEdit.events({
             }
         });
     },
+    'click .js-display-item-remove': function (event) {
+        let device = Session.get("device-edit");
+        let itemId = $(event.target).data('item-id');
+
+        let display = Session.get("module.selectedDisplay");
+
+        console.log(itemId);
+
+        let displayItems = [];
+        if (typeof device.display_types[display]["items"] !== "undefined") {
+            displayItems = device.display_types[display]["items"];
+
+            device.display_types[display]["items"] = [];
+
+            console.log(device);
+            for (let i = 0; i < displayItems.length; i++) {
+                if (displayItems[i] === itemId) {
+                    console.log(displayItems[i] + " " + itemId);
+                } else {
+                    //data.display_items.push(displayItems[i]);
+                    device.display_types[display]["items"].push(displayItems[i]._id)
+                }
+            }
+
+            let data = {
+                "display_types": device.display_types
+            };
+
+            Meteor.call("devices.edit", device._id, data, function (err, data) {
+                if (err)
+                    console.log(err);
+
+                console.log("item updated");
+            });
+        }
+
+    },
+    'click .js-video-upload-event': function (event) {
+        let display = Session.get("module.selectedDisplay");
+
+        if (display == "video") {
+            let device = Session.get("device-edit");
+            let video = Session.get("module.videoUpload");
+
+            let data = {
+                "display_types": device.display_types
+            };
+
+
+            data.display_types[display]["video"] = video;
+
+            Meteor.call("devices.edit", device._id, data, function (err, data) {
+                if (err) {
+                    console.log(err)
+                    notifyMessage("Failed image upload", "danger");
+                } else {
+                    notifyMessage("Image successfully updated", "success");
+                }
+            });
+        }
+    },
+    'change .js-url-edit':function(event){
+        let url = $(event.target).val();
+
+        let display = Session.get("module.selectedDisplay");
+
+        if (display == "url") {
+            let device = Session.get("device-edit");
+
+            let data = {
+                "display_types": device.display_types
+            };
+
+
+            data.display_types[display]["url"] = url;
+
+            Meteor.call("devices.edit", device._id, data, function (err, data) {
+                if (err) {
+                    console.log(err)
+                    notifyMessage("Failed image upload", "danger");
+                } else {
+                    notifyMessage("Image successfully updated", "success");
+                }
+            });
+        }
+    },
+    'change .js-code-edit':function(event){
+        let code = $(event.target).val();
+
+        let display = Session.get("module.selectedDisplay");
+
+        if (display == "code") {
+            let device = Session.get("device-edit");
+
+            let data = {
+                "display_types": device.display_types
+            };
+
+
+            data.display_types[display]["code"] = code;
+
+            Meteor.call("devices.edit", device._id, data, function (err, data) {
+                if (err) {
+                    console.log(err)
+                    notifyMessage("Failed image upload", "danger");
+                } else {
+                    notifyMessage("Image successfully updated", "success");
+                }
+            });
+        }
+    }
 });

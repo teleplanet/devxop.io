@@ -89,6 +89,7 @@ Router.onBeforeAction(function()
 		if(!Meteor.user()) {
 			if(Meteor.loggingIn()){
 				this.render(this.loadingTemplate);
+				this.next();
 			}
 			else{
 				//Router.go('login');
@@ -102,7 +103,7 @@ Router.onBeforeAction(function()
 			Session.set("user", Meteor.user());
 
 			//set route
-			Session.set("route", {title: Router.current().route.getName()});
+			//Session.set("route", {title: Router.current().route.getName()});
 
 			this.next(); 
 		}

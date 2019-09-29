@@ -52,6 +52,18 @@ scaleImage = function (url, width, height, callback) {
     img.src = url;
 }
 
+videoUrl = function(id){
+    let img = Videos.findOne({"_id": id});
+
+
+    let url = "";
+    if(img){
+        url = img.url();
+    }
+
+    return  document.location.origin + url +'?'+new Date().getTime();
+}
+
 
 imageUrl = function(id){
     let img = Images.findOne({"_id": id});

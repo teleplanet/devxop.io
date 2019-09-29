@@ -36,7 +36,10 @@ Template.moduleVideoUpload.events({
 
                     //start processing Loader
                     Session.set("module.processingLoader", true);
-                    Videos.insert(ev.files[0], function (err, file) {
+
+                    var videoObj = new FS.File(ev.files[0]);
+                    videoObj['user_id'] = Meteor.userId();
+                    Videos.insert(videoObj, function (err, file) {
                         // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
                         if (err) {
                             console.log(err);
