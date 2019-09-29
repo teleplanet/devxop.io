@@ -11,3 +11,54 @@
     top: 0;
     bottom: 0;
 }
+
+.display-video{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    object-fit: fill;
+}
+
+.carousel-image{
+    width: 100%;
+    height: 100%;
+    background-origin: content-box;
+      background-size: cover;
+      background-position: center;
+    position: fixed;
+    }
+
+/* ######################## SLIDER DISPLAY ####################*/
+.carousel-item.active > .slide-caption{
+    opacity: 1;
+    right: 0% !important;
+  }
+  
+  .slide-caption{
+    position: fixed !important;
+    padding: 4vh !important;
+    background-color: rgba(100, 100, 100, 0.6);
+    top: auto !important;
+    left: auto !important;
+    bottom: 15% !important;
+    right: 0% !important;
+    width: auto !important;
+    text-align: left !important;
+    opacity: 0;
+    z-index: 200 !important;
+    transition: all 2s ease-in-out;
+    right: -100% !important;
+  }.slide-caption > h3, .slide-caption > h5, .slide-caption > p{
+    color:#fff !important;
+    font-weight: 400;
+  }.slide-caption > h5{
+    font-size: 6vh !important;
+  }.slide-caption > p{
+    font-size: 4vh !important;
+  }
+  
+    

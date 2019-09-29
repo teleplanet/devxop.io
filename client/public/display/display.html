@@ -8,10 +8,9 @@
     {{#if getDisplay "video"}}
     <!-- Start video hero -->
     <div class="video-hero jquery-background-video-wrapper demo-video-wrapper">
-        <video class="jquery-background-video" autoplay muted loop>
+        <video class="jquery-background-video display-video" autoplay muted loop>
             <!-- poster="https://d2ezlykacdqcnj.cloudfront.net/_assets/home-video/beach-waves-loop.jpg"> -->
-            <source src="{{videoUrl video}}"
-                type="video/mp4">
+            <source src="{{videoUrl video}}" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
         <div class="page-width">
@@ -41,6 +40,37 @@
 
 
     {{#if getDisplay "slider"}}
-    <p>Slider</p>
+
+    <div id="slider" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+            {{#each item in items}}
+            <div class="carousel-item" id="{{item._id}}">
+                <!-- <img src="{{imageUrl item.image}}" class="d-block w-100"> -->
+                <div class="carousel-image" style="background-image: url({{imageUrl item.image}})">
+
+                    </div>
+                <div class="carousel-caption slide-caption">
+                    <h5>{{item.name}}</h5>
+                    <p>{{item.price}} €</p>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    <!-- <div class="bd-example">
+        <div id="slider" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+                {{#each item in items}}
+                <div class="carousel-item active">
+                    <img src="{{imageUrl item.image}}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{item.name}}</h5>
+                        <p>{{item.price}} €</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div> -->
     {{/if}}
 </template>

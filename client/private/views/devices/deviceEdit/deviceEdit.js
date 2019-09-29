@@ -205,7 +205,7 @@ Template.deviceEdit.events({
                     console.log(displayItems[i] + " " + itemId);
                 } else {
                     //data.display_items.push(displayItems[i]);
-                    device.display_types[display]["items"].push(displayItems[i]._id)
+                    device.display_types[display]["items"].push(displayItems[i])
                 }
             }
 
