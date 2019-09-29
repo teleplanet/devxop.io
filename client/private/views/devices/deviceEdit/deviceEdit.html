@@ -21,26 +21,20 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="row">
                 <div class="card col-12">
                     <div class="card-body">
-                        <div class="col-12 mb-2">
-                            <label>Device name</label>
-                            <input type="text" id="input-device-name" placeholder="{{device.name}}"
-                                value="{{device.name}}" data-key="name" class="form-control deviceEdit">
-                        </div>
-                        <div class="col-12 mb-2">
-                            <label>Display</label>
+                        <div class="row">
+                            <label class="col-12 p-0">Display Type</label>
                             {{> moduleDisplaySelect}}
                         </div>
-                        <div class="col-12 mb-2">
-                            <label>Template Status</label>
-                            {{#if displayTemplateVisible}}
-                            <p>Current template is live!</p>
+                        <div class="row pt-3">
+                            <label class="col-12 p-0">Status</label>
+                            {{#if selectedDisplayIsLive}}
+                            <p class="col-12 p-0">Current template is live!</p>
                             {{else}}
-                            <p>Current template is offline. Click "Go Live!" to make this your primary template
+                            <p class="col-12 p-0">Current template is offline. Click "Go Live!" to make this your
+                                primary template
                                 being
                                 displayed.</p>
                             <div class="button go-live js-live-switch med-width" data-device-id="{{device._id}}">Go
@@ -48,46 +42,57 @@
                             </div>
                             {{/if}}
                         </div>
+                        <div class="row pt-3">
+                            <label class="col-12 p-0">Content</label>
 
-                        <div class="col-12 mb-2">
-                            {{#if hasDisplay}}
-                            <label>Displayed Items</label>
-                            {{#if staticDisplay}}
-                            <!-- ################### STATIC DISPLAY ####################### -->
+                            {{#if getDisplay displayType "static"}}
                             <div class="row">
                                 <div class="col-12">
                                     {{> moduleImageUpload}}
                                 </div>
                             </div>
+                            {{/if}}
 
-                            {{else}}
 
-                            {{#if videoDisplay}}
-                            <!-- ################### VIDEO DISPLAY ################ -->
+
+                            {{#if getDisplay displayType "video"}}
+                            <p>is video</p>
+                            {{/if}}
+
+
+
+
+                            {{#if getDisplay displayType "url"}}
+                            <p>is URL</p>
+                            {{/if}}
+
+
+
+
+                            {{#if getDisplay displayType "code"}}
+                            <p>is code</p>
+                            {{/if}}
+
+
+
+
+                            {{#if getDisplay displayType "slider"}}
+                            <p>is slider</p>
                             <div class="row">
-                                <div class="col-12">
-                                    {{> moduleVideoUpload}}
-                                </div>
-                            </div>
-                            {{else}}
-                            <!-- ################### NORMAL TEMPLATE DISPLAY ############### -->
-                            <div class="row">
-                                <div class="card-deck col-12">
-                                    {{#each item in selectedDisplayItems}}
-                                    <div class="card col-3 p-0">
-                                        <img src="{{thumbUrl item.image_thumb}}" class="card-img-top" alt="">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{item.name}}</h5>
-                                            <p class="card-text">
-                                                <div class="button float-left js-display-item-remove"
+                                {{#each item in displayType.items}}
+                                <div class="card col-3 p-0">
+                                    <img src="{{thumbUrl item.image_thumb}}" class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{item.name}}</h5>
+                                        <p class="card-text">
+                                            <div class="button float-left js-display-item-remove"
                                                 data-item-id="{{item._id}}">Remove Item</div>
-                                            </p>
-                                        </div>
+                                        </p>
                                     </div>
-                                    {{else}}
-                                    <p>You have no items selected to display</p>
-                                    {{/each}}
                                 </div>
+                                {{else}}
+                                <p>You have no items selected to display</p>
+                                {{/each}}
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -96,22 +101,12 @@
                                     </div>
                                 </div>
                             </div>
+                            {{/if}}
 
-                            {{/if}}
-                            <!-- ENDIF VIDEO DISPLAY -->
-                            {{/if}}
-                            <!-- ENDIF STATIC DISPLAY -->
-                            {{/if}}
-                            <!-- ENDIF IF DISPLAY -->
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 

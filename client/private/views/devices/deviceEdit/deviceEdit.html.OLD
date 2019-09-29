@@ -1,0 +1,119 @@
+<template name="deviceEdit">
+    <section class="section-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card col-12">
+                    <div class="row no-gutters">
+                        <div class="col-md-8">
+                            <iframe class="card-img" width="720" height="420" src="{{deviceUrl}}"></iframe>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-body">
+                                <h5 class="card-title">{{device.name}}</h5>
+                                <label>Live display</label>
+                                <p class="card-text">{{liveDisplay.name}}</p>
+                                <label>Status</label>
+                                <p class="card-text">{{isOnline}}</p>
+                                <label></label>
+                                <p class="card-text"><a href="{{deviceUrl}}" target="_blank">Live view!</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="card col-12">
+                    <div class="card-body">
+                        <div class="col-12 mb-2">
+                            <label>Device name</label>
+                            <input type="text" id="input-device-name" placeholder="{{device.name}}"
+                                value="{{device.name}}" data-key="name" class="form-control deviceEdit">
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label>Display</label>
+                            {{> moduleDisplaySelect}}
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label>Template Status</label>
+                            {{#if displayTemplateVisible}}
+                            <p>Current template is live!</p>
+                            {{else}}
+                            <p>Current template is offline. Click "Go Live!" to make this your primary template
+                                being
+                                displayed.</p>
+                            <div class="button go-live js-live-switch med-width" data-device-id="{{device._id}}">Go
+                                Live!
+                            </div>
+                            {{/if}}
+                        </div>
+
+                        <div class="col-12 mb-2">
+                            {{#if hasDisplay}}
+                            <label>Displayed Items</label>
+                            {{#if staticDisplay}}
+                            <!-- ################### STATIC DISPLAY ####################### -->
+                            <div class="row">
+                                <div class="col-12">
+                                    {{> moduleImageUpload}}
+                                </div>
+                            </div>
+
+                            {{else}}
+
+                            {{#if videoDisplay}}
+                            <!-- ################### VIDEO DISPLAY ################ -->
+                            <div class="row">
+                                <div class="col-12">
+                                    {{> moduleVideoUpload}}
+                                </div>
+                            </div>
+                            {{else}}
+                            <!-- ################### NORMAL TEMPLATE DISPLAY ############### -->
+                            <div class="row">
+                                <div class="card-deck col-12">
+                                    {{#each item in selectedDisplayItems}}
+                                    <div class="card col-3 p-0">
+                                        <img src="{{thumbUrl item.image_thumb}}" class="card-img-top" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{item.name}}</h5>
+                                            <p class="card-text">
+                                                <div class="button float-left js-display-item-remove"
+                                                data-item-id="{{item._id}}">Remove Item</div>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {{else}}
+                                    <p>You have no items selected to display</p>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button back-blue icon float-right js-add-item">
+                                        <i class="material-icons">add</i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{/if}}
+                            <!-- ENDIF VIDEO DISPLAY -->
+                            {{/if}}
+                            <!-- ENDIF STATIC DISPLAY -->
+                            {{/if}}
+                            <!-- ENDIF IF DISPLAY -->
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+</template>

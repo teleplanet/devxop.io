@@ -33,16 +33,9 @@ Template.moduleDisplaySelect.helpers({
         return Session.get("module.selectedDisplay");
     },
     'displayList':function(){
-        
-        let list = [
-            "light",
-            "specials",
-            "static",
-            "video"
-            /* "menu(unavailable)" */
-        ]
+    
 
-        return list;//DisplayTemplates.find().fetch();
+        return displayTypes;//DisplayTemplates.find().fetch();
     }
 });
 
