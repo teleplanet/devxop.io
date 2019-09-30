@@ -46,7 +46,6 @@ Template.deviceEdit.onRendered(function () {
                 });
             }
         }
-
     }
 
 
@@ -56,6 +55,10 @@ Template.deviceEdit.onRendered(function () {
 
 
 Template.deviceEdit.helpers({
+    'deviceUrl': function () {
+        let device = Session.get("device-edit");
+        return document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device.auth.access_token;
+    },
     'device': function () {
         return Session.get("device-edit");
     },
@@ -76,6 +79,11 @@ Template.deviceEdit.helpers({
                 Session.set("module.videoUpload", Session.get("device-edit").display_types.video.video);
             }, 1000);
 
+        }else if(selected.name == type && selected.name == "static"){
+            setTimeout(function () {
+                let img = Images.findOne({"_id": Session.get("device-edit").display_types.static.image});
+                Session.set("module.imageUpload", img.url());
+            }, 1000);
         }
 
         return selected.name == type;

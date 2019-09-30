@@ -2,12 +2,12 @@
     <section class="section-padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="card col-12">
+                <div class="card col-12 p-0">
                     <div class="row no-gutters">
-                        <div class="col-md-8">
-                            <iframe class="card-img" width="720" height="420" src="{{deviceUrl}}"></iframe>
+                        <div class="col-md-6 p-1">
+                            <iframe class="card-img" width="720" height="480" src="{{deviceUrl}}"></iframe>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card-body">
                                 <h5 class="card-title">{{device.name}}</h5>
                                 <label>Live display</label>
@@ -67,7 +67,7 @@
                             {{#if getDisplay displayType "url"}}
                             <div class="col-12">
                                 <p>Type in a url of a website you want to display on the screen.</p>
-                                <input type="text" placeholder="Any url..." value="{{displayType.url.url}}"
+                                <input type="text" placeholder="Any url..." value="{{displayType.url}}"
                                     class="form-control js-url-edit">
                             </div>
                             {{/if}}
@@ -79,7 +79,7 @@
                             <div class="col-12">
                                 <p>Type in a code you want to inject to the screen.</p>
                                 <textarea class="form-control js-code-edit" style="min-height: 200px;"
-                                    value="{{displayType.code.code}}"></textarea>
+                                    value="{{displayType.code}}"></textarea>
                             </div>
                             {{/if}}
 
@@ -88,20 +88,23 @@
 
                             {{#if getDisplay displayType "slider"}}
                             <div class="col-12">
-                                {{#each item in getItems displayType.items }}
-                                <div class="card col-3 p-0">
-                                    <img src="{{thumbUrl item.image_thumb}}" class="card-img-top" alt="">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{item.name}}</h5>
-                                        <p class="card-text">
-                                            <div class="button float-left js-display-item-remove"
-                                                data-item-id="{{item._id}}">Remove Item</div>
-                                        </p>
+                                <div class="row">
+                                    {{#each item in getItems displayType.items }}
+                                    <div class="card col-3 p-0 m-1">
+                                        <img src="{{thumbUrl item.image_thumb}}" class="card-img-top" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{item.name}}</h5>
+                                            <p class="card-text">
+                                                <div class="button float-left js-display-item-remove"
+                                                    data-item-id="{{item._id}}">Remove Item</div>
+                                            </p>
+                                        </div>
                                     </div>
+                                    {{else}}
+                                    <p>You have no items selected to display</p>
+                                    {{/each}}
                                 </div>
-                                {{else}}
-                                <p>You have no items selected to display</p>
-                                {{/each}}
+
                             </div>
                             <div class="col-12">
                                 <div class="button back-blue icon float-right js-add-item">
