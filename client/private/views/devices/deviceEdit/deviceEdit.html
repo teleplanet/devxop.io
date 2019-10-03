@@ -2,7 +2,7 @@
     <section class="section-padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="card col-12 p-0">
+                <div class="card col-12 col-sm-12 p-0">
                     <div class="row no-gutters">
                         <div class="col-md-6 p-1">
                             <iframe class="card-img" width="720" height="480" src="{{deviceUrl}}"></iframe>
@@ -11,9 +11,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{device.name}}</h5>
                                 <label>Live display</label>
-                                <p class="card-text">{{liveDisplay.name}}</p>
+                                <p class="card-text">{{device.selected_display}}</p>
                                 <label>Status</label>
-                                <p class="card-text">{{isOnline}}</p>
+                                <p class="card-text">{{getStatus device "text"}}</p>
                                 <label></label>
                                 <p class="card-text"><a href="{{deviceUrl}}" target="_blank">Live view!</a></p>
                             </div>
@@ -114,6 +114,14 @@
                             {{/if}}
 
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="card col-12">
+                    <div class="card-body">
+                        <div class="button danger center js-device-remove">Remove device and its access</div>
                     </div>
                 </div>
             </div>

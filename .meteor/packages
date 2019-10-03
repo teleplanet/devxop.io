@@ -49,3 +49,4 @@ gwendall:reactive-watcher
 cfs:standard-packages
 cfs:gridfs
 cfs:filesystem
+littledata:synced-cron

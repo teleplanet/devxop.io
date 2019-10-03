@@ -100,6 +100,30 @@ Template.deviceEdit.helpers({
             return false;
         }
 
+    },
+    'getStatus': function (device, key) {
+        if (device && device["ping_stamp"]) {
+            let time1 = device.ping_stamp;
+            let time2 = new Date().getTime();
+            let res;
+
+            let diff = getDiffSeconds(time2, time1);
+
+            if (diff > 40) { //ping stamp update every 30 seconds
+                res = {class: "back-red", text: "Offline"};
+
+                return res[key];
+            } else {
+                res = {class: "back-green", text: "Online"};
+
+                return res[key];
+            }
+
+        } else {
+            res = {class: "", text: "Unknown"};
+
+            return res[key];
+        }
     }
 });
 
@@ -303,5 +327,25 @@ Template.deviceEdit.events({
                 }
             });
         }
+    },
+    'click .js-device-remove': function () {
+        let id = Session.get("device-edit")["_id"];
+
+        confirmPopup({ title: "Delete device access", msg: "Your are attempting to permanantly delete this device access. Are you sure?", btn_type: "danger", btn_msg: "Delete(danger)" }, function (canceled, confirmed) {
+            if (canceled) {
+                console.log("device deletion canceled.");
+            } else if (confirmed) {
+                Meteor.call("devices.remove", id, function (err, data) {
+                    if (err) {
+                        console.log(err)
+                        notifyMessage("Failed device remove", "danger");
+                    } else {
+                        notifyMessage("Device has been removed", "success");
+                        Router.go("/");
+                    }
+
+                });
+            }
+        })
     }
 });
