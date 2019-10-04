@@ -1,5 +1,5 @@
 Meteor.publish('devicesSubscriptions', function(){
-	return Devices.find({"auth.user_id": this.userId});
+	return Devices.find({"user_id": this.userId});
 });
 
 Meteor.publish('getDevice', function(deviceId){

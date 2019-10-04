@@ -6,30 +6,44 @@ Router.route('/display', {
 	name: "displayBase",
 	layoutTemplate: 'displayBase',
 	waitOn: function () {
-		let query = this.params.query;
-		let deviceId = query.deviceId;
+		let deviceId = Session.get("fingerprint");
 
-		return [
-			Meteor.subscribe('getDevice', deviceId)
-		]
+		let query = this.params.query;
+
+		if (query["override"]) {
+			return [
+				Meteor.subscribe('getDevice', query["override"])
+			]
+		} else {
+			return [
+				Meteor.subscribe('getDevice', deviceId)
+			]
+		}
+
+
 	},
 	action: function () {
 		var self = this;
 		Deps.autorun(function () {
 
 			let device = Devices.findOne();
-
 			Session.set("device", device);
 
-			let items = Meteor.subscribe("items.device", device.display_types.slider.items);
-			let images = Meteor.subscribe("images.device", device.auth.user_id);
-			let videos = Meteor.subscribe("videos.device", device.auth.user_id);
+			if (device) {
+				let items = Meteor.subscribe("items.device", device.display_types.slider.items);
+				let images = Meteor.subscribe("images.device", device.user_id);
+				let videos = Meteor.subscribe("videos.device", device.user_id);
 
-			if (items.ready() && images.ready() && videos.ready()) {
+				if (items.ready() && images.ready() && videos.ready()) {
+					self.render("display");
+				} else {
+					//Router.current().next();
+				}
+			} else {
 				self.render("display");
-			}else{
-				//Router.current().next();
 			}
+
+
 
 		});
 

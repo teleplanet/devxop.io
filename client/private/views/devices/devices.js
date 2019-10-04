@@ -5,7 +5,7 @@ Template.devices.onRendered(function () {
 
 Template.devices.helpers({
     'listDevices': function () {
-        return Devices.find({ "auth.user_id": Meteor.userId() }).fetch();
+        return Devices.find({}).fetch();
     },
     'getLiveDisplay': function (device) {
         let display = DisplayTemplates.findOne({ "_id": device["selected_display"] });

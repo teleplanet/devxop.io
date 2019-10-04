@@ -19,10 +19,7 @@ Meteor.methods({
     },
     'items.remove': function (itemId) {
 
-        let id = Items.remove({
-            '_id': itemId,
-            'user_id': this.userId
-        });
+        Items.remove(itemId);
 
         return true;
 

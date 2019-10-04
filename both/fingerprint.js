@@ -1,3 +1,4 @@
+
 fingerprint = function () {
     if (typeof (Storage) !== "undefined") {
         // Code for localStorage/sessionStorage.

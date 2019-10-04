@@ -1,4 +1,7 @@
 <template name="display">
+
+
+    {{#if device}}
     {{#if getDisplay "static"}}
     <div class="full-static" style="background-image: url({{imageUrl static}})"></div>
     {{/if}}
@@ -48,7 +51,7 @@
                 <!-- <img src="{{imageUrl item.image}}" class="d-block w-100"> -->
                 <div class="carousel-image" style="background-image: url({{imageUrl item.image}})">
 
-                    </div>
+                </div>
                 <div class="carousel-caption slide-caption">
                     <h5>{{item.name}}</h5>
                     <p>{{item.price}} €</p>
@@ -72,5 +75,8 @@
             </div>
         </div>
     </div> -->
+    {{/if}}
+    {{else}}
+        {{> registerDevice}}
     {{/if}}
 </template>

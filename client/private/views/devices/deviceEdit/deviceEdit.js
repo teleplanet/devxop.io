@@ -57,7 +57,7 @@ Template.deviceEdit.onRendered(function () {
 Template.deviceEdit.helpers({
     'deviceUrl': function () {
         let device = Session.get("device-edit");
-        return document.location.origin + "/display?deviceId=" + device["device_id"] + "&accessToken=" + device.auth.access_token;
+        return document.location.origin + "/display?override=" + device["device_id"];
     },
     'device': function () {
         return Session.get("device-edit");
