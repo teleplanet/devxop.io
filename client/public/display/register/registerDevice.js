@@ -1,9 +1,12 @@
+
+
 Template.registerDevice.events({
     'click .js-register-device': function (event) {
         event.preventDefault();
         let user = $(".js-input-user").val();
         let pass = $(".js-input-password").val();
         let id = Session.get("fingerprint");
+        
         let data = {
             "user": user,
             "pass": pass,

@@ -1,5 +1,7 @@
 
 fingerprint = function () {
+
+    let res;
     if (typeof (Storage) !== "undefined") {
         // Code for localStorage/sessionStorage.
 
@@ -12,13 +14,18 @@ fingerprint = function () {
             localStorage.setItem("devxop_fingerprint", id);
 
             Session.set("fingerprint", id);
+            res = id;
         }else{
             Session.set("fingerprint", fingerprint);
+            res = fingerprint;
         }
 
     } else {
         // Sorry! No Web Storage support..
     }
+
+    return res;
+
 }
 
 function uuidv4() {

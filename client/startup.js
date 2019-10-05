@@ -12,7 +12,7 @@ Meteor.startup(function () {
 
 	//set or get user fingerprint (unique id identifier)´
 	// sets a session -> "fingerprint"
-	fingerprint();
+	//fingerprint();
 
 	switch (process.env.NODE_ENV) {
 		case 'development':
@@ -26,6 +26,10 @@ Meteor.startup(function () {
 
 
 	Session.set("fb", undefined);
+});
+
+$(document).ready(function(){
+	fingerprint();
 });
 
 
