@@ -5,8 +5,14 @@ Template.registerDevice.events({
         event.preventDefault();
         let user = $(".js-input-user").val();
         let pass = $(".js-input-password").val();
-        let id = Session.get("fingerprint");
-        
+        let id = fingerprint();
+
+
+        if(!id){
+            console.log("id is empty");
+            id = window["fingerprint"];
+        }
+
         let data = {
             "user": user,
             "pass": pass,

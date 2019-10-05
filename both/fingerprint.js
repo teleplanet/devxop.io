@@ -24,6 +24,8 @@ fingerprint = function () {
         // Sorry! No Web Storage support..
     }
 
+    window["fingerprint"] = res;
+
     return res;
 
 }
