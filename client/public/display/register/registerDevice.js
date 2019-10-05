@@ -12,7 +12,7 @@ Template.registerDevice.events({
 
         if (!id || !user || !pass) {
             console.log("no values inserted.");
-            console.log(data);
+            console.log(JSON.stringify(data));
             return;
         }
 
