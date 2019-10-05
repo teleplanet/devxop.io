@@ -6,7 +6,7 @@ Router.route('/display', {
 	name: "displayBase",
 	layoutTemplate: 'displayBase',
 	waitOn: function () {
-		let deviceId = Session.get("fingerprint");
+		let deviceId = fingerprint();
 
 		let query = this.params.query;
 
