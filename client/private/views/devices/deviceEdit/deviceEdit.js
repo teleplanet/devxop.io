@@ -89,6 +89,9 @@ Template.deviceEdit.helpers({
         return selected.name == type;
     },
     'getItems': function (items) {
+        if(!items)
+            return [];
+
         return Items.find({ "_id": { "$in": items } }).fetch();
     },
     'selectedDisplayIsLive': function () {
