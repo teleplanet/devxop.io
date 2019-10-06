@@ -22,6 +22,7 @@ fingerprint = function () {
 
     } else {
         // Sorry! No Web Storage support..
+        console.log("localStorage not available");
     }
 
     window["fingerprint"] = res;
