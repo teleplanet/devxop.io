@@ -16,18 +16,24 @@ https://bootstrapious.com/p/bootstrap-4-dashboard
 * ==========================================================
 */
 
-.back-red{
-  background-color: #e57373;
+.back-red, .offline{
+  background-color: #e57373 !important;
+  color: #fff !important;
+  font-weight: 500;
 }
-.back-green{
-  background-color: #81c784;
+.back-green, .online{
+  background-color: #81c784 !important;
+  color: #fff !important;
+  font-weight: 500;
 }
 .back-blue{
   background-color: #4fc3f7 !important;
   color: #fff !important;
+  font-weight: 500;
 }
-.back-yellow{
-  background-color: #fff176;
+.back-yellow, .unknown{
+  background-color: #fff176 !important;
+  font-weight: 500;
 }
 
 

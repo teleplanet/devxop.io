@@ -1,5 +1,4 @@
 Template.display.onRendered(function () {
-
     this.sessionWatcher = Session.watch('device', function (value) {
         if (value) {
             if (value.selected_display == "slider") {
@@ -14,7 +13,30 @@ Template.display.onRendered(function () {
 
     });
 
+
 });
+
+
+$(function() {
+    // Handler for .ready() called.
+    let device = Session.get("device");
+    ping(device);
+
+    setInterval(function(){
+        let device = Session.get("device");
+
+        if(device){
+            ping(device);
+        }else{
+            
+        }
+    }, 1000 * 60 * 2); //two minute
+});
+
+
+function ping(device){
+    Meteor.call("devices.ping", device);
+}
 
 function slider() {
     $(".carousel-item").first().addClass("active");
@@ -52,6 +74,11 @@ Template.display.helpers({
         let device = Session.get("device");
 
         return device.display_types.video.video;
+    },
+    'videoLink':function(){
+        let device = Session.get("device");
+
+        return device.display_types.videoUrl.url;
     },
     'url': function () {
         let device = Session.get("device");

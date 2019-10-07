@@ -6,7 +6,7 @@ Meteor.methods({
             $set: data,
         });
     },
-    'devices.remove': function(id){
+    'devices.remove': function (id) {
 
         return Devices.remove(id);
     },
@@ -54,7 +54,7 @@ Meteor.methods({
                 console.log(data);
 
                 Devices.update(device._id, {
-                    $set: {"selected_display": data.next_display},
+                    $set: { "selected_display": data.next_display },
                 });
 
                 return "changed device display";
@@ -64,7 +64,7 @@ Meteor.methods({
         SyncedCron.start(device, data);
 
     },
-    'devices.register': function(data){
+    'devices.register': function (data) {
         let user = Accounts.findUserByEmail(data.user);
         let result = Accounts._checkPassword(user, data.pass);
 
@@ -77,17 +77,32 @@ Meteor.methods({
                 stamp: new Date().getTime(),
                 user_id: user._id
             };
-    
 
-            let exists = Devices.findOne({"device_id": data.id});
 
-            if(exists){
+            let exists = Devices.findOne({ "device_id": data.id });
+
+            if (exists) {
                 Devices.remove(exists._id);
             }
 
             return Devices.insert(device);
         }
 
-        
+
+    },
+    'devices.ping': function (device) {
+        //console.log(data);
+
+        if (device) {
+            Devices.update({
+                "_id": device._id,
+            },
+                {
+                    $set: {
+                        'ping_stamp': new Date().getTime()
+                    }
+                });
+        }
+
     }
 })

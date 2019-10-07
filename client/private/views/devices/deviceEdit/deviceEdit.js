@@ -21,6 +21,7 @@ Template.deviceEdit.onRendered(function () {
                 data["display_types." + type] = { "name": type };
             } else {
                 if (!device.display_types[type]) {
+                    console.log("adding new type from array");
                     data.display_types[type] = { "name": type };
                 }
             }
@@ -36,8 +37,9 @@ Template.deviceEdit.onRendered(function () {
                 console.log("device updated");
             });
         } else {
-            //object is empty, meaning device already contains all display types
-            if (Object.keys(data.display_types).length !== Object.keys(device.display_types).length) {
+            //object is empty, meaning device already contains some display types
+            if (Object.keys(data.display_types).length != Object.keys(Session.get("device-edit").display_types).length) {
+                console.log("updating display types");
                 Meteor.call("devices.edit", device._id, data, function (err, data) {
                     if (err)
                         console.log(err);
@@ -86,6 +88,7 @@ Template.deviceEdit.helpers({
             }, 1000);
         }
 
+
         return selected.name == type;
     },
     'getItems': function (items) {
@@ -112,20 +115,20 @@ Template.deviceEdit.helpers({
 
             let diff = getDiffSeconds(time2, time1);
 
-            if (diff > 40) { //ping stamp update every 30 seconds
-                res = {class: "back-red", text: "Offline"};
+            if (diff > 130) { //ping stamp update every 30 seconds
+                res = "offline";
 
-                return res[key];
+                return res;
             } else {
-                res = {class: "back-green", text: "Online"};
+                res = "online";
 
-                return res[key];
+                return res;
             }
 
         } else {
-            res = {class: "", text: "Unknown"};
+            res = "unknown";
 
-            return res[key];
+            return res;
         }
     }
 });
@@ -306,6 +309,31 @@ Template.deviceEdit.events({
             });
         }
     },
+    'change .js-videoUrl-edit':function(event){
+        let url = $(event.target).val();
+
+        let display = Session.get("module.selectedDisplay");
+
+        if (display == "videoUrl") {
+            let device = Session.get("device-edit");
+
+            let data = {
+                "display_types": device.display_types
+            };
+
+
+            data.display_types[display]["url"] = url;
+
+            Meteor.call("devices.edit", device._id, data, function (err, data) {
+                if (err) {
+                    console.log(err)
+                    notifyMessage("Failed image upload", "danger");
+                } else {
+                    notifyMessage("Image successfully updated", "success");
+                }
+            });
+        }
+    },
     'change .js-code-edit':function(event){
         let code = $(event.target).val();
 
@@ -350,5 +378,25 @@ Template.deviceEdit.events({
                 });
             }
         })
-    }
+    },
+    'change .deviceEdit': function (event) {
+        let device = Session.get("device-edit");
+        let value = $(event.target).val();
+        let key = $(event.target).data('key');
+        let id = device._id;
+
+        let data = {};
+        data[key] = value;
+
+
+        Meteor.call("devices.edit", id, data, function (err, data) {
+            if (err) {
+                console.log(err)
+                notifyMessage("Failed item update", "danger");
+            } else {
+                notifyMessage("Device successfully updated", "success");
+            }
+        });
+
+    },
 });

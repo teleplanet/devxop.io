@@ -25,6 +25,13 @@
                 <div class="card col-12">
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-12 p-0 pb-3">
+                                <label>Device name</label>
+                                <input type="text" id="input-device-name" placeholder="{{device.name}}"
+                                    value="{{device.name}}" data-key="name" class="form-control deviceEdit">
+                            </div>
+                        </div>
+                        <div class="row">
                             <label class="col-12 p-0">Display Type</label>
                             {{> moduleDisplaySelect}}
                         </div>
@@ -58,6 +65,14 @@
                             {{#if getDisplay displayType "video"}}
                             <div class="col-12">
                                 {{> moduleVideoUpload}}
+                            </div>
+                            {{/if}}
+
+                            {{#if getDisplay displayType "videoUrl"}}
+                            <div class="col-12">
+                                <p>Type in a url of a video you want to display on the screen</p>
+                                <input type="text" placeholder="Url of a video..." value="{{displayType.url}}"
+                                    class="form-control js-videoUrl-edit">
                             </div>
                             {{/if}}
 

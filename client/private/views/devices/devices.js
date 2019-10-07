@@ -8,16 +8,16 @@ Template.devices.helpers({
         return Devices.find({}).fetch();
     },
     'getLiveDisplay': function (device) {
-        let display = DisplayTemplates.findOne({ "_id": device["selected_display"] });
+        let display = device["selected_display"];
 
         if (display) {
-            return display["name"];
+            return display;
         } else {
             return "No live template";
         }
 
     },
-    'getStatus': function (device, key) {
+    'getStatus': function (device) {
         if (device && device["ping_stamp"]) {
             let time1 = device.ping_stamp;
             let time2 = new Date().getTime();
@@ -25,20 +25,20 @@ Template.devices.helpers({
 
             let diff = getDiffSeconds(time2, time1);
 
-            if (diff > 40) { //ping stamp update every 30 seconds
-                res = {class: "back-red", text: "Offline"};
+            if (diff > 130) { //ping stamp update every 30 seconds
+                res = "offline";
 
-                return res[key];
+                return res;
             } else {
-                res = {class: "back-green", text: "Online"};
+                res = "online";
 
-                return res[key];
+                return res;
             }
 
         } else {
-            res = {class: "", text: "Unknown"};
+            res = "unknown";
 
-            return res[key];
+            return res;
         }
     }
 });

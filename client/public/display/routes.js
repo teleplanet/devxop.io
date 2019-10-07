@@ -27,6 +27,7 @@ Router.route('/display', {
 		Deps.autorun(function () {
 
 			let device = Devices.findOne();
+
 			Session.set("device", device);
 
 			if (device) {
