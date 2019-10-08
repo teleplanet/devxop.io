@@ -9,9 +9,9 @@ Router.route('/display', {
 		
 
 		let query = this.params.query;
-		let deviceId = query["override"];//Session.get("fingerprint");
+		let deviceId = Session.get("fingerprint");
 		
-		/* if (query["override"]) {
+		if (query["override"]) {
 			Session.set("override", true);
 			return [
 				Meteor.subscribe('getDevice', query["override"])
@@ -20,11 +20,11 @@ Router.route('/display', {
 			return [
 				Meteor.subscribe('getDevice', deviceId)
 			]
-		} */
+		}
 
-		return [
+		/* return [
 			Meteor.subscribe('getDevice', deviceId)
-		]
+		] */
 
 
 	},

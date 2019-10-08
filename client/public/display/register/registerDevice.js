@@ -5,7 +5,7 @@ Template.registerDevice.events({
         event.preventDefault();
         let user = $(".js-input-user").val();
         let pass = $(".js-input-password").val();
-        let id = Router.current().params.query.override;
+        let id = Session.get("fingerprint");//Router.current().params.query.override;
         
         let data = {
             "user": user,
