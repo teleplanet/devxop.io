@@ -12,6 +12,10 @@
     bottom: 0;
 }
 
+.flip{
+  transform: rotate(-180deg);
+}
+
 .display-video{
     position: fixed;
     right: 0;
