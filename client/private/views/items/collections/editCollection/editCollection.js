@@ -53,6 +53,24 @@ Template.editCollection.events({
             }
         });
     },
+    'change .js-collection-edit': function (event) {
+        let value = $(event.target).val();
+        let key = $(event.target).data('key');
+        let id = Session.get("collection-edit")._id;
+
+        let data = {};
+        data[key] = value;
+
+        Meteor.call("collections.edit", id, data, function (err, data) {
+            if (err) {
+                console.log(err)
+                notifyMessage("Failed item update", "danger");
+            } else {
+                notifyMessage("Collection successfully updated", "success");
+            }
+        });
+
+    },
 });
 
 Template.editCollection.helpers({

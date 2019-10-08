@@ -1,17 +1,22 @@
 <template name="collections">
-  <section class="section-padding">
+  <section class="dashboard-header section-padding">
     <div class="container-fluid">
-      <header>
-        <h3>Collections</h3>
-      </header>
       <div class="row">
+        <div class="col 12">
+          <h2>Collections of Items</h2>
+          <p>Below is a list of all the collection you have created.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container-fluid">
+      <div class="row p-3">
         <div class="col-12 m-3">
           <div class="button med-width icon back-blue float-right js-add-collection">
             <i class="material-icons">add</i>
           </div>
         </div>
-      </div>
-      <div class="row">
         {{#each col in collections}}
         <div class="card card-select col-12 js-select-collection" data-col-id="{{col._id}}">
           <div class="card-body">
@@ -28,7 +33,7 @@
       </div>
     </div>
   </section>
-  
+
 
 
   <!-- <div class="row">

@@ -2,19 +2,19 @@
     <section class="section-padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-md-3">
                     <header>
                         <h1 class="h3 display">Details </h1>
                     </header>
                 </div>
-                <div class="col-9">
+                <div class="col-12 col-md-9">
                     <div class="card">
                         <div class="card-body">
                             <label>Name</label>
-                            <input type="text" class="form-control" placeholder="Collection name...">
+                            <input type="text" class="form-control js-collection-edit" data-key="name" placeholder="Collection name...">
 
                             <label>Description</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control js-collection-edit" data-key="description"
                                 placeholder="Write a description about what this collection is about...">
                         </div>
                     </div>
@@ -33,12 +33,12 @@
     <section class="section-padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-md-3">
                     <header>
                         <h1 class="h3 display">Products </h1>
                     </header>
                 </div>
-                <div class="col-9">
+                <div class="col-12 col-md-9">
                     <div class="row">
                         <div class="col-12 p-3">
                             <div class="button med-width icon back-blue float-right js-add-item">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="row">
                         {{#each item in collectionItems (collection.items) }}
-                        <div class="col-3">
+                        <div class="col-12 col-md-6">
                             <div class="card">
                                 <img src="{{thumbUrl item.image_thumb}}" class="card-img-top" alt="">
                                 <div class="card-body">

@@ -2,12 +2,12 @@
     <section class="section-padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-md-3">
                     <header>
                         <h1 class="h3 display">Details </h1>
                     </header>
                 </div>
-                <div class="col-9">
+                <div class="col-12 col-md-9">
                     <div class="card">
                         <div class="card-body">
                             <label>Name</label>
@@ -34,21 +34,22 @@
     <section class="section-padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-md-3">
                     <header>
                         <h1 class="h3 display">Image </h1>
                     </header>
                 </div>
-                <div class="card col-9">
-                    <div class="card-body">
-                        <div class="row">
-                            <p>Add an image of your logo or something that describes your company.</p>
-                        </div>
-                        <div class="row">
-                            {{> moduleImageUpload}}
+                <div class="col-12 col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <p>Add an image of your logo or something that describes your company.</p>
+                            </div>
+                            <div class="row">
+                                {{> moduleImageUpload}}
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -63,55 +64,59 @@
     <section class="section-padding">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-md-3">
                     <header>
                         <h1 class="h3 display">Public </h1>
                     </header>
                 </div>
-                <div class="card col-9">
-                    <div class="card-body">
-                        <div class="row">
-                            <label>Endpoint</label>
-                        </div>
-                        <div class="row">
-                            <p>Please write a name for an endpoint you would like your clients to visit.</p>
-                            <input type="text" class="form-control js-company-edit" data-key="endpoint"
-                                value="{{company.endpoint}}">
-                        </div>
-                        <div class="row">
-                            <p>Your current company endpoint is: <a
-                                    href="https://devxop.com/menu/{{company.endpoint}}">https://devxop.com/menu/{{company.endpoint}}</a>
-                            </p>
-                        </div>
 
-                        <div class="row">
-                            <label>Collections</label>
-                        </div>
-                        <div class="row">
-                            <p>Select the collections you want to be visible to the public. Make sure to
-                                organize them in the order you want to be visible to the client.</p>
-
-                        </div>
-                        <div class="row">
-                            <div class="sortable-section">
-                                <ul class="sortable-list active">
-                                    {{#each colId in company.public_collections}}
-                                    <li class="sortable-list-item" data-col-id="{{colId}}"><span
-                                            class="fa fa-icon fa-ellipsis-v"></span> {{getCollection colId "name"}} <a
-                                            class="js-remove-public-collection" data-col-id="{{colId}}">Remove</a></li>
-                                    {{else}}
-                                    <p>There are no public collections available</p>
-                                    {{/each}}
-                                </ul>
+                <div class="col-12 col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <label>Endpoint</label>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="button med-width icon back-blue float-right js-add-public-collection">
-                                    <i class="material-icons">add</i>
+                            <div class="row">
+                                <p>Please write a name for an endpoint you would like your clients to visit.</p>
+                                <input type="text" class="form-control js-company-edit" data-key="endpoint"
+                                    value="{{company.endpoint}}">
+                            </div>
+                            <div class="row">
+                                <p>Your current company endpoint is: <a
+                                        href="https://devxop.com/menu/{{company.endpoint}}">https://devxop.com/menu/{{company.endpoint}}</a>
+                                </p>
+                            </div>
+
+                            <div class="row">
+                                <label>Collections</label>
+                            </div>
+                            <div class="row">
+                                <p>Select the collections you want to be visible to the public. Make sure to
+                                    organize them in the order you want to be visible to the client.</p>
+
+                            </div>
+                            <div class="row">
+                                <div class="sortable-section">
+                                    <ul class="sortable-list active">
+                                        {{#each colId in company.public_collections}}
+                                        <li class="sortable-list-item" data-col-id="{{colId}}"><span
+                                                class="fa fa-icon fa-ellipsis-v"></span> {{getCollection colId "name"}}
+                                            <a class="js-remove-public-collection" data-col-id="{{colId}}">Remove</a>
+                                        </li>
+                                        {{else}}
+                                        <p>There are no public collections available</p>
+                                        {{/each}}
+                                    </ul>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button med-width icon back-blue float-right js-add-public-collection">
+                                        <i class="material-icons">add</i>
+                                    </div>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>

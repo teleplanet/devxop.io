@@ -6,7 +6,7 @@ Template.display.onRendered(function () {
                     slider();
                 }, 2000);
 
-            }else if(value.force_refresh){
+            } else if (value.force_refresh) {
                 console.log("force refresh");
             }
         }
@@ -17,24 +17,30 @@ Template.display.onRendered(function () {
 });
 
 
-$(function() {
-    // Handler for .ready() called.
-    let device = Session.get("device");
-    ping(device);
-
-    setInterval(function(){
+$(function () {
+    if (Session.get("override")) {
+        //do nothing, not real device
+        console.log("override display active");
+    } else {
+        // Handler for .ready() called.
         let device = Session.get("device");
+        ping(device);
 
-        if(device){
-            ping(device);
-        }else{
-            
-        }
-    }, 1000 * 60 * 2); //two minute
+        setInterval(function () {
+            let device = Session.get("device");
+
+            if (device) {
+                ping(device);
+            } else {
+
+            }
+        }, 1000 * 60 * 2); //two minute
+    }
+
 });
 
 
-function ping(device){
+function ping(device) {
     Meteor.call("devices.ping", device);
 }
 
@@ -75,7 +81,7 @@ Template.display.helpers({
 
         return device.display_types.video.video;
     },
-    'videoLink':function(){
+    'videoLink': function () {
         let device = Session.get("device");
 
         return device.display_types.videoUrl.url;
