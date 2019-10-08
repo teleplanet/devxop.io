@@ -1,23 +1,3 @@
-/* Template.login.events({
-    'submit #loginForm': function (e, t) {
-        e.preventDefault();
-
-        var email = t.find('#inputEmail').value.trim(),
-            password = t.find('#inputPassword').value.trim();
-
-        Meteor.loginWithPassword(email, password, function (err, data) {
-            if (err) {
-                console.log(err.reason);
-            } else {
-                Router.go("/");
-            }
-        });
-
-        return false;
-
-    },
-}) */
-
 Template.login.events({
     'click .js-facebook-login': function(event) {
       Meteor.loginWithFacebook({}, function(err, data){
@@ -37,8 +17,8 @@ Template.login.events({
     'submit #login-form': function(event, template) {
       event.preventDefault();
       
-      var email = template.find("#input-email").value;
-      var pass = template.find("#input-password").value;
+      var email = template.find("#login-username").value;
+      var pass = template.find("#login-password").value;
   
       if(email && pass){
         Meteor.loginWithPassword(email.toLowerCase(), pass, function(err) {
