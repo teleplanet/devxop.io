@@ -74,6 +74,14 @@
         transform: scale3d(1, 1, 1);
    }
 }
+.loader-wrapper{
+    background-color: #393836;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 100;
+}
+
 .main-loader{
    position: fixed;
    left:50%;
@@ -81,6 +89,7 @@
    transform: translate(-50%, -50%);
    width: 60px;
    height: 60px;
+   z-index: 500;
 }
 .loader1{
   width: 20px;

@@ -1,19 +1,19 @@
-/* //Global routes configuration
-Router.configure({ 
+//Global routes configuration
+Router.configure({
 	//trackPageView: true,
 	loadingTemplate: 'mainLoader',
 	//notFoundTemplate: 'templateNotFound'
-}); */
+});
 
 //Controller for public routes
 PublicController = RouteController.extend({
-  	layoutTemplate: 'publicBase',
-  	yieldRegions: {
+	layoutTemplate: 'publicBase',
+	yieldRegions: {
 		'publicMenu': {
 			to: 'menuArea'
 		},
 	},
-	waitOn: function(){
+	waitOn: function () {
 		return [
 			/* Meteor.subscribe('itemsSubscriptions'),
 			Meteor.subscribe('categoriesSubscriptions'),
@@ -25,7 +25,7 @@ PublicController = RouteController.extend({
 
 EmptyController = RouteController.extend({
 	layoutTemplate: 'emptyBase',
-	waitOn: function(){
+	waitOn: function () {
 		return [
 			Meteor.subscribe('pagers'),
 		];
@@ -44,13 +44,8 @@ DisplayController = RouteController.extend({
 
 //Controller for private routes
 PrivateController = RouteController.extend({
-  	layoutTemplate: 'privateBase',
-  	yieldRegions: {
-		'userMenu': {
-			to: 'menuArea'
-		}
-	},
-	waitOn: function(){
+	layoutTemplate: 'privateBase',
+	waitOn: function () {
 		return [
 			Meteor.subscribe('companyUsers'),
 			Meteor.subscribe('company'),
@@ -65,20 +60,17 @@ PrivateController = RouteController.extend({
 			Meteor.subscribe('pagers'),
 		];
 	},
-	action: function(){
+	onBeforeAction: function () {
 
-		document.title = "devxop.com";
-
-		if (this.ready()){ 
-			console.log("ACTION!");
+		if (this.ready()) {
 			//set session
-			Session.set("company", Companies.findOne({"_id": Meteor.user().profile.company}));
+			Session.set("company", Companies.findOne({ "_id": Meteor.user().profile.company }));
 			//set session
 			Session.set("user", Meteor.user());
 
-			initFB();
-			
-		} else { this.render('Loading'); }
+			this.next();
+		}
+
 	}
 });
 
@@ -103,7 +95,7 @@ PrivateController = RouteController.extend({
 			Session.set("user", Meteor.user());
 
 		}
-	}, 
+	},
 	{
 		//Add route names we don't want this onBeforeAction to apply
 		except: [
