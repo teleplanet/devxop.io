@@ -1,9 +1,9 @@
-//Global routes configuration
+/* //Global routes configuration
 Router.configure({ 
 	//trackPageView: true,
 	loadingTemplate: 'mainLoader',
 	//notFoundTemplate: 'templateNotFound'
-});
+}); */
 
 //Controller for public routes
 PublicController = RouteController.extend({
@@ -34,12 +34,12 @@ EmptyController = RouteController.extend({
 
 DisplayController = RouteController.extend({
 	layoutTemplate: 'displayBase',
-	waitOn: function(){
+	/* waitOn: function(){
 		return [
 			Meteor.subscribe('images'),
 			Meteor.subscribe('thumbnails')
 		];
-	}
+	} */
 });
 
 //Controller for private routes
@@ -83,7 +83,7 @@ PrivateController = RouteController.extend({
 });
 
 //Check for user login before action (for all routes)
-Router.onBeforeAction(function()
+/* Router.onBeforeAction(function()
 	{
 		//Check if a user is logged in. If not, redirect home
 		if(!Meteor.user()) {
@@ -92,8 +92,8 @@ Router.onBeforeAction(function()
 				this.next();
 			}
 			else{
-				//Router.go('login');
-				this.next();
+				Router.go('login');
+				//his.next();
 			}
 		}
 		else{
@@ -102,10 +102,6 @@ Router.onBeforeAction(function()
 			//set session
 			Session.set("user", Meteor.user());
 
-			//set route
-			//Session.set("route", {title: Router.current().route.getName()});
-
-			this.next(); 
 		}
 	}, 
 	{
@@ -115,7 +111,8 @@ Router.onBeforeAction(function()
 			'login',
 			'register',
 			'slider',
-			'display'
+			'display',
+			'displayBase'
 		]
 	}
-);
+); */

@@ -41,11 +41,14 @@ Router.route('/display', {
 				let images = Meteor.subscribe("images.device", device.user_id);
 				let videos = Meteor.subscribe("videos.device", device.user_id);
 
-				if (items.ready() && images.ready() && videos.ready()) {
+				/* if (items.ready() && images.ready() && videos.ready()) {
 					self.render("display");
 				} else {
 					//Router.current().next();
-				}
+					//self.next();
+				} */
+
+				self.render("display");
 			} else {
 				self.render("display");
 			}
