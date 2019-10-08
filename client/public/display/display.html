@@ -10,22 +10,26 @@
 
     {{#if getDisplay "video"}}
     <!-- Start video hero -->
-    <div class="video-hero jquery-background-video-wrapper demo-video-wrapper">
+    <video src="{{videoUrl video}}" autoplay muted loop class="full-static display-video">
+        
+    </video>
+    <!-- <div class="video-hero jquery-background-video-wrapper demo-video-wrapper">
         <video class="jquery-background-video display-video" autoplay muted loop>
-            <!-- poster="https://d2ezlykacdqcnj.cloudfront.net/_assets/home-video/beach-waves-loop.jpg"> -->
             <source src="{{videoUrl video}}">
         </video>
-    </div>
+    </div> -->
     {{/if}}
 
     {{#if getDisplay "videoUrl"}}
     <!-- Start video hero -->
-    <div class="video-hero jquery-background-video-wrapper demo-video-wrapper">
+    <!-- <div class="video-hero jquery-background-video-wrapper demo-video-wrapper">
         <video class="jquery-background-video display-video" autoplay muted loop>
-            <!-- poster="https://d2ezlykacdqcnj.cloudfront.net/_assets/home-video/beach-waves-loop.jpg"> -->
             <source src="{{videoLink}}">
         </video>
-    </div>
+    </div> -->
+    <video src="{{videoLink}}" autoplay muted loop class="full-static display-video">
+        
+        </video>
     {{/if}}
 
 

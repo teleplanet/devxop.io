@@ -27,10 +27,7 @@ Meteor.startup(function () {
 
 	Session.set("fb", undefined);
 
-	//set session
-	Session.set("company", Companies.findOne({ "_id": Meteor.user().profile.company }));
-	//set session
-	Session.set("user", Meteor.user());
+	
 
 	//initFB();
 });
