@@ -3,7 +3,7 @@ displayTypes = [
     "video",
     "url",
     "code",
-    "slider",
+    /* "slider", */
     "videoUrl"
     /* "menu(unavailable)" */
 ]

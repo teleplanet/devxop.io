@@ -1,4 +1,16 @@
 Meteor.publish('collections.private', function(){
 
-	return Collections.find({"user_id": this.userId});
+	let plan = Meteor.user().plan;
+
+	if(plan){
+		if(plan.collections){
+			return Collections.find({"user_id": this.userId});
+		}else{
+			return [];
+		}
+	}else{
+		return [];
+	}
+
+	
 });
