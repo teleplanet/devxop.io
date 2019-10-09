@@ -34,7 +34,7 @@ $(function () {
             } else {
 
             }
-        }, 1000 * 60 * 2); //two minute
+        }, 1000 * 60); //two minute
     }
 
 });

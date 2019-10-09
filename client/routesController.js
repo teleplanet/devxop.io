@@ -67,6 +67,8 @@ PrivateController = RouteController.extend({
 			Session.set("company", Companies.findOne({ "_id": Meteor.user().profile.company }));
 			//set session
 			Session.set("user", Meteor.user());
+			//Set session plan
+			Session.set("plan", Meteor.user().plan);
 
 			this.next();
 		}

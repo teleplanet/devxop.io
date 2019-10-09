@@ -3,5 +3,5 @@ Meteor.publish('devicesSubscriptions', function(){
 });
 
 Meteor.publish('getDevice', function(deviceId){
-	return Devices.find({"device_id": deviceId});
+	return Devices.find({"device_id": deviceId}, {fields: {ping_stamp:0}});
 });

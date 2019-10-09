@@ -19,8 +19,14 @@
 			<div class="main-menu">
 				<h5 class="sidenav-heading">Main</h5>
 				<ul id="side-main-menu" class="side-menu list-unstyled">
+					{{#if plan.dashboard}}
 					<li><a href="/"> <i class="material-icons">dashboard</i>Dashboard </a></li>
+					{{/if}}
+
+					{{#if plan.devices}}
 					<li><a href="/devices"> <i class="material-icons">devices</i>Devices </a></li>
+					{{/if}}
+
 					<!-- <li><a href="/collections"> <i class="material-icons">collections</i>Collections </a></li> -->
 					<!-- <li><a href="#items-drop" aria-expanded="false" data-toggle="collapse"> <i
 								class="icon-interface-windows"></i>Items </a>
@@ -35,8 +41,13 @@
 			<div class="admin-menu">
 				<h5 class="sidenav-heading">Extra Features</h5>
 				<ul id="side-admin-menu" class="side-menu list-unstyled">
+					{{#if plan.items}}
 					<li><a href="/items"><i class="material-icons">dynamic_feed</i>Items </a></li>
 					<li><a href="/collections"> <i class="material-icons">collections</i>Collections </a></li>
+					{{else}}
+					<li><a>You have no extra features</a></li>
+					{{/if}}
+
 					<!-- <li><a href="/pagers"><i class="material-icons">perm_device_information</i>Virtual Pagers </a></li> -->
 					<!-- <li><a href="/social"><i class="material-icons">party_mode</i>Social Media </a></li> -->
 				</ul>
