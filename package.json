@@ -5,11 +5,25 @@
     "start": "meteor run"
   },
   "dependencies": {
+<<<<<<< Updated upstream
     "@babel/runtime": "^7.0.0-beta.42",
     "bcrypt": "^3.0.0",
     "html2canvas": "^1.0.0-rc.1",
     "materialize-css": "^1.0.0-rc.2",
     "meteor-node-stubs": "^0.3.2",
     "simpl-schema": "^1.5.0"
+=======
+    "@babel/runtime": "^7.6.2",
+    "bcrypt": "^3.0.6",
+    "dist": "^0.1.2",
+    "html2canvas": "^1.0.0-rc.4",
+    "image-compressor.js": "^1.1.4",
+    "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
+    "materialize-css": "^1.0.0",
+    "meteor-node-stubs": "^0.3.3",
+    "simpl-schema": "^1.5.5",
+    "web-push": "^3.3.5"
+>>>>>>> Stashed changes
   }
 }
