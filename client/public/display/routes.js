@@ -37,7 +37,11 @@ Router.route('/display', {
 			Session.set("device", device);
 
 			if (device) {
-				let items = Meteor.subscribe("items.device", device.display_types.slider.items);
+				if(device.items){
+					let items = Meteor.subscribe("items.device", device.display_types.slider.items);
+				}else{
+					
+				}
 				let images = Meteor.subscribe("images.device", device.user_id);
 				let videos = Meteor.subscribe("videos.device", device.user_id);
 
