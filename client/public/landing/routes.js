@@ -4,15 +4,24 @@ Router.route('/',{
 	action: function(){
 
 		this.render();
-		document.title = 'devxop.io';
 
-		//If there's no logged in user, render public home, otherwise redirect to dashboard
+	},
+});
+
+Router.route('/app',{
+	name: 'landing.app',
+	controller: 'PublicController',
+	action: function(){
+
+		this.render("landingApp");
+
+		/* //If there's no logged in user, render public home, otherwise redirect to dashboard
 		if(!Meteor.userId()){
 			this.render('landing',{ to: 'mainContentArea', });
 		}
 		else{
 			Router.go('dashboard');
-		}
+		} */
 
 
 		// this.render('publicFooter', {

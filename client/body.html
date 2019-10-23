@@ -56,7 +56,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <!-- Custom Scrollbar-->
   <link rel="stylesheet" href="/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-  
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- <script>
 
@@ -91,11 +91,14 @@
 
   <!-- <script async src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
 
-  
+
 </head>
 
 <body id="body">
-
+  <div class="consent">
+    {{> cookieConsent}}
+    
+  </div>
   <div class="background-body"></div>
 
   {{> moduleProcessingLoader}}
@@ -120,4 +123,5 @@
   <script async src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
   <!-- <scrip async src="https://rawgit.com/BGStock/jquery-background-video/master/jquery.background-video.js"></scrip> -->
+
 </body>

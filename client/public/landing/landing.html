@@ -1,47 +1,135 @@
 <template name="landing">
-	<div id="header-wrapper">
-		<div id="header" class="container">
-			<div id="logo">
-				<h1><a href="#">{{app "name"}}</a></h1>
-				<span>Developed by {{app "developer"}}.</span>
-			</div>
-			<div class="landing-header-nav">
-				<a href="/login">Sign In</a>
-				<!-- <a href="/register">Sign Up</a> -->
-			</div>
-		</div>
-	</div>
-	<div class="landing-row lighter">
-		<div class="row-content">
-			<div class="left">
-				<h5>Easy Yet Advanced</h5>
-				<p>Devxop allows you to easially edit and modify your display screens without manual manipulation. You can easially access your screen online and upload images, videos or any other content you want to make visible to your clients and public.</p>
-			</div>
-			<div class="right">
-				<!-- <img class="landing-images" src="/images/landing/landing-img1.svg"> -->
-			</div>
-		</div>
-	</div>
-	<div class="landing-row darker">
-		<div class="row-content">
-			<div class="left">
-				<!-- <img class="landing-images" src="/images/landing/landing-img2.svg"> -->
-			</div>
-			<div class="right">
-				<h5>Devxop on the Go</h5>
-				<p>Check up on your connected screens where ever you are. Devxop is accessable, from every internet enabled device. Right on your desktop or in the palm of your hand.</p>
-			</div>
-		</div>
-	</div>
-	<!-- <div class="landing-row lighter">
-		<div class="row-content">
-			<div class="left">
-				<h5>Share your thoughts</h5>
-				<p>Divvy allows you to communicate your ideas, problems, and solutions to your coworkers. Allowing your department to collaborate and help each other out, no matter where or who you are.</p>
-			</div>
-			<div class="right">
-				<img class="landing-images" src="/images/landing/landing-img3.svg">
-			</div>
-		</div>
-	</div> -->
+    <section class="landing-section bg-img" style="background-image: url('/images/landing-apps.png')">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex flex-column justify-content-center text-center">
+                        <div class="landing-heading p-4 pt-5">Multiple web, app and design solutions. <br> Custom to
+                            your business needs.</div>
+                        <div class="landing-subheading p-3">Planning on creating a website or developing web or mobile
+                            applications? It's time!</div>
+                        <div class="landing-body align-self-center p-3">
+                            <a href="#contactUs" class="button center back-green">Contact us!</a>
+
+                            <!-- <img class="noselect" src="/images/landing-apps.png"> -->
+                            <!-- <img src="/images/landing-growth.png"> -->
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="landing-section bg-img" style="background-image: url('/images/landing-growth.png')">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex flex-column justify-content-center text-center">
+                        <div class="landing-heading p-4 pt-5">Custom Web, Mobile and Windows application development.
+                        </div>
+                        <div class="landing-subheading p-3">We develop what your company needs and wants.<br>
+                            Increase your visibility online by contracting us to develop solutions that meet your needs
+                            and expectations.</div>
+                        <div class="landing-body p-3">
+                            <!-- <img class="noselect" src="/images/landing-growth.png"> -->
+                            <!-- <img src="/images/landing-growth.png"> -->
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="landing-section bg-img" style="background-image: url('/images/landing-design.png')">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex flex-column justify-content-center text-center">
+                        <div class="landing-heading p-4 pt-5">Dont have a brand? Dont worry. <br> We'll design one for
+                            you!</div>
+                        <div class="landing-subheading p-3">We have a dedicated experienced graphic and concept artist
+                            that will design the best image solution for you.</div>
+                        <div class="landing-body p-3">
+                            <!-- <img class="noselect" src="/images/landing-cloud.png"> -->
+                            <!-- <img src="/images/landing-growth.png"> -->
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="landing-section" style="padding-bottom: 3rem;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex flex-column justify-content-center text-center">
+                        <div class="landing-heading p-4 pt-5">Get in touch with us!</div>
+                        <div class="landing-subheading p-3">Have a project in mind? Don't hesitate to Send us a message
+                            for more information about any topic!</div>
+                            
+                        <div id="contactUs" class="landing-body align-self-center p-3">
+
+                            {{#if messageSent}}
+                                <p><b>Your message has been sent!</b> <br>
+                                    We will respond has quickly as possible. Please check your email periodically.</p>
+                            {{else}}
+                            <div class="input-wrapper">
+                                <i class="material-icons">face</i>
+                                <input id="message-username" type="text" placeholder="First and last name">
+                            </div>
+                            <div class="input-wrapper">
+                                <i class="material-icons">email</i>
+                                <input id="message-email" type="email" placeholder="Email address">
+                            </div>
+                            <div class="input-wrapper">
+                                <i class="material-icons">message</i>
+                                <textarea id="message-body" placeholder="Your message..."></textarea>
+                            </div>
+                            <p class="text-muted">
+                                Your information will remain private within devxop.<br>
+                                You will not receive any newsletters from us.
+                            </p>
+                            <div class="button center js-send-message">Send Message</div>   
+                            {{/if}}
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <section class="landing-banner">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <div class="text-center">
+                        <h2>What we do?</h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p>We are focused in offering services involved with IT and business development:</p>
+                    <ul>
+                        <li>Web development</li>
+                        <li>Graphic design</li>
+                        <li>Consultancy</li>
+                        <li>Application Solutions</li>
+                    </ul>
+
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+    </section> -->
+
 </template>

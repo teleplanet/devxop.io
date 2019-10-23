@@ -15,6 +15,10 @@
     "materialize-css": "^1.0.0-rc.2",
     "meteor-node-stubs": "^0.3.3",
     "simpl-schema": "^1.5.5",
-    "web-push": "^3.3.5"
+    "web-push": "^3.3.5",
+    "ws": "^7.1.2"
+  },
+  "devDependencies": {
+    "@beyonk/gdpr-cookie-consent-banner": "^5.0.2"
   }
 }

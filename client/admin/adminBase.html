@@ -1,0 +1,49 @@
+<template name="adminBase">
+
+	<!-- Side Navbar -->
+	<nav class="side-navbar">
+		<div class="side-navbar-wrapper">
+			<!-- Sidebar Header    -->
+			<div class="sidenav-header d-flex align-items-center justify-content-center">
+				<!-- User Info-->
+				<div class="sidenav-header-inner text-center">
+					<h2 class="h5">Admin Panel</h2>
+				</div>
+			</div>
+			<!-- Sidebar Navigation Menus-->
+			<div class="main-menu">
+				<h5 class="sidenav-heading">Main</h5>
+				<ul id="side-main-menu" class="side-menu list-unstyled">
+
+					<li><a href="{{pathFor route='admin.users'}}"> <i class="material-icons">accessibility_new</i>Users </a></li>
+					<li><a href="{{pathFor route='admin.collections'}}"> <i class="material-icons">collections</i>Collections </a></li>
+					<li><a href="{{pathFor route='admin.devices'}}"> <i class="material-icons">devices</i>Devices </a></li>
+				</ul>
+			</div>
+			<div class="admin-menu">
+				<h5 class="sidenav-heading">Account</h5>
+				<ul id="side-admin-menu" class="side-menu list-unstyled">
+					<li><a href="#" class="js-logout"><i class="material-icons">power_off</i>Log out </a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="page">
+		<!-- navbar-->
+		<header class="header">
+			<nav class="navbar">
+				<div class="container-fluid">
+					<div class="navbar-holder d-flex align-items-center justify-content-between">
+						<div class="navbar-header">
+							<a id="toggle-btn" href="#" class="menu-btn">
+								<i class="material-icons">menu</i>
+							</a></div>
+						<ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		{{> yield}}
+	</div>
+</template>

@@ -8,6 +8,10 @@ LatestLocations = new Meteor.Collection('latestLocations');
 
 LocationHistory = new Meteor.Collection('locationHistory');
 
+Message = new Meteor.Collection('message');
+
+Plans = new Meteor.Collection('plans');
+
 
 PushNotifications = new Meteor.Collection('pushNotifications');
 

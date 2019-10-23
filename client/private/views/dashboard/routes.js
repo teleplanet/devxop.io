@@ -1,5 +1,5 @@
 Router.route('/dashboard',{
-	name: 'dashboard',
+	name: 'user.dashboard',
 	controller: 'PrivateController',
 	action: function(){
 

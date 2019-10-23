@@ -1,11 +1,15 @@
 import ImageCompressor from 'image-compressor.js';
+//import attachBanner from '@beyonk/gdpr-cookie-consent-banner';
 
 
 import $ from "jquery";
 /*global.M = global.Materialize = Materialize;
  import Materialize from 'materialize-css'; */
 
+
 Meteor.startup(function () {
+
+
 	//Get viewport dimensions
 	Session.set('vH', $(document).height());
 	Session.set('vW', $(document).width());
@@ -27,13 +31,15 @@ Meteor.startup(function () {
 
 	Session.set("fb", undefined);
 
-	
+
 
 	//initFB();
 });
 
 $(document).ready(function () {
 	fingerprint();
+
+	
 });
 
 

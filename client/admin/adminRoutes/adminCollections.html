@@ -1,0 +1,31 @@
+<template name="adminCollections">
+    <h3>All system users</h3>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                {{#each col in collections}}
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">{{col._id}} - {{col.name}}</div>
+                            <p class="card-text" style="max-height: 200px; overflow-y: auto;">
+                                <pre>{{stringObj col}}</pre>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <textarea class="form-control" id="textarea-{{col._id}}"
+                                style="min-height: 200px"></textarea>
+                            <div class="button js-col-edit" data-col-id="{{col._id}}">Edit</div>
+                        </div>
+                    </div>
+                </div>
+
+                {{else}}
+                <p>No collections!</p>
+                {{/each}}
+            </div>
+        </div>
+
+    </section>
+</template>

@@ -43,6 +43,41 @@ DisplayController = RouteController.extend({
 });
 
 //Controller for private routes
+AdminController = RouteController.extend({
+	layoutTemplate: 'adminBase',
+	waitOn: function () {
+		return [
+			Meteor.subscribe('admin.users'),
+			Meteor.subscribe('admin.items'),
+			Meteor.subscribe('admin.collections'),
+			Meteor.subscribe('admin.devices'),
+			Meteor.subscribe('admin.companies')
+		];
+	},
+	onBeforeAction: function () {
+		//Check if a user is logged in. If not, redirect home
+		if (this.ready()) {
+			if(Meteor.user()) {
+				if(!Meteor.loggingIn()){
+					//this.render(this.loadingTemplate);
+					if(Meteor.user().roles[0] == "admin"){
+						this.next();
+					}else{
+						Router.go('/');
+					}
+				}
+				else{
+					//Router.go('/');
+				}
+			}else{
+				Router.go('/');
+			}
+		}
+
+	}
+});
+
+//Controller for private routes
 PrivateController = RouteController.extend({
 	layoutTemplate: 'privateBase',
 	waitOn: function () {

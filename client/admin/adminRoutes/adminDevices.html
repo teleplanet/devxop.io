@@ -1,0 +1,31 @@
+<template name="adminDevices">
+    <h3>All Devices</h3>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                {{#each device in devices}}
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">{{device._id}} - {{device.name}}</div>
+                            <p class="card-text" style="max-height: 200px; overflow-y: auto;">
+                                <pre>{{stringObj device}}</pre>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <textarea class="form-control" id="textarea-{{device._id}}"
+                                style="min-height: 200px"></textarea>
+                            <div class="button js-device-edit" data-device-id="{{device._id}}">Edit</div>
+                        </div>
+                    </div>
+                </div>
+
+                {{else}}
+                <p>No devices!</p>
+                {{/each}}
+            </div>
+        </div>
+
+    </section>
+</template>

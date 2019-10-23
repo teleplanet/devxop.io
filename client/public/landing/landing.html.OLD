@@ -1,0 +1,47 @@
+<template name="landing">
+	<div id="header-wrapper">
+		<div id="header" class="container">
+			<div id="logo">
+				<h1><a href="#">{{app "name"}}</a></h1>
+				<span>Developed by {{app "developer"}}.</span>
+			</div>
+			<div class="landing-header-nav">
+				<a href="/login">Sign In</a>
+				<!-- <a href="/register">Sign Up</a> -->
+			</div>
+		</div>
+	</div>
+	<div class="landing-row lighter">
+		<div class="row-content">
+			<div class="left">
+				<h5>Easy Yet Advanced</h5>
+				<p>Devxop allows you to easially edit and modify your display screens without manual manipulation. You can easially access your screen online and upload images, videos or any other content you want to make visible to your clients and public.</p>
+			</div>
+			<div class="right">
+				<!-- <img class="landing-images" src="/images/landing/landing-img1.svg"> -->
+			</div>
+		</div>
+	</div>
+	<div class="landing-row darker">
+		<div class="row-content">
+			<div class="left">
+				<!-- <img class="landing-images" src="/images/landing/landing-img2.svg"> -->
+			</div>
+			<div class="right">
+				<h5>Devxop on the Go</h5>
+				<p>Check up on your connected screens where ever you are. Devxop is accessable, from every internet enabled device. Right on your desktop or in the palm of your hand.</p>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="landing-row lighter">
+		<div class="row-content">
+			<div class="left">
+				<h5>Share your thoughts</h5>
+				<p>Divvy allows you to communicate your ideas, problems, and solutions to your coworkers. Allowing your department to collaborate and help each other out, no matter where or who you are.</p>
+			</div>
+			<div class="right">
+				<img class="landing-images" src="/images/landing/landing-img3.svg">
+			</div>
+		</div>
+	</div> -->
+</template>

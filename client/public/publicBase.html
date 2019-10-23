@@ -1,23 +1,78 @@
 <template name="publicBase">
+	<div class="page full">
+		<header class="landing-header bg-white">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="d-flex">
+							<i class="material-icons align-self-center pl-3 pr-3">developer_board</i>
+							<div class="landing-logo align-self-center">
+								<span class="landing-header-logo align-middle">Devxop</span>
+							</div>
+							<!-- <div class="landing-logo">
+										<i class="material-icons">developer_board</i>
+										<span class="landing-header-logo align-middle">Devxop</span>
+									</div>
+									<div class="landing-logo">
+										<i class="material-icons">developer_board</i>
+										<span class="landing-header-logo align-middle">Devxop</span>
+									</div> -->
+						</div>
 
-	<div class="layout" style="overflow-y: auto; position: fixed; width: 100%; height: 100%;">
-		<!-- <header>
-			<div class="landing_nav" id="centered_nav">
-				<a href="/contact" title="Contact">Contact</a>
-				<a href="/about" title="About">About</a>
-				<a href="/" title="Home">Home</a>
-
+					</div>
+				</div>
 			</div>
-		</header> -->
-
+		</header>
+		<section class="landing-section bg-white">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="pages-nav d-flex justify-content-center">
+							<div id="nav-button-overview" data-route="landing" class="nav-button d-flex flex-column justify-content-center">
+								<div><i class="material-icons">business</i></div>
+								<div><span>Overview</span></div>
+							</div>
+							<div id="nav-button-app" data-route="landing.app" class="nav-button d-flex flex-column justify-content-center">
+								<div><i class="material-icons">devices</i></div>
+								<div><span>Our App</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		{{>yield}}
+		<section class="landing-section">
+				<div class="container-fluid">
+					<div class="d-flex flex-column justify-content-center text-center">
+						<div class="landing-body align-self-center p-5">
+							<div class="row">
+								<div class="col-6">
+									<h5>A web, app and design development company</h5>
+									<label>© DEVXOP 2019 All rights reserved</label>
+								</div>
+								<div class="col-6">
+									<h5>Legal</h5>
+									<p>Privacy Policy</p>
+									<p>Terms of service</p>
+									<p>Copyright</p>
+								</div>
+							</div>
+						</div>
+		
+		
+					</div>
+		
+				</div>
+			</section>
+	</div>
 
-		<footer class="landing-footer">
+
+	<!-- <footer class="landing-footer">
 			<div id="logo">
 				<h1><a href="#">{{app "name"}}</a></h1>
 				<span>{{app "copyright"}}</span>
 			</div>
-		</footer>
-	</div>
+		</footer> -->
 
 </template>
