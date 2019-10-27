@@ -8,13 +8,10 @@ Router.configure({
 //Controller for public routes
 PublicController = RouteController.extend({
 	layoutTemplate: 'publicBase',
-	yieldRegions: {
-		'publicMenu': {
-			to: 'menuArea'
-		},
-	},
 	waitOn: function () {
 		return [
+			Meteor.subscribe("user.plan.subscriptions"),
+			Meteor.subscribe("user.plan.archive"),
 			/* Meteor.subscribe('itemsSubscriptions'),
 			Meteor.subscribe('categoriesSubscriptions'),
 			Meteor.subscribe('devicesSubscriptions'),
@@ -28,6 +25,8 @@ EmptyController = RouteController.extend({
 	waitOn: function () {
 		return [
 			Meteor.subscribe('pagers'),
+
+			Meteor.subscribe("user.plan.subscriptions")
 		];
 	}
 });
@@ -82,6 +81,9 @@ PrivateController = RouteController.extend({
 	layoutTemplate: 'privateBase',
 	waitOn: function () {
 		return [
+			/* Meteor.subscribe("user.plan"), */
+			Meteor.subscribe("user.plan.subscriptions"),
+
 			Meteor.subscribe('companyUsers'),
 			Meteor.subscribe('company'),
 			Meteor.subscribe('itemsSubscriptions'),

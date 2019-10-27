@@ -1,5 +1,5 @@
-Template.register.events({
-	'submit #register-form' : function(e, t){
+Template.userRegister.events({
+	'click .js-register' : function(e, t){
 		e.preventDefault();
 		
 		var registerForm = $(e.currentTarget),
@@ -7,12 +7,12 @@ Template.register.events({
 		
 		if (!submitBtn.is("[disabled]")) {
 
-			var company = t.find('#input-company').value.trim(),
-				fname = t.find('#input-fname').value.trim(), 
-				lname = t.find('#input-lname').value.trim(), 
-				email = t.find('#input-email').value.trim(), 
-				password = t.find('#input-password').value.trim(),
-				passwordConfirm = t.find('#input-confirm').value.trim(),
+			var company = t.find('#register-company').value.trim(),
+				fname = t.find('#register-fname').value.trim(), 
+				lname = t.find('#register-lname').value.trim(), 
+				email = t.find('#register-email').value.trim(), 
+				password = t.find('#register-password').value.trim(),
+				passwordConfirm = t.find('#register-password-confirm').value.trim(),
 				isValid = true;
 
 

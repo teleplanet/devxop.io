@@ -28,7 +28,7 @@ Template.login.events({
           }
           else{
             // if we are on the login route, we want to redirect the user
-            return Router.go('/');
+            return Router.go('user.dashboard');
           }
         });
       }else{

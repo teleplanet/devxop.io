@@ -3,6 +3,11 @@
 	border-bottom: 1px solid #f1f1f1;
 }
 
+.landing-section.footer{
+	position: absolute;
+	bottom: 0;
+}
+
 .landing-logo > span{
 	font-size: 1.75rem;
 }.landing-logo > i{
@@ -23,7 +28,7 @@
   background-position-y: 150px;
 }
 
-.landing-section:nth-child(odd){
+.landing-section:nth-child(odd), .landing-section.odd{
 	background-color:#F4F4F4;
    }
    .landing-section:nth-child(even){

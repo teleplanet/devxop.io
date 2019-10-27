@@ -35,6 +35,10 @@ input, textarea {
     transition: color 200ms ease-in-out 0s;
 }
 
+.input-wrapper.no-icon{
+    padding: 9px 0px 9px 3px;
+}
+
 .input-wrapper i {
     position: absolute;
     width: 26px;

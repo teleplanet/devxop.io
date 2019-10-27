@@ -1,10 +1,9 @@
 Router.route('/register',{
-	name: 'register',
+	name: 'user.register',
 	controller: 'EmptyController',
 	action: function(){
 
 		this.render();
-		document.title = 'Create Account - Scheduler';
 
 		// this.render('register',{
 		// 	to: 'mainContentArea',

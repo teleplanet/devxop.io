@@ -24,4 +24,7 @@
 }.plan-wrapper.green .body-text .button{
     background-color: rgb(11, 189, 170) !important;
     color: #fff !important;
+}.plan-wrapper.green .body-text .button.deactivate{
+    background-color: #e8eaf6 !important;
+    color: #666 !important;
 }

@@ -1,4 +1,4 @@
-plans = [
+plansArray = [
     {
         plan_id: "trial",
         name: "Trial Period",
@@ -36,7 +36,7 @@ plans = [
 
     },
     {
-        plan_id: "Basic",
+        plan_id: "basic",
         name: "Basic Account",
         description: "Devxop basic account",
         period: 30, //30 days renewal on payment

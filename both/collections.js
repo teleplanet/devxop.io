@@ -11,6 +11,8 @@ LocationHistory = new Meteor.Collection('locationHistory');
 Message = new Meteor.Collection('message');
 
 Plans = new Meteor.Collection('plans');
+PlanSubscriptions = new Meteor.Collection('planSubscriptions');
+PlanSubscriptionsArchive = new Meteor.Collection('planSubscriptionsArchive');
 
 
 PushNotifications = new Meteor.Collection('pushNotifications');

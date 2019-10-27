@@ -1,34 +1,36 @@
 <template name="login">
-	<div class="page login-page">
-		<div class="container">
-			<div class="form-outer text-center d-flex align-items-center">
-				<div class="form-inner">
-					<div class="logo text-uppercase"><span>Devxop</span><strong class="text-primary">.com</strong></div>
-					<p>Log in to your devxop management page here. Please insert your credentials below to sign in.</p>
-					<form id="login-form" class="text-left form-validate" novalidate="novalidate">
-						<div class="form-group-material">
-							<input id="login-username" type="text" name="loginUsername" required=""
-								data-msg="Please enter your username" class="input-material">
-							<label for="login-username" class="label-material">Username</label>
+	<section class="landing-section">
+		<div class="container-fluid">
+			<div class="d-flex flex-column justify-content-center text-center">
+				<div class="landing-body align-self-center p-3" style="max-width: 450px;">
+					<div class="row">
+						<div class="col-12">
+							<div class="landing-heading p-4 pt-5">Login</div>
 						</div>
-						<div class="form-group-material">
-							<input id="login-password" type="password" name="loginPassword" required=""
-								data-msg="Please enter your password" class="input-material">
-							<label for="login-password" class="label-material">Password</label>
+					</div>
+					<form id="login-form">
+						<div class="row">
+							<div class="col-12">
+								<div class="input-wrapper">
+									<i class="material-icons">email</i>
+									<input id="login-username" type="email" placeholder="Email">
+								</div>
+								<div class="input-wrapper">
+									<i class="material-icons">lock</i>
+									<input id="login-password" type="password" placeholder="Password">
+								</div>
+							</div>
 						</div>
-						<div class="form-group text-center">
-							<button type="submit" class="button back-blue">Login</button>
-							<!-- <a id="login"
-								class="btn btn-primary">Login</a> -->
-							<!-- This should be submit button but I replaced it with <a> for demo purposes-->
+						<div class="row">
+							<div class="col-12 pt-5 pb-5">
+								<button type="submit" class="button back-red center js-register">Log in</button>
+							</div>
 						</div>
-					</form><!-- <a href="#" class="forgot-pass">Forgot Password?</a><small>Do not have an account? </small><a
-						href="register.html" class="signup">Signup</a> -->
-				</div>
-				<div class="copyrights text-center">
+					</form>
+
 				</div>
 			</div>
-		</div>
-	</div>
 
+		</div>
+	</section>
 </template>

@@ -1,0 +1,75 @@
+<template name="plan">
+    <section class="landing-section">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-center text-center">
+                <div class="landing-body p-3 text-center">
+                    <div class="landing-heading">
+                        Choose your plan
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="plan-wrapper">
+                                <div class="heading">
+                                    Trial account
+                                </div>
+                                {{#if trialEnded}}
+                                <div class="body-text">
+                                    <p>This account has already finished the trial period.</p>
+                                </div>
+                                {{else}}
+                                <div class="body-text">
+                                    Use <span class="price">Free</span> for 15 days
+                                </div>
+                                <div class="body-text">
+                                    No credit card is required!
+                                </div>
+                                <div class="body-text">
+                                    {{#if userTrial}}
+                                    <p>Your are subscribed to the trial plan</p>
+                                    {{else}}
+                                    <div class="button center js-plan-trial">Start Now!</div>
+
+                                    {{/if}}
+                                </div>
+                                {{/if}}
+
+                            </div>
+
+                        </div>
+                        <div class="col-6">
+                            <div class="plan-wrapper green">
+                                <div class="heading">
+                                    Basic account
+                                </div>
+
+                                {{#if userBasic}}
+                                    {{#if planActive}}
+                                    <div class="body-text">
+                                        <p>Your are subscribed to the basic plan</p>
+                                        <div class="button center deactivate js-plan-deactivate">Deactivate Account!</div>
+                                    </div>
+
+                                    {{else}}
+                                    <div class="body-text">
+                                        <p>Your subscription is not active. Renew to continue using.</p>
+                                    </div>
+                                    {{/if}}
+                                {{else}}
+                                <div class="body-text">
+                                    From <span class="price green">9.99€</span> / month
+                                </div>
+                                <div class="body-text">
+
+                                    <div class="button center button-green js-plan-basic">Get Basic Account!</div>
+                                </div>
+                                {{/if}}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

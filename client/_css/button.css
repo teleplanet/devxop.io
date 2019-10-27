@@ -19,10 +19,15 @@ button, input[type="submit"], input[type="reset"] {
   border-radius: 5px;
   transition: all 0.2s ;
   cursor: pointer;
-  margin-top: 10px;
   width: fit-content;
   text-transform: capitalize;   
   text-decoration: none !important;
+  font-weight: 300 !important;
+}
+
+.button.smaller{
+    padding: 5px 15px !important;
+    font-weight: 300 !important;
 }
 
 .button.icon{

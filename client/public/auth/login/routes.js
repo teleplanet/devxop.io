@@ -1,5 +1,5 @@
 Router.route('/login',{
-	name: 'public.login',
+	name: 'user.login',
 	controller: 'EmptyController', //full page controller template
 	action: function(){
 
