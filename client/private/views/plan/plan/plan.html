@@ -43,15 +43,17 @@
                                 </div>
 
                                 {{#if userBasic}}
+                                    
                                     {{#if planActive}}
                                     <div class="body-text">
                                         <p>Your are subscribed to the basic plan</p>
-                                        <div class="button center deactivate js-plan-deactivate">Deactivate Account!</div>
+                                        <!-- <div class="button center deactivate js-plan-deactivate">Deactivate Account!</div> -->
                                     </div>
 
                                     {{else}}
                                     <div class="body-text">
-                                        <p>Your subscription is not active. Renew to continue using.</p>
+                                        <p>Payment is required to continue using the service.</p>
+                                        <div class="button center pay-required js-pay-basic">Pay now!</div>
                                     </div>
                                     {{/if}}
                                 {{else}}

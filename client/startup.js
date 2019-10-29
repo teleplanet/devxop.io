@@ -6,6 +6,8 @@ import $ from "jquery";
 /*global.M = global.Materialize = Materialize;
  import Materialize from 'materialize-css'; */
 
+stripe = null;
+
 
 Meteor.startup(function () {
 
@@ -33,12 +35,14 @@ Meteor.startup(function () {
 
 
 
+
 	//initFB();
 });
 
 $(document).ready(function () {
 	fingerprint();
 
+	stripe = Stripe('pk_test_HRvNyr6bS6a9upJyTleR63VN');
 	
 });
 

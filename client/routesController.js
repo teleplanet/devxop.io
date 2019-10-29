@@ -1,3 +1,4 @@
+
 //Global routes configuration
 Router.configure({
 	//trackPageView: true,
@@ -99,7 +100,7 @@ PrivateController = RouteController.extend({
 	},
 	onBeforeAction: function () {
 
-		if (this.ready()) {
+		if (this.ready() && Session.get("plan.status")) {
 			//set session
 			Session.set("company", Companies.findOne({ "_id": Meteor.user().profile.company }));
 			//set session
@@ -108,42 +109,33 @@ PrivateController = RouteController.extend({
 			Session.set("plan", Meteor.user().plan);
 
 			this.next();
+		}else{
+			Router.go("plan");
 		}
 
 	}
 });
 
 //Check for user login before action (for all routes)
-/* Router.onBeforeAction(function()
+Router.onBeforeAction(function()
 	{
 		//Check if a user is logged in. If not, redirect home
-		if(!Meteor.user()) {
-			if(Meteor.loggingIn()){
-				this.render(this.loadingTemplate);
-				this.next();
-			}
-			else{
-				Router.go('login');
-				//his.next();
-			}
-		}
-		else{
-			//set session
-			Session.set("company", Companies.findOne({"_id": Meteor.user().profile.company}));
-			//set session
-			Session.set("user", Meteor.user());
+		if(Meteor.user()) {
+			Meteor.call("plans.active", function(err, res){
+				if(err){
+
+				}else{
+					if(!res){
+						Session.set("plan.status", false);
+						//Router.go("/");
+					}else{
+						Session.set("plan.status", true);
+					}
+				}
+			});
 
 		}
-	},
-	{
-		//Add route names we don't want this onBeforeAction to apply
-		except: [
-			'home',
-			'login',
-			'register',
-			'slider',
-			'display',
-			'displayBase'
-		]
+
+		this.next();
 	}
-); */
+);

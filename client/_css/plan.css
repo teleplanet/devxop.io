@@ -28,3 +28,7 @@
     background-color: #e8eaf6 !important;
     color: #666 !important;
 }
+.plan-wrapper.green .body-text .button.pay-required{
+    background-color: #fff176 !important;
+    color: #333 !important;
+}

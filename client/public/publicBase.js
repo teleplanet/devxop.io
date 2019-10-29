@@ -14,6 +14,7 @@ Template.publicBase.onRendered(function () {
 
 });
 
+
 Template.publicBase.events({
     'click .nav-button': function (event) {
 

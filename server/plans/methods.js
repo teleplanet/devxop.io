@@ -8,6 +8,46 @@ Meteor.methods({
             Plans.insert(plan);
         }
     },
+    'plans.active': function(){
+        let sub = PlanSubscriptions.findOne({ "user_id": this.userId});
+
+        if(sub){
+            let payed = StripeSessions.findOne({"user_id": this.userId, "validated": true})
+            if(payed){
+                if (new Date().getTime() >= sub.stamp_end) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    },
+    'plans.renew': function () {
+        let session = StripeSessions.findOne({ "user_id": this.userId, "validated": false });
+
+        console.log(session);
+        if (session) {
+            let oldSub = PlanSubscriptions.findOne({ "user_id": this.userId });
+
+
+            Meteor.call("plans.archive", oldSub._id);
+
+            Meteor.call("plans.subscribe", session.plan_id, true);
+
+            StripeSessions.update(session._id, {
+                $set: {
+                    'validated': true
+                }
+            });
+
+        } else {
+
+        }
+    },
     'plans.archive': function (planUnique, atPeriodEnd) {
         let planSub = PlanSubscriptions.findOne({ "_id": planUnique });
 
@@ -24,14 +64,14 @@ Meteor.methods({
                 } else {
                     console.log("error occured while archiving");
                 }
-            }else{
-                
+            } else {
+
             }
 
 
         }
     },
-    'plans.subscribe': function (planId) {
+    'plans.subscribe': function (planId, renewed) {
         let user = Meteor.users.findOne({ "_id": this.userId }),
             plan = Plans.findOne({ "plan_id": planId }),
             res = { error: null, success: null, msg: "" };
@@ -66,13 +106,16 @@ Meteor.methods({
                     let exist = PlanSubscriptions.findOne({ "_id": currentSub._id });
 
                     if (!exist) {
-                        let subId = PlanSubscriptions.insert({
+                        let doc = {
                             user_id: user._id,
                             stamp_created: new Date().getTime(),
                             plan_id: plan.plan_id,
                             stamp_start: new Date().getTime(),
-                            stamp_end: new Date().addDays(plan.period).getTime()
-                        });
+                            stamp_end: new Date().addDays(plan.period).getTime(),
+                        }
+
+
+                        let subId = PlanSubscriptions.insert(doc);
 
 
                         if (subId) {
@@ -103,7 +146,7 @@ Meteor.methods({
                     stamp_created: new Date().getTime(),
                     plan_id: plan.plan_id,
                     stamp_start: new Date().getTime(),
-                    stamp_end: new Date().addDays(plan.period).getTime()
+                    stamp_end: new Date().addDays(plan.period).getTime(),
                 });
 
 

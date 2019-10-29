@@ -1,3 +1,4 @@
+
 Template.plan.helpers({
     'userBasic': function () {
 
@@ -20,21 +21,11 @@ Template.plan.helpers({
         }
     },
     'planActive': function () {
-        let sub = PlanSubscriptions.findOne();
+        //let sub = PlanSubscriptions.findOne();
+    
 
-        /* let diff = getDiffSeconds(sub.stamp_end, new Date().getTime());
+        return Session.get("plan.status");
 
-        console.log(diff); */
-
-        /* let days = getDaysFromSeconds(diff);
-
-        console.log(days); */
-
-        if (new Date().getTime() >= sub.stamp_end) {
-            return false;
-        } else {
-            return true;
-        }
     },
     'trialEnded': function () {
         return PlanSubscriptionsArchive.findOne({ "plan_id": "trial" });
@@ -71,6 +62,35 @@ Template.plan.events({
                 Meteor.call("plans.archive", sub._id, function (err, res) {
                     console.log(err);
                     console.log(res);
+                });
+            }
+
+        } else {
+            Router.go("user.register");
+        }
+    },
+    'click .js-pay-basic': function () {
+        if (Meteor.user()) {
+            let sub = PlanSubscriptions.findOne();
+
+            if (sub) {
+                Meteor.call("stripe.session.basic", window.location, function (err, data) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        if(data.id){
+                            stripe.redirectToCheckout({
+                                sessionId: data.id
+                              }).then(function (result) {
+                                // If `redirectToCheckout` fails due to a browser or network
+                                console.log(result.error.message);
+                              });
+                        }else{
+                            
+                        }
+                    }
+                    
+                    
                 });
             }
 

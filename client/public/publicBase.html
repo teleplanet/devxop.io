@@ -14,8 +14,11 @@
 									{{#if currentUser}}
 									<a href="{{pathFor route='user.dashboard'}}"
 										class="button back-green smaller">Dashboard</a>
+
+
 									{{else}}
-									<a href="{{pathFor route='user.register'}}" class="button back-red smaller mr-3">Create
+									<a href="{{pathFor route='user.register'}}"
+										class="button back-red smaller mr-3">Create
 										account</a>
 									<a href="{{pathFor route='user.login'}}" class="button smaller">Login</a>
 									{{/if}}
