@@ -25,9 +25,8 @@ EmptyController = RouteController.extend({
 	layoutTemplate: 'emptyBase',
 	waitOn: function () {
 		return [
-			Meteor.subscribe('pagers'),
-
-			Meteor.subscribe("user.plan.subscriptions")
+			Meteor.subscribe("user.plan.subscriptions"),
+			Meteor.subscribe("user.plan.archive"),
 		];
 	}
 });

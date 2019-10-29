@@ -22,7 +22,7 @@ Template.plan.helpers({
     },
     'planActive': function () {
         //let sub = PlanSubscriptions.findOne();
-    
+
 
         return Session.get("plan.status");
 
@@ -39,6 +39,8 @@ Template.plan.events({
 
                 console.log(err);
                 console.log(res);
+
+                window.location.reload(true);
             });
         } else {
             Router.go("user.register");
@@ -49,6 +51,7 @@ Template.plan.events({
             Meteor.call("plans.subscribe", "basic", function (err, res) {
                 console.log(err);
                 console.log(res);
+                window.location.reload(true);
             });
         } else {
             Router.go("user.register");
@@ -70,32 +73,40 @@ Template.plan.events({
         }
     },
     'click .js-pay-basic': function () {
+        $(".js-pay-basic").hide();
         if (Meteor.user()) {
             let sub = PlanSubscriptions.findOne();
 
             if (sub) {
                 Meteor.call("stripe.session.basic", window.location, function (err, data) {
-                    if(err){
+                    if (err) {
                         console.log(err);
-                    }else{
-                        if(data.id){
+                        $(".js-pay-basic").show();
+                    } else {
+                        if (data.id) {
                             stripe.redirectToCheckout({
                                 sessionId: data.id
-                              }).then(function (result) {
+                            }).then(function (result) {
                                 // If `redirectToCheckout` fails due to a browser or network
                                 console.log(result.error.message);
-                              });
-                        }else{
-                            
+                                $(".js-pay-basic").show();
+                            });
+                        } else {
+                            $(".js-pay-basic").show();
                         }
+
                     }
-                    
-                    
+
                 });
+            } else {
+                $(".js-pay-basic").show();
             }
 
         } else {
+            $(".js-pay-basic").show();
             Router.go("user.register");
         }
+
+
     },
 });

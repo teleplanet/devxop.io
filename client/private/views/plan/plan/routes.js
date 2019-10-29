@@ -1,3 +1,4 @@
+
 Router.route('/plan', {
     name: "plan",
     controller: 'EmptyController',
@@ -14,18 +15,33 @@ Router.route('/plan/success', {
     name: "plan.success",
     controller: 'EmptyController',
     action: function () {
-        /* let sessionId = this.params.query.session_id;
+        let sessionId = this.params.query.session_id;
 
-        console.log(this.params.query); */
+        console.log(this.params.query);
 
-        Meteor.call("plans.renew", function (err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(result);
-            }
-        });
+        if (sessionId) {
+            Meteor.call("plans.renew", sessionId, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    Router.go("plan.error");
+                } else {
+                    console.log(result);
+                    
+                }
+            });
+        } else {
+            Router.go("plan.error");
+        }
 
         this.render();
+    },
+});
+
+Router.route('/plan/error', {
+    name: "plan.error",
+    controller: 'EmptyController',
+    action: function () {
+        this.render();
+
     },
 });

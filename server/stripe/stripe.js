@@ -20,10 +20,21 @@ const stripe = require('stripe')('sk_test_MJJzCdZehL0wQmlvqLZrsdCx');
 
 
 Meteor.methods({
-    'stripe.success': async function(){
+    'stripe.archive': function (session) {
+        session["old_id"] = session._id;
+        delete session._id;
 
+        let archived = StripeSessionsArchive.insert(session);
+
+        if (archived) {
+            let removed = StripeSessions.remove(session.old_id);
+        } else {
+            console.log("error occured while archiving");
+        }
     },
     'stripe.session.basic': async function () {
+
+        StripeSessions.remove({"user_id": Meteor.userId(), "validated": false});
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -35,7 +46,7 @@ Meteor.methods({
                 currency: 'eur',
                 quantity: 1,
             }],
-            success_url: 'http://localhost:3000/plan/success',
+            success_url: 'http://localhost:3000/plan/success?session_id={CHECKOUT_SESSION_ID}',
             cancel_url: 'http://localhost:3000/',
         });
 

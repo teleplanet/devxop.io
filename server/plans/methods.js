@@ -1,4 +1,50 @@
 Meteor.methods({
+    'plans.cron': function () {
+
+        //let subs = PlanSubscriptions.find().fetch();
+
+        var now = new Date().getTime();
+
+        // Remove matchng Documents
+        let subs = PlanSubscriptions.find({ stamp_end: { $lt: now } }).fetch();
+
+        for (let i = 0; i < subs.length; i++) {
+            let currentSub = subs[i];
+
+            if (currentSub.plan_id === "trial") {
+                Meteor.call("plans.archive", currentSub._id);
+            } else {
+                let payed = StripeSessions.findOne({ "user_id": currentSub.user_id, "validated": true });
+
+                Meteor.call("stripe.archive", payed);
+            }
+
+
+
+            /* Meteor.call("plans.archive", currentSub._id);
+            let exist = PlanSubscriptions.findOne({ "_id": currentSub._id });
+
+            if (!exist) {
+                let doc = {
+                    user_id: user._id,
+                    stamp_created: new Date().getTime(),
+                    plan_id: plan.plan_id,
+                    stamp_start: new Date().getTime(),
+                    stamp_end: new Date().getTime(),
+                }
+
+                let subId = PlanSubscriptions.insert(doc);
+            } else {
+                return "error occurred removing subs";
+            } */
+
+        }
+
+        console.log("CRON:PLANS: [" + subs.length + "] subscriptions have ended. Sessions and plans have been archived!");
+
+        return subs;
+
+    },
     'plans.fixtures': function () {
         Plans.remove({});
 
@@ -40,8 +86,8 @@ Meteor.methods({
             return false;
         }
     },
-    'plans.renew': function () {
-        let session = StripeSessions.findOne({ "user_id": this.userId, "validated": false });
+    'plans.renew': function (sessionId) {
+        let session = StripeSessions.findOne({ "user_id": this.userId, "id": sessionId});
 
         console.log(session);
         if (session) {
@@ -75,6 +121,8 @@ Meteor.methods({
 
                 if (archived) {
                     let removed = PlanSubscriptions.remove({ "_id": planUnique });
+
+                    
                 } else {
                     console.log("error occured while archiving");
                 }

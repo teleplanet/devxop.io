@@ -15,6 +15,7 @@ PlanSubscriptions = new Meteor.Collection('planSubscriptions');
 PlanSubscriptionsArchive = new Meteor.Collection('planSubscriptionsArchive');
 
 StripeSessions = new Meteor.Collection('stripeSessions');
+StripeSessionsArchive = new Meteor.Collection('stripeSessionsArchive');
 
 
 PushNotifications = new Meteor.Collection('pushNotifications');

@@ -66,7 +66,7 @@ Template.userRegister.events({
 		  				Meteor.loginWithPassword(email, password, function(err){
 		  					//Redirect home after login
 		  					if(!err){
-		  						Router.go('home');
+		  						Router.go('landing');
 		  					}
 		  					else{		  						
 		  						if (err.message = 'Incorrect password [403]') {
