@@ -8,21 +8,35 @@ Meteor.methods({
             Plans.insert(plan);
         }
     },
-    'plans.active': function(){
-        let sub = PlanSubscriptions.findOne({ "user_id": this.userId});
+    'plans.active': function () {
+        let sub = PlanSubscriptions.findOne({ "user_id": this.userId });
 
-        if(sub){
-            let payed = StripeSessions.findOne({"user_id": this.userId, "validated": true})
-            if(payed){
-                if (new Date().getTime() >= sub.stamp_end) {
+        if (sub) {
+            if (sub.plan_id === "trial") {
+                let trialEnded = PlanSubscriptionsArchive.findOne({ "user_id": this.userId, "plan_id": "trial" });
+
+                if (trialEnded) {
+                    //trial has ended -> upgrade required
                     return false;
                 } else {
+                    //trial is still valid
                     return true;
                 }
-            }else{
-                return false;
+            } else {
+                let payed = StripeSessions.findOne({ "user_id": this.userId, "validated": true })
+                if (payed) {
+                    if (new Date().getTime() >= sub.stamp_end) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
             }
-        }else{
+
+
+        } else {
             return false;
         }
     },
@@ -52,7 +66,7 @@ Meteor.methods({
         let planSub = PlanSubscriptions.findOne({ "_id": planUnique });
 
         if (planSub) {
-
+            //atPeriodEnd We want to schedule a the archive for specified date -> not yet implemented
             if (!atPeriodEnd) {
                 planSub["old_id"] = planSub._id;
                 delete planSub._id;

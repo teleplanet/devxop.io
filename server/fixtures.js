@@ -12,31 +12,7 @@ dbFixtures = function () {
         Roles.createRole('staff');
     };
 
-    //Create superuser if none
-	/* let rootUser = Meteor.users.findOne({
-		'roles': {
-			$in: ['root']
-		}
-	});
-
-	if(typeof rootUser === 'undefined'){
-
-		console.log('[FXT] Create system superuser...');
-
-	    let userId = Accounts.createUser({
-	        email: 'admin@admin.com',
-	        password: 'admin',
-	        profile: {
-	        	username: 'admin',
-	            firstName: 'Root',
-	            lastName: 'Admin'
-            },
-            company: "",
-	    });
-
-	    Roles.addUsersToRoles(userId, 'root');
-
-    } */
+    Meteor.call("plans.fixtures");
     
 
     let companies = Companies.find().fetch();
@@ -67,18 +43,6 @@ dbFixtures = function () {
 
         Roles.addUsersToRoles(userId, 'admin');
 
-    }
-
-    let categories = Categories.find().fetch();
-    if (categories.length < 1) {
-        for (var i = 0; i < catArray.length; i++) {
-            catArray[i]["category"] = i;
-            Categories.insert(catArray[i], function (err, data) {
-                if (err) {
-                    console.log(err);
-                }
-            });
-        }
     }
 
     let devices = Devices.find().fetch();
