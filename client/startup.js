@@ -3,8 +3,6 @@ import ImageCompressor from 'image-compressor.js';
 
 
 import $ from "jquery";
-/*global.M = global.Materialize = Materialize;
- import Materialize from 'materialize-css'; */
 
 stripe = null;
 
@@ -16,33 +14,20 @@ Meteor.startup(function () {
 	Session.set('vH', $(document).height());
 	Session.set('vW', $(document).width());
 
-	//set or get user fingerprint (unique id identifier)´
-	// sets a session -> "fingerprint"
-	//fingerprint();
-
-	switch (process.env.NODE_ENV) {
-		case 'development':
-			console.log('[ENV: Development]\nClient Startup @' + moment().format('HH:mm:ss'));
-			//Ignore mixpanel events on dev
-			break;
-		case 'production':
-			console.log('Client Startup @' + moment().format('HH:mm:ss'));
-	}
-
-
-
-	Session.set("fb", undefined);
-
-
-
-
 	//initFB();
 });
 
 $(document).ready(function () {
 	fingerprint();
 
-	stripe = Stripe('pk_test_HRvNyr6bS6a9upJyTleR63VN');
+	if (Meteor.isProduction) {
+		console.log('Client Startup @' + moment().format('HH:mm:ss'));
+		stripe = Stripe(Meteor.settings.public.stripe.live_pk);
+    } else {
+		console.log('[ENV: Development]\nClient Startup @' + moment().format('HH:mm:ss'));
+        stripe = Stripe(Meteor.settings.public.stripe.test_pk);
+    }
+	
 	
 });
 
