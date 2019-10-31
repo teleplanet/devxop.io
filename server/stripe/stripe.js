@@ -34,7 +34,7 @@ Meteor.methods({
     },
     'stripe.session.basic': async function () {
 
-        StripeSessions.remove({"user_id": Meteor.userId(), "validated": false});
+        StripeSessions.remove({ "user_id": Meteor.userId(), "validated": false });
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],

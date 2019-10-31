@@ -27,16 +27,7 @@ Meteor.startup(() => {
     console.log('[SYS] Server started @ ' + moment().utc().toISOString() + '\n***');
 
 
-    //console.log(Meteor.users.find().fetch());
-
-    /* DisplayTemplates.insert({
-        "name" : "specials",
-        "display_items" : [ 
-            "DXYNhZzmTBWKodBej", 
-            "63PAh6SQdixZDJnML", 
-            "RtF2YCjn6C3rjk3iS"
-        ],
-        "visible" : true
-    }) */
+    //SETUP CRON JOBS
+    Meteor.call("plans.cron.setup");
 
 });

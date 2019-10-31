@@ -1,8 +1,18 @@
 {
-  "galaxy.meteor.com": {
-     "env": {
-       "MONGO_URL": "mongodb://devxop:devxop@165.22.126.176:27017:27017/meteor?authSource=admin",
-       "NODE_OPTIONS": "--optimize_for_size --max_old_space_size=460 --gc_interval=100"
-     }
-   }
+  "stripe": {
+    "live": {
+      "pk": "pk_live_HW5k9QmX7zGGopuQMHhlcl0C",
+      "sk": "sk_live_StlU1MTVDT23s0wFLuIWqMKf00FydfAy9R"
+    },
+    "test": {
+      "pk": "pk_test_HRvNyr6bS6a9upJyTleR63VN",
+      "sk": "sk_test_MJJzCdZehL0wQmlvqLZrsdCx"
+    }
+  },
+  "public": {
+    "stripe": {
+      "live_pk":"pk_live_HW5k9QmX7zGGopuQMHhlcl0C",
+      "test_pk": "pk_test_HRvNyr6bS6a9upJyTleR63VN"
+    }
+  }
 }
