@@ -1,16 +1,6 @@
 Meteor.publish('itemsSubscriptions', function(){
 
-	let plan = Meteor.user().plan;
-
-	if(plan){
-		if(plan.items){
-			return Items.find({"user_id": this.userId}, {fields: {image:0}} );
-		}else{
-			return [];
-		}
-	}else{
-		return [];
-	}
+	return Items.find({"user_id": this.userId}, {fields: {image:0}} );
 	
 });
 
