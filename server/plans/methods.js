@@ -1,4 +1,26 @@
 Meteor.methods({
+    'plans.cron.setup': function(){
+        console.log("[CRON PLAN] setup");
+        SyncedCron.add({
+            name: '[CRON PLANS] Validate user Subs',
+            schedule: function (parser) {
+                // parser is a later.parse object
+                return parser.text('every 12 hours');
+            },
+            job: function () {
+                Meteor.call("plans.cron", function(err, res){
+                    if(err){
+                        return err;
+                    }else{
+                        return res;
+                    }
+                });
+            }
+        });
+
+        SyncedCron.start();
+        
+    },
     'plans.cron': function () {
 
         //let subs = PlanSubscriptions.find().fetch();

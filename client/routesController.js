@@ -1,10 +1,18 @@
 
+
+RouterAutoscroll.animationDuration = 100;
+
+RouterAutoscroll.marginTop = 50;
+
+
 //Global routes configuration
 Router.configure({
 	//trackPageView: true,
 	loadingTemplate: 'mainLoader',
 	//notFoundTemplate: 'templateNotFound'
 });
+
+
 
 //Controller for public routes
 PublicController = RouteController.extend({
@@ -56,19 +64,19 @@ AdminController = RouteController.extend({
 	onBeforeAction: function () {
 		//Check if a user is logged in. If not, redirect home
 		if (this.ready()) {
-			if(Meteor.user()) {
-				if(!Meteor.loggingIn()){
+			if (Meteor.user()) {
+				if (!Meteor.loggingIn()) {
 					//this.render(this.loadingTemplate);
-					if(Meteor.user().roles[0] == "admin"){
+					if (Meteor.user().roles[0] == "admin") {
 						this.next();
-					}else{
+					} else {
 						Router.go('/');
 					}
 				}
-				else{
+				else {
 					//Router.go('/');
 				}
-			}else{
+			} else {
 				Router.go('/');
 			}
 		}
@@ -108,7 +116,7 @@ PrivateController = RouteController.extend({
 			Session.set("plan", Meteor.user().plan);
 
 			this.next();
-		}else{
+		} else {
 			Router.go("plan");
 		}
 
@@ -116,25 +124,30 @@ PrivateController = RouteController.extend({
 });
 
 //Check for user login before action (for all routes)
-Router.onBeforeAction(function()
-	{
-		//Check if a user is logged in. If not, redirect home
-		if(Meteor.user()) {
-			Meteor.call("plans.active", function(err, res){
-				if(err){
-
-				}else{
-					if(!res){
-						Session.set("plan.status", false);
-						//Router.go("/");
-					}else{
-						Session.set("plan.status", true);
-					}
-				}
-			});
-
-		}
-
-		this.next();
+Router.onBeforeAction(function () {
+	// Only required on client
+	if (Meteor.isClient) {
+		$(".page").animate({ scrollTop: 0 }, "fast");
 	}
+
+	//Check if a user is logged in. If not, redirect home
+	if (Meteor.user()) {
+		Meteor.call("plans.active", function (err, res) {
+			if (err) {
+
+			} else {
+				if (!res) {
+					Session.set("plan.status", false);
+					//Router.go("/");
+				} else {
+					Session.set("plan.status", true);
+				}
+			}
+		});
+
+	}
+
+
+	this.next();
+}
 );

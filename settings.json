@@ -1,8 +1,0 @@
-{
-  "galaxy.meteor.com": {
-     "env": {
-       "MONGO_URL": "mongodb://devxop:devxop@165.22.126.176:27017:27017/meteor?authSource=admin",
-       "NODE_OPTIONS": "--optimize_for_size --max_old_space_size=460 --gc_interval=100"
-     }
-   }
-}
