@@ -71,5 +71,42 @@ plansArray = [
 
         }
 
+    },
+    {
+        plan_id: "override",
+        name: "Override Account",
+        description: "Overrides the payed plan",
+        period: 365, //1 year renewal on payment
+        amount: 0.00, //9.99€ monthly
+        metadata: {
+            storage: {
+                maxQuota: 1000, //megabytes of data allow to be stored
+                images: true,
+                video: true,
+                scripts: true,
+            },
+            users: {
+                visible: true,
+                maxQuota: 1,
+            },
+            devices: {
+                visible: true,
+                maxQuota: 3,
+                canSchedule: true,
+            },
+            company: {
+                visible: true,
+            },
+            items: {
+                visible: true,
+                maxQuota: 50,
+            },
+            collections: {
+                visible: true,
+                maxQuota: 15,
+            }
+
+        }
+
     }
 ]

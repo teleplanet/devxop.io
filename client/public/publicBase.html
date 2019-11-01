@@ -1,45 +1,6 @@
 <template name="publicBase">
 	<div class="page full">
-		<header class="landing-header bg-white">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<div class="d-flex justify-content-between">
-							<div class="landing-logo align-self-center">
-								<!-- <i class="material-icons align-self-center p2">developer_board</i> -->
-								<span class="landing-header-logo align-middle">Devxop</span>
-							</div>
-							<div class="landing-logo align-middle">
-								<div class="d-flex justify-content-right">
-									{{#if currentUser}}
-									<a href="{{pathFor route='user.dashboard'}}"
-										class="button back-green smaller">Dashboard</a>
-
-
-									{{else}}
-									<a href="{{pathFor route='user.register'}}"
-										class="button back-red smaller mr-3">Create
-										account</a>
-									<a href="{{pathFor route='user.login'}}" class="button smaller">Login</a>
-									{{/if}}
-								</div>
-
-
-							</div>
-							<!-- <div class="landing-logo">
-										<i class="material-icons">developer_board</i>
-										<span class="landing-header-logo align-middle">Devxop</span>
-									</div>
-									<div class="landing-logo">
-										<i class="material-icons">developer_board</i>
-										<span class="landing-header-logo align-middle">Devxop</span>
-									</div> -->
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</header>
+		{{> publicHeader}}
 		<section class="landing-section bg-white">
 			<div class="container-fluid">
 				<div class="row">

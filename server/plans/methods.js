@@ -1,5 +1,15 @@
 Meteor.methods({
-    'plans.cron.setup': function(){
+    'plans.override': function (userId, key) {
+
+        if (key === Meteor.settings.key) {
+            Meteor.call("plans.subscribe", "override", userId);
+        } else {
+            console.log("Attempted to access restricted method");
+        }
+
+
+    },
+    'plans.cron.setup': function () {
         console.log("[CRON PLAN] setup");
         SyncedCron.add({
             name: '[CRON PLANS] Validate user Subs',
@@ -8,10 +18,10 @@ Meteor.methods({
                 return parser.text('every 12 hours');
             },
             job: function () {
-                Meteor.call("plans.cron", function(err, res){
-                    if(err){
+                Meteor.call("plans.cron", function (err, res) {
+                    if (err) {
                         return err;
-                    }else{
+                    } else {
                         return res;
                     }
                 });
@@ -19,7 +29,7 @@ Meteor.methods({
         });
 
         SyncedCron.start();
-        
+
     },
     'plans.cron': function () {
 
@@ -80,6 +90,10 @@ Meteor.methods({
         let sub = PlanSubscriptions.findOne({ "user_id": this.userId });
 
         if (sub) {
+            if (sub.plan_id === "override") {
+                return true;
+            }
+
             if (sub.plan_id === "trial") {
                 let trialEnded = PlanSubscriptionsArchive.findOne({ "user_id": this.userId, "plan_id": "trial" });
 
@@ -91,7 +105,7 @@ Meteor.methods({
                     return true;
                 }
             } else {
-                let payed = StripeSessions.findOne({ "user_id": this.userId, "validated": true })
+                let payed = StripeSessions.findOne({ "user_id": this.userId, "validated": true, "plan_id": sub.plan_id })
                 if (payed) {
                     if (new Date().getTime() >= sub.stamp_end) {
                         return false;
@@ -109,7 +123,7 @@ Meteor.methods({
         }
     },
     'plans.renew': function (sessionId) {
-        let session = StripeSessions.findOne({ "user_id": this.userId, "id": sessionId});
+        let session = StripeSessions.findOne({ "user_id": this.userId, "id": sessionId });
 
         console.log(session);
         if (session) {
@@ -118,7 +132,7 @@ Meteor.methods({
 
             Meteor.call("plans.archive", oldSub._id);
 
-            Meteor.call("plans.subscribe", session.plan_id, true);
+            Meteor.call("plans.subscribe", session.plan_id);
 
             StripeSessions.update(session._id, {
                 $set: {
@@ -144,7 +158,14 @@ Meteor.methods({
                 if (archived) {
                     let removed = PlanSubscriptions.remove({ "_id": planUnique });
 
-                    
+                    //archive payed session
+                    let payed = StripeSessions.findOne({ "user_id": planSub.user_id, "validated": true, "plan_id": planSub.plan_id });
+
+                    if (payed) {
+                        Meteor.call("stripe.archive", payed);
+                    }
+
+
                 } else {
                     console.log("error occured while archiving");
                 }
@@ -155,11 +176,16 @@ Meteor.methods({
 
         }
     },
-    'plans.subscribe': function (planId, renewed) {
-        let user = Meteor.users.findOne({ "_id": this.userId }),
+    'plans.subscribe': function (planId, userId) {
+        let user = undefined,
             plan = Plans.findOne({ "plan_id": planId }),
             res = { error: null, success: null, msg: "" };
 
+        if (userId) {
+            user = Meteor.users.findOne({ "_id": userId });
+        } else {
+            user = Meteor.users.findOne({ "_id": this.userId })
+        }
 
         if (plan && user) {
 

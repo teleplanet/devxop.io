@@ -4,7 +4,7 @@ import ImageCompressor from 'image-compressor.js';
 
 import $ from "jquery";
 
-stripe = null;
+stripe = undefined;
 
 
 Meteor.startup(function () {
@@ -17,9 +17,8 @@ Meteor.startup(function () {
 	//initFB();
 });
 
-$(document).ready(function () {
-	fingerprint();
-
+stripeReadyHandler = function(){
+	console.log("Stripe on Load handler");
 	if (Meteor.isProduction) {
 		console.log('Client Startup @' + moment().format('HH:mm:ss'));
 		stripe = Stripe(Meteor.settings.public.stripe.live_pk);
@@ -27,6 +26,12 @@ $(document).ready(function () {
 		console.log('[ENV: Development]\nClient Startup @' + moment().format('HH:mm:ss'));
         stripe = Stripe(Meteor.settings.public.stripe.test_pk);
     }
+}
+
+$(document).ready(function () {
+	fingerprint();
+
+	
 	
 	
 });
