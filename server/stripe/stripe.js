@@ -46,8 +46,8 @@ Meteor.methods({
                 currency: 'eur',
                 quantity: 1,
             }],
-            success_url: 'http://localhost:3000/plan/success?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url: 'http://localhost:3000/',
+            success_url: 'https://devxop.com/plan/success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url: 'https://devxop.com/',
         });
 
         session['user_id'] = this.userId;
