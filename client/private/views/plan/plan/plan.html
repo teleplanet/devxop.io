@@ -4,9 +4,29 @@
             <div class="d-flex justify-content-center text-center">
                 <div class="landing-body p-3 text-center">
                     <div class="landing-heading">
-                        Choose your plan
+                        Account plans
                     </div>
                     <div class="row">
+                        <div class="col-12">
+                            {{#if userBasic}}
+
+                            {{#if planActive}}
+                            <div class="body-text">
+                                <p>Your are subscribed to the basic plan</p>
+                                <div class="button center deactivate js-plan-deactivate">Deactivate Account!</div>
+                            </div>
+
+                            {{else}}
+                            <div class="body-text">
+                                <p>Payment is required to continue using the service.</p>
+                                <div class="button center pay-required back-yellow js-pay-basic">Pay now!</div>
+                            </div>
+                            {{/if}}
+                            {{else}}
+                            
+                            {{/if}}
+
+                        </div>
                         <div class="col-6">
                             <div class="plan-wrapper">
                                 <div class="heading">
@@ -43,19 +63,8 @@
                                 </div>
 
                                 {{#if userBasic}}
-                                    
-                                    {{#if planActive}}
-                                    <div class="body-text">
-                                        <p>Your are subscribed to the basic plan</p>
-                                        <!-- <div class="button center deactivate js-plan-deactivate">Deactivate Account!</div> -->
-                                    </div>
 
-                                    {{else}}
-                                    <div class="body-text">
-                                        <p>Payment is required to continue using the service.</p>
-                                        <div class="button center pay-required js-pay-basic">Pay now!</div>
-                                    </div>
-                                    {{/if}}
+
                                 {{else}}
                                 <div class="body-text">
                                     From <span class="price green">9.99€</span> / month
@@ -69,6 +78,7 @@
                             </div>
 
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -38,3 +38,12 @@ Router.route('/admin/devices',{
         this.render('adminDevices');
 	},
 });
+
+
+Router.route('/admin/messages',{
+	name: 'admin.messages',
+    controller: 'AdminController',
+	action: function(){     
+        this.render('adminMessages');
+	},
+});

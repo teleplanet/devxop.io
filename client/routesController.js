@@ -58,7 +58,8 @@ AdminController = RouteController.extend({
 			Meteor.subscribe('admin.items'),
 			Meteor.subscribe('admin.collections'),
 			Meteor.subscribe('admin.devices'),
-			Meteor.subscribe('admin.companies')
+			Meteor.subscribe('admin.companies'),
+			Meteor.subscribe('admin.messages')
 		];
 	},
 	onBeforeAction: function () {

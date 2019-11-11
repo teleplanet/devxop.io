@@ -1,0 +1,30 @@
+<template name="adminMessages">
+    <h3>All Messages</h3>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                {{#each message in messages}}
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">{{message._id}} - {{message.username}}</div>
+                            <div class="card-title">{{message.email}}</div>
+                            <p class="card-text">
+                                {{message.body}}
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                {{else}}
+                <p>No devices!</p>
+                {{/each}}
+            </div>
+        </div>
+
+    </section>
+</template>

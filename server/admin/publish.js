@@ -18,3 +18,9 @@ Meteor.publish('admin.companies', function() {
 	return Companies.find(); //this works OK, if i query the user collection before login this will be empty
 });
 
+
+Meteor.publish('admin.messages', function() {
+	return Message.find(); //this works OK, if i query the user collection before login this will be empty
+});
+
+
