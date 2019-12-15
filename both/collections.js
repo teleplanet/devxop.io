@@ -1,11 +1,13 @@
 RegisterTokens = new Mongo.Collection('registerToken');
 
 Devices = new Mongo.Collection('devices');
+DeviceAccess = new Mongo.Collection('deviceAccess');
 
 Debug = new Meteor.Collection('debug');
 
-LatestLocations = new Meteor.Collection('latestLocations');
+Heartbeats = new Meteor.Collection('heartbeats');
 
+LatestLocations = new Meteor.Collection('latestLocations');
 LocationHistory = new Meteor.Collection('locationHistory');
 
 Message = new Meteor.Collection('message');
@@ -58,6 +60,7 @@ Pagers.allow({
 
 
 Companies = new Meteor.Collection('companies');
+CompanyUsers = new Meteor.Collection("companyUsers");
 
 Events = new Meteor.Collection('events');
 

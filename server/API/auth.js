@@ -8,12 +8,10 @@ OAuth.onBeforeAction(function () {
 });
 
 const registerSchema = new SimpleSchema({
-    device_type: String,
-    device_id: String,
-    operating_system: String
+    device_id: String
 }).newContext();
 
-OAuth.route('/oauth/register', { where: 'server' }).post(function () {
+OAuth.route('/v1/oauth/register', { where: 'server' }).post(function () {
     let req = this.request,
         res = this.response,
         params = getParams(req);
@@ -60,7 +58,7 @@ const authorizeSchema = new SimpleSchema({
     pass: String,
 }).newContext();
 
-OAuth.route('/oauth/authorize', { where: 'server' }).post(function () {
+OAuth.route('/v1/oauth/authorize', { where: 'server' }).post(function () {
     let req = this.request,
         res = this.response,
         params = getParams(req);
@@ -111,7 +109,7 @@ const refreshSchema = new SimpleSchema({
     user_id: String
 }).newContext();
 
-OAuth.route('/oauth/refresh', { where: 'server' }).post(function () {
+OAuth.route('v1/oauth/refresh', { where: 'server' }).post(function () {
     let req = this.request,
         res = this.response,
         params = getParams(req);

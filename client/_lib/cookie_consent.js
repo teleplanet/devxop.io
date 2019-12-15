@@ -23,12 +23,12 @@ var options = {
     cookieMessageImply: "By continuing to use our website without changing the settings,"
       + " you are agreeing to our use of cookies.",
     showLink: true,
-    position: 'top',
+    position: 'bottom',
     linkText: "Read more",
     linkRouteName: "/cookiePolicy",
     html: false,
     className: null,
-    expirationInDays: 7,
+    expirationInDays: 365,
     forceShow: false
   };
   

@@ -12,6 +12,13 @@ Meteor.publish('company', function(){
 	}
 });
 
+Meteor.publish('company.users', function(){
+
+	let companyId = Meteor.users.findOne({_id: this.userId}).profile.company;
+
+	return CompanyUsers.find({"company": companyId});
+});
+
 Meteor.publish('publicCompany', function(endpoint){
 	//console.log(endpoint);
 	return Companies.find({"endpoint": endpoint});

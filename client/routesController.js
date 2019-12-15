@@ -93,8 +93,9 @@ PrivateController = RouteController.extend({
 			/* Meteor.subscribe("user.plan"), */
 			Meteor.subscribe("user.plan.subscriptions"),
 
-			Meteor.subscribe('companyUsers'),
+			Meteor.subscribe('company.users'),
 			Meteor.subscribe('company'),
+			
 			Meteor.subscribe('itemsSubscriptions'),
 			Meteor.subscribe('categoriesSubscriptions'),
 			Meteor.subscribe('devicesSubscriptions'),

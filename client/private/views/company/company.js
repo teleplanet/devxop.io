@@ -56,6 +56,9 @@ Template.company.helpers({
     'publicCollections': function () {
         return Company.findOne();
     },
+    'companyUsers': function(){
+        return CompanyUsers.find().fetch();
+    }
 });
 
 
@@ -177,6 +180,11 @@ Template.company.events({
 
 
             }
+        });
+    },
+    'click .js-add-company-user': function () {
+        Meteor.call("company.user.add", function(){
+
         });
     },
     'click #btn': function () {

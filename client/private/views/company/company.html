@@ -61,7 +61,52 @@
             </div>
         </div>
     </section>
+
     <section class="section-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <header>
+                        <h1 class="h3 display">Company users</h1>
+                    </header>
+                </div>
+
+                <div class="col-12 col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <label>Endpoint</label>
+                            </div>
+                            <div class="row">
+                                <p>Select the collections you want to be visible to the public. Make sure to
+                                    organize them in the order you want to be visible to the client.</p>
+
+                            </div>
+                            <div class="row">
+                                {{#each user in companyUsers}}
+                                <div class="col-12">
+                                    {{user.unique_id}}
+                                </div>
+                                {{else}}
+                                <p>There are no public collections available</p>
+                                {{/each}}
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button med-width icon back-blue float-right js-add-company-user">
+                                        <i class="material-icons">add</i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="section-padding">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 col-md-3">
@@ -122,6 +167,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 </template>
