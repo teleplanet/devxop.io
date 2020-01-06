@@ -19,6 +19,32 @@ PlanSubscriptionsArchive = new Meteor.Collection('planSubscriptionsArchive');
 StripeSessions = new Meteor.Collection('stripeSessions');
 StripeSessionsArchive = new Meteor.Collection('stripeSessionsArchive');
 
+Revenues = new Meteor.Collection("revenues");
+
+Revenues.allow({
+    insert: function (userId, doc) {
+
+        let dateExists = Revenues.findOne({"stamp": doc.stamp});
+
+        
+        if(dateExists){
+            return false;
+        }
+        
+        doc["user_id"] = userId;
+
+        return true;
+    },
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    }
+})
+
 
 PushNotifications = new Meteor.Collection('pushNotifications');
 

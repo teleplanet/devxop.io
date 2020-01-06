@@ -1,0 +1,30 @@
+<template name="revenueInfo">
+    <div class="row p-3">
+        <div class="col-12">
+            <p><b>Daily Revenues</b></p>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-12">
+            <p class="mb-0">Fill in fields below to insert a new daily revenue.</p>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="dateInsert">Date</label>
+                <input type="text" class="form-control" id="dateInsert">
+                <!-- <small class="form-text text-muted">Select a date</small> -->
+              </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="valueInsert">Amount (€)</label>
+                <input type="number" class="form-control" id="valueInsert" min="0.00" step="0.01" value="0.00">
+                <!-- <small class="form-text text-muted">Revenue of the date</small> -->
+              </div>
+        </div>
+        <div class="col-md-12">
+            <button class="button full right js-insert-revenue">Insert Value</button>
+
+        </div>
+    </div>
+</template>

@@ -1,0 +1,19 @@
+<template name="revenue">
+
+    <button class="button js-test">Test</button>
+    <!-- {{> revenueAdd}} -->
+
+    <div class="row mb-2 p-4">
+        <div class="col-md-4 "><b>Value</b></div>
+        <div class="col-md-4 "><b>Date</b></div>
+        <div class="col-md-4"></div>
+    </div>
+    {{#each data in dailyRevenue}}
+    <div class="row mb-2 p-4">
+        <div class="col-md-4 ">{{data.value}}€</div>
+        <div class="col-md-4 ">{{getDate data.stamp}}</div>
+        <div class="col-md-4"><button id="{{data._id}}" class="button small js-remove-revenue">Remove</button></div>
+        <div class="divider"></div>
+    </div>
+    {{/each}}
+</template>

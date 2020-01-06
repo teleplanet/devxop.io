@@ -105,11 +105,13 @@ PrivateController = RouteController.extend({
 			Meteor.subscribe('images'),
 			Meteor.subscribe('thumbnails'),
 			Meteor.subscribe('pagers'),
+
+			Meteor.subscribe('revenues'),
 		];
 	},
 	onBeforeAction: function () {
 
-		if (this.ready() && Session.get("plan.status")) {
+		if (this.ready() /* && Session.get("plan.status") */) {
 			//set session
 			Session.set("company", Companies.findOne({ "_id": Meteor.user().profile.company }));
 			//set session
@@ -142,6 +144,7 @@ Router.onBeforeAction(function () {
 					Session.set("plan.status", false);
 					//Router.go("/");
 				} else {
+					//Router.go("/dashboard")
 					Session.set("plan.status", true);
 				}
 			}

@@ -22,7 +22,8 @@ Template.collections.helpers({
 
 Template.collections.events({
     'click .js-select-collection': function(event){
-        let itemId = $(event.currentTarget).data('col-id');
+        console.log(event);
+        let itemId = $(event.target).data('col-id');
 
         Router.go("/collections/" + itemId);
     },

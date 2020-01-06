@@ -9,7 +9,7 @@
                         <div class="landing-subheading p-3">Planning on creating a website or developing web or mobile
                             applications? It's time!</div>
                         <div class="landing-body align-self-center p-3">
-                            <a href="#contactUs" class="button center back-blue">Contact us!</a>
+                            <a href="#contactUs" class="button js-contact-us center back-blue">Contact us!</a>
 
                             <!-- <img class="noselect" src="/images/landing-apps.png"> -->
                             <!-- <img src="/images/landing-growth.png"> -->
@@ -68,17 +68,35 @@
     <section class="landing-section" style="padding-bottom: 3rem;">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div id="contactUs" class="col-12">
                     <div class="d-flex flex-column justify-content-center text-center">
                         <div class="landing-heading p-4 pt-5">Get in touch with us!</div>
                         <div class="landing-subheading p-3">Have a project in mind? Don't hesitate to Send us a message
                             for more information about any topic!</div>
-                            
-                        <div id="contactUs" class="landing-body align-self-center p-3">
+                    </div>
+                </div>
+                <div class="col-12 p-3">
+                    <div class="d-flex flex-column justify-content-center text-center">
+
+                            <div class="landing-subheading p-4 pt-5">Email us in private</div>
+                            <div class="landing-subheading p-3">
+                            <a href="mailto:daniel.abrantes95@gmail.com?subject='Information request'">daniel.abrantes95@gmail.com</a></div>
+
+                       
+                            <div class="landing-subheading p-4 pt-5">Or message us</div>
+
+                    </div>
+
+                </div>
+                <div class="col-12 p-3">
+                    <div class="d-flex flex-column justify-content-center text-center">
+
+
+                        <div class="landing-body align-self-center p-3">
 
                             {{#if messageSent}}
-                                <p><b>Your message has been sent!</b> <br>
-                                    We will respond has quickly as possible. Please check your email periodically.</p>
+                            <p><b>Your message has been sent!</b> <br>
+                                We will respond has quickly as possible. Please check your email periodically.</p>
                             {{else}}
                             <div class="input-wrapper">
                                 <i class="material-icons">face</i>
@@ -96,7 +114,7 @@
                                 Your information will remain private within devxop.<br>
                                 You will not receive any newsletters from us.
                             </p>
-                            <div class="button center js-send-message">Send Message</div>   
+                            <div class="button center js-send-message">Send Message</div>
                             {{/if}}
                         </div>
 

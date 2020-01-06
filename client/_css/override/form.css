@@ -1,4 +1,12 @@
+.input{
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+}
 
+
+/* 
 input, textarea {
     font-family: source_sans_proregular, Arial;
     resize: none;
@@ -74,4 +82,4 @@ input, textarea {
         border-width: 0px !important;
         padding: 2px;
 
-}
+} */

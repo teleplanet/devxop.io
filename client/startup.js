@@ -17,24 +17,55 @@ Meteor.startup(function () {
 	//initFB();
 });
 
-stripeReadyHandler = function(){
+stripeReadyHandler = function () {
 	console.log("Stripe on Load handler");
 	if (Meteor.isProduction) {
 		console.log('Client Startup @' + moment().format('HH:mm:ss'));
 		stripe = Stripe(Meteor.settings.public.stripe.live_pk);
-    } else {
+	} else {
 		console.log('[ENV: Development]\nClient Startup @' + moment().format('HH:mm:ss'));
-        stripe = Stripe(Meteor.settings.public.stripe.test_pk);
-    }
+		stripe = Stripe(Meteor.settings.public.stripe.test_pk);
+	}
 }
 
 $(document).ready(function () {
 	fingerprint();
 
-	
-	
-	
+	$(".js-modal-btn").click(function (event) {
+		console.log(event);
+		let id = $(event.target).data("modal-id");
+
+		$("#" + id).toggleClass('toggled');
+
+		$(document).mouseup(function (e) {
+			var container = $("#" + id);
+
+			if (!container.is(e.target) // if the target of the click isn't the container...
+				&& container.has(e.target).length === 0) // ... nor a descendant of the container
+			{
+				container.removeClass("toggled");
+			}
+		});
+	});
 });
+
+modal = function(){
+	$(".js-modal-btn").click(function (event) {
+		let id = $(event.target).data("modal-id");
+
+		$("#" + id).toggleClass('toggled');
+
+		$(document).mouseup(function (e) {
+			var container = $("#" + id);
+
+			if (!container.is(e.target) // if the target of the click isn't the container...
+				&& container.has(e.target).length === 0) // ... nor a descendant of the container
+			{
+				container.removeClass("toggled");
+			}
+		});
+	});
+}
 
 
 initFB = function () {

@@ -6,6 +6,11 @@ Template.landing.helpers({
 });
 
 Template.landing.events({
+    'click .js-contact-us': function(){
+        let pos = $("#contactUs").position();
+
+        $(".page").animate({ scrollTop: pos.top }, "medium");
+    },
     'click .js-send-message': function(){
         let body = $("#message-body").val(),
             username = $("#message-username").val(),
