@@ -1,0 +1,22 @@
+.accounting-nav{
+    width: 100%;
+    box-sizing: border-box;
+}.accounting-nav > a.nav-item{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    float: left;
+    color: #313131;
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+    line-height: 35px;
+}a.nav-item > i{
+    font: 53px;
+    margin: 5px;
+    float: left;
+}
+
+.accounting-nav > a.nav-item:hover, .accounting-nav > a.nav-item.active{
+    background-color: #fff;
+    border-left: 4px solid #8bc34a;
+}

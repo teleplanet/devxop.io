@@ -18,12 +18,21 @@ Router.route('/accounting/revenue', {
 });
 
 
-Router.route('/accounting/invoices', {
-    name: "accounting.invoices",
+Router.route('/accounting/expenses', {
+    name: "accounting.expenses",
     controller: 'PrivateController',
     action: function () {
-        Session.set("route", "Accounting / Invoices");
-        this.render('invoices');
+        Session.set("route", "Accounting / Expenses");
+        this.render('expenses');
+    },
+});
+
+Router.route('/accounting/suppliers', {
+    name: "accounting.suppliers",
+    controller: 'PrivateController',
+    action: function () {
+        Session.set("route", "Accounting / Supliers");
+        this.render('suppliers');
     },
 });
 

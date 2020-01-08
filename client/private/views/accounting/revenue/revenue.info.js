@@ -21,7 +21,8 @@ Template.revenueInfo.events({
 
         let stamp = Session.get("insert-revenue-date"),
             //moment($("#dateInsert").val()).valueOf(),
-            value = $('#valueInsert').val();
+            value = $('#valueInsert').val(),
+            observation = $('#observationInsert').val();
 
         if(!stamp){
             console.log("empty field");
@@ -42,6 +43,7 @@ Template.revenueInfo.events({
             "year": year,
             "day": day,
             "value": value,
+            "observation": observation,
             "stamp_created": new Date().getTime()
         });
     },

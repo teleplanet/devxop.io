@@ -16,9 +16,9 @@ Template.revenue.events({
 
     'click .js-remove-revenue': function (event, template) {
         event.preventDefault();
-
         let id = event.target.id;
 
+        console.log(id);
 
         Revenues.remove(id);
     },

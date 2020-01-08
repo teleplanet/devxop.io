@@ -1,0 +1,23 @@
+.expense-status{
+    padding: 3px;
+    max-width: 125px;
+    border-radius: 25px;
+    background-color: #ccc;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.expense-status.pending{
+    background-color: #fdcd05;
+    color: #fff;
+}
+
+.expense-status.overdue{
+    background-color: #ee0d0d;
+    color: #fff;
+}
+
+.expense-status.paid{
+    background-color: #8bc34a;
+    color: #fff;
+}

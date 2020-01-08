@@ -46,6 +46,34 @@ Revenues.allow({
 })
 
 
+Expenses = new Meteor.Collection("expenses");
+
+Expenses.allow({
+    insert: function (userId, doc) {
+        
+        doc["user_id"] = userId;
+
+        return true;
+    },
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    },
+    update: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    }
+})
+
+
 PushNotifications = new Meteor.Collection('pushNotifications');
 
 if(Meteor.isServer){

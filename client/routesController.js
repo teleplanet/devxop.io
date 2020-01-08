@@ -107,6 +107,7 @@ PrivateController = RouteController.extend({
 			Meteor.subscribe('pagers'),
 
 			Meteor.subscribe('revenues'),
+			Meteor.subscribe('expenses'),
 		];
 	},
 	onBeforeAction: function () {

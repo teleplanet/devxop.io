@@ -1,13 +1,11 @@
 <template name="accountingInfo">
     <div class="row">
         <div class="col-12">
-            
+
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <a href="{{pathFor route='accounting.revenue'}}">Revenues</a>
-            <a href="{{pathFor route='accounting.invoices'}}">Invoices</a>
-        </div>
+    <div class="accounting-nav">
+        <a class="nav-item" href="{{pathFor route='accounting.revenue'}}"><i class="material-icons">monetization_on</i>Revenues</a>
+        <a class="nav-item" href="{{pathFor route='accounting.expenses'}}"><i class="material-icons">money_off</i>Expenses</a>
     </div>
 </template>
