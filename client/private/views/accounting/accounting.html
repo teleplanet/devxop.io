@@ -1,101 +1,114 @@
 <template name="accounting">
-    <div class="row p-3 pb-0">
-        <!-- <div class="col-12">
+
+    <div class="row p-3">
+        <div class="col-12">
+            <h4>Business Stats</h4>
+            <p>
+                Here you can have a clear image of where your company stands. These statistics are calculated using
+                multiple data sets and are used to paint a picture of how you are doing.
+            </p>
+        </div>
+    </div>
+
+    <!-- <div class="row p-3">
+
+        <div class="col-12 p-3">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Fiscal Year {{getYears.current}}</div>
+                    <figure class="highcharts-figure">
+                        <div id="container"></div>
+                        <p class="highcharts-description">
+                        </p>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+    </div> -->
+
+    <div class="row p-3">
+
+        <div class="card stat col-md-6">
+            <div class="card-body">
+                <div class="card-title">{{currentYearTotal}}€</div>
+                <p class="card-text">
+                    Total Revenue
+                </p>
+            </div>
+        </div>
+        <div class="card stat col-md-6">
+            <div class="card-body">
+                <div class="card-title">{{expenseTotal}}€</div>
+                <p class="card-text">
+                    Total Expenses
+                </p>
+            </div>
+        </div>
+
+        <div class="col-12 p-3">
+            <div class="card">
+                <div class="card-body">
+                    <figure class="highcharts-figure">
+                        <div id="container"></div>
+                        <p class="highcharts-description">
+                        </p>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="card stat col-md-6">
+            <div class="card-body">
+                <div class="card-title">{{dailyGrowthRate}}</div>
+                <p class="card-text">
+                    7 Day Growth Rate
+                </p>
+            </div>
+        </div>
+
+        <div class="card stat col-md-6">
+            <div class="card-body">
+                <div class="card-title">{{currentBalance currentYearTotal expenseTotal }}€</div>
+                <p class="card-text">
+                    Business Cash Balance
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row p-3">
+        <div class="col-6 p-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Predictions (Yearly)</div>
                     <p class="card-text">
-                        <label>All values below are based on the current fiscal year.</label><br>
+                        <b>Revenue (-13% tax)</b><br>
+                        {{yearRevenue currentYearTotal}}€
+                    </p>
+                    <p class="card-text">
+                        <b>Expenses</b><br>
+                        {{yearExpense expenseTotal}}€
+                    </p>
+                    <p class="card-text">
+                        <b>Tax Collective Revenue(IRC)</b><br>
+                        {{yearTaxCollective currentYearTotal expenseTotal }}€
+                    </p>
+                    <p>
+                        <div class="divider">
+
+                        </div>
+                    </p>
+                    <p class="card-text">
+                        <b>Predicted year balance</b><br>
+                        {{yearBalance currentYearTotal expenseTotal }}€
                     </p>
                 </div>
             </div>
-        </div> -->
-
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">Total Revenue</div>
-                            <p class="card-text">
-                                <label>Yearly revenue is a total sum off all registered daily revenue logs.</label><br>
-                                <b>{{currentYearTotal}}€</b>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">Total Expenses</div>
-                            <p class="card-text">
-                                <label>Total expenses from all suppliers combined.</label><br>
-                                <b>{{expenseTotal}}€</b>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">Growth</div>
-                            <p class="card-text">
-                                <label>Growth calculation is based of revenue from this year compared to previous
-                                    year.</label><br>
-                                <b>{{diffPreviousYear currentYearTotal lastYearTotal }}</b>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">Balance</div>
-                            <p class="card-text">
-                                <label>Current company balance based on revenue minus expenses and taxes.</label><br>
-                                <b>{{currentBalance currentYearTotal expenseTotal }}€</b>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">Predictions (Yearly)</div>
-                            <p class="card-text">
-                                <b>Revenue (-13% tax)</b><br>
-                                {{yearRevenue currentYearTotal}}€
-                            </p>
-                            <p class="card-text">
-                                <b>Expenses</b><br>
-                                {{yearExpense expenseTotal}}€
-                            </p>
-                            <p class="card-text">
-                                <b>Tax Collective Revenue(IRC)</b><br>
-                                {{yearTaxCollective currentYearTotal expenseTotal }}€
-                            </p>
-                            <p>
-                                <div class="divider">
-
-                                </div>
-                            </p>
-                            <p class="card-text">
-                                <b>Predicted year balance</b><br>
-                                {{yearBalance currentYearTotal expenseTotal }}€
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
     </div>
+
+
+
 </template>

@@ -26,7 +26,7 @@
                             Status
                         </div>
                         <div class="col-2">
-                            
+
                         </div>
                     </div>
                 </li>
@@ -40,7 +40,8 @@
                             {{expense.invoice_id}}
                         </div>
                         <div class="col-1">
-                            <input type="checkbox" class="js-paid-check" checked="{{expense.paid}}" id="{{expense._id}}">
+                            <input type="checkbox" class="js-paid-check" checked="{{expense.paid}}"
+                                id="{{expense._id}}">
                         </div>
                         <div class="col-1">
                             {{expense.amount}}€
@@ -63,7 +64,16 @@
             </ul>
         </div>
     </div>
-
+    <div class="row p-3">
+        <div class="col-12">
+            <div id="expenseBackup"></div>
+        </div>
+        <div class="col-12">
+            <br>
+            <input type="file" class="button" id="uploadBackup">
+        </div>
+        
+    </div>
 
 
 </template>

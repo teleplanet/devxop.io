@@ -51,3 +51,11 @@ Template.privateBase.events({
 		}
 	}
 });
+
+uiInfo = function(show){
+	if(show){
+		$("#ui-wrapper").addClass("full-content");
+	}else{
+		$("#ui-wrapper").removeClass("full-content");
+	}
+}

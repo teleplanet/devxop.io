@@ -4,6 +4,11 @@ Template.revenue.onRendered(function () {
     var controller = Iron.controller();
     controller.render('revenueInfo', { to: 'nav-panel-info' });
 
+    let obj = Revenues.find({}, { fields: { _id: 0, user_id: 0 } }).fetch();
+
+    var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+
+    $('<a class="button" href="data:' + data + '" download="revenueBackup.json">Backup</a>').appendTo('#revenueBackup');
 })
 
 Template.revenue.helpers({
@@ -13,7 +18,28 @@ Template.revenue.helpers({
 });
 
 Template.revenue.events({
+    'change #uploadBackup': function (event) {
+        let ev = event.target;
 
+        if (ev.files && ev.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var result = JSON.parse(e.target.result);
+
+                result.forEach(function(expense){
+                    Revenues.insert(expense);
+
+                    window.setTimeout(function(){}, 400);
+                });
+                
+            };
+
+            reader.readAsText(ev.files[0]);
+
+        }
+    },
     'click .js-remove-revenue': function (event, template) {
         event.preventDefault();
         let id = event.target.id;

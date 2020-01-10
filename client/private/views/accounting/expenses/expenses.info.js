@@ -27,7 +27,7 @@ Template.expensesInfo.events({
     'click .js-insert-expense': function (event, template) {
         event.preventDefault();
 
-        let supplier = $("#supplierInsert").val(),    
+        let supplier = Session.get("module.selectedSupplier"),    
             issued = Session.get("insert-issued-date"),
             due = Session.get("insert-due-date"),
             paid = $("#paidInsert").is(":checked"),

@@ -108,6 +108,8 @@ PrivateController = RouteController.extend({
 
 			Meteor.subscribe('revenues'),
 			Meteor.subscribe('expenses'),
+			Meteor.subscribe('suppliers'),
+			Meteor.subscribe('costs'),
 		];
 	},
 	onBeforeAction: function () {

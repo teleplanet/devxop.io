@@ -64,6 +64,8 @@
     float: left;
     height: 100vh;
     width: 250px;
+    overflow: hidden;
+    overflow-y: auto;
     background-color: rgb(245, 245, 245);
 }
 
@@ -76,4 +78,15 @@
     background-color: rgb(250, 250, 250);
     overflow: hidden;
     overflow-y: auto;
+}
+
+
+#ui-wrapper.full-content > .nav-panel-info{
+    display: none;
+}#ui-wrapper.full-content > .ui-content{
+    width: calc(100% - 50px);
+    left: 50px;
+}#ui-wrapper.full-content > .ui-header{
+    width: calc(100% - 50px);
+    left: 50px;
 }

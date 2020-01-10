@@ -1,0 +1,42 @@
+<template name="costs">
+    <div class="row p-3">
+        <div class="col-12">
+            <h4>Fixed Costs</h4>
+            <p>
+                Here you can add your fixed costs of your company. Devxop will use this data to calculate a more
+                accurate prediction of where your company stands now.
+            </p>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12">
+            <div class="button left js-add-cost">Add new cost</div>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12">
+            {{#each cost in costs}}
+            <div class="card mb-1">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Name</label>
+                            <input type="text" class="form-control js-edit-cost" data-key="name" data-id="{{cost._id}}"
+                                value="{{cost.name}}">
+                        </div>
+                        <div class="col-md-5">
+                            <label>Amount</label>
+                            <input type="number" class="form-control js-edit-cost" data-key="amount"
+                                data-id="{{cost._id}}" value="{{cost.amount}}">
+                        </div>
+                        <div class="col-md-2">
+                            <label></label>
+                            <button class="button center js-cost-remove" id="{{cost._id}}">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</template>

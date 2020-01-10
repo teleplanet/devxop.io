@@ -1,0 +1,25 @@
+<template name="moduleSupplierSelect">
+    <!-- <label class="my-1 mr-2" for="displaySelect">Preference</label> -->
+    <!-- <select class="custom-select my-1 mr-sm-2" id="displaySelect">
+        <option selected>Modelos...</option>
+        {{#each display in displayList}}
+            <option value="{{display}}">{{display}}</option>
+        {{/each}}
+    </select> -->
+    <div class="button med-width" id="displayButton">
+        {{#if selected}}
+        {{selected}}
+        {{else}}
+        Select...
+        {{/if}}<i class="material-icons">expand_more</i>
+    </div>
+
+    <div class="select-modal">
+        {{#each supplier in suppliers}}
+        <div class="button list-button js-supplier-selected" data-name="{{supplier.name}}">{{supplier.name}}</div>
+        {{else}}
+         Nothing to select
+        {{/each}}
+    </div>
+
+</template>

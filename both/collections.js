@@ -45,6 +45,61 @@ Revenues.allow({
     }
 })
 
+Costs = new Meteor.Collection("costs");
+
+Costs.allow({
+    insert: function (userId, doc) {
+        
+        doc["user_id"] = userId;
+
+        return true;
+    },
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    },
+    update: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    }
+})
+
+
+Suppliers = new Meteor.Collection("suppliers");
+
+Suppliers.allow({
+    insert: function (userId, doc) {
+        
+        doc["user_id"] = userId;
+
+        return true;
+    },
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    },
+    update: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    }
+})
+
 
 Expenses = new Meteor.Collection("expenses");
 
@@ -112,6 +167,27 @@ Pagers.allow({
     }
 });
 
+var backupsStore = new FS.Store.FileSystem('backups')
+Backups = new FS.Collection('backups', {
+    stores: [backupsStore]
+});
+
+Backups.allow({
+    'insert': function () {
+        // add custom authentication code here
+        return true;
+    },
+    'update': function () {
+        // add custom authentication code here
+        return true;
+    },
+    'remove': function () {
+        return true;
+    },
+    'download': function () {
+        return true;
+    }
+});
 
 Companies = new Meteor.Collection('companies');
 CompanyUsers = new Meteor.Collection("companyUsers");

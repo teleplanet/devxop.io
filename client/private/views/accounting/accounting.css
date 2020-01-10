@@ -20,3 +20,31 @@
     background-color: #fff;
     border-left: 4px solid #8bc34a;
 }
+
+/* .stat-1, .stat-2, .stat-3, .stat-4{
+    color: #fff !important;
+    text-align: center;
+    font-weight: bold;
+}
+
+.stat-1 > .card-text, .stat-2 .card-text, .stat-3 .card-text, .stat-4 .card-text{
+    color: #fff !important;
+    text-align: center;
+    font-weight: bold;
+    font-size: 26px;
+}
+
+.card:not([class*="text"]) p {
+    color: inherit !important;
+}
+
+
+.stat-1{
+    background-color: #565a85 !important;
+}.stat-2{
+    background-color: #8e24aa !important;
+}.stat-3{
+    background-color: #fdcd05 !important;
+}.stat-4{
+    background-color: #ee0d0d !important;
+} */

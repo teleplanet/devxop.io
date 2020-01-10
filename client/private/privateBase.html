@@ -1,23 +1,30 @@
 <template name="privateBase">
-	<div class="ui-header pl-3">
-		{{route}}
-	</div>
+	<div id="ui-wrapper">
+		<div class="ui-header pl-3">
+			{{route}}
+		</div>
+		<div class="ui-nav">
+			<div class="nav-panel-icons">
+				<a href="{{pathFor route='user.dashboard'}}" class="icon active"><i
+						class="material-icons">dashboard</i><span>Dashboard</span></a>
+				<a href="{{pathFor route='devices'}}" class="icon"><i
+						class="material-icons">devices</i><span>Devices</span></a>
+				<a href="{{pathFor route='items'}}" class="icon"><i
+						class="material-icons">dynamic_feed</i><span>Items</span></a>
+				<a href="{{pathFor route='collections'}}" class="icon"><i
+						class="material-icons">collections</i><span>Collections</span></a>
+				<a href="{{pathFor route='accounting'}}" class="icon"><i
+						class="material-icons">euro</i><span>Accounting</span></a> <!-- faturaçao -->
+			</div>
 
-	<div class="ui-nav">
-		<div class="nav-panel-icons">
-			<a href="{{pathFor route='user.dashboard'}}" class="icon active"><i class="material-icons">dashboard</i><span>Dashboard</span></a>
-			<a href="{{pathFor route='devices'}}" class="icon"><i class="material-icons">devices</i><span>Devices</span></a>
-			<a href="{{pathFor route='items'}}" class="icon"><i class="material-icons">dynamic_feed</i><span>Items</span></a>
-			<a href="{{pathFor route='collections'}}" class="icon"><i class="material-icons">collections</i><span>Collections</span></a>
-			<a href="{{pathFor route='accounting'}}" class="icon"><i class="material-icons">euro</i><span>Accounting</span></a> <!-- faturaçao -->
+			<div class="nav-panel-info">
+				{{> yield 'nav-panel-info'}}
+			</div>
 		</div>
 
-		<div class="nav-panel-info">
-			{{> yield 'nav-panel-info'}}
+		<div class="ui-content">
+			{{> yield}}
 		</div>
 	</div>
 
-	<div class="ui-content">
-		{{> yield}}
-	</div>
 </template>
