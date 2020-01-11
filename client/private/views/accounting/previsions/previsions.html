@@ -1,0 +1,53 @@
+<template name="previsions">
+    <div class="row p-3">
+        <div class="col-12">
+            <p>
+                Here you can add your fixed costs of your company. Devxop will use this data to calculate a more
+                accurate prediction of where your company stands now.
+            </p>
+        </div>
+        <div class="col-4">
+            <label>Business days</label>
+            <input type="number" id="days" min=0 max=365 class="form-control" value="360">
+
+            <label>VAT Tax(IVA)</label>
+            <input type="number" id="vat" min=0 max=25 class="form-control" value="13">
+
+            <label>Tax Colletive Revenue(IRC)</label>
+            <input type="number" id="irc" min=0 max=100 class="form-control" value="20">
+
+
+            {{previsions}}
+        </div>
+    </div>
+    <!-- <div class="row p-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Predictions (Yearly)</div>
+                    <p class="card-text">
+                        <b>Revenue (-13% tax)</b><br>
+                        {{yearRevenue currentYearTotal}}€
+                    </p>
+                    <p class="card-text">
+                        <b>Expenses</b><br>
+                        {{yearExpense expenseTotal}}€
+                    </p>
+                    <p class="card-text">
+                        <b>Tax Collective Revenue(IRC)</b><br>
+                        {{yearTaxCollective currentYearTotal expenseTotal }}€
+                    </p>
+                    <p>
+                        <div class="divider">
+
+                        </div>
+                    </p>
+                    <p class="card-text">
+                        <b>Predicted year balance</b><br>
+                        {{yearBalance currentYearTotal expenseTotal }}€
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</template>

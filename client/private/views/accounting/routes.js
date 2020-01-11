@@ -51,3 +51,18 @@ Router.route('/accounting/costs', {
     }
 });
 
+Router.route('/accounting/previsions', {
+    name: "accounting.previsions",
+    controller: 'PrivateController',
+    action: function () {
+        Session.set("route", "Accounting / Previsions");
+
+        uiInfo(true);
+
+        this.render('previsions');
+    },
+    onStop: function() {
+        uiInfo(false);
+    }
+});
+
