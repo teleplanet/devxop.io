@@ -51,15 +51,31 @@ Router.route('/accounting/costs', {
     }
 });
 
-Router.route('/accounting/previsions', {
-    name: "accounting.previsions",
+Router.route('/accounting/predictions', {
+    name: "accounting.predictions",
     controller: 'PrivateController',
     action: function () {
-        Session.set("route", "Accounting / Previsions");
+        Session.set("route", "Accounting / Predictions");
 
         uiInfo(true);
 
-        this.render('previsions');
+        this.render('predictions');
+    },
+    onStop: function() {
+        uiInfo(false);
+    }
+});
+
+
+Router.route('/accounting/calculator', {
+    name: "accounting.calculator",
+    controller: 'PrivateController',
+    action: function () {
+        Session.set("route", "Accounting / Calculator");
+
+        uiInfo(true);
+
+        this.render('calculator');
     },
     onStop: function() {
         uiInfo(false);

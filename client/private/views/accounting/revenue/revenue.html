@@ -1,16 +1,58 @@
 <template name="revenue">
+
     <div class="row p-3">
+        <div class="col-12">
+            {{#each year in years}}
+            <div class="row p-3">
+                <div class="col-12">
+                    {{year}}
+                    <div class="divider" id="{{year}}" data-year="{{year}}"></div>
+                </div>
+            </div>
+            <div class="row p-3">
+                {{#each month in months year}}
+                <div class="card calendar col-12">
+                    <div class="card-body">
+                        <div class="card-title">
+                            {{getMonth month}}({{year}})
+                        </div>
+
+                        <div class="row">
+                            {{#each revenue in revenues year month}}
+                            <div class="card-text">
+                                <div class="day">
+                                    {{revenue.day}}
+                                </div>
+                                <div class="value">
+                                    {{revenue.value}}€
+                                </div>
+                                
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+
+
+                </div>
+                {{/each}}
+
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <!-- <div class="row p-3">
         <div class="col-12">
             <ul>
                 <li class="list-header">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-2">
                             Date
                         </div>
                         <div class="col-2">
                             Amount
                         </div>
-                        <div class="col-4">
+                        <div class="col-6">
                             Observation
                         </div>
                         <div class="col-2">
@@ -21,13 +63,13 @@
                 {{#each revenue in dailyRevenue}}
                 <li>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-2">
                             {{getDate revenue.stamp}}
                         </div>
                         <div class="col-2">
                             {{revenue.value}}€
                         </div>
-                        <div class="col-4">
+                        <div class="col-6">
                             {{revenue.observation}}
                         </div>
                         <div class="col-2">
@@ -38,7 +80,7 @@
                 {{/each}}
             </ul>
         </div>
-    </div>
+    </div> -->
 
     <div class="row p-3">
         <div class="col-12">
@@ -48,6 +90,6 @@
             <br>
             <input type="file" class="button" id="uploadBackup">
         </div>
-        
+
     </div>
 </template>

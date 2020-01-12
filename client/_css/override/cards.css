@@ -1,3 +1,16 @@
+.card{
+    border: 1px solid #ccc !important;
+}
+
+.card.no-style{
+    background-color: transparent;
+    background-clip: border-box;
+    border: 0px solid rgba(0,0,0,.125) !important;
+    border-radius: 0;
+}.card.no-style > .card-body > .card-title{
+    text-align: center;
+}
+
 .card .card-body .card-title {
     height: 64px;
     overflow: hidden;
@@ -10,14 +23,14 @@
     column-count: 4;
 }
 
-.card.stat{
+.card.stat, .card.calendar{
     background-color: transparent;
     background-clip: border-box;
-    border: 0px solid rgba(0,0,0,.125);
+    border: 0px solid rgba(0,0,0,.125) !important;
     border-radius: 0;
 }.card.stat > .card-body > .card-title{
     text-align: center;
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-top: 1rem;
     margin-bottom: 0;
@@ -28,6 +41,46 @@
     margin-bottom: 1rem;
     color: #fff;
 }
+
+.card.calendar > .card-body > .card-title{
+    background-color: #5187c3;
+    color: #fff;
+    padding: 15px;
+    height: auto;
+}
+.card.calendar > .card-body > .row{
+    text-align: center;
+    align-content: center;
+    margin: auto;
+}
+.card.calendar > .card-body > .row > .card-text{
+    text-align: center;
+    /* background-color: #1e88e5;
+    color: #fff; */
+    width: calc(100% / 7);
+    /* border: 1px solid #ccc; */
+    padding: 2px;
+    
+}.card.calendar > .card-body > .row > .card-text:nth-child(even){
+    background-color: #fff;
+}.card.calendar > .card-body > .row > .card-text:nth-child(even) > .value{
+    /* background-color: #FFF;
+    color: #000; */
+    
+}.card.calendar > .card-body > .row > .card-text:nth-child(even) > .day{
+    /* background-color: #FFF;
+    color: #000; */
+    /* background-color: #ffe328; */
+}.card.calendar > .card-body > .row > .card-text > .day{
+    font-weight: bold;
+    padding: 10px;
+    background-color: #ccc;
+}.card.calendar > .card-body > .row > .card-text > .value{
+    padding: 10px;
+    /* background-color: #1ee5c7;
+    color: #fff; */
+}
+
 
 .stat:nth-child(1) > .card-body{
     background-color: #565a85;

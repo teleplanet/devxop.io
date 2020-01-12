@@ -1,4 +1,4 @@
-<template name="previsions">
+<template name="predictions">
     <div class="row p-3">
         <div class="col-12">
             <p>
@@ -8,34 +8,41 @@
         </div>
         <div class="col-4">
             <label>Business days</label>
-            <input type="number" id="days" min=0 max=365 class="form-control" value="360">
-
+            <input type="number" data-key="days" id="days" min=0 max=365 class="form-control js-prediction-values" value="360">
+        </div>
+        <div class="col-4">
             <label>VAT Tax(IVA)</label>
-            <input type="number" id="vat" min=0 max=25 class="form-control" value="13">
-
+            <input type="number" data-key="vat" id="vat" min=0 max=25 class="form-control js-prediction-values" value="13">
+        </div>
+        <div class="col-4">
             <label>Tax Colletive Revenue(IRC)</label>
-            <input type="number" id="irc" min=0 max=100 class="form-control" value="20">
-
-
-            {{previsions}}
+            <input type="number" data-key="irc" id="irc" min=0 max=100 class="form-control js-prediction-values" value="20">
         </div>
     </div>
-    <!-- <div class="row p-3">
+    <div class="row p-3">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">Predictions (Yearly)</div>
                     <p class="card-text">
-                        <b>Revenue (-13% tax)</b><br>
-                        {{yearRevenue currentYearTotal}}€
+                        <b>Revenues</b><br>
+                        {{format predictions.revenues}}
                     </p>
                     <p class="card-text">
                         <b>Expenses</b><br>
-                        {{yearExpense expenseTotal}}€
+                        {{format predictions.expenses}}
+                    </p>
+                    <p class="card-text">
+                        <b>Fixed Costs</b><br>
+                        {{format predictions.costs}}
+                    </p>
+                    <p class="card-text">
+                        <b>VAT (IVA)</b><br>
+                        {{format predictions.vat}}
                     </p>
                     <p class="card-text">
                         <b>Tax Collective Revenue(IRC)</b><br>
-                        {{yearTaxCollective currentYearTotal expenseTotal }}€
+                        {{format predictions.irc}}
                     </p>
                     <p>
                         <div class="divider">
@@ -43,11 +50,11 @@
                         </div>
                     </p>
                     <p class="card-text">
-                        <b>Predicted year balance</b><br>
-                        {{yearBalance currentYearTotal expenseTotal }}€
+                        <b>Predicted Balance</b><br>
+                        {{format predictions.balance}}
                     </p>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 </template>

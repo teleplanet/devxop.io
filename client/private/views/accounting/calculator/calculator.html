@@ -1,0 +1,54 @@
+<template name="calculator">
+    <div class="row p-3">
+        <div class="col-12">
+            <p>
+                Here you can add your fixed costs of your company. Devxop will use this data to calculate a more
+                accurate prediction of where your company stands now.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Monthly values</h4>
+                        </div>
+                        <div class="col-6">
+                            <label>Variable Expenses</label>
+                            <input type="range" min="0" max="100000" value="10000" step="500" onchange="rangevalue.value=value" />
+                            <output id="rangevalue">10000</output>
+
+                            <label>Fixed Expenses</label>
+                            <input type="range" min="0" max="100000" value="10000" step="500" onchange="rangevalue.value=value" />
+                            <output id="rangevalue">10000</output>
+
+                            <label>Revenue (excl. VAT)</label>
+                            <input type="range" min="0" max="100000" value="10000" step="500" onchange="rangevalue.value=value" />
+                            <output id="rangevalue">10000</output>
+                        </div>
+                        <div class="col-6">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card no-style">
+                <div class="card-body">
+                    <div class="card-title">
+                        Results
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Monthly values</h4>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
