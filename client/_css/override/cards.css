@@ -2,11 +2,21 @@
     border: 1px solid #ccc !important;
 }
 
+.card.center-align{
+    text-align: center;
+}
+
+.card.light{
+    background-color: #fff !important;
+    border-bottom: 1px solid #ccc !important;
+}
+
 .card.no-style{
     background-color: transparent;
     background-clip: border-box;
     border: 0px solid rgba(0,0,0,.125) !important;
     border-radius: 0;
+    padding: 2% 7%;
 }.card.no-style > .card-body > .card-title{
     text-align: center;
 }

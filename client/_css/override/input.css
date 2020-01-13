@@ -48,3 +48,34 @@ input[type=range][orient=vertical]
     width: 100%;
     color: #579E81;
   }
+
+.number-plain{
+    border: 0 !important;
+    background: transparent !important;
+    outline: 0 !important;
+    border-bottom: 3px solid #ccc !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+
+  width: fit-content !important;
+  text-align: center;
+  margin-top: 12px;
+  -webkit-appearance: none; 
+  -moz-appearance:textfield;
+}
+.number-plain:focus{
+    border: 0;
+    background: transparent;
+    outline: 0;
+    border-bottom: 3px solid #ccc;
+
+    border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.number-plain::-webkit-outer-spin-button,
+.number-plain::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

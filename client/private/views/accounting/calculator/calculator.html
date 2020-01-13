@@ -1,49 +1,127 @@
 <template name="calculator">
-    <div class="row p-3">
+    <!-- <div class="row p-3">
         <div class="col-12">
             <p>
                 Here you can add your fixed costs of your company. Devxop will use this data to calculate a more
                 accurate prediction of where your company stands now.
             </p>
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card no-style center-align light">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <h4>Monthly values</h4>
+                            <h4>Values</h4>
+                            <p>Using the ranges, set the values based on the last 30 days of data you have.</p>
                         </div>
-                        <div class="col-6">
-                            <label>Variable Expenses</label>
-                            <input type="range" min="0" max="100000" value="10000" step="500" onchange="rangevalue.value=value" />
-                            <output id="rangevalue">10000</output>
-
-                            <label>Fixed Expenses</label>
-                            <input type="range" min="0" max="100000" value="10000" step="500" onchange="rangevalue.value=value" />
-                            <output id="rangevalue">10000</output>
-
-                            <label>Revenue (excl. VAT)</label>
-                            <input type="range" min="0" max="100000" value="10000" step="500" onchange="rangevalue.value=value" />
-                            <output id="rangevalue">10000</output>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-3">
+                                    <br>
+                                    <label>Variable Expenses p/month</label>
+                                </div>
+                                <div class="col-6">
+                                    <br>
+                                    <input type="range" class="js-range" data-id="variable" min="1" max="100000"
+                                        value="{{values.variable}}"  step="500" />
+                                </div>
+                                <div class="col-3">
+                                    
+                                    <!-- <label>{{format values.variable}}</label> -->
+                                    <input type="number" class="form-control number-plain js-range" data-id="variable"  value="{{values.variable}}">
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-3">
+                                    <br>
+                                    <label>Fixed Expenses p/month</label>
+                                </div>
+                                <div class="col-6">
+                                    <br>
+                                    <input type="range" class="js-range" data-id="fixed" min="1" max="100000"
+                                        value="{{values.fixed}}" step="500" />
+                                </div>
+                                <div class="col-3">
+                                    
+                                    <!-- <label>{{format values.fixed}}</label> -->
+                                    <input type="number" class="form-control number-plain js-range" data-id="fixed"  value="{{values.fixed}}">
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-3">
+                                    <br>
+                                    <label>Revenue (excl. VAT) p/month</label>
+                                </div>
+                                <div class="col-6">
+                                    <br>
+                                    <input type="range" class="js-range" data-id="revenue" min="1" max="100000"
+                                        value="{{values.revenue}}" step="500"/>
+                                </div>
+                                <div class="col-3">
+                                    
+                                    <!-- <label>{{format values.revenue}}</label> -->
+                                    <input type="number" class="form-control number-plain js-range" data-id="revenue"  value="{{values.revenue}}">
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            
-                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12">
-            <div class="card no-style">
+            <div class="card no-style text-center">
                 <div class="card-body">
-                    <div class="card-title">
+                    <!-- <div class="card-title">
                         Results
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-12">
-                            <h4>Monthly values</h4>
+                            <h4>Calculated Results</h4>
+                            <p>Results calculate a yearly prediction based on per month values inserted above.</p>
+
+                            {{#if results.profit}}
+                                
+                            {{else}}
+                                <button class="button center js-break-even">Auto-Calculate break-even point</button>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="row p-5">
+                        <div class="col-12">
+                            <div class="bar-chart">
+                                <div class="item" style="width: {{results.expense.percent}}%">
+                                    <div class="info">
+                                        <div class="value">{{format results.expense.value}}</div>
+                                        <div class="description">Expenses</div>
+                                    </div>
+                                    <i class="material-icons">
+                                        keyboard_arrow_down
+                                    </i>
+                                </div>
+                                <div class="item" style="width: {{results.revenue.percent}}%">
+                                    <div class="info">
+                                        <div class="value">{{format results.revenue.value}}</div>
+                                        <div class="description">Revenue</div>
+                                    </div>
+                                    <i class="material-icons">
+                                        keyboard_arrow_down
+                                    </i>
+                                </div>
+                                <div class="item" style="width: {{results.result.percent}}%">
+                                    <div class="info">
+                                        <div class="value">{{format results.result.value}}</div>
+                                        <div class="description">Profit</div>
+                                    </div>
+                                    <i class="material-icons">
+                                        keyboard_arrow_down
+                                    </i>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

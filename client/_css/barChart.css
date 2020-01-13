@@ -1,0 +1,73 @@
+.bar-chart{
+    width: 100%;
+    height: 50px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.bar-chart > .item:first-child{
+    background-color: #fff;
+    border-bottom-left-radius: 40px;
+    border-top-left-radius: 40px;
+
+    background: repeating-linear-gradient( 45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px );
+}.bar-chart > .item:nth-child(2){
+    background-color: #606dbc;
+}.bar-chart > .item:last-child{
+    background-color: #fff;
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 40px;
+    border-left: 0px;
+    background-color: #465298;
+}.bar-chart > .item:last-child > .info > .value, .bar-chart > .item:last-child > i{
+    font-size: 28px;
+    color: #465298;
+    font-weight: bold;
+}
+
+
+.bar-chart > .item:hover{
+    position: relative;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    transform: scale(1.1);
+}
+
+.bar-chart > .item{
+    height: 40px;
+    box-sizing: border-box;
+    background: red;
+    float: left;
+
+    transition: all 200ms ease;
+    /* border: 1px solid #ccc; */
+}.bar-chart > .item > .info{
+    position: relative;
+    text-align: center;
+    /* top: -50px; */
+    width: fit-content;
+    margin: auto;
+    transform: translateY(calc(-100% - 50px));
+    -webkit-transform: translateY(calc(-100% - 50px));
+    -moz-transform: translateY(calc(-100% - 50px));
+}.bar-chart > .item > i{
+    position: relative;
+    text-align: center;
+    /* top: -50px; */
+    width: fit-content;
+    margin: auto;
+    transform: translateY(calc(-100% - 65px));
+    -webkit-transform: translateY(calc(-100% - 65px));
+    -moz-transform: translateY(calc(-100% - 65px));
+    width: 100%;
+    color: #666;
+    font-size: 30px;
+}.bar-chart > .item > .info > .value{
+    font-size: 22px;
+    color: #666;
+    font-weight: bold;
+}.bar-chart > .item > .info > .description{
+    font-size: 14px;
+    color: #666;
+}
