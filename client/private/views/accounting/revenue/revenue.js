@@ -46,6 +46,42 @@ Template.revenue.onRendered(function () {
 
 
 Template.revenue.helpers({
+    'format':function(amount, point){
+
+        if(!amount){
+            return "";
+        }
+
+        amount = parseInt(amount);
+
+        if(point == "neg"){
+            return "-" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "€";
+        }else if(point == "pos"){
+            return "+" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "€";
+        }
+
+        return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "€";
+
+        
+    },
+    'calendarData': function(month, year){
+        let revenues = Revenues.find({ "year": "" + year, "month": "" + month }, { sort: { stamp: 1 } }).fetch();
+    
+
+        let day = new Date(revenues[0].stamp).getDay();
+
+        let skip = [];
+        for(let i = 0; i < day; i++){
+            skip.push({"day": "", "value": ""});
+        }
+
+
+        
+
+        return skip.concat(revenues);
+
+
+    },
     'dailyRevenue': function () {
         return Revenues.find({}, { sort: { stamp: -1 } }).fetch();
     },

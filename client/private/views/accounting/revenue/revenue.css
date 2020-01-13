@@ -1,0 +1,96 @@
+.calendar{
+    width: 100%;
+    height: fit-content;
+    color: #333;
+    background-color: #fff;
+    float: left;
+
+    /* -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; */
+
+    margin-bottom: 40px;
+}
+
+.calendar-title{
+    width: 100%;
+    position: relative;
+    float: left;
+    padding: 50px 0px;
+    text-align: center;
+    background-color: #5187c3;
+    color: #fff;
+    
+    font-weight: lighter;
+    font-size: 28px
+    ;
+}
+.calendar-header{
+    width: 100%;
+    position: relative;
+    float: left; 
+    /* background-color: #cbddf3;
+    border-bottom: 1px solid #ccc; */
+
+}.calendar-header{
+    width: 100%;
+    position: relative;
+    float: left; 
+    /* background-color: #cbddf3; */
+    padding: 5%;
+    padding-bottom: 0;
+
+}.calendar-header-weekday{
+    position: relative;
+    float: left; 
+    width: calc(100% / 7);
+    text-align: center;
+    min-width: calc(100% / 7);
+    content: " ";
+    line-height: 40px;
+    font-weight: bold;
+    font-size: 16px;
+    /* background-color: #cbddf3; */
+    color: #5187c3;
+    /* border-bottom: 1px solid #29323f; */
+}
+
+.calendar-body{
+    padding: 5%;
+}
+.calendar-weekday{
+    position: relative;
+    float: left; 
+    width: calc(100% / 7);
+    text-align: center;
+    min-width: calc(100% / 7);
+    content: " ";
+    padding: 10px 0%;
+    padding-bottom: 35px;
+    line-height: 40px;
+    background-color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    /* border-bottom: 1px solid #29323f; */
+}/* .calendar-header-weekday:hover > .calendar-weekday-info{
+    display: block;
+    opacity: 1;
+} */
+
+.calendar-weekday-info{
+    position: absolute;
+    width: 80%;
+    left: 14%;
+    margin: auto;
+    z-index: 100;
+    top: 40px;
+    /* border-radius: 40px; */
+    /* display: none;
+    opacity: 0; */
+    font-size: 14px;
+    /* background-color: #ccc; */
+    color: #333;
+    
+    transition: all 200ms ease-in-out;
+    border-radius: 10px;
+}

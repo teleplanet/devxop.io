@@ -11,12 +11,34 @@
             </div>
             <div class="row p-3">
                 {{#each month in months year}}
-                <div class="card calendar col-12">
-                    <div class="card-body">
-                        <div class="card-title">
+                <div class="col-6">
+                    <div class="calendar">
+                        <div class="calendar-title">
                             {{getMonth month}}({{year}})
                         </div>
+                        <div class="calendar-header">
+                            <div class="calendar-header-weekday">Sun</div>
+                            <div class="calendar-header-weekday">Mon</div>
+                            <div class="calendar-header-weekday">Tue</div>
+                            <div class="calendar-header-weekday">Wed</div>
+                            <div class="calendar-header-weekday">Thu</div>
+                            <div class="calendar-header-weekday">Fri</div>
+                            <div class="calendar-header-weekday">Sun</div>
+                        </div>
+                        <div class="calendar-body">
+                            {{#each data in calendarData month year}}
+                            <div class="calendar-weekday">&nbsp; {{data.day}}
+                                <div class="calendar-weekday-info">{{format data.value}}</div>
+                            </div>
 
+                            {{/each}}
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                            <div class="col">
+
+                            </div>
+                        </div>
                         <div class="row">
                             {{#each revenue in revenues year month}}
                             <div class="card-text">
@@ -29,8 +51,7 @@
                                 <button id="{{revenue._id}}" class="button small center js-remove-revenue">Remove</button>
                             </div>
                             {{/each}}
-                        </div>
-                    </div>
+                        </div> -->
 
 
                 </div>
