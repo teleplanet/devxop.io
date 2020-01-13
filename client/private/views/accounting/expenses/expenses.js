@@ -11,7 +11,7 @@ Template.expenses.onRendered(function () {
 
 Template.expenses.helpers({
     'expenses': function () {
-        let expenses = Expenses.find({}, { sort: { "issued.stamp": -1 } }).fetch();
+        let expenses = Expenses.find({}, { sort: { "issued.stamp": -1, "supplier": 1 } }).fetch();
 
         return expenses;
     },

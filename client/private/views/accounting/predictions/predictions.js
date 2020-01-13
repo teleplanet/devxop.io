@@ -1,30 +1,46 @@
 Template.predictions.events({
     'change .js-prediction-values': function (event) {
-        let key = $(event.target).data("key");
+        let range = $(event.target);
 
-        Session.set("predictions-" + key, $(event.target).val());
+        let id = range.data("key");
+        let value = parseInt(range.val());
+
+        let object = Session.get("prediction-values");
+        object[id] = value;
+
+        Session.set("prediction-values", object);
     }
 });
 
 Template.predictions.onRendered(function () {
-    let days = $(".form-control#days").val();
-        let vat = $(".form-control#vat").val();
-        let irc = $(".form-control#irc").val();
-
-    Session.set("predictions-days", days);
-    Session.set("predictions-vat", vat);
-    Session.set("predictions-irc", irc)
+    Session.set("prediction-values", {
+        'days': 360,
+        "vat": 13,
+        "irc": 20
+    });
 });
 
 Template.predictions.helpers({
-    'format':function(amount){
-        return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "€"
+    'format':function(amount, point){
+            
+
+        if(point == "neg"){
+            return "-" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "€";
+        }else if(point == "pos"){
+            return "+" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "€";
+        }
+
+        return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + "€";
+
+        
     },
     'predictions': function () {
 
-        let days = Session.get("predictions-days");
-        let vat = Session.get("predictions-vat");
-        let irc = Session.get("predictions-irc");
+        let object = Session.get("prediction-values");
+
+        let days = object.days;
+        let vat = object.vat;
+        let irc = object.irc;
 
         let predictions = {
             "revenues": 0,
@@ -80,4 +96,91 @@ Template.predictions.helpers({
 
         return predictions;
     },
+    'results': function () {
+        let values = Session.get("prediction-values");
+
+        let days = values.days;
+        let vat = values.vat;
+        let irc = values.irc;
+
+        let object = {
+            "expense": {
+                "value": 0,
+                "percent": 0,
+            },
+            "revenue": {
+                "value": 0,
+                "percent": 0,
+            },
+            "cost": {
+                "value": 0,
+                "percent": 0,
+            },
+            "vat": {
+                "value":   0,
+                "percent": 0,
+            },
+            "irc": {
+                "value": 0,
+                "percent": 0,
+            },
+            "balance": {
+                "value": 0,
+                "percent": 0,
+            },
+            'profit': true
+        };
+
+
+        var check = moment(new Date(), 'YYYY/MM/DD');
+        var year = check.format('YYYY');
+
+    
+        /* CALCULATE YEARLY REVENUE PREDICTION */
+        let totalRevenues = 0;
+        let revenues = Revenues.find({ "year": year }).fetch();
+        revenues.map(function (doc) {
+            totalRevenues = parseInt(totalRevenues) + parseInt(doc.value);
+        });
+        object.revenue.value = (totalRevenues / (revenues.length + 1)) * days;
+    
+        let totalExpenses = 0;
+        let expenses = Expenses.find({ "issued.year": year }).fetch();
+        expenses.map(function (doc) {
+            totalExpenses = parseInt(totalExpenses) + parseInt(doc.amount);
+        });
+        object.expense.value = (totalExpenses / (revenues.length + 1)) * days;
+    
+        let totalCosts = 0;
+        let costs = Costs.find().fetch();
+        costs.map(function (doc) {
+            totalCosts = parseInt(totalCosts) + parseInt(doc.amount);
+        });
+        object.cost.value = (totalCosts * (days / 30));
+    
+    
+        object.vat.value = object.revenue.value * (vat / 100);
+    
+        let initialBalance = (((object.revenue.value - object.vat.value) - object.expense.value) - object.cost.value);
+        if (initialBalance <= 0) {
+            object.irc.value = 0;
+        } else {
+            object.irc.value = (initialBalance * (irc / 100));
+        }
+    
+    
+        object.balance.value = initialBalance - object.irc.value;
+
+        let total = object.revenue.value + object.expense.value + object.cost.value + object.vat.value + object.irc.value;
+
+        object.revenue.percent = (object.revenue.value / total) * 100;
+        object.expense.percent = (object.expense.value / total) * 100;
+        object.cost.percent = (object.cost.value / total) * 100;
+        object.vat.percent = (object.vat.value / total) * 100;
+        object.irc.percent = (object.irc.value / total) * 100;
+
+
+        return object;
+
+    }
 });

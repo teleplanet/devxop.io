@@ -1,25 +1,99 @@
 <template name="predictions">
-    <div class="row p-3">
+    <div class="row">
         <div class="col-12">
-            <p>
-                Here you can add your fixed costs of your company. Devxop will use this data to calculate a more
-                accurate prediction of where your company stands now.
-            </p>
-        </div>
-        <div class="col-4">
-            <label>Business days</label>
-            <input type="number" data-key="days" id="days" min=0 max=365 class="form-control js-prediction-values" value="360">
-        </div>
-        <div class="col-4">
-            <label>VAT Tax(IVA)</label>
-            <input type="number" data-key="vat" id="vat" min=0 max=25 class="form-control js-prediction-values" value="13">
-        </div>
-        <div class="col-4">
-            <label>Tax Colletive Revenue(IRC)</label>
-            <input type="number" data-key="irc" id="irc" min=0 max=100 class="form-control js-prediction-values" value="20">
+            <div class="card no-style center-align light">
+                <div class="card-body">
+                    <div class="row p-3">
+                        <div class="col-12">
+                            <p>
+                                Here you can add your fixed costs of your company. Devxop will use this data to calculate a more
+                                accurate prediction of where your company stands now.
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <label>Business days</label>
+                            <input type="number" data-key="days" id="days" min=0 max=365 class="form-control number-plain center  js-prediction-values"
+                                value="360">
+                        </div>
+                        <div class="col-4">
+                            <label>VAT Tax(IVA)</label>
+                            <input type="number" data-key="vat" id="vat" min=0 max=25 class="form-control number-plain center js-prediction-values"
+                                value="13">
+                        </div>
+                        <div class="col-4">
+                            <label>Tax Colletive Revenue(IRC)</label>
+                            <input type="number" data-key="irc" id="irc" min=0 max=100 class="form-control number-plain center  js-prediction-values"
+                                value="20">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
     <div class="row p-3">
+        <div class="col-12">
+            <div class="result-title">Predicted Balance</div>
+            <div class="prediction-result">
+                {{format results.balance.value}}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row p-5">
+        <div class="col-12">
+            <div class="bar-chart-large">
+                <div class="item" style="width: {{results.revenue.percent}}%">
+                    <div class="info">
+                        <div class="value">{{format results.revenue.value "pos"}}</div>
+                        <div class="description">Revenues</div>
+                    </div>
+                    <i class="material-icons">
+                        keyboard_arrow_down
+                    </i>
+                </div>
+                <div class="item" style="width: {{results.vat.percent}}%">
+                    <div class="info">
+                        <div class="value">{{format results.vat.value "neg"}}</div>
+                        <div class="description">VAT</div>
+                    </div>
+                    <i class="material-icons">
+                        keyboard_arrow_up
+                    </i>
+                </div>
+                <div class="item" style="width: {{results.cost.percent}}%">
+                    <div class="info">
+                        <div class="value">{{format results.cost.value "neg"}}</div>
+                        <div class="description">Costs</div>
+                    </div>
+                    <i class="material-icons">
+                        keyboard_arrow_down
+                    </i>
+                </div>
+                <div class="item" style="width: {{results.expense.percent}}%">
+                    <div class="info">
+                        <div class="value">{{format results.expense.value "neg"}}</div>
+                        <div class="description">Expenses</div>
+                    </div>
+                    <i class="material-icons">
+                        keyboard_arrow_up
+                    </i>
+                </div>
+                <div class="item" style="width: {{results.irc.percent}}%">
+                    <div class="info">
+                        <div class="value">{{format results.irc.value "neg"}}</div>
+                        <div class="description">IRC</div>
+                    </div>
+                    <i class="material-icons">
+                        keyboard_arrow_down
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row p-3">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -56,5 +130,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </template>
