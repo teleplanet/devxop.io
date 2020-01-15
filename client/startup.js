@@ -15,6 +15,25 @@ Meteor.startup(function () {
 	Session.set('vW', $(document).width());
 
 	//initFB();
+
+	if(Meteor.isClient) {
+		Meteor.methods({
+			"client.upsert":function(data) {
+				/* console.log(this.isSimulation) //Will be true
+				MyCollection.insert({test:true}); */
+
+				if(data){
+					//Invoices.insert(data);
+
+					Invoices.upsert({"InvoiceNo": data.InvoiceNo}, {
+						// Modifier
+						$set: data
+					});
+				}
+			}
+		});
+	}
+	
 });
 
 stripeReadyHandler = function () {

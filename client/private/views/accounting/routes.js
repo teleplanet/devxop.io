@@ -36,6 +36,15 @@ Router.route('/accounting/suppliers', {
     },
 });
 
+Router.route('/accounting/invoices', {
+    name: "accounting.invoices",
+    controller: 'PrivateController',
+    action: function () {
+        Session.set("route", "Accounting / Invoices");
+        this.render('invoices');
+    },
+});
+
 Router.route('/accounting/costs', {
     name: "accounting.costs",
     controller: 'PrivateController',

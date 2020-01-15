@@ -72,6 +72,33 @@ Costs.allow({
     }
 })
 
+Invoices = new Meteor.Collection("invoices");
+
+Invoices.allow({
+    insert: function (userId, doc) {
+        
+        doc["user_id"] = userId;
+
+        return true;
+    },
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    },
+    update: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    }
+})
+
 
 Suppliers = new Meteor.Collection("suppliers");
 

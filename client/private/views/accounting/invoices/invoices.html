@@ -1,0 +1,71 @@
+<template name="invoices">
+    <div class="row p-3">
+        <div class="col-12">
+            <br>
+            <input type="file" class="button" id="uploadSaft">
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12">
+            <!-- {{year}} -->
+            2019
+            <div class="divider" id="{{year}}" data-year="{{year}}"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="dropdown">
+                <div class="item collapse js-year-select">Item 2</div>
+                <div class="item collapse js-year-select">Item 3</div>
+                <div class="item collapse js-year-select">Item 4</div>
+                <div class="item collapse js-year-select">Select Item</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            {{formatCurrency totals.revenue}}
+
+        </div>
+    </div>
+
+    <!-- {{#each month in months "2019"}}
+    <div class="row">
+        <div class="col-12">
+            {{month}}
+        </div>
+    </div>
+    <div class="row p-3">
+        
+        {{#each invoice in invoices "2019" month}}
+        <div class="col-4">
+            {{@index}}: {{invoice.InvoiceNo}}
+        </div>
+        <div class="col-4">
+            {{invoice.InvoiceDate}}
+        </div>
+        <div class="col-4">
+            {{invoice.DocumentTotals.GrossTotal}}
+        </div>
+        <div class="divider"></div>
+        {{/each}}
+    </div>
+    {{/each}} -->
+
+
+    <!-- <div class="row">
+        {{#each invoice in invoices}}
+        <div class="col-4">
+            {{invoice.InvoiceNo}}
+        </div>
+        <div class="col-4">
+            {{invoice.InvoiceDate}}
+        </div>
+        <div class="col-4">
+            {{invoice.DocumentTotals.GrossTotal}}
+        </div>
+        {{/each}}
+    </div> -->
+</template>

@@ -11,29 +11,32 @@
             </div>
             <div class="row p-3">
                 {{#each month in months year}}
-                <div class="col-6">
-                    <div class="calendar">
-                        <div class="calendar-title">
-                            {{getMonth month}}({{year}})
-                        </div>
-                        <div class="calendar-header">
-                            <div class="calendar-header-weekday">Sun</div>
-                            <div class="calendar-header-weekday">Mon</div>
-                            <div class="calendar-header-weekday">Tue</div>
-                            <div class="calendar-header-weekday">Wed</div>
-                            <div class="calendar-header-weekday">Thu</div>
-                            <div class="calendar-header-weekday">Fri</div>
-                            <div class="calendar-header-weekday">Sun</div>
-                        </div>
-                        <div class="calendar-body">
-                            {{#each data in calendarData month year}}
-                            <div class="calendar-weekday">&nbsp; {{data.day}}
-                                <div class="calendar-weekday-info">{{format data.value}}</div>
+                <div class="col-12 calendar-row">
+                    <div class="calendar-wrapper">
+                        <div class="calendar">
+                            <div class="calendar-title">
+                                {{getMonth month}}({{year}})
                             </div>
+                            <div class="calendar-header">
+                                <div class="calendar-header-weekday">Sun</div>
+                                <div class="calendar-header-weekday">Mon</div>
+                                <div class="calendar-header-weekday">Tue</div>
+                                <div class="calendar-header-weekday">Wed</div>
+                                <div class="calendar-header-weekday">Thu</div>
+                                <div class="calendar-header-weekday">Fri</div>
+                                <div class="calendar-header-weekday">Sun</div>
+                            </div>
+                            <div class="calendar-body">
+                                {{#each data in calendarData month year}}
+                                <div class="calendar-weekday">&nbsp; {{data.day}}
+                                    <div class="calendar-weekday-info">{{format data.value}}</div>
+                                </div>
 
-                            {{/each}}
+                                {{/each}}
+                            </div>
                         </div>
                     </div>
+
                     <!-- <div class="row">
                             <div class="col">
 

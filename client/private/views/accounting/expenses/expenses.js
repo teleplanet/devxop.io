@@ -28,9 +28,9 @@ Template.expenses.helpers({
                     return "overdue";
                 }
 
-                return "pending";
+                return "unpaid";
             } else if (diff > 3) {
-                return "pending";
+                return "unpaid";
             }
 
         }

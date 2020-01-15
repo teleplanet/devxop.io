@@ -1,15 +1,41 @@
+
+.calendar-wrapper{
+    display: flex;
+justify-content: center; /* align horizontal */
+
+}
 .calendar{
     width: 100%;
     height: fit-content;
     color: #333;
     background-color: #fff;
-    float: left;
+    float: left !important;
 
     /* -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; */
 
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+
     margin-bottom: 40px;
+
+    max-width: 750px;
+    
+    
+    
+}
+
+
+/* .calendar-row:nth-child(odd) > .calendar-wrapper > .calendar{
+    margin-left: -100%;
+} */
+
+
+.calendar:hover > .calendar-body > .calendar-weekday > .calendar-weekday-info{
+    color: #f1cd77;
+    transform: scale(1.1);
 }
 
 .calendar-title{
@@ -56,7 +82,12 @@
 }
 
 .calendar-body{
+    position: relative;
+    float: left; 
     padding: 5%;
+    padding-bottom: calc(5% + 40px);
+    width: 100%;
+    padding-top: 0;
 }
 .calendar-weekday{
     position: relative;
@@ -89,7 +120,7 @@
     opacity: 0; */
     font-size: 14px;
     /* background-color: #ccc; */
-    color: #333;
+    color: #cadcf4;
     
     transition: all 200ms ease-in-out;
     border-radius: 10px;
