@@ -1,71 +1,85 @@
 <template name="invoices">
     <div class="row p-3">
         <div class="col-12">
-            <br>
+
+            {{#if saftUpload.started}}
+            Reading saft...
+            {{else}}
+            {{#if saftUpload.ended}}
+            {{saftUpload.invoiced.skipped}}
+            {{/if}}
             <input type="file" class="button" id="uploadSaft">
+            {{/if}}
         </div>
     </div>
     <div class="row p-3">
         <div class="col-12">
-            <!-- {{year}} -->
-            2019
-            <div class="divider" id="{{year}}" data-year="{{year}}"></div>
+            <div class="form-group">
+                <label for="invoiceDate">Date</label>
+                <input type="text" class="form-control" id="invoiceDate">
+                <!-- <small class="form-text text-muted">Select a date</small> -->
+            </div>
+            {{formatCurrency totals.revenue}}
         </div>
     </div>
 
-    <div class="row">
+    <div class="row p-3">
         <div class="col-12">
-            <div class="dropdown">
-                <div class="item collapse js-year-select">Item 2</div>
-                <div class="item collapse js-year-select">Item 3</div>
-                <div class="item collapse js-year-select">Item 4</div>
-                <div class="item collapse js-year-select">Select Item</div>
+            <div class="Rtable Rtable--4cols">
+
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Name
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Quantity
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Net Total
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Tax
+                </div>
+
+
+                {{#each item in topItems totals}}
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{item.name}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{item.quantity}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{formatCurrency item.net}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{item.tax}}</div>
+                {{/each}}
+
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            {{formatCurrency totals.revenue}}
-
-        </div>
-    </div>
-
-    <!-- {{#each month in months "2019"}}
-    <div class="row">
-        <div class="col-12">
-            {{month}}
-        </div>
-    </div>
     <div class="row p-3">
-        
-        {{#each invoice in invoices "2019" month}}
-        <div class="col-4">
-            {{@index}}: {{invoice.InvoiceNo}}
+        <div class="col-12">
+            <div class="Rtable Rtable--4cols">
+
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Invoice Id
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Date
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Tax(IVA)
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Amount
+                </div>
+
+
+                {{#each invoice in invoices}}
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{invoice.InvoiceNo}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{invoice.InvoiceDate}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    {{formatCurrency invoice.DocumentTotals.TaxPayable}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    {{formatCurrency invoice.DocumentTotals.GrossTotal}}</div>
+                {{/each}}
+
+            </div>
         </div>
-        <div class="col-4">
-            {{invoice.InvoiceDate}}
-        </div>
-        <div class="col-4">
-            {{invoice.DocumentTotals.GrossTotal}}
-        </div>
-        <div class="divider"></div>
-        {{/each}}
     </div>
-    {{/each}} -->
-
-
-    <!-- <div class="row">
-        {{#each invoice in invoices}}
-        <div class="col-4">
-            {{invoice.InvoiceNo}}
-        </div>
-        <div class="col-4">
-            {{invoice.InvoiceDate}}
-        </div>
-        <div class="col-4">
-            {{invoice.DocumentTotals.GrossTotal}}
-        </div>
-        {{/each}}
-    </div> -->
 </template>

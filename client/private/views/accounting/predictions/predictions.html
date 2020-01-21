@@ -35,7 +35,7 @@
         <div class="col-12">
             <div class="result-title">Predicted Balance</div>
             <div class="prediction-result">
-                {{format results.balance.value}}
+                {{formatCurrency results.balance.value}}
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
             <div class="bar-chart-large">
                 <div class="item" style="width: {{results.revenue.percent}}%">
                     <div class="info">
-                        <div class="value">{{format results.revenue.value "pos"}}</div>
+                        <div class="value">{{formatCurrency results.revenue.value "pos"}}</div>
                         <div class="description">Revenues</div>
                     </div>
                     <i class="material-icons">
@@ -55,7 +55,7 @@
                 </div>
                 <div class="item" style="width: {{results.vat.percent}}%">
                     <div class="info">
-                        <div class="value">{{format results.vat.value "neg"}}</div>
+                        <div class="value">{{formatCurrency results.vat.value "neg"}}</div>
                         <div class="description">VAT</div>
                     </div>
                     <i class="material-icons">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="item" style="width: {{results.cost.percent}}%">
                     <div class="info">
-                        <div class="value">{{format results.cost.value "neg"}}</div>
+                        <div class="value">{{formatCurrency results.cost.value "neg"}}</div>
                         <div class="description">Costs</div>
                     </div>
                     <i class="material-icons">
@@ -73,7 +73,7 @@
                 </div>
                 <div class="item" style="width: {{results.expense.percent}}%">
                     <div class="info">
-                        <div class="value">{{format results.expense.value "neg"}}</div>
+                        <div class="value">{{formatCurrency results.expense.value "neg"}}</div>
                         <div class="description">Expenses</div>
                     </div>
                     <i class="material-icons">
@@ -82,7 +82,7 @@
                 </div>
                 <div class="item" style="width: {{results.irc.percent}}%">
                     <div class="info">
-                        <div class="value">{{format results.irc.value "neg"}}</div>
+                        <div class="value">{{formatCurrency results.irc.value "neg"}}</div>
                         <div class="description">IRC</div>
                     </div>
                     <i class="material-icons">
@@ -100,23 +100,23 @@
                     <div class="card-title">Predictions (Yearly)</div>
                     <p class="card-text">
                         <b>Revenues</b><br>
-                        {{format predictions.revenues}}
+                        {{formatCurrency predictions.revenues}}
                     </p>
                     <p class="card-text">
                         <b>Expenses</b><br>
-                        {{format predictions.expenses}}
+                        {{formatCurrency predictions.expenses}}
                     </p>
                     <p class="card-text">
                         <b>Fixed Costs</b><br>
-                        {{format predictions.costs}}
+                        {{formatCurrency predictions.costs}}
                     </p>
                     <p class="card-text">
                         <b>VAT (IVA)</b><br>
-                        {{format predictions.vat}}
+                        {{formatCurrency predictions.vat}}
                     </p>
                     <p class="card-text">
                         <b>Tax Collective Revenue(IRC)</b><br>
-                        {{format predictions.irc}}
+                        {{formatCurrency predictions.irc}}
                     </p>
                     <p>
                         <div class="divider">
@@ -125,7 +125,7 @@
                     </p>
                     <p class="card-text">
                         <b>Predicted Balance</b><br>
-                        {{format predictions.balance}}
+                        {{formatCurrency predictions.balance}}
                     </p>
                 </div>
             </div>

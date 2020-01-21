@@ -12,22 +12,22 @@ Template.accounting.onRendered(function () {
 
     for (let i = 0; i < seriesNum; i++) {
 
-        if(seriesColor[i]){
-            series.push({ "name": latestYear - i, "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "color": seriesColor[i]});
-        }else{
-            series.push({ "name": latestYear - i, "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]});
+        if (seriesColor[i]) {
+            series.push({ "name": latestYear - i, "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "color": seriesColor[i] });
+        } else {
+            series.push({ "name": latestYear - i, "data": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] });
         }
-        
+
     }
 
     for (let i = 0; i < series.length; i++) {
         for (let z = 1; z < 13; z++) {
-            
+
             let revenues = Revenues.find({ "year": "" + series[i].name, "month": "" + z }).fetch();
             let total = 0;
 
             revenues.forEach(function (revenue) {
-                total = parseInt(total) + parseInt(revenue.value);
+                total = parseFloat(total) + parseFloat(revenue.value);
             });
 
             series[i].data[z - 1] = total;
@@ -95,194 +95,76 @@ Template.accounting.helpers({
 
         return { "current": check.format('YYYY'), "old": old.format('YYYY') }
     },
-    'expenseTotal': function () {
+    'stats': function () {
+
+        let results = {
+            'days': 1,
+            'currentYear': 0,
+            'lastYear': 0,
+            'expenses': 0,
+            'growth': 0.0,
+            'balance': 0,
+            'dailyGrowth': false //if not enought data / check last 6 day growth rate
+        }
+
+
         var check = moment(new Date(), 'YYYY/MM/DD');
+        var month = check.format('M');
         var year = check.format('YYYY');
 
         let expenses = Expenses.find({ "issued.year": year }).fetch();
-        let total = 0;
-
         for (let i = 0; i < expenses.length; i++) {
-            total = parseInt(total) + parseInt(expenses[i].amount);
+            results.expenses = results.expenses + parseFloat(expenses[i].amount);
         }
 
-        return total;
-    },
-    'currentYearTotal': function () {
-        var check = moment(new Date(), 'YYYY/MM/DD');
+        let currentYearRevenues = Revenues.find({ "year": year, "month": month }, { sort: { stamp: -1 } }).fetch();
 
-        var month = check.format('M');
-        var year = check.format('YYYY');
+        results.days = currentYearRevenues.length + 1;
+        for (let i = 0; i < currentYearRevenues.length; i++) {
 
-        let revenues = Revenues.find({ "year": year, "month": month }).fetch();
+            let currentRevenue = currentYearRevenues[i];
+            results.currentYear = parseFloat(results.currentYear) + parseFloat(currentRevenue.value);
 
-        let total = 0;
+            let previous = moment(new Date(currentRevenue.stamp), "YYYY/MM/DD").subtract(1, "year");
+            var previousYear = previous.format('YYYY');
 
-        for (let i = 0; i < revenues.length; i++) {
-            total = parseInt(total) + parseInt(revenues[i].value);
+            let previousRevenue = Revenues.findOne({ "year": previousYear, "month": currentRevenue.month, "day": currentRevenue.day });
+
+            if (previousRevenue) {
+                results.lastYear = parseFloat(results.lastYear) + parseFloat(previousRevenue.value);
+            } else {
+                results.dailyGrowth = true;
+            }
+
         }
 
-        return total;
-    },
-    'lastYearTotal': function () {
-        var check = moment(new Date(), 'YYYY/MM/DD');
+        if (results.dailyGrowth) {
+            let revenues = Revenues.find({}, { sort: { "stamp": -1 }, limit: 6 }).fetch();
 
-        var old = moment(new Date()).subtract(1, 'year');
-        var month = check.format('M');
+            if (revenues.length == 6) {
+                let diff1 = ((parseInt(revenues[0].value) - parseInt(revenues[1].value)) / parseInt(revenues[1].value));
+                let diff2 = ((parseInt(revenues[1].value) - parseInt(revenues[2].value)) / parseInt(revenues[2].value));
+                let diff3 = ((parseInt(revenues[2].value) - parseInt(revenues[3].value)) / parseInt(revenues[3].value));
+                let diff4 = ((parseInt(revenues[3].value) - parseInt(revenues[4].value)) / parseInt(revenues[4].value));
+                let diff5 = ((parseInt(revenues[4].value) - parseInt(revenues[5].value)) / parseInt(revenues[5].value));
 
-        let revenuesOld = Revenues.find({ "year": old.format('YYYY'), "month": month }).fetch();
-
-        let oldTotal = 0;
-
-        for (let i = 0; i < revenuesOld.length; i++) {
-            oldTotal = parseInt(oldTotal) + parseInt(revenuesOld[i].value);
-        }
-
-        return oldTotal;
-    },
-    'diffPreviousYear': function (total, oldTotal) {
-
-        let diffPercent = ((total - oldTotal) / oldTotal) * 100;
-
-        return diffPercent.toFixed(2) + "%";
-    },
-    'dailyGrowthRate': function () {
-        let revenues = Revenues.find({}, { sort: { "stamp": -1 }, limit: 6 }).fetch();
-
-        if (revenues.length == 6) {
-            let diff1 = ((parseInt(revenues[0].value) - parseInt(revenues[1].value)) / parseInt(revenues[1].value));
-            let diff2 = ((parseInt(revenues[1].value) - parseInt(revenues[2].value)) / parseInt(revenues[2].value));
-            let diff3 = ((parseInt(revenues[2].value) - parseInt(revenues[3].value)) / parseInt(revenues[3].value));
-            let diff4 = ((parseInt(revenues[3].value) - parseInt(revenues[4].value)) / parseInt(revenues[4].value));
-            let diff5 = ((parseInt(revenues[4].value) - parseInt(revenues[5].value)) / parseInt(revenues[5].value));
-
-            return (((diff1 + diff2 + diff3 + diff4 + diff5) / 5) * 100).toFixed(2) + "%";
-
-            console.log(diffPercent);
-
-            return diffPercent.toFixed(2) + "%";
-        } else {
-            return "0%";
+                results.growth = (((diff1 + diff2 + diff3 + diff4 + diff5) / 5) * 100);
+            }
+        }else{
+            results.growth = ((results.currentYear - results.lastYear) / results.lastYear) * 100;
         }
 
 
+        
+        results.balance = (results.currentYear - results.expenses);
+
+
+        return results;
     },
     'currentBalance': function (revenue, expense) {
 
         let balance = (revenue - expense);
 
         return balance;
-    },
-    'yearRevenue': function (revenue) {
-        let days = moment().dayOfYear();
-        let tax = 0.13;
-        return (((revenue / days) * 365) * (1 - tax)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    },
-    'yearExpense': function (expense) {
-        let days = moment().dayOfYear();
-
-        //add fixed costs
-        let costs = Costs.find().fetch();
-        let totalCosts = 0;
-
-        for (let i = 0; i < costs.length; i++) {
-
-            if (costs[i].amount) {
-                totalCosts = parseInt(totalCosts) + parseInt(costs[i].amount);
-            }
-
-        }
-
-        totalCosts = (totalCosts * 12);
-
-        return (((expense / days) * 365) + totalCosts).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    },
-    'yearTaxCollective': function (revenue, expense) {
-
-        let days = moment().dayOfYear();
-
-        let revenueYear = ((revenue / days) * 365);
-        let expenseYear = ((expense / days) * 365);
-        let tax = 0.13;
-
-        let costs = Costs.find().fetch();
-        let totalCosts = 0;
-
-        for (let i = 0; i < costs.length; i++) {
-
-            if (costs[i].amount) {
-                totalCosts = parseInt(totalCosts) + parseInt(costs[i].amount);
-            }
-
-        }
-
-        totalCosts = totalCosts * 12
-
-
-        let balance = ((revenueYear * (1 - tax)) - (expenseYear + totalCosts));
-
-
-        if (balance < 0) {
-            return 0;
-        } else {
-            if (balance <= 15000) {
-                let irc = 0.17;
-                return (balance - (balance * (1 - irc))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            } else if (balance > 15000) {
-                let irc = 0.21;
-                return (balance - (balance * (1 - irc))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            } else {
-                return 0.0;
-            }
-        }
-
-
-    },
-    'yearBalance': function (revenue, expense) {
-        let days = moment().dayOfYear();
-
-        let costs = Costs.find().fetch();
-        let totalCosts = 0;
-
-        for (let i = 0; i < costs.length; i++) {
-
-            if (costs[i].amount) {
-                totalCosts = parseInt(totalCosts) + parseInt(costs[i].amount);
-            }
-
-        }
-
-        totalCosts = totalCosts * 12
-
-        let revenueYear = ((revenue / days) * 365);
-        let expenseYear = ((expense / days) * 365) + totalCosts;
-        let tax = 0.13;
-
-        let balance = 0;
-
-        if (revenueYear <= 0) {
-            balance = (revenueYear - expenseYear);
-        } else {
-            balance = ((revenueYear * (1 - tax)) - expenseYear);
-        }
-
-
-        let ircTax = 0;
-
-        if (balance < 0) {
-
-        } else {
-            if (balance < 15000) {
-                let irc = 0.17;
-                ircTax = (balance - (balance * (1 - irc)));
-            } else if (balance > 15000) {
-                let irc = 0.21;
-                ircTax = (balance - (balance * (1 - irc)));
-            }
-        }
-
-
-        return (balance - ircTax).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
     },
 });

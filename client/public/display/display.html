@@ -11,22 +11,11 @@
     {{#if getDisplay "video"}}
     <!-- Start video hero -->
     <video src="{{videoUrl video}}" autoplay muted loop class="full-static display-video">
-        
+        <source src="{{videoUrl video}}">
     </video>
-    <!-- <div class="video-hero jquery-background-video-wrapper demo-video-wrapper">
-        <video class="jquery-background-video display-video" autoplay muted loop>
-            <source src="{{videoUrl video}}">
-        </video>
-    </div> -->
     {{/if}}
 
     {{#if getDisplay "videoUrl"}}
-    <!-- Start video hero -->
-    <!-- <div class="video-hero jquery-background-video-wrapper demo-video-wrapper">
-        <video class="jquery-background-video display-video" autoplay muted loop>
-            <source src="{{videoLink}}">
-        </video>
-    </div> -->
     <video src="{{videoLink}}" autoplay muted loop class="full-static display-video">
 
     </video>

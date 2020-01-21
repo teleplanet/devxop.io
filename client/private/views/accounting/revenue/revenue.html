@@ -28,9 +28,9 @@
                             </div>
                             <div class="calendar-body">
                                 {{#each data in calendarData month year}}
-                                <div class="calendar-weekday">&nbsp; {{data.day}}
-                                    <div class="calendar-weekday-info">{{format data.value}}</div>
-                                </div>
+                                <a class="calendar-weekday" href="{{pathFor route='accounting.invoices'}}?year={{data.year}}&month={{data.month}}&day={{data.day}}">&nbsp; {{data.day}}
+                                    <div class="calendar-weekday-info">{{formatCurrency data.value}}</div>
+                                </a>
 
                                 {{/each}}
                             </div>

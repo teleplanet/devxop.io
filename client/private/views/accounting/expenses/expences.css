@@ -1,10 +1,11 @@
 .expense-status{
-    padding: 3px;
-    max-width: 125px;
+    padding: 0.1em 1em;
     border-radius: 25px;
     background-color: #ccc;
     text-align: center;
     text-transform: capitalize;
+    font-size: 0.8em;
+    width: fit-content;
 }
 
 .expense-status.unpaid{

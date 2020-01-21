@@ -1,69 +1,55 @@
 <template name="expenses">
+
     <div class="row p-3">
         <div class="col-12">
-            <ul>
-                <li class="list-header">
-                    <div class="row">
-                        <div class="col-2">
-                            Supplier
-                        </div>
-                        <div class="col-2">
+            <div class="Rtable Rtable--6cols">
 
-                        </div>
-                        <div class="col-1">
-                            Paid
-                        </div>
-                        <div class="col-1">
-                            Amount
-                        </div>
-                        <!-- <div class="col-1">
-                            Issued
-                        </div> -->
-                        <div class="col-2">
-                            Due
-                        </div>
-                        <div class="col-2">
-                            Status
-                        </div>
-                        <div class="col-2">
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Supplier
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Invoice Id
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Paid
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Amount
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Status
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    
+                </div>
 
-                        </div>
-                    </div>
-                </li>
+
                 {{#each expense in expenses}}
-                <li>
-                    <div class="row">
-                        <div class="col-2">
-                            {{expense.supplier}}
-                        </div>
-                        <div class="col-2">
-                            {{expense.invoice_id}}
-                        </div>
-                        <div class="col-1">
-                            <input type="checkbox" class="js-paid-check" checked="{{expense.paid}}"
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    {{expense.supplier}}
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    {{expense.invoice_id}}
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    <input type="checkbox" class="js-paid-check" checked="{{expense.paid}}"
                                 id="{{expense._id}}">
-                        </div>
-                        <div class="col-1">
-                            {{expense.amount}}€
-                        </div>
-                        <!-- <div class="col-1">
-                            {{getDate expense.issued.stamp}}
-                        </div> -->
-                        <div class="col-2">
-                            {{getDate expense.due.stamp}}
-                        </div>
-                        <div class="col-2">
-                            <div class="expense-status {{getExpenseStatus expense}}">{{getExpenseStatus expense}}</div>
-                        </div>
-                        <div class="col-2">
-                            <button id="{{expense._id}}" class="button small js-remove-expense">Remove</button>
-                        </div>
-                    </div>
-                </li>
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    {{formatCurrency expense.amount}}
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    <div class="expense-status {{getExpenseStatus expense}}">{{getExpenseStatus expense}}</div>
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    <button id="{{expense._id}}" class="button small js-remove-expense">Remove</button>
+                </div>
                 {{/each}}
-            </ul>
+
+            </div>
         </div>
     </div>
+
     <div class="row p-3">
         <div class="col-12">
             <div id="expenseBackup"></div>

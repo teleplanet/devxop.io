@@ -28,32 +28,65 @@ function parseXml(xml) {
     return dom;
 }
 
+Template.invoices.onCreated(function () {
+    Deps.autorun(function () {
+
+        let query = Session.get("invoice-query");
+
+        if (!query) {
+            let now = moment(new Date(), "DD/MM/YYYY");
+            let month = now.format('M');
+            let year = now.format("YYYY");
+
+            let invoicesSub = Meteor.subscribe("invoices", { "month": month, "year": year });
+        } else {
+            let invoicesSub = Meteor.subscribe("invoices", query);
+        }
+
+
+
+    });
+});
+
 Template.invoices.onRendered(function () {
 
-    /* $('#dateInsert').daterangepicker({
+    $('#invoiceDate').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
         minYear: 2010,
         maxYear: parseInt(moment().format('YYYY'), 10)
     }, function (start, end, label) {
-        //var years = moment().diff(start, 'years');
+        let now = moment(new Date(start), "DD/MM/YYYY");
+        let month = now.format('M');
+        let year = now.format("YYYY");
+        let day = now.format("D");
 
-        //console.log(moment(start).valueOf());
+        Session.set("invoice-query", {"year": year, "month": month, "day": day});
 
-        //Session.set("insert-revenue-date", moment(start).valueOf());
-    }); */
+    });
+
+    Session.set("saft-upload", {
+        "started": false,
+        "percent": 0,
+        "invoices_added": 0,
+        "invoices_skipped": 0,
+        "revenues_added": 0,
+        "revenues_skipped": 0,
+        "ended": false,
+    });
 });
 
 Template.invoices.helpers({
+    'saftUpload': function () {
+        return Session.get("saft-upload");
+    },
     'totals': function () {
-
-        let date = Session.get("invoice-date");
-
         let invoices = Invoices.find({}, { sort: { stamp: 1 } }).fetch()
 
         let results = {
             'revenue': 0,
             'items': {},
+            'best_sellers': [],
             'peak_hours': {},
         }
 
@@ -79,12 +112,14 @@ Template.invoices.helpers({
 
                 if (Array.isArray(invoice.Line)) {
                     invoice.Line.forEach(function (item) {
+                        item.ProductDescription = item.ProductDescription.replace(/[^a-zA-Z ]/g, "");
                         let existingItem = results.items[item.ProductDescription] != undefined;
 
                         if (existingItem) {
-                            results.items[item.ProductDescription].quantity = parseInt(results.items[item.ProductDescription].quantity) + parseInt(item.Quantity);
+                            results.items[item.ProductDescription].quantity += parseInt(item.Quantity);
+                            results.items[item.ProductDescription].net += parseFloat(item.CreditAmount);
                         } else {
-                            results.items[item.ProductDescription] = { "quantity": parseInt(item.Quantity) };
+                            results.items[item.ProductDescription] = { "quantity": parseInt(item.Quantity), "net": parseFloat(item.CreditAmount), "tax": parseInt(item.Tax.TaxPercentage) };
                         }
                     });
                 } else {
@@ -92,12 +127,14 @@ Template.invoices.helpers({
 
 
                     if (invoice.Line["ProductDescription"]) {
+                        invoice.Line.ProductDescription = invoice.Line.ProductDescription.replace(/[^a-zA-Z ]/g, "");
                         let existingItem = results.items[invoice.Line.ProductDescription] != undefined;
 
                         if (existingItem) {
-                            results.items[invoice.Line.ProductDescription].quantity = parseInt(results.items[invoice.Line.ProductDescription].quantity) + parseInt(invoice.Line.Quantity);
+                            results.items[invoice.Line.ProductDescription].quantity += parseInt(invoice.Line.Quantity);
+                            results.items[invoice.Line.ProductDescription].net += parseFloat(invoice.Line.CreditAmount);
                         } else {
-                            results.items[invoice.Line.ProductDescription] = { "quantity": parseInt(invoice.Line.Quantity) };
+                            results.items[invoice.Line.ProductDescription] = { "quantity": parseInt(invoice.Line.Quantity), "net": parseFloat(invoice.Line.CreditAmount), "tax": parseInt(invoice.Line.Tax.TaxPercentage) };
                         }
                     } else {
                         //console.log(invoice);
@@ -119,37 +156,50 @@ Template.invoices.helpers({
 
         });
 
-        console.log(results);
+        //console.log(results);
 
+        // Get an array of the keys:
+        let keys = Object.keys(results.items);
+
+        // Then sort by using the keys to lookup the values in the original object:
+        keys.sort(function (a, b) { return results.items[b].quantity - results.items[a].quantity });
+
+        //console.log(keys);
+
+        results.best_sellers = keys;
 
         return results;
 
     },
-    'invoices': function (year, month) {
-        return Invoices.find({ "year": "" + year, "month": "" + month }, { sort: { stamp: 1 } }).fetch();
+    'invoices': function () {
+        return Invoices.find({}, { sort: { stamp: -1 } }).fetch();
     },
-    'year': function () {
-        return new Date().getFullYear();
-    },
-    'months': function (year) {
-        let invoices = Invoices.find({ "year": "" + year }).fetch();
+    'topItems': function (results) {
+        let top10 = [];
 
-        months = [];
+        results.best_sellers.forEach(function (key, i) {
+            /*  if(i <= 20){
+                 results.items[key]["name"] = key;
+                 top10.push(results.items[key]); 
+             } */
+            results.items[key]["name"] = key;
+            top10.push(results.items[key]);
 
-        invoices.forEach(function (revenues) {
-            if (!months.includes(revenues.month)) {
-                months.push(revenues.month);
-            }
         });
 
-        //console.log(months);
+        //console.log(top10);
 
-        return months;
-    },
+        return top10;
+    }
 });
 
 Template.invoices.events({
     'change #uploadSaft': function (event) {
+
+        let progress = Session.get("saft-upload");
+        progress["started"] = true;
+        Session.set("saft-upload", progress);
+
         let ev = event.target;
 
         if (ev.files && ev.files[0]) {
@@ -160,6 +210,10 @@ Template.invoices.events({
                 var result = e.target.result;
 
                 let dom = parseXml(result);
+
+                /* parser = new DOMParser();
+                let dom = parser.parseFromString(result, "text/xml"); */
+
                 //json = xml2json(dom);
                 //xml2 = json2xml(eval(json));
 
@@ -167,6 +221,9 @@ Template.invoices.events({
 
                 var xmlInvoices = dom.getElementsByTagName("Invoice");
                 for (var i = 0; i < xmlInvoices.length; i++) {
+                    progress["percent"] = (100 / xmlInvoices.length) * i;
+                    Session.set("saft-upload", progress);
+
                     let xmlInvoice = xmlInvoices[i];
 
                     let invoice = xml2json(xmlInvoice, "");
@@ -191,9 +248,13 @@ Template.invoices.events({
                         let exists = Invoices.findOne({ "InvoiceNo": data.InvoiceNo });
 
                         if (exists) {
-
+                            progress["invoices_skipped"] += 1;
+                            Session.set("saft-upload", progress);
                         } else {
                             Invoices.insert(data);
+
+                            progress["invoices_added"] += 1;
+                            Session.set("saft-upload", progress);
                         }
 
                     }
@@ -219,11 +280,12 @@ Template.invoices.events({
 
                     d.setHours(0, 0, 0, 0);
 
-                    let exists = Revenue.findOne({"month": month, "day": day, "year": year});
+                    let exists = Revenues.findOne({ "month": month, "day": day, "year": year });
 
-                    if(exists){
-
-                    }else{
+                    if (exists) {
+                        progress["revenues_skipped"] += 1;
+                        Session.set("saft-upload", progress);
+                    } else {
                         Revenues.insert({
                             "stamp": d.getTime(),
                             "month": month,
@@ -233,11 +295,20 @@ Template.invoices.events({
                             "observation": "",
                             "stamp_created": new Date().getTime()
                         });
+
+                        progress["revenues_added"] += 1;
+                        Session.set("saft-upload", progress);
                     }
-                    
+
                 }
 
                 //console.log(revenues);
+
+                progress["ended"] = true;
+                progress["started"] = false;
+                Session.set("saft-upload", progress);
+
+                console.log(progress);
             };
 
             reader.readAsText(ev.files[0]);

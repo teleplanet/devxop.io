@@ -38,6 +38,7 @@
     background-clip: border-box;
     border: 0px solid rgba(0,0,0,.125) !important;
     border-radius: 0;
+    
 }.card.stat > .card-body > .card-title{
     text-align: center;
     font-size: 2rem;
@@ -91,6 +92,11 @@
     color: #fff; */
 }
 
+.stat > .card-body{
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+}
 
 .stat:nth-child(1) > .card-body{
     background-color: #565a85;
