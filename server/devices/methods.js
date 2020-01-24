@@ -2,6 +2,8 @@ Meteor.methods({
     'devices.edit': function (id, data) {
         //console.log(data);
 
+        data["update"] = true;
+
         return Devices.update(id, {
             $set: data,
         });

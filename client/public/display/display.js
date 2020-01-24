@@ -1,7 +1,9 @@
 Template.display.onRendered(function () {
     this.sessionWatcher = Session.watch('device', function (value) {
         if (value) {
-            if (value.selected_display == "slider") {
+            if(value.selected_display == "video"){
+                Android.downloadVideo(videoUrl(value.display_types.video.video));
+            }else if (value.selected_display == "slider") {
                 setTimeout(function () {
                     slider();
                 }, 2000);
@@ -9,12 +11,20 @@ Template.display.onRendered(function () {
             } else if (value.force_refresh) {
                 console.log("force refresh");
             }
+
+            Android.resetWebview();
         }
 
     });
 
+    //Android.downloadVideo();
+
 
 });
+
+videoComplete = function(){
+    Android.requestVideo();
+}
 
 
 $(function () {

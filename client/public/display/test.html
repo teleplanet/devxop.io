@@ -1,0 +1,13 @@
+<template name="testDisplay">
+    <div style="z-index: 1000; background-color: red; width: 100%; padding: 20px; position: absolute;">
+        <input type="button" value="Say hello" onClick=" Android.downloadVideo('toast')" />
+
+        <input type="button" value="Request Video" onClick=" Android.requestVideo()" />
+    </div>
+
+
+
+    <video id="video" poster="/images/dev_banner.jpg" autoplay muted loop class="full-static display-video">
+    </video>
+
+</template>

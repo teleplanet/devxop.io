@@ -2,6 +2,8 @@ String.prototype.capitalize = function () {
 	return this.charAt(0).toUpperCase() + this.slice(1)
 }
 
+
+
 Router.route('/display', {
 	name: "displayBase",
 	layoutTemplate: 'displayBase',
@@ -52,9 +54,11 @@ Router.route('/display', {
 					//self.next();
 				} */
 
+				//self.render("testDisplay");
 				self.render("display");
 			} else {
 				self.render("display");
+				//self.render("testDisplay");
 			}
 
 
