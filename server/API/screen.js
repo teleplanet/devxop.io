@@ -23,7 +23,7 @@ Router.route('/api/display', { where: 'server' }).get(function () {
 
                     let imgUrl = "http://10.0.2.2:3000" + img.url();
 
-                    let response = "<html><body> <script> document.addEventListener('DOMContentLoaded', function(){ Android.resetWebview(); videoComplete = function(){ Android.requestVideo();} }); </script> <img style='width: 100%; height: 100%; image-rendering: optimizeQuality; background-repeat: no-repeat; background-position: center; background-clip: content-box; background-size: cover; display: block; position: fixed; top: 0; bottom: 0;' src='"+img.url()+"'></body></html>"
+                    let response = "<html style='padding: 0; margin: 0;'><body style='padding: 0; margin: 0;'> <script> document.addEventListener('DOMContentLoaded', function(){ Android.resetWebview(); videoComplete = function(){ Android.requestVideo();} }); </script> <img style='width: 100%; height: 100%; image-rendering: optimizeQuality; background-repeat: no-repeat; background-position: center; background-clip: content-box; background-size: cover; display: block; position: fixed; top: 0; bottom: 0;' src='"+img.url()+"'></body></html>"
                     //res.end("<html style='padding: 0; margin: 0;'><body style='padding: 0; margin: 0;'> <img style='width: 100%; height: 100%; image-rendering: optimizeQuality; background-repeat: no-repeat; background-position: center; background-clip: content-box; background-size: cover; display: block; position: fixed; top: 0; bottom: 0;' src='"+img.url()+"'></body></html>");
                 
                     res.end(response);
@@ -36,11 +36,26 @@ Router.route('/api/display', { where: 'server' }).get(function () {
 
                     let response = "<html style='background-color: #222;'> <header></header> <body>  </body> </html>"
 
-                    let response2 = "<html><body> <script> document.addEventListener('DOMContentLoaded', function(){ Android.downloadVideo(document.location.origin + '"+ videoUrl +"'); videoComplete = function(){ Android.requestVideo();} } ); </script></body></html>"
+                    let response2 = "<html style='padding: 0; margin: 0;'><body style='padding: 0; margin: 0;'> <script> document.addEventListener('DOMContentLoaded', function(){ Android.downloadVideo(document.location.origin + '"+ videoUrl +"'); videoComplete = function(){ Android.requestVideo();} } ); </script></body></html>"
                     res.end(response2);
                 }
 
-            }
+            }else if (selected == "url") {
+
+                    let response2 = "<html style='padding: 0; margin: 0;'><body style='padding: 0; margin: 0;'> <script> document.addEventListener('DOMContentLoaded', function(){ Android.resetWebview(); videoComplete = function(){ Android.requestVideo();} }); </script> <iframe style='width: 100%; height: 100%; image-rendering: optimizeQuality; background-repeat: no-repeat; background-position: center; background-clip: content-box; background-size: cover; display: block; position: fixed; top: 0; bottom: 0;' src='"+device.display_types[selected].url+"'></iframe></body></html>"
+                    res.end(response2);
+
+            }else if (selected == "videoUrl") {
+
+                let response2 = "<html style='padding: 0; margin: 0;'> <header></header> <body style='padding: 0; margin: 0;'> <video style='width: 100%; height: 100%; image-rendering: optimizeQuality; background-repeat: no-repeat; background-position: center; background-clip: content-box; background-size: cover; display: block; position: fixed; top: 0; bottom: 0;' autoplay loop muted src='" + device.display_types[selected].url + "'> </video> </body> </html>";
+                res.end(response2);
+
+        }else if (selected == "code") {
+
+            let response2 = ""+device.display_types[selected].code;
+            res.end(response2);
+
+    }
         } else {
             res.end("");
         }
