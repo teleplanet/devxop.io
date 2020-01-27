@@ -1,27 +1,53 @@
 <template name="test">
-    <div class="slider fullscreen">
-        <ul class="slides">
-            <li>
-                <img
-                    src="https://images.unsplash.com/photo-1464817739973-0128fe77aaa1?dpr=1&auto=compress,format&fit=crop&w=1199&h=799&q=80&cs=tinysrgb&crop=">
-                <!-- random image -->
-                <div class="caption slide-caption right-align valign-bottom">
-                    <h3>Right Aligned Caption</h3>
-                    <h5>Here's our small slogan.</h5>
-                </div>
-            </li>
-            <li>
-                <img
-                    src="https://ununsplash.imgix.net/photo-1414849424631-8b18529a81ca?q=75&fm=jpg&s=0e993004a2f3704e8f2ad5469315ccb7">
-                <!-- random image -->
-                <div class="caption slide-caption right-align valign-bottom">
-                    <h3>Right Aligned Caption</h3>
-                    <h5>Here's our small slogan.</h5>
-                </div>
-            </li>
-        </ul>
+
+    <style>
+        .progress-wrapper {
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+        }
+
+
+
+        .progress-bar {
+            width: 80%;
+            height: 40px;
+            border-radius: 40px;
+            box-sizing: border-box;
+            background-color: #606dbc;
+            float: left;
+
+            transition: all 200ms ease;
+        }
+
+        .progress-bar > .bar-value{
+            background-color: #465298;
+            width: 10%;
+            min-width: 4%;
+            border-radius: 40px;
+            max-width: 100%;
+            height: 40px;
+            float: left;
+            position: relative;
+        }
+    </style>
+
+    <div class="progress-wrapper">
+        <div class="progress-bar">
+            <div id="progress" class="bar-value">
+            </div>
+        </div>
     </div>
 
+    <script>
+        updateProgress = function(width){
+            width = width + "%";
+            alert(width);
+            document.getElementById("progress").style.width = width;
+        }
+    </script>
 
 
 </template>

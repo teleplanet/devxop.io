@@ -45,12 +45,24 @@ Template.moduleVideoUpload.events({
                             console.log(err);
                         } else {
 
-                            Session.set("module.videoUpload", file._id);
+                            Deps.autorun(function (computation) {
+                                var fileObj = Videos.findOne(file._id);
 
-                            //stop loader
-                            Session.set("module.processingLoader", false);
+                                let available = fileObj.url();
 
-                            $('.js-video-upload-event').click();
+                                if (available) {
+                                    Session.set("module.videoUpload", file._id);
+
+                                    //stop loader
+                                    Session.set("module.processingLoader", false);
+
+                                    $('.js-video-upload-event').click();
+
+                                    computation.stop();
+                                }
+                            });
+
+
                         }
                     });
                 }
