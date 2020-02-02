@@ -1,4 +1,4 @@
-Router.route('/api/display', { where: 'server' }).get(function () {
+/* Router.route('/api/display', { where: 'server' }).get(function () {
     let req = this.request,
         res = this.response,
         params = getParams(req);
@@ -58,6 +58,68 @@ Router.route('/api/display', { where: 'server' }).get(function () {
     }
 
 
+}); */
+
+Router.route('/api/display', { where: 'server' }).get(function () {
+    let req = this.request,
+        res = this.response,
+        params = getParams(req);
+
+    let device = Devices.findOne({ "device_id": params.device_id });
+
+    
+
+    if (device) {
+        Devices.update(device._id, {
+            $set: {
+                "update": false,
+                "updated_stamp": new Date().getTime()
+            }
+        });
+        let selected = device.selected_display;
+        if (selected) {
+            if (selected == "static") {
+                let img = Images.findOne({ "_id": device.display_types[selected].image });
+
+                if (img) {
+                    
+                    let imgUrl = img.url();
+
+                    let data = {
+                        display: "image",
+                        url: imgUrl
+                        /* orientation: device.display_types[selected].orientation */
+                    };
+
+                    resp(res, 200, data);
+                }
+            } else if (selected == "video") {
+                let video = Videos.findOne({ "_id": device.display_types[selected].video });
+
+                if (video) {
+                    let videoUrl = video.url();
+
+                    let data = {
+                        display: "video",
+                        url: videoUrl
+                       /*  orientation: device.display_types[selected].orientation */
+                    };
+
+                    resp(res, 200, data);
+                }
+
+            }else{
+                res.end("");
+            }
+        } else {
+            res.end("");
+        }
+
+    }else{
+        res.end("");
+    }
+
+
 });
 
 Router.route('/api/device/update', { where: 'server' }).get(function () {
@@ -75,7 +137,7 @@ Router.route('/api/device/update', { where: 'server' }).get(function () {
     if (exists) {
         Devices.update(exists._id, {
             $set: {
-                "ping_stamp": new Date().getTime(),
+                "ping_stamp": new Date().getTime()
             }
         });
 
@@ -139,6 +201,11 @@ Router.route('/api/device/sync', { where: 'server' }).post(function () {
     //console.log(exists);
 
     if (exists) {
+        Devices.update(exists._id, {
+            $set: {
+                "startup_stamp": new Date().getTime()
+            }
+        });
         resp(res, 200, null);
     } else {
         resp(res, 400, null);

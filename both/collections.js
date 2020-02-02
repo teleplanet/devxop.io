@@ -200,8 +200,10 @@ Backups = new FS.Collection('backups', {
 });
 
 Backups.allow({
-    'insert': function () {
+    'insert': function (userId, doc) {
         // add custom authentication code here
+        doc["user_id"] = userId;
+
         return true;
     },
     'update': function () {
@@ -260,33 +262,55 @@ Thumbnails = new FS.Collection('thumbnails', {
 
 
 Images.allow({
-    'insert': function () {
-        // add custom authentication code here
+    insert: function (userId, doc) {
+        
+        doc["user_id"] = userId;
+
         return true;
     },
-    'update': function () {
-        // add custom authentication code here
-        return true;
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
     },
-    'remove': function () {
-        return true;
+    update: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
     },
-    'download': function () {
+    download: function () {
         return true;
     }
 });
 
 Thumbnails.allow({
-    'insert': function () {
-        // add custom authentication code here
+    insert: function (userId, doc) {
+        
+        doc["user_id"] = userId;
+
         return true;
     },
-    'update': function () {
-        // add custom authentication code here
-        return true;
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
     },
-    'remove': function () {
-        return true;
+    update: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
     },
     'download': function () {
         return true;
@@ -295,18 +319,39 @@ Thumbnails.allow({
 
 
 Videos.allow({
-    'insert': function () {
-        // add custom authentication code here
+    insert: function (userId, doc) {
+        //doc.chunkSum vs chunkCount = calculate upload progress
+        //console.log( ((doc.chunkCount / doc.chunkSum) * 100) );
+        Videos.update(doc._id, {
+            $set:{
+                "progress": ((doc.chunkCount / doc.chunkSum) * 100)
+            }
+        });
+        doc["user_id"] = userId;
+
         return true;
     },
-    'update': function () {
-        // add custom authentication code here
-        return true;
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
     },
-    'remove': function () {
-        return true;
+    update: function (userId, doc) {
+        console.log("UPDATE FUNCTION");
+        console.log(doc);
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
     },
-    'download': function () {
+    download: function () {
+        console.log("DOWNLOAD FUNCTION");
+        console.log(doc);
         return true;
     }
 });

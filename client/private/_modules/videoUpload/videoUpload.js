@@ -48,6 +48,8 @@ Template.moduleVideoUpload.events({
                             Deps.autorun(function (computation) {
                                 var fileObj = Videos.findOne(file._id);
 
+                                console.log(fileObj.progress);
+
                                 let available = fileObj.url();
 
                                 if (available) {

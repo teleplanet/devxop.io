@@ -26,5 +26,25 @@ Meteor.methods({
 
         return true;
 
+    },
+    'videos.remove.all': function (key) {
+
+        if (key !== Meteor.settings.key) {
+            return false;
+        } 
+
+        Videos.remove({});
+
+        /* let allVideos = Videos.find().fetch();
+
+        allVideos.forEach(function(video){
+            Videos.remove(video._id);
+
+
+        }); */
+        
+
+        return true;
+
     }
 })

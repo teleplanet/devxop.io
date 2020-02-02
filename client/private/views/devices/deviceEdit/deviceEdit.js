@@ -18,11 +18,11 @@ Template.deviceEdit.onRendered(function () {
             let type = displayTypes[i];
 
             if (typeof device["display_types"] === 'undefined') {
-                data["display_types." + type] = { "name": type };
+                data["display_types." + type] = { "name": type, "orientation": "landscape"};
             } else {
                 if (!device.display_types[type]) {
                     console.log("adding new type from array");
-                    data.display_types[type] = { "name": type };
+                    data.display_types[type] = { "name": type, "orientation": "landscape" };
                 }
             }
 
@@ -107,6 +107,16 @@ Template.deviceEdit.helpers({
         }
 
     },
+    'selectedDisplayPortrait': function () {
+        let device = Session.get("device-edit");
+
+        if (device.display_types[device.selected_display].orientation == "portrait") {
+            return true
+        } else {
+            return false;
+        }
+
+    },
     'getStatus': function (device, key) {
         if (device && device["ping_stamp"]) {
             let time1 = device.ping_stamp;
@@ -140,6 +150,24 @@ Template.deviceEdit.events({
         let display = Session.get("module.selectedDisplay");
 
         data["selected_display"] = display;
+
+        Meteor.call("devices.edit", device._id, data, function (err, data) {
+            if (err) {
+                console.log(err)
+                notifyMessage("An error occurred trying to change template", "danger");
+            } else {
+                notifyMessage("Display template status changed!", "success");
+            }
+
+        });
+    },
+    'click .js-orientation-switch': function (event) {
+        let data = {};
+        let device = Session.get("device-edit");
+        let display = Session.get("module.selectedDisplay");
+        let orientation = $(event.target).data("value");
+
+        data["display_types." + display + ".orientation"] = orientation;
 
         Meteor.call("devices.edit", device._id, data, function (err, data) {
             if (err) {

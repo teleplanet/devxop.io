@@ -1,9 +1,9 @@
 displayTypes = [
     "static",
     "video",
-    "url",
-    "code",
+    /* "url",
+    "code", */
     /* "slider", */
-    "videoUrl"
+    /* "videoUrl" */
     /* "menu(unavailable)" */
 ]

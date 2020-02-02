@@ -1,7 +1,7 @@
 
 
 Meteor.publish('videos', function(){
-	return Videos.find({});
+	return Videos.find({"user_id": this.userId});
 });
 
 

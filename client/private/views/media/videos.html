@@ -1,0 +1,101 @@
+<template name="mediaVideos">
+    {{#with data}}
+    <div class="row">
+        <div class="col-12">
+            <div class="card no-style center-align light">
+                <div class="card-body">
+                    <div class="row p-3">
+                        <div class="col-12">
+                            <p>
+
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <label>Total Videos</label>
+                            <p>{{this.total}}</p>
+                        </div>
+                        <div class="col-6">
+                            <label>Storage Used</label>
+                            <p>{{formatBytes this.storage}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12">
+            <div class="card no-style text-center">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Upload Video</h4>
+                            <p>
+                                Select a file to upload a new video to your account.
+                            </p>
+                        </div>
+                    </div>
+                    {{#if videoUploading}}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class='progress-wrapper'>
+                                <div class='progress-bar'>
+                                    <div id='progress' class='bar-value'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="row p-2">
+                        <div class="col-12">
+                            <div class='file-input'>
+                                <input type='file' accept="video/*" id="video-input" />
+                                <button class='button'>Choose Video</button>
+                                <label class='label' id="video-input-label">No file selected</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row p-3">
+        <div class="col-12">
+            <div class="Rtable Rtable--4cols">
+
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Name
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Size
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Type
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+
+                </div>
+
+
+                {{#each video in this.videos}}
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.name}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{formatBytes video.original.size}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.type}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    <button id="{{video._id}}" class="button danger js-remove-video">
+                        Delete
+                    </button>
+                </div>
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+    {{/with}}
+</template>
