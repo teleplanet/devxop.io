@@ -8,8 +8,9 @@ Router.route('/dashboard',{
 
 		//Render dashboards according to user role
 		if(Meteor.user()){
-			Session.set("route", "Dashboard");
-            this.render('dashboard');
+			/* Session.set("route", "Dashboard");
+			this.render('dashboard'); */
+			Router.go("/devices");
 		}
 
 	},

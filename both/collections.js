@@ -1,6 +1,32 @@
 RegisterTokens = new Mongo.Collection('registerToken');
 
 Devices = new Mongo.Collection('devices');
+Devices.allow({
+    insert: function (userId, doc) {
+        
+        doc["user_id"] = userId;
+
+        return true;
+    },
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    },
+    update: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    }
+})
+
+
 DeviceAccess = new Mongo.Collection('deviceAccess');
 
 Debug = new Meteor.Collection('debug');
@@ -264,6 +290,13 @@ Thumbnails = new FS.Collection('thumbnails', {
 Images.allow({
     insert: function (userId, doc) {
         
+        //doc.chunkSum vs chunkCount = calculate upload progress
+        //console.log( ((doc.chunkCount / doc.chunkSum) * 100) );
+        Images.update(doc._id, {
+            $set:{
+                "progress": ((doc.chunkCount / doc.chunkSum) * 100)
+            }
+        });
         doc["user_id"] = userId;
 
         return true;
@@ -340,9 +373,7 @@ Videos.allow({
         return false;
     },
     update: function (userId, doc) {
-        console.log("UPDATE FUNCTION");
-        console.log(doc);
-        
+
         if(doc["user_id"] == userId){
             return true;
         }
@@ -350,8 +381,7 @@ Videos.allow({
         return false;
     },
     download: function () {
-        console.log("DOWNLOAD FUNCTION");
-        console.log(doc);
+
         return true;
     }
 });

@@ -1,4 +1,14 @@
+Router.route('/media', {
+    name: "media",
+    controller: 'PrivateController',
+    action: function () {
+        Session.set("route", "Media Library");
+        this.render('media');
+    },
+});
+
 Router.route('/media/images', {
+    name: 'media.images',
 	controller: 'PrivateController',
 	action: function(){
 		Session.set("route", "Media / Images");
@@ -12,6 +22,7 @@ Router.route('/media/images', {
   });
 
   Router.route('/media/videos', {
+      name: 'media.videos',
 	controller: 'PrivateController',
 	action: function(){
 		Session.set("route", "Media / Videos");

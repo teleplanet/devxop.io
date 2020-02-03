@@ -1,26 +1,61 @@
 <template name="deviceEdit">
-    <section class="section-padding">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="card col-12 col-sm-12 p-0">
-                    <div class="row no-gutters">
-                        <!-- <div class="col-md-6 p-1">
-                            <iframe class="card-img" width="720" height="480" src="{{deviceUrl}}"></iframe>
-                        </div> -->
-                        <div class="col-md-12">
-                            <div class="card-body">
-                                <h5 class="card-title">{{device.name}}</h5>
-                                <label>Live display</label>
-                                <p class="card-text">{{device.selected_display}}</p>
-                                <label>Status</label>
-                                <p class="card-text">{{getStatus device "text"}}</p>
-                                <!-- <label></label>
-                                <p class="card-text"><a href="{{deviceUrl}}" target="_blank">Live view!</a></p> -->
-                            </div>
+    {{#with data}}
+    <div class="row">
+        <div class="col-12">
+            <div class="card no-style center-align light">
+                <div class="card-body">
+                    <div class="row p-3">
+                        <div class="col-12">
+                            <h3>{{this.device.name}}</h3>
+                        </div>
+                    </div>
+                    <div class="row p-3">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="label">Status</div>
+                            <p>{{this.status}}</p>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="label">Startup Time</div>
+                            <p>{{this.startup_time}}</p>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="label">Live Display</div>
+                            <p>{{this.display}}</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12">
+            <label class="col-12 p-0">Display Type</label>
+            {{> moduleDisplaySelect}}
+        </div>
+        {{#if getDisplay "static"}}
+        <div class="col-12">
+            static
+            <button class="button js-select-image">Add image</button>
+
+            
+        </div>
+        {{/if}}
+
+
+
+        {{#if getDisplay "video"}}
+        <div class="col-12">
+            video
+        </div>
+        {{/if}}
+    </div>
+    {{/with}}
+
+
+
+
+    <section class="section-padding">
+        <div class="container-fluid">
             <div class="row">
                 <div class="card col-12">
                     <div class="card-body">
@@ -62,24 +97,7 @@
                         <div class="row pt-3">
                             <label class="col-12 p-0">Content</label>
 
-                            {{#if getDisplay displayType "static"}}
-                            <div class="row">
-                                <div class="col-12">
-                                    <button></button>
-                                </div>
-                                <div class="col-12">
-                                    {{> moduleImageUpload}}
-                                </div>
-                            </div>
-                            {{/if}}
 
-
-
-                            {{#if getDisplay displayType "video"}}
-                            <div class="col-12">
-                                {{> moduleVideoUpload}}
-                            </div>
-                            {{/if}}
 
                             {{#if getDisplay displayType "videoUrl"}}
                             <div class="col-12">

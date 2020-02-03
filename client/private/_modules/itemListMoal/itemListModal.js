@@ -1,5 +1,10 @@
 itemListModal = function (callback) {
 
+    /* RESET EVENT LISTENERS IMPORTNAT */
+    $(".js-item-list-cancel").unbind('click');
+    $(".js-item-selected").unbind('click');
+
+    
     //get container instance
     var container = $(".item-list-modal");
     //Session.set("module.itemList", body)
@@ -15,19 +20,23 @@ itemListModal = function (callback) {
     });
 
     $(".js-item-list-cancel").on("click", function(){
+        event.preventDefault();
         container.removeClass("item-list-modal-toggled");
+
+
         return callback("Confirmation canceled.", null);
     });
 
     $(".js-item-selected").on("click", function(event){
+        event.preventDefault();
         container.removeClass("item-list-modal-toggled");
         let itemId = $(event.target).data('item-id');
 
         let item = Items.findOne({"_id": itemId});
 
-        console.log("Session | module.selecteditem: " + item.name)
+        /* console.log("Session | module.selecteditem: " + item.name)
 
-        Session.set("module.selecteditem", item);
+        Session.set("module.selecteditem", item); */
         return callback(null, item);
     });
 

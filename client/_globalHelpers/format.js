@@ -16,7 +16,7 @@ Template.registerHelper("formatCurrency", function (amount, point) {
 });
 
 
-Template.registerHelper("formatPercent", function (amount) {
+Template.registerHelper("formatPercent", function (amount, decimal = 2) {
 
     if(!amount){
         return "";
@@ -24,7 +24,7 @@ Template.registerHelper("formatPercent", function (amount) {
 
     amount = parseFloat(amount);
 
-    return amount.toFixed(2) + "%";
+    return amount.toFixed(decimal) + "%";
     
 });
 

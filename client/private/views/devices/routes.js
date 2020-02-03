@@ -4,8 +4,12 @@ Router.route('/devices',{
 	action: function(){
 		Session.set("route", "Devices");
 		this.render('devices');
-
+		
+		uiInfo(true);
 	},
+    onStop: function() {
+        uiInfo(false);
+    }
 });
 
 
@@ -23,5 +27,9 @@ Router.route('/devices/edit/:deviceId', {
 	  }else{
 		this.render('loader');
 	  }
+	  uiInfo(true);
 	},
+    onStop: function() {
+        uiInfo(false);
+    }
   });

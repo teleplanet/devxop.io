@@ -1,58 +1,45 @@
 <template name="devices">
-    <section class="dashboard-counts section-padding">
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Count item widget-->
-                <div class="col-6">
-                    <div class="wrapper count-title d-flex">
-                        <div class="icon"><i class="icon-user"></i></div>
-                        <div class="name"><strong class="text-uppercase">Total
-                                Devices</strong><span>Offline/Online</span>
-                            <div class="count-number">{{listDevices.length}}</div>
+    {{#with data}}
+    <div class="row">
+        <div class="col-12">
+            <div class="card no-style center-align light">
+                <div class="card-body">
+                    <div class="row p-3">
+                        <div class="col-12">
+                            <p>
+
+                            </p>
                         </div>
-                    </div>
-                </div>
-                <!-- Count item widget-->
-                <div class="col-6">
-                    <div class="wrapper count-title d-flex">
-                        <div class="icon"><i class="icon-padnote"></i></div>
-                        <div class="name"><strong class="text-uppercase">Device Quota</strong><span>Quota base on
-                                account subscription</span>
-                            <div class="count-number">{{listDevices.length}}/4</div>
+                        <div class="col-6">
+                            <div class="label">Total Devices</div>
+                            <div class="count">{{this.total}}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="label">Online Devices</div>
+                            <div class="count">{{this.online}}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <section class="dashboard-header section-padding">
-        <div class="row">
-            <div class="col-12 p-4">
-                <h2>Your Devices</h2>
-                <p>Below you will find all devices connected to your account.</p>
-            </div>
-        </div>
-    </section>
-    <section class="statistics section-padding">
-        <div class="container-fluid">
-            <div class="row d-flex">
-                {{#each device in listDevices}}
-                <div class="col-lg-4">
-                    <!-- Income-->
-                    <div class="card card-select text-center js-devices-card-select" data-item-id="{{device._id}}">
-                        <!-- <div class="icon"><i class="icon-line-chart"></i></div> -->
-                        <h2>{{device.name}}</h2>
-                        <p>Template:</p>
+    </div>
+    <div class="row p-3">
+        {{#each device in this.devices}}
+        <div class="col-md-3">
+            <div class="card text-center card-select js-device-select" data-device-id="{{device._id}}">
+                <div class="card-body">
+                    <div class="card-title">{{device.name}}</div>
+                    <p class="card-text">
                         <strong class="text-primary">{{getLiveDisplay device}}</strong>
-                        <!-- <div class="number">126,418</div><strong class="text-primary">All Income</strong> -->
-                        <p></p>
-                        <div class="card-footer {{getStatus device}}">
-                            {{getStatus device}}
-                        </div>
+                    </p>
+                    <div class="card-footer {{getStatus device}}">
+                        {{getStatus device}}
                     </div>
                 </div>
-                {{/each}}
             </div>
         </div>
-    </section>
+        {{/each}}
+    </div>
+    {{/with}}
+
 </template>

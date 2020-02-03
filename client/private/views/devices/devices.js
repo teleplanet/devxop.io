@@ -1,11 +1,28 @@
 
-Template.devices.onRendered(function () {
-    Session.set("module.selectedDisplay", "");
-});
 
 Template.devices.helpers({
-    'listDevices': function () {
-        return Devices.find({}).fetch();
+    'data': function () {
+        let data = {
+            devices: [],
+            total: 0,
+            online: 0,
+        };
+
+        data.devices = Devices.find({}).fetch();
+        data.total = data.devices.length;
+
+        data.devices.forEach(function (device) {
+            let time1 = device.ping_stamp;
+            let time2 = new Date().getTime();
+
+            let diff = getDiffSeconds(time2, time1);
+
+            if (diff < 30) { //ping stamp update every 30 seconds
+                data.online++;
+            }
+        });
+
+        return data;
     },
     'getLiveDisplay': function (device) {
         let display = device["selected_display"];
@@ -44,8 +61,8 @@ Template.devices.helpers({
 });
 
 Template.devices.events({
-    'click .js-devices-card-select': function (event) {
-        let deviceId = $(event.currentTarget).data('item-id');
+    'click .js-device-select': function (event) {
+        let deviceId = $(event.currentTarget).data('device-id');
 
         Router.go("/devices/edit/" + deviceId);
     },

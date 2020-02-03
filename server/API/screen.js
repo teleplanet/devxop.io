@@ -169,6 +169,7 @@ Router.route('/api/device/register', { where: 'server' }).post(function () {
         let device = {
             device_id: params.device_id,
             stamp: new Date().getTime(),
+            startup_stamp: new Date().getTime(),
             user_id: user._id
         };
 
