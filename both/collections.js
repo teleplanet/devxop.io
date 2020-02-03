@@ -19,9 +19,9 @@ Devices.allow({
     update: function (userId, doc) {
         
         if(doc["user_id"] == userId){
+            
             return true;
         }
-
         return false;
     }
 })

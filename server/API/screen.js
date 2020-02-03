@@ -66,8 +66,8 @@ Router.route('/api/display', { where: 'server' }).get(function () {
         params = getParams(req);
 
     let device = Devices.findOne({ "device_id": params.device_id });
-
     
+
 
     if (device) {
         Devices.update(device._id, {
@@ -76,6 +76,16 @@ Router.route('/api/display', { where: 'server' }).get(function () {
                 "updated_stamp": new Date().getTime()
             }
         });
+
+        if(device.system_force){
+            let data = {
+                display: "restart",
+                url: ""
+            };
+    
+            resp(res, 200, data);
+        }
+
         let selected = device.selected_display;
         if (selected) {
             if (selected == "static") {
@@ -204,7 +214,8 @@ Router.route('/api/device/sync', { where: 'server' }).post(function () {
     if (exists) {
         Devices.update(exists._id, {
             $set: {
-                "startup_stamp": new Date().getTime()
+                "startup_stamp": new Date().getTime(),
+                "system_force": false
             }
         });
         resp(res, 200, null);

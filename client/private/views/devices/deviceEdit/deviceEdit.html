@@ -27,152 +27,91 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card no-style">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Display Type</h4>
+
+                            {{> moduleDisplaySelect}}
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Force Update</h4>
+                            <p>Click button below to force the remote device to update.</p>
+                            <button class="button js-force-update">Force Update</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card no-style light">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Display Status</h4>
+                            {{#if selectedDisplayIsLive}}
+                            <p>This display is currently playing live on your screen.</p>
+                            {{else}}
+                            <button class="button danger js-live-switch">Go Live!</button>
+                            {{/if}}
+                            <br>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        {{#if getDisplay "static"}}
+                        <div class="col-12">
+                            <h4>Static Image</h4>
+                        </div>
+                        <div class="col-12">
+                            <button class="button js-select-image">Select Image...</button>
+                        </div>
+                        <br>
+                        <div class="col-6 p-3">
+                            <div class="thumb" style="background-image: url({{this.static_thumb}});"></div>
+                        </div>
+                        {{/if}}
+
+                        {{#if getDisplay "video"}}
+                        <div class="col-12">
+                            <h4>Video</h4>
+                        </div>
+                        <div class="col-12">
+                            <button class="button js-select-video">Select a Video...</button>
+                        </div>
+                        <div class="col-6 p-3">
+                            <div class="label">{{this.video_name}}</div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="card no-style col-12">
+            <div class="card-body">
+                <div class="button danger center js-device-remove">Remove device and its access</div>
+            </div>
+        </div>
+    </div>
+    {{else}}
     <div class="row p-3">
         <div class="col-12">
-            <label class="col-12 p-0">Display Type</label>
-            {{> moduleDisplaySelect}}
+            <div class="card no-style center-align light">
+                <div class="card-body">
+                    <h3>Error with this page...</h3>
+                </div>
+            </div>
         </div>
-        {{#if getDisplay "static"}}
-        <div class="col-12">
-            static
-            <button class="button js-select-image">Add image</button>
-
-            
-        </div>
-        {{/if}}
-
-
-
-        {{#if getDisplay "video"}}
-        <div class="col-12">
-            video
-        </div>
-        {{/if}}
     </div>
     {{/with}}
 
-
-
-
-    <section class="section-padding">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="card col-12">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 p-0 pb-3">
-                                <label>Device name</label>
-                                <input type="text" id="input-device-name" placeholder="{{device.name}}"
-                                    value="{{device.name}}" data-key="name" class="form-control deviceEdit">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-12 p-0">Display Type</label>
-                            {{> moduleDisplaySelect}}
-                        </div>
-                        <div class="row pt-3">
-                            <label class="col-12 p-0">Status</label>
-                            {{#if selectedDisplayIsLive}}
-                            <p class="col-12 p-0">Current template is live!</p>
-                            {{else}}
-                            <p class="col-12 p-0">Current template is offline. Click "Go Live!" to make this your
-                                primary template
-                                being
-                                displayed.</p>
-                            <div class="button go-live js-live-switch med-width" data-device-id="{{device._id}}">Go
-                                Live!
-                            </div>
-                            {{/if}}
-
-                            <!-- {{#if selectedDisplayPortrait}}
-                            <div class="button js-orientation-switch med-width" data-value="landscape" data-device-id="{{device._id}}">
-                                Lanscape
-                            </div>
-                            {{else}}
-                            <div class="button js-orientation-switch med-width" data-value="portrait" data-device-id="{{device._id}}">
-                                Portrait
-                            </div>
-                            {{/if}} -->
-                        </div>
-                        <div class="row pt-3">
-                            <label class="col-12 p-0">Content</label>
-
-
-
-                            {{#if getDisplay displayType "videoUrl"}}
-                            <div class="col-12">
-                                <p>Type in a url of a video you want to display on the screen</p>
-                                <input type="text" placeholder="Url of a video..." value="{{displayType.url}}"
-                                    class="form-control js-videoUrl-edit">
-                            </div>
-                            {{/if}}
-
-
-
-
-                            {{#if getDisplay displayType "url"}}
-                            <div class="col-12">
-                                <p>Type in a url of a website you want to display on the screen.</p>
-                                <input type="text" placeholder="Any url..." value="{{displayType.url}}"
-                                    class="form-control js-url-edit">
-                            </div>
-                            {{/if}}
-
-
-
-
-                            {{#if getDisplay displayType "code"}}
-                            <div class="col-12">
-                                <p>Type in a code you want to inject to the screen.</p>
-                                <textarea class="form-control js-code-edit" style="min-height: 200px;"
-                                    value="{{displayType.code}}"></textarea>
-                            </div>
-                            {{/if}}
-
-
-
-
-                            {{#if getDisplay displayType "slider"}}
-                            <div class="col-12">
-                                <div class="row">
-                                    {{#each item in getItems displayType.items }}
-                                    <div class="card col-3 p-0 m-1">
-                                        <img src="{{thumbUrl item.image_thumb}}" class="card-img-top" alt="">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{item.name}}</h5>
-                                            <p class="card-text">
-                                                <div class="button float-left js-display-item-remove"
-                                                    data-item-id="{{item._id}}">Remove Item</div>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {{else}}
-                                    <p>You have no items selected to display</p>
-                                    {{/each}}
-                                </div>
-
-                            </div>
-                            <div class="col-12">
-                                <div class="button back-blue icon float-right js-add-item">
-                                    <i class="material-icons">add</i>
-                                </div>
-                            </div>
-                            {{/if}}
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="card col-12">
-                    <div class="card-body">
-                        <div class="button danger center js-device-remove">Remove device and its access</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
 
 </template>

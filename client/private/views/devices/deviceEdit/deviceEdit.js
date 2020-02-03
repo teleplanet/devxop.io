@@ -65,6 +65,8 @@ Template.deviceEdit.helpers({
             "display": "",
             "device": null,
             "edit_display": "static",
+            "static_thumb": "",
+            "video_name": "",
         }
 
         data.device = Session.get("device-edit");
@@ -91,9 +93,24 @@ Template.deviceEdit.helpers({
             data.display = data.device.selected_display;
 
             data.edit_display = Session.get("module.selectedDisplay");
+
+            /* GET IMAGE */
+            let image = Images.findOne({ _id: data.device.display_types.static.image });
+            if (image) {
+                data.static_thumb = Thumbnails.findOne({ _id: image.image_thumb }).url();
+
+            }
+
+            /* GET Video */
+            let video = Videos.findOne({ _id: data.device.display_types.video.video });
+            if (video) {
+                data.video_name = video.original.name
+
+            }
+
         }
 
-        console.log(data);
+        //console.log(data);
 
         return data;
 
@@ -164,103 +181,60 @@ Template.deviceEdit.helpers({
 });
 
 Template.deviceEdit.events({
-    'click .js-select-image': function(event){
+    'click .js-force-update': function () {
+        let device = Session.get("device-edit");
+        Devices.update(device._id, {
+            $set: {
+                "update": true,
+                "system_force": true,
+            }
+        });
+    },
+    'click .js-select-image': function (event) {
         event.preventDefault();
 
-        imageListModal(function(err, image){
-            if(image){
+        imageListModal(function (err, image) {
+            if (image) {
                 let device = Session.get("device-edit");
                 Devices.update(device._id, {
                     $set: {
-                        "display_types.static.image": image._id
-                    } 
+                        "display_types.static.image": image._id,
+                        "update": true
+                    }
                 });
             }
         });
 
         return false;
-    }, 
+    },
+    'click .js-select-video': function (event) {
+        event.preventDefault();
+
+        videoListModal(function (err, video) {
+            if (video) {
+                let device = Session.get("device-edit");
+                Devices.update(device._id, {
+                    $set: {
+                        "display_types.video.video": video._id,
+                        "update": true
+                    }
+                });
+            }
+        });
+
+        return false;
+    },
     'click .js-live-switch': function (event) {
         let data = {};
         let device = Session.get("device-edit");
         let display = Session.get("module.selectedDisplay");
 
         data["selected_display"] = display;
+        data["update"] = true;
 
-        Meteor.call("devices.edit", device._id, data, function (err, data) {
-            if (err) {
-                console.log(err)
-                notifyMessage("An error occurred trying to change template", "danger");
-            } else {
-                notifyMessage("Display template status changed!", "success");
-            }
-
+        Devices.update(device._id, {
+            $set: data
         });
-    },
-    'click .js-image-upload-event': function (event) {
-        let display = Session.get("module.selectedDisplay");
-
-        if (display == "static") {
-            let device = Session.get("device-edit");
-            let image = Session.get("module.imageUpload");
-
-            let data = {
-                display_types: device.display_types
-            };
-
-            var imageObj = new FS.File(dataURItoBlob(image));
-            imageObj['user_id'] = Meteor.userId();
-            Images.insert(imageObj, function (err, img) {
-                // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(img);
-
-                    if (typeof data.display_types[display]["image"] !== "undefined") {
-                        Images.remove({ "_id": data.display_types[display].image }, function () {
-                            console.log("previous image removed.");
-                        });
-                    }
-
-                    data.display_types[display]["image"] = img._id;
-
-                    Meteor.call("devices.edit", device._id, data, function (err, data) {
-                        if (err) {
-                            console.log(err)
-                            notifyMessage("Failed image upload", "danger");
-                        } else {
-                            notifyMessage("Image successfully updated", "success");
-                        }
-                    });
-
-                }
-            });
-        }
-    },
-    'click .js-video-upload-event': function (event) {
-        let display = Session.get("module.selectedDisplay");
-
-        if (display == "video") {
-            let device = Session.get("device-edit");
-            let video = Session.get("module.videoUpload");
-
-            let data = {
-                "display_types": device.display_types
-            };
-
-
-            data.display_types[display]["video"] = video;
-
-            Meteor.call("devices.edit", device._id, data, function (err, data) {
-                if (err) {
-                    console.log(err)
-                    notifyMessage("Failed image upload", "danger");
-                } else {
-                    notifyMessage("Image successfully updated", "success");
-                }
-            });
-        }
     },
 
     'click .js-device-remove': function () {
@@ -290,6 +264,8 @@ Template.deviceEdit.events({
 
         let data = {};
         data[key] = value;
+
+        data["update"] = true;
 
 
         Devices.update(device._id, {

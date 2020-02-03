@@ -1,0 +1,53 @@
+<template name="moduleVideoListPopup">
+    <div class="video-list-modal">
+        <div class="row">
+            <div class="col s12">
+                <i class="medium material-icons js-video-list-cancel">close</i>
+            </div>
+        </div>
+        <div class="row">
+            {{#if videos}}
+            <div class="Rtable Rtable--5cols">
+
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Name
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Size
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Type
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+
+                </div>
+
+
+                {{#each video in videos}}
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.name}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{formatBytes video.original.size}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.type}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    <a class="button green" href="{{videoUrl video._id}}" target="_blank">Play</a>
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    <button id="{{video._id}}" data-video-id="{{video._id}}" class="button js-video-selected">
+                        Select
+                    </button>
+                </div>
+                {{/each}}
+
+            </div>
+            {{/if}}
+        </div>
+        <div class="row">
+            <div class="col s6">
+
+            </div>
+        </div>
+    </div>
+    <div class="video-list-background"></div>
+</template>

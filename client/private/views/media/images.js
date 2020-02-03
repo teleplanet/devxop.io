@@ -24,7 +24,7 @@ Template.mediaImages.helpers({
             storage: 0,
         };
 
-        data.images = Images.find({"download_complete": true}).fetch(),
+        data.images = Images.find({ "download_complete": true }).fetch(),
             data.total = data.images.length,
 
             data.images.forEach(function (image) {
@@ -80,83 +80,103 @@ Template.mediaImages.events({
                 Session.set("image-uploading", imageUploading);
 
 
-                var imageObj = new FS.File(dataURItoBlob(data));
-                imageObj['user_id'] = Meteor.userId();
-                Images.insert(imageObj, function (err, image) {
-                    // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-                    if (err) {
-                        console.log(err);
-                    } else {
+                //SCALE IMAGE TO EXACT DIMENSIONS OF 1080p
+                scaleImage(data, 1920, 1080, function (canvas) {
+                    // save canvas image as data url (png format by default)
+                    var blob = dataURItoBlob(canvas.toDataURL("image/jpeg"));
 
-                        Deps.autorun(function (computation) {
-                            var fileObj = Images.findOne(image._id);
+                    new ImageCompressor(blob, {
+                        quality: 1,
+                        width: 1920,
+                        height: 1080,
+                        success(result) {
+                            var imageObj = new FS.File(result);
+                            imageObj['user_id'] = Meteor.userId();
+                            Images.insert(imageObj, function (err, image) {
+                                // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    
+                                    Deps.autorun(function (computation) {
+                                        var fileObj = Images.findOne(image._id);
 
-                            //console.log(fileObj.progress);
-                            imageUploading["progress"] = fileObj.progress;
-                            Session.set("image-uploading", imageUploading);
+                                        //console.log(fileObj.progress);
+                                        imageUploading["progress"] = fileObj.progress;
+                                        Session.set("image-uploading", imageUploading);
 
-                            let available = fileObj.url();
+                                        let available = fileObj.url();
 
-                            if (available) {
-                                imageUploading["status"] = false;
-                                imageUploading["name"] = "";
-                                imageUploading["progress"] = 0;
-                                Session.set("image-uploading", imageUploading);
-
-                                Images.update(fileObj._id, {
-                                    $set: {
-                                        "download_complete": true
-                                    }
-                                });
-
-                                scaleImage(data, 720, 480, function (canvas) {
-                                    // save canvas image as data url (png format by default)
-                                    //var blob = dataURItoBlob(canvas.toDataURL());
-        
-                                    var blob = dataURItoBlob(canvas.toDataURL("image/jpeg"));
-        
-                                    new ImageCompressor(blob, {
-                                        quality: 1,
-                                        width: 720,
-                                        height: 480,
-                                        success(result) {
-                                            imageUploading["progress"] = 50;
+                                        if (available) {
+                                            imageUploading["status"] = false;
+                                            imageUploading["name"] = "";
+                                            imageUploading["progress"] = 0;
                                             Session.set("image-uploading", imageUploading);
-        
-                                            var thumbObj = new FS.File(result);
-                                            thumbObj['user_id'] = Meteor.userId();
-                                            Thumbnails.insert(thumbObj, function (err, thumbnail) {
-                                                // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-                                                if (err) {
-                                                    console.log(err);
-                                                } else {
-                                                    
-                                                    Images.update(imageObj._id, {
-                                                        $set: {
-                                                            "image_thumb": thumbnail._id,
-                                                            "download_complete": true,
-                                                        }
-                                                    })
+
+                                            Images.update(fileObj._id, {
+                                                $set: {
+                                                    "download_complete": true
                                                 }
                                             });
-        
-                                        },
-                                        error(e) {
-                                            console.log(e.message);
-                                        },
+
+                                            scaleImage(data, 720, 480, function (canvas) {
+                                                // save canvas image as data url (png format by default)
+                                                //var blob = dataURItoBlob(canvas.toDataURL());
+
+                                                var blob = dataURItoBlob(canvas.toDataURL("image/jpeg"));
+
+                                                new ImageCompressor(blob, {
+                                                    quality: 1,
+                                                    width: 720,
+                                                    height: 480,
+                                                    success(result) {
+                                                        imageUploading["progress"] = 50;
+                                                        Session.set("image-uploading", imageUploading);
+
+                                                        var thumbObj = new FS.File(result);
+                                                        thumbObj['user_id'] = Meteor.userId();
+                                                        Thumbnails.insert(thumbObj, function (err, thumbnail) {
+                                                            // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+                                                            if (err) {
+                                                                console.log(err);
+                                                            } else {
+
+                                                                Images.update(imageObj._id, {
+                                                                    $set: {
+                                                                        "image_thumb": thumbnail._id,
+                                                                        "download_complete": true,
+                                                                    }
+                                                                })
+                                                            }
+                                                        });
+
+                                                    },
+                                                    error(e) {
+                                                        console.log(e.message);
+                                                    },
+                                                });
+                                            });
+
+                                            computation.stop();
+                                        }
                                     });
-                                });
-
-                                computation.stop();
-                            }
-                        });
- 
-                        
 
 
 
-                    }
+
+
+                                }
+                            });
+
+                        },
+                        error(e) {
+                            console.log(e.message);
+                        },
+                    });
+
                 });
+
+
 
 
 
