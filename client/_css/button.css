@@ -92,7 +92,7 @@ textarea:focus, input:focus{
   /* Scale up the box */
 .button:hover {
     transform: perspective(3.5px) scale(1.035, 1.035);
-    filter: brightness(98%);
+    filter: brightness(105%);
   }
   
   /* Fade in the pseudo-element with the bigger shadow */
@@ -121,8 +121,15 @@ textarea:focus, input:focus{
 
 .button.go-live, .button.danger{
     color: #fff !important;
-    background-color: red;
+    background-color: #ee0d0d;
+}.button.blue{
+    color: #fff !important;
+    background-color: #1e88e5;
+}.button.green{
+    color: #fff !important;
+    background-color: #95cc47;
 }
+
 
 
 

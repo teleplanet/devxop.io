@@ -29,16 +29,17 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="card no-style">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-12">
                             <h4>Display Type</h4>
 
                             {{> moduleDisplaySelect}}
+                            <br>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-sm-12">
                             <h4>Force Update</h4>
                             <p>Click button below to force the remote device to update.</p>
                             <button class="button js-force-update">Force Update</button>
@@ -48,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="card no-style light">
                 <div class="card-body">
                     <div class="row">
@@ -57,7 +58,8 @@
                             {{#if selectedDisplayIsLive}}
                             <p>This display is currently playing live on your screen.</p>
                             {{else}}
-                            <button class="button danger js-live-switch">Go Live!</button>
+                            
+                            <button class="mt-3 mb-3 button danger js-live-switch">Go Live!</button>
                             {{/if}}
                             <br>
                         </div>
@@ -69,11 +71,11 @@
                             <h4>Static Image</h4>
                         </div>
                         <div class="col-12">
-                            <button class="button js-select-image">Select Image...</button>
+                            <button class="mt-3 mb-3 button js-select-image">Select Image...</button>
                         </div>
                         <br>
-                        <div class="col-6 p-3">
-                            <div class="thumb" style="background-image: url({{this.static_thumb}});"></div>
+                        <div class="col-md-6 col-sm-12 p-3">
+                            <div class="thumb" style="width: 100%; background-image: url({{this.static_thumb}});"></div>
                         </div>
                         {{/if}}
 
@@ -82,9 +84,9 @@
                             <h4>Video</h4>
                         </div>
                         <div class="col-12">
-                            <button class="button js-select-video">Select a Video...</button>
+                            <button class="mt-3 mb-3 button js-select-video">Select a Video...</button>
                         </div>
-                        <div class="col-6 p-3">
+                        <div class="col-md-6 col-sm-12 p-3">
                             <div class="label">{{this.video_name}}</div>
                         </div>
                         {{/if}}

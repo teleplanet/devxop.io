@@ -58,6 +58,11 @@
 }.nav-panel-icons .icon:hover > span{
     opacity: 1;
     z-index: 1000;
+}.nav-panel-icons > .icon.logout{
+    bottom: 0;
+    border-top: 1px solid #ccc;
+    position: relative;
+    margin-top: calc(100vh - 240px);
 }
 
 .ui-nav > .nav-panel-info{
@@ -89,4 +94,23 @@
 }#ui-wrapper.full-content > .ui-header{
     width: calc(100% - 50px);
     left: 50px;
+}
+
+
+
+@media all and (max-width: 676px) {
+    .ui-nav > .nav-panel-info{
+        display: none;
+    }
+
+    .ui-content{
+        left: 48px;
+        width: calc(100% - 48px);
+        height: calc(100% - 36px);
+    }
+
+    .ui-header{
+        left: 48px;
+    }
+    
 }

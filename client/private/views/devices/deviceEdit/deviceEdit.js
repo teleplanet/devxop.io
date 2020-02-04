@@ -181,7 +181,14 @@ Template.deviceEdit.helpers({
 });
 
 Template.deviceEdit.events({
-    'click .js-force-update': function () {
+    'click .js-force-update': function (event) {
+
+        $(event.target).hide();
+
+        setTimeout(function(){
+            $(event.target).show();
+        }, 1500);
+
         let device = Session.get("device-edit");
         Devices.update(device._id, {
             $set: {

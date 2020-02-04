@@ -10,13 +10,13 @@
 
                             </p>
                         </div>
-                        <div class="col-6">
-                            <label>Total Videos</label>
-                            <p>{{this.total}}</p>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="label">Total Videos</div>
+                            <div class="count">{{this.total}}</div>
                         </div>
-                        <div class="col-6">
-                            <label>Storage Used</label>
-                            <p>{{formatBytes this.storage}}</p>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="label">Storage Used</div>
+                            <div class="count">{{formatBytes this.storage}}</div>
                         </div>
                     </div>
                 </div>
@@ -72,12 +72,12 @@
         </div>
 
     </div>
-    <div class="row p-3">
+    <div class="row p-3 mb-3">
         <div class="col-12">
             {{#if this.videos}}
-            <div class="Rtable Rtable--5cols">
+            <div class="Rtable Rtable--5cols Rtable--collapse">
 
-                <div style="order:1" class="Rtable-cell cell-header">
+                <!-- <div style="order:1" class="Rtable-cell cell-header">
                     Name
                 </div>
                 <div style="order:1" class="Rtable-cell cell-header">
@@ -91,19 +91,19 @@
                 </div>
                 <div style="order:1" class="Rtable-cell cell-header">
 
-                </div>
+                </div> -->
 
 
                 {{#each video in this.videos}}
-                <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.name}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--head">{{video.original.name}}</div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">{{formatBytes video.original.size}}</div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.type}}</div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">
-                    <a class="button green" href="{{videoUrl video._id}}" target="_blank">Play</a>
+                    <a class="button blue center" href="{{videoUrl video._id}}" target="_blank">Play</a>
                 </div>
-                <div style="order:2" class="Rtable-cell --alignMiddle">
-                    <button id="{{video._id}}" class="button danger js-remove-video">
-                        Delete
+                <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--foot">
+                    <button id="{{video._id}}" class="button danger center js-remove-video">
+                        Delete Video
                     </button>
                 </div>
                 {{/each}}

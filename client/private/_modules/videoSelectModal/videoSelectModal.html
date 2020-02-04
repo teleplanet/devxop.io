@@ -6,10 +6,11 @@
             </div>
         </div>
         <div class="row">
-            {{#if videos}}
-            <div class="Rtable Rtable--5cols">
+            <div class="col-12">
+                {{#if videos}}
+                <div class="Rtable Rtable--5cols Rtable--collapse">
 
-                <div style="order:1" class="Rtable-cell cell-header">
+                    <!-- <div style="order:1" class="Rtable-cell cell-header">
                     Name
                 </div>
                 <div style="order:1" class="Rtable-cell cell-header">
@@ -23,25 +24,28 @@
                 </div>
                 <div style="order:1" class="Rtable-cell cell-header">
 
-                </div>
+                </div> -->
 
 
-                {{#each video in videos}}
-                <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.name}}</div>
-                <div style="order:2" class="Rtable-cell --alignMiddle">{{formatBytes video.original.size}}</div>
-                <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.type}}</div>
-                <div style="order:2" class="Rtable-cell --alignMiddle">
-                    <a class="button green" href="{{videoUrl video._id}}" target="_blank">Play</a>
-                </div>
-                <div style="order:2" class="Rtable-cell --alignMiddle">
-                    <button id="{{video._id}}" data-video-id="{{video._id}}" class="button js-video-selected">
-                        Select
-                    </button>
-                </div>
-                {{/each}}
+                    {{#each video in videos}}
+                    <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--head">{{video.original.name}}
+                    </div>
+                    <div style="order:2" class="Rtable-cell --alignMiddle">{{formatBytes video.original.size}}</div>
+                    <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.type}}</div>
+                    <div style="order:2" class="Rtable-cell --alignMiddle">
+                        <a class="button blue center" href="{{videoUrl video._id}}" target="_blank">Play</a>
+                    </div>
+                    <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--foot">
+                        <button id="{{video._id}}" data-video-id="{{video._id}}" class="button center js-video-selected">
+                            Select Video
+                        </button>
+                    </div>
+                    {{/each}}
 
+                </div>
+                {{/if}}
             </div>
-            {{/if}}
+
         </div>
         <div class="row">
             <div class="col s6">

@@ -1,4 +1,7 @@
 confirmPopup = function (body, callback) {
+    $(".js-popup-confirm").unbind('click');
+    $(".js-popup-cancel").unbind('click');
+
     if (!body) {
         return console.log("Required keys: title, msg, btn_type, btn_msg");
     }

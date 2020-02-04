@@ -10,13 +10,13 @@
 
                             </p>
                         </div>
-                        <div class="col-6">
-                            <label>Total images</label>
-                            <p>{{this.total}}</p>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="label">Total images</div>
+                            <div class="count">{{this.total}}</div>
                         </div>
-                        <div class="col-6">
-                            <label>Storage Used</label>
-                            <p>{{formatBytes this.storage}}</p>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="label">Storage Used</div>
+                            <div class="count">{{formatBytes this.storage}}</div>
                         </div>
                     </div>
                 </div>
@@ -72,13 +72,13 @@
         </div>
 
     </div>
-    <div class="row p-3">
+    <div class="row p-3 mb-3">
         <div class="col-12">
 
             {{#if this.images}}
-            <div class="Rtable Rtable--4cols">
+            <div class="Rtable Rtable--4cols Rtable--collapse">
 
-                <div style="order:1" class="Rtable-cell cell-header">
+                <!-- <div style="order:1" class="Rtable-cell cell-header">
                     
                 </div>
                 <div style="order:1" class="Rtable-cell cell-header">
@@ -89,15 +89,15 @@
                 </div>
                 <div style="order:1" class="Rtable-cell cell-header">
 
-                </div>
+                </div> -->
 
 
                 {{#each image in this.images}}
-                <div style="order:2; padding: 0;" class="Rtable-cell --alignMiddle"><div class="thumb small" style="background-image: url({{thumbUrl image.image_thumb}});"></div></div>
+                <div style="order:2; padding: 0;" class="Rtable-cell Rtable-cell--image Rtable-cell--head --alignMiddle"><div class="thumb small" style="width: 100%; height: 200px; background-image: url({{thumbUrl image.image_thumb}});"></div></div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">{{formatBytes image.original.size}}</div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">{{image.original.type}}</div>
-                <div style="order:2" class="Rtable-cell --alignMiddle">
-                    <button id="{{image._id}}" class="button danger js-remove-image">
+                <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--foot">
+                    <button id="{{image._id}}" class="button center danger js-remove-image">
                         Delete
                     </button>
                 </div>
