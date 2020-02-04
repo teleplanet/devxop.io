@@ -66,10 +66,9 @@ Router.route('/api/display', { where: 'server' }).get(function () {
         params = getParams(req);
 
     let device = Devices.findOne({ "device_id": params.device_id });
-    
-
 
     if (device) {
+        //console.log(device);
         Devices.update(device._id, {
             $set: {
                 "update": false,
@@ -77,56 +76,51 @@ Router.route('/api/display', { where: 'server' }).get(function () {
             }
         });
 
-        if(device.system_force){
+        if (device.system_force) {
             let data = {
                 display: "restart",
-                url: ""
+                url: "",
+                code: ""
+                /* orientation: device.display_types[selected].orientation */
             };
-    
+
             resp(res, 200, data);
         }
+
+        let data = {
+            display: "",
+            url: "",
+            code: ""
+            /* orientation: device.display_types[selected].orientation */
+        };
 
         let selected = device.selected_display;
         if (selected) {
             if (selected == "static") {
                 let img = Images.findOne({ "_id": device.display_types[selected].image });
-
+                data.display = "image";
                 if (img) {
-                    
                     let imgUrl = img.url();
-
-                    let data = {
-                        display: "image",
-                        url: imgUrl
-                        /* orientation: device.display_types[selected].orientation */
-                    };
-
-                    resp(res, 200, data);
+                    data.url = imgUrl;
                 }
             } else if (selected == "video") {
                 let video = Videos.findOne({ "_id": device.display_types[selected].video });
-
+                data.display = "video";
                 if (video) {
                     let videoUrl = video.url();
-
-                    let data = {
-                        display: "video",
-                        url: videoUrl
-                       /*  orientation: device.display_types[selected].orientation */
-                    };
-
-                    resp(res, 200, data);
+                    data.url = videoUrl
                 }
+            } else if (selected == "code") {
+                data.display = "webview";
+                data.code = device.display_types[selected].code
 
-            }else{
-                res.end("");
             }
-        } else {
-            res.end("");
         }
 
-    }else{
-        res.end("");
+        resp(res, 200, data);
+
+    } else {
+        resp(res, 400, "");
     }
 
 

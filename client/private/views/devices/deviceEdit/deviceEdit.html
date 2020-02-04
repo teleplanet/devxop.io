@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <div class="row p-3">
                         <div class="col-12">
-                            <h3>{{this.device.name}}</h3>
+                            <textarea class="textarea deviceEdit" data-key="name" style="text-align: center; color: #333; font-size: 28px; resize: none; overflow-y: hidden; height: 56px;" rows="1">{{this.device.name}}</textarea>
                         </div>
                     </div>
                     <div class="row p-3">
@@ -88,6 +88,15 @@
                         </div>
                         <div class="col-md-6 col-sm-12 p-3">
                             <div class="label">{{this.video_name}}</div>
+                        </div>
+                        {{/if}}
+
+                        {{#if getDisplay "code"}}
+                        <div class="col-12">
+                            <h4>Webpage Code Injection</h4>
+                        </div>
+                        <div class="col-12 p-3">
+                            <textarea id="code-textarea" class="textarea code js-code-edit">{{this.code}}</textarea>
                         </div>
                         {{/if}}
                     </div>

@@ -76,7 +76,7 @@
         <div class="col-12">
 
             {{#if this.images}}
-            <div class="Rtable Rtable--4cols Rtable--collapse">
+            <div class="Rtable Rtable--5cols Rtable--collapse">
 
                 <!-- <div style="order:1" class="Rtable-cell cell-header">
                     
@@ -96,6 +96,9 @@
                 <div style="order:2; padding: 0;" class="Rtable-cell Rtable-cell--image Rtable-cell--head --alignMiddle"><div class="thumb small" style="width: 100%; height: 200px; background-image: url({{thumbUrl image.image_thumb}});"></div></div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">{{formatBytes image.original.size}}</div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">{{image.original.type}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    <a class="button blue center" href="{{imageUrl image._id}}" target="_blank">Full view</a>
+                </div>
                 <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--foot">
                     <button id="{{image._id}}" class="button center danger js-remove-image">
                         Delete

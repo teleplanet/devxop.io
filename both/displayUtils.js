@@ -1,6 +1,7 @@
 displayTypes = [
     "static",
     "video",
+    "code",
     /* "url",
     "code", */
     /* "slider", */

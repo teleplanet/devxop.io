@@ -1,9 +1,11 @@
 /* var image; */
 
 var pingInterval;
+var flagCodeInit = false;
 
 Template.deviceEdit.onRendered(function () {
     let device = Session.get("device-edit");
+    flagCodeInit = false;
 
     if (device) {
 
@@ -67,6 +69,7 @@ Template.deviceEdit.helpers({
             "edit_display": "static",
             "static_thumb": "",
             "video_name": "",
+            "code": "",
         }
 
         data.device = Session.get("device-edit");
@@ -108,6 +111,8 @@ Template.deviceEdit.helpers({
 
             }
 
+            data.code = data.device.display_types.code.code
+
         }
 
         //console.log(data);
@@ -135,6 +140,15 @@ Template.deviceEdit.helpers({
         if (typeof selected === "undefined") {
             return false;
         }
+
+        /* if(selected == "code" && !flagCodeInit){
+            flagCodeInit = true;
+            setTimeout(function(){
+                var editor = CodeMirror.fromTextArea(document.getElementById("code-textarea"), {
+                    lineNumbers: true
+                  });
+            }, 500);
+        } */
 
         return selected == type;
     },
@@ -263,6 +277,36 @@ Template.deviceEdit.events({
                 });
             }
         })
+    },
+    'change .js-code-edit':function(event){
+        let code = $(event.target).val();
+        //console.log(code);
+
+        let display = Session.get("module.selectedDisplay");
+
+        if (display == "code") {
+            let device = Session.get("device-edit");
+
+            let data = {
+                "display_types": device.display_types
+            };
+
+            data["update"] = true;
+            data.display_types[display]["code"] = code;
+
+            Devices.update(device._id, {
+                $set: data
+            });
+
+            /* Meteor.call("devices.edit", device._id, data, function (err, data) {
+                if (err) {
+                    console.log(err)
+                    notifyMessage("Failed image upload", "danger");
+                } else {
+                    notifyMessage("Image successfully updated", "success");
+                }
+            }); */
+        }
     },
     'change .deviceEdit': function (event) {
         let device = Session.get("device-edit");
