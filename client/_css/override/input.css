@@ -121,3 +121,8 @@ input[type=range][orient=vertical]
 .file-input.-chosen > .label {
   opacity: 1;
 }
+
+.textarea{
+  width: 100%;
+  min-height: 300px;
+}

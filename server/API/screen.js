@@ -85,14 +85,36 @@ Router.route('/api/display', { where: 'server' }).get(function () {
             };
 
             resp(res, 200, data);
+            return;
         }
 
         let data = {
             display: "",
             url: "",
-            code: ""
+            code: "",
             /* orientation: device.display_types[selected].orientation */
         };
+
+        if (typeof device["display_types.scheduled"] !== "undefined" && device["display_types.scheduled.force_update"] == true) {
+            data.display = "schedule";
+            if (device.force_download == true) {
+                let video = Videos.findOne({ "_id": device.display_types[selected].video });
+                if (video) {
+                    data["action"] = "download";
+                    let videoUrl = video.url();
+                    data.url = videoUrl;
+                    data["schedule_stamp"] = device.schedule.schedule_stamp; 
+                }
+            }else if (device.force_confirmation == true) {
+                //this option confirms all devices and creates schedule
+                data["action"] = "confirmation";
+            }
+
+
+
+            resp(res, 200, data);
+            return;
+        }
 
         let selected = device.selected_display;
         if (selected) {
@@ -118,9 +140,11 @@ Router.route('/api/display', { where: 'server' }).get(function () {
         }
 
         resp(res, 200, data);
+        return;
 
     } else {
         resp(res, 400, "");
+        return;
     }
 
 
@@ -142,6 +166,33 @@ Router.route('/api/device/update', { where: 'server' }).get(function () {
         Devices.update(exists._id, {
             $set: {
                 "ping_stamp": new Date().getTime()
+            }
+        });
+
+        resp(res, 200, "" + exists.update);
+    } else {
+        resp(res, 200, null);
+    }
+
+
+});
+
+Router.route('/api/device/schedule', { where: 'server' }).get(function () {
+
+    let req = this.request,
+        res = this.response,
+        params = getParams(req);
+
+    //console.log(params.device_id);
+
+
+    let exists = Devices.findOne({ "device_id": params.device_id });
+
+
+    if (exists) {
+        Devices.update(exists._id, {
+            $set: {
+                "display_types.schedule.confirmation": true,
             }
         });
 
