@@ -26,6 +26,32 @@ Devices.allow({
     }
 })
 
+MultiscreenSchedule = new Mongo.Collection('multiscreenSchedule');
+MultiscreenSchedule.allow({
+    insert: function (userId, doc) {
+        
+        doc["user_id"] = userId;
+
+        return true;
+    },
+    remove: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            return true;
+        }
+
+        return false;
+    },
+    update: function (userId, doc) {
+        
+        if(doc["user_id"] == userId){
+            
+            return true;
+        }
+        return false;
+    }
+})
+
 
 DeviceAccess = new Mongo.Collection('deviceAccess');
 

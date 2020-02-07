@@ -1,0 +1,79 @@
+<template name="multiDevice">
+    <div class="row p-3">
+        <div class="col-12">
+            <div class="card text-center light no-style">
+                <div class="card-body">
+                    <div class="card-title">Multi Screen Device Schedule</div>
+                    <p class="card-text">
+                        Choose an hour and minute that you will want to trigger the split screen action.
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="label">Hour</div>
+                                <input type="number" class="form-control number-plain center js-schedule-edit" data-key="schedule.hour" value="{{schedule.schedule.hour}}" min="0" max="23" onkeyup=enforceMinMax(this)>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="label">Minute</div>
+                                <input type="number" class="form-control number-plain center js-schedule-edit" data-key="schedule.minute" value="{{schedule.schedule.minute}}" min="0" max="59" onkeyup=enforceMinMax(this)>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                {{#if scheduleValid}}
+                                    <p>Validation has been performed and devices have confirmed successfull video download. Schedule is ready for activation</p>
+                                    <button class="button center js-schedule-edit" data-key="activated" value="true">Activate Schedule</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card text-center no-style">
+                <div class="card-body">
+                    <div class="card-title">Select your devices and their video</div>
+                    <p class="card-text">
+                        <!-- CHOOSE DEVICES TO SPLIT SCREEN -->
+                        <div class="Rtable Rtable--4cols Rtable--collapse">
+                            {{#each device in devices}}
+                            <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--head">
+                                {{device.name}}
+                                {{#if deviceSelected device._id}}<span
+                                    class="badge badge-warning m-1">Selected</span>{{/if}}
+                                    {{#if deviceConfirmed device._id}}<span
+                                    class="badge badge-success m-1">Ready!</span>{{/if}}
+                            </div>
+                            <div style="order:2" class="Rtable-cell --alignMiddle">
+                                {{#if deviceSelected device._id}}
+                                <div class="button js-device-select center" data-device-id="{{device._id}}">Clear Screen
+                                </div>
+                                {{else}}
+                                <div class="button js-device-select center" data-device-id="{{device._id}}">Use Screen
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div style="order:2" class="Rtable-cell --alignMiddle">
+                                <label>{{getVideo device._id}}</label>
+                            </div>
+                            <div style="order:2" class="Rtable-cell --alignMiddle">
+                                {{#if deviceSelected device._id}}
+                                <div class="button js-video-select center" data-device-id="{{device._id}}">Choose Video
+                                </div>
+                                {{/if}}
+                            </div>
+                            {{/each}}
+
+                        </div>
+                        <!-- CHOOSE TIME -->
+
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

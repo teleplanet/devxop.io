@@ -5,3 +5,8 @@ Meteor.publish('devicesSubscriptions', function(){
 Meteor.publish('getDevice', function(deviceId){
 	return Devices.find({"device_id": deviceId}, {fields: {ping_stamp:0}});
 });
+
+
+Meteor.publish('multiscreenSchedule', function(){
+	return MultiscreenSchedule.find({"user_id": this.userId});
+});

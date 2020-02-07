@@ -13,6 +13,21 @@ Router.route('/devices',{
 });
 
 
+Router.route('/devices/multiple',{
+	name: 'devices.multi',
+	controller: 'PrivateController',
+	action: function(){
+		Session.set("route", "Devices / Multi Device");
+		this.render('multiDevice');
+		
+		uiInfo(true);
+	},
+    onStop: function() {
+        uiInfo(false);
+    }
+});
+
+
 Router.route('/devices/edit/:deviceId', {
 	controller: 'PrivateController',
 	action: function(){
