@@ -1,4 +1,4 @@
-
+/* 
 Meteor.onConnection((connection) => {
     let sessionId = connection.id;
 
@@ -17,4 +17,4 @@ Meteor.onConnection((connection) => {
         // Here delete the stored sessionId.
     });
 });
-
+ */

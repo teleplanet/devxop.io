@@ -10,11 +10,18 @@ getParams = function(req){
             //body does not exist
         }else{
             //body params exist
-            params = body;
+            params = {...params, ...body};
         }
     }else{
         //query params exist
-        params = query;
+        params = {...params, ...query};
+
+        if(Object.keys(body).length === 0 && body.constructor === Object){
+            //body does not exist
+        }else{
+            //body params exist
+            params = {...params, ...body};
+        }
     }
 
     return params;

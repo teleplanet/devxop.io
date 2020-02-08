@@ -31,6 +31,7 @@ Template.multiDevice.helpers({
     },
     'scheduleValid': function () {
         let schedule = MultiscreenSchedule.findOne();
+        let res = false;
 
         if (schedule.schedule.hour && schedule.schedule.minute && schedule.devices) {
 
@@ -38,12 +39,13 @@ Template.multiDevice.helpers({
             for (const key of keys) {
                 if (schedule.devices[key].video === "" || !schedule.devices[key].confirmed_download) {
                     return false;
+                } else {
+                    res = true;
                 }
             }
         }
 
-
-        return true;
+        return res;
 
     },
     'deviceSelected': function (deviceId) {
@@ -52,13 +54,17 @@ Template.multiDevice.helpers({
     },
     'deviceConfirmed': function (deviceId) {
         let schedule = MultiscreenSchedule.findOne();
-        return schedule.devices[deviceId].confirmed_download;
+        if (schedule.devices[deviceId]) {
+            return schedule.devices[deviceId].confirmed_download;
+        } else {
+            false;
+        }
     },
     'getVideo': function (deviceId) {
         let schedule = MultiscreenSchedule.findOne();
 
         let device = schedule.devices[deviceId];
-        if (device.video) {
+        if (device && device.video) {
             let video = Videos.findOne({ "_id": device.video });
 
             if (video) {
@@ -77,13 +83,24 @@ Template.multiDevice.helpers({
 })
 
 Template.multiDevice.events({
-    'change .js-schedule-edit': function (event) {
+    'change, click .js-schedule-edit': function (event) {
         let schedule = MultiscreenSchedule.findOne();
         let value = $(event.target).val();
         let key = $(event.target).data('key');
 
         let data = {};
         data[key] = value;
+
+        const keys = Object.keys(schedule.devices)
+        for (const key of keys) {
+            Devices.update(key, {
+                $set: {
+                    "update_schedule": true,
+                    "update": true
+                }
+            })
+        }
+
 
         MultiscreenSchedule.update(schedule._id, {
             $set: data
@@ -120,7 +137,18 @@ Template.multiDevice.events({
         videoListModal(function (err, video) {
             if (video) {
                 data = schedule.devices;
-                data[deviceId].video = video._id;
+                data[deviceId] = {
+                    "video": video._id,
+                    "confirmed_download": false,
+                    "confirmed_alarm": false,
+                }
+
+                Devices.update(deviceId, {
+                    $set: {
+                        "update_schedule": true,
+                        "update": true
+                    }
+                })
 
                 MultiscreenSchedule.update(schedule._id, {
                     $set: { "devices": data }

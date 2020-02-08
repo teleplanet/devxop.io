@@ -21,7 +21,9 @@
                             <div class="col-12">
                                 {{#if scheduleValid}}
                                     <p>Validation has been performed and devices have confirmed successfull video download. Schedule is ready for activation</p>
-                                    <button class="button center js-schedule-edit" data-key="activated" value="true">Activate Schedule</button>
+                                    <button class="button center js-schedule-edit" data-key="active" value="true">Activate Schedule</button>
+
+                                    <button class="button center js-schedule-edit" data-key="active" value="false">Deactivate Schedule</button>
                                 {{/if}}
                             </div>
                         </div>

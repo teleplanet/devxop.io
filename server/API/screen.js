@@ -95,19 +95,35 @@ Router.route('/api/display', { where: 'server' }).get(function () {
             /* orientation: device.display_types[selected].orientation */
         };
 
-        if (typeof device["display_types.scheduled"] !== "undefined" && device["display_types.scheduled.force_update"] == true) {
+        if (typeof device["update_schedule"] !== "undefined" && device["update_schedule"] == true) {
             data.display = "schedule";
-            if (device.force_download == true) {
-                let video = Videos.findOne({ "_id": device.display_types[selected].video });
-                if (video) {
-                    data["action"] = "download";
-                    let videoUrl = video.url();
-                    data.url = videoUrl;
-                    data["schedule_stamp"] = device.schedule.schedule_stamp; 
+
+            let schedule = MultiscreenSchedule.findOne({ "user_id": device.user_id });
+            if (schedule) {
+                let scheduledDevice = schedule.devices[device._id];
+                if (!scheduledDevice.confirmed_download) {
+                    //send action to download video
+                    let video = Videos.findOne({ "_id": scheduledDevice.video });
+                    if (video) {
+                        data["action"] = "download";
+                        let videoUrl = video.url();
+                        data.url = videoUrl
+                    }
+                }else{
+                    //check if schedule is active and send time
+                    if(schedule.active){
+                        //here send hour and minute for action
+                        data["action"] = "time";
+                        data["hour"] = schedule.schedule.hour;
+                        data["minute"] = schedule.schedule.minute;
+                    }
                 }
-            }else if (device.force_confirmation == true) {
-                //this option confirms all devices and creates schedule
-                data["action"] = "confirmation";
+
+                Devices.update(device._id, {
+                    $set: {
+                        "update_schedule": false,
+                    }
+                });
             }
 
 
@@ -177,30 +193,38 @@ Router.route('/api/device/update', { where: 'server' }).get(function () {
 
 });
 
-Router.route('/api/device/schedule', { where: 'server' }).get(function () {
+Router.route('/api/device/schedule', { where: 'server' }).post(function () {
 
     let req = this.request,
         res = this.response,
         params = getParams(req);
 
-    //console.log(params.device_id);
+    let device = Devices.findOne({ "device_id": params.device_id });
+    if (device) {
+        let schedule = MultiscreenSchedule.findOne({ "user_id": device.user_id });
+        if (schedule) {
+            data = schedule.devices;
+            if (data[device._id]) {
+                if (params.action == "confirmed_download") {
+                    let bool = JSON.parse(params.value);
+                    data[device._id].confirmed_download = bool;
 
+                    MultiscreenSchedule.update(schedule._id, {
+                        $set: { "devices": data }
+                    })
+                }else if (params.action == "status") {
+                    data[device._id+".status"] = params.value;
+                    MultiscreenSchedule.update(schedule._id, {
+                        $set: { "devices": data }
+                    })
+                }
 
-    let exists = Devices.findOne({ "device_id": params.device_id });
-
-
-    if (exists) {
-        Devices.update(exists._id, {
-            $set: {
-                "display_types.schedule.confirmation": true,
             }
-        });
 
-        resp(res, 200, "" + exists.update);
-    } else {
-        resp(res, 200, null);
+        }
     }
 
+    resp(res, 200, null);
 
 });
 
