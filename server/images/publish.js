@@ -1,9 +1,9 @@
 Meteor.publish('images', function(){
-	return Images.find({});
+	return Images.find({"user_id": this.userId});
 });
 
 Meteor.publish('thumbnails', function(){
-	return Thumbnails.find({});
+	return Thumbnails.find({"user_id": this.userId});
 });
 
 
