@@ -3,23 +3,23 @@ RegisterTokens = new Mongo.Collection('registerToken');
 Devices = new Mongo.Collection('devices');
 Devices.allow({
     insert: function (userId, doc) {
-        
+
         doc["user_id"] = userId;
 
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
         return false;
     },
     update: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
-            
+
+        if (doc["user_id"] == userId) {
+
             return true;
         }
         return false;
@@ -29,23 +29,28 @@ Devices.allow({
 MultiscreenSchedule = new Mongo.Collection('multiscreenSchedule');
 MultiscreenSchedule.allow({
     insert: function (userId, doc) {
-        
+
         doc["user_id"] = userId;
+
+        let exists = MultiscreenSchedule.findOne({ "user_id": userId });
+        if (exists) { 
+            return false;
+        }
 
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
         return false;
     },
     update: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
-            
+
+        if (doc["user_id"] == userId) {
+
             return true;
         }
         return false;
@@ -76,20 +81,20 @@ Revenues = new Meteor.Collection("revenues");
 Revenues.allow({
     insert: function (userId, doc) {
 
-        let dateExists = Revenues.findOne({"stamp": doc.stamp});
+        let dateExists = Revenues.findOne({ "stamp": doc.stamp });
 
-        
-        if(dateExists){
+
+        if (dateExists) {
             return false;
         }
-        
+
         doc["user_id"] = userId;
 
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
@@ -101,22 +106,22 @@ Costs = new Meteor.Collection("costs");
 
 Costs.allow({
     insert: function (userId, doc) {
-        
+
         doc["user_id"] = userId;
 
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
         return false;
     },
     update: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
@@ -128,22 +133,22 @@ Invoices = new Meteor.Collection("invoices");
 
 Invoices.allow({
     insert: function (userId, doc) {
-        
+
         doc["user_id"] = userId;
 
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
         return false;
     },
     update: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
@@ -156,22 +161,22 @@ Suppliers = new Meteor.Collection("suppliers");
 
 Suppliers.allow({
     insert: function (userId, doc) {
-        
+
         doc["user_id"] = userId;
 
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
         return false;
     },
     update: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
@@ -184,22 +189,22 @@ Expenses = new Meteor.Collection("expenses");
 
 Expenses.allow({
     insert: function (userId, doc) {
-        
+
         doc["user_id"] = userId;
 
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
         return false;
     },
     update: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
@@ -210,8 +215,8 @@ Expenses.allow({
 
 PushNotifications = new Meteor.Collection('pushNotifications');
 
-if(Meteor.isServer){
-    PushNotifications._ensureIndex( { "created": 1 }, { expireAfterSeconds: 25 * 60 } );
+if (Meteor.isServer) {
+    PushNotifications._ensureIndex({ "created": 1 }, { expireAfterSeconds: 25 * 60 });
 }
 
 PushNotifications.allow({
@@ -315,11 +320,11 @@ Thumbnails = new FS.Collection('thumbnails', {
 
 Images.allow({
     insert: function (userId, doc) {
-        
+
         //doc.chunkSum vs chunkCount = calculate upload progress
         //console.log( ((doc.chunkCount / doc.chunkSum) * 100) );
         Images.update(doc._id, {
-            $set:{
+            $set: {
                 "progress": ((doc.chunkCount / doc.chunkSum) * 100)
             }
         });
@@ -328,16 +333,16 @@ Images.allow({
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
         return false;
     },
     update: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
@@ -350,22 +355,22 @@ Images.allow({
 
 Thumbnails.allow({
     insert: function (userId, doc) {
-        
+
         doc["user_id"] = userId;
 
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
         return false;
     },
     update: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
@@ -382,7 +387,7 @@ Videos.allow({
         //doc.chunkSum vs chunkCount = calculate upload progress
         //console.log( ((doc.chunkCount / doc.chunkSum) * 100) );
         Videos.update(doc._id, {
-            $set:{
+            $set: {
                 "progress": ((doc.chunkCount / doc.chunkSum) * 100)
             }
         });
@@ -391,8 +396,8 @@ Videos.allow({
         return true;
     },
     remove: function (userId, doc) {
-        
-        if(doc["user_id"] == userId){
+
+        if (doc["user_id"] == userId) {
             return true;
         }
 
@@ -400,7 +405,7 @@ Videos.allow({
     },
     update: function (userId, doc) {
 
-        if(doc["user_id"] == userId){
+        if (doc["user_id"] == userId) {
             return true;
         }
 

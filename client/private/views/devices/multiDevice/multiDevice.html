@@ -1,4 +1,5 @@
 <template name="multiDevice">
+    {{#with data}}
     <div class="row p-3">
         <div class="col-12">
             <div class="card text-center light no-style">
@@ -9,21 +10,30 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
                                 <div class="label">Hour</div>
-                                <input type="number" class="form-control number-plain center js-schedule-edit" data-key="schedule.hour" value="{{schedule.schedule.hour}}" min="0" max="23" onkeyup=enforceMinMax(this)>
+                                <input type="number" class="form-control number-plain center js-schedule-edit"
+                                    data-key="schedule.hour" value="{{this.schedule_hour}}" min="0" max="23"
+                                    onkeyup=enforceMinMax(this)>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="label">Minute</div>
-                                <input type="number" class="form-control number-plain center js-schedule-edit" data-key="schedule.minute" value="{{schedule.schedule.minute}}" min="0" max="59" onkeyup=enforceMinMax(this)>
+                                <input type="number" class="form-control number-plain center js-schedule-edit"
+                                    data-key="schedule.minute" value="{{this.schedule_minute}}" min="0" max="59"
+                                    onkeyup=enforceMinMax(this)>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                {{#if scheduleValid}}
-                                    <p>Validation has been performed and devices have confirmed successfull video download. Schedule is ready for activation</p>
-                                    <button class="button center js-schedule-edit" data-key="active" value="true">Activate Schedule</button>
-
-                                    <button class="button center js-schedule-edit" data-key="active" value="false">Deactivate Schedule</button>
+                                {{#if this.schedule_ready}}
+                                    {{#if this.schedule_active}}
+                                    <button class="button center js-schedule-edit" data-key="active"
+                                        value="false">Deactivate Schedule</button>
+                                    {{else}}
+                                    <p>Validation has been performed and devices have confirmed successfull video download.
+                                        Schedule is ready for activation</p>
+                                    <button class="button center js-schedule-edit" data-key="active" value="true">Activate
+                                        Schedule</button>
+                                    {{/if}}
                                 {{/if}}
                             </div>
                         </div>
@@ -38,17 +48,21 @@
                     <div class="card-title">Select your devices and their video</div>
                     <p class="card-text">
                         <!-- CHOOSE DEVICES TO SPLIT SCREEN -->
-                        <div class="Rtable Rtable--4cols Rtable--collapse">
-                            {{#each device in devices}}
+                        <div class="Rtable Rtable--5cols Rtable--collapse">
+                            {{#each device in this.devices}}
                             <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--head">
                                 {{device.name}}
-                                {{#if deviceSelected device._id}}<span
+                                {{#if device.schedule_selected}}<span
                                     class="badge badge-warning m-1">Selected</span>{{/if}}
-                                    {{#if deviceConfirmed device._id}}<span
-                                    class="badge badge-success m-1">Ready!</span>{{/if}}
+                                
                             </div>
                             <div style="order:2" class="Rtable-cell --alignMiddle">
-                                {{#if deviceSelected device._id}}
+                                {{#if device.schedule_download_confirmed}}<span
+                                    class="badge badge-success m-1">Ready!</span>{{/if}}
+                                <span class="badge badge-info m-1">{{device.schedule_status}}</span>
+                            </div>
+                            <div style="order:2" class="Rtable-cell --alignMiddle">
+                                {{#if device.schedule_selected}}
                                 <div class="button js-device-select center" data-device-id="{{device._id}}">Clear Screen
                                 </div>
                                 {{else}}
@@ -57,10 +71,10 @@
                                 {{/if}}
                             </div>
                             <div style="order:2" class="Rtable-cell --alignMiddle">
-                                <label>{{getVideo device._id}}</label>
+                                <label>{{device.schedule_video}}</label>
                             </div>
                             <div style="order:2" class="Rtable-cell --alignMiddle">
-                                {{#if deviceSelected device._id}}
+                                {{#if device.schedule_selected}}
                                 <div class="button js-video-select center" data-device-id="{{device._id}}">Choose Video
                                 </div>
                                 {{/if}}
@@ -77,5 +91,5 @@
             </div>
         </div>
     </div>
-
+    {{/with}}
 </template>

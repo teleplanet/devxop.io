@@ -16,16 +16,27 @@ Meteor.startup(function () {
 
 	//initFB();
 
-	if(Meteor.isClient) {
+	if (Meteor.isClient) {
+		let schedule = MultiscreenSchedule.findOne({ "user_id": this.userId });
+		if (!schedule) {
+			/* Here we create one */
+			MultiscreenSchedule.insert({
+				"devices": {},
+				"stamp": 0,
+				"active": false,
+				"schedule": { "hour": 0, "minute": 0 }
+			});
+		}
+
 		Meteor.methods({
-			"client.upsert":function(data) {
+			"client.upsert": function (data) {
 				/* console.log(this.isSimulation) //Will be true
 				MyCollection.insert({test:true}); */
 
-				if(data){
+				if (data) {
 					//Invoices.insert(data);
 
-					Invoices.upsert({"InvoiceNo": data.InvoiceNo}, {
+					Invoices.upsert({ "InvoiceNo": data.InvoiceNo }, {
 						// Modifier
 						$set: data
 					});
@@ -33,7 +44,7 @@ Meteor.startup(function () {
 			}
 		});
 	}
-	
+
 });
 
 stripeReadyHandler = function () {
@@ -68,7 +79,7 @@ $(document).ready(function () {
 	});
 });
 
-modal = function(){
+modal = function () {
 	$(".js-modal-btn").click(function (event) {
 		let id = $(event.target).data("modal-id");
 

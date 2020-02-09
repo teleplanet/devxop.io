@@ -109,9 +109,9 @@ Router.route('/api/display', { where: 'server' }).get(function () {
                         let videoUrl = video.url();
                         data.url = videoUrl
                     }
-                }else{
+                } else {
                     //check if schedule is active and send time
-                    if(schedule.active){
+                    if (schedule.active) {
                         //here send hour and minute for action
                         data["action"] = "time";
                         data["hour"] = schedule.schedule.hour;
@@ -211,12 +211,23 @@ Router.route('/api/device/schedule', { where: 'server' }).post(function () {
 
                     MultiscreenSchedule.update(schedule._id, {
                         $set: { "devices": data }
-                    })
-                }else if (params.action == "status") {
-                    data[device._id+".status"] = params.value;
-                    MultiscreenSchedule.update(schedule._id, {
-                        $set: { "devices": data }
-                    })
+                    });
+                } else if (params.action == "status") {
+                    data[device._id]["status"] = params.value;
+
+                    if (params.value == "playing") {
+                        MultiscreenSchedule.update(schedule._id, {
+                            $set: {
+                                "active": false,
+                                "devices": data
+                            }
+                        });
+                    } else {
+                        MultiscreenSchedule.update(schedule._id, {
+                            $set: { "devices": data }
+                        });
+                    }
+
                 }
 
             }
@@ -292,5 +303,18 @@ Router.route('/api/device/sync', { where: 'server' }).post(function () {
         resp(res, 400, null);
     }
 
+
+});
+
+Router.route('/api/device/time', { where: 'server' }).get(function () {
+
+    let req = this.request,
+        res = this.response,
+        params = getParams(req);
+
+    //console.log(params.device_id);
+
+
+    resp(res, 200, ""+ new Date().getTime());
 
 });

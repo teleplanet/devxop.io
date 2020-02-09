@@ -10,76 +10,64 @@ enforceMinMax = function (el) {
 }
 
 Template.multiDevice.onRendered(function () {
-    let schedule = MultiscreenSchedule.findOne();
 
-    if (!schedule) {
-        /* Here we create one */
-        MultiscreenSchedule.insert({
-            "devices": {},
-            "stamp": 0,
-            "schedule": { "hour": 0, "minute": 0 }
-        });
-    }
 });
 
 Template.multiDevice.helpers({
-    'devices': function () {
-        return Devices.find().fetch();
-    },
-    'schedule': function () {
-        return MultiscreenSchedule.findOne();
-    },
-    'scheduleValid': function () {
-        let schedule = MultiscreenSchedule.findOne();
-        let res = false;
+    'data': function () {
+        data = {
+            "schedule_ready": false,
+            "schedule": null,
+            "devices": [],
+            "schedule_hour": 0,
+            "schedule_minute": 0,
+            "schedule_devices": [],
+            "schedule_active": false
+        }
 
-        if (schedule.schedule.hour && schedule.schedule.minute && schedule.devices) {
+        data.devices = Devices.find().fetch();
+        data.schedule = MultiscreenSchedule.findOne();
 
-            const keys = Object.keys(schedule.devices)
-            for (const key of keys) {
-                if (schedule.devices[key].video === "" || !schedule.devices[key].confirmed_download) {
-                    return false;
-                } else {
-                    res = true;
+        if (data.schedule) {
+            data.schedule_active = data.schedule.active;
+            data.schedule_devices = data.schedule["devices"];
+            data.schedule_hour = data.schedule.schedule.hour;
+            data.schedule_minute = data.schedule.schedule.minute;
+
+            if (data.schedule_hour && data.schedule_minute && data.schedule_devices) {
+                const keys = Object.keys(data.schedule_devices)
+                for (const key of keys) {
+                    if (data.schedule_devices[key].video === "" || !data.schedule_devices[key].confirmed_download) {
+                        data.schedule_ready = false;
+                    } else {
+                        data.schedule_ready = true;
+                    }
                 }
             }
         }
 
-        return res;
+        for (let i = 0; i < data.devices.length; i++) {
+            let device = data.devices[i];
 
-    },
-    'deviceSelected': function (deviceId) {
-        let schedule = MultiscreenSchedule.findOne();
-        return schedule.devices[deviceId];
-    },
-    'deviceConfirmed': function (deviceId) {
-        let schedule = MultiscreenSchedule.findOne();
-        if (schedule.devices[deviceId]) {
-            return schedule.devices[deviceId].confirmed_download;
-        } else {
-            false;
-        }
-    },
-    'getVideo': function (deviceId) {
-        let schedule = MultiscreenSchedule.findOne();
+            let selected = data.schedule_devices[device._id];
+            if (selected) {
+                data.devices[i]["schedule_selected"] = true;
+                data.devices[i]["schedule_download_confirmed"] = selected.confirmed_download;
+                data.devices[i]["schedule_status"] = selected.status;
+                data.devices[i]["schedule_video"] = "";
 
-        let device = schedule.devices[deviceId];
-        if (device && device.video) {
-            let video = Videos.findOne({ "_id": device.video });
-
-            if (video) {
-                return video.original.name;
-            } else {
-                return "";
+                let video = Videos.findOne({ "_id": selected.video });
+                if (video) {
+                    data.devices[i]["schedule_video"] = video.original.name;
+                }
             }
-
-
-        } else {
-            return "";
         }
 
+        //console.log(data)
 
-    }
+
+        return data;
+    },
 })
 
 Template.multiDevice.events({
@@ -89,7 +77,7 @@ Template.multiDevice.events({
         let key = $(event.target).data('key');
 
         let data = {};
-        data[key] = value;
+        data[key] = JSON.parse(value);
 
         const keys = Object.keys(schedule.devices)
         for (const key of keys) {
@@ -113,6 +101,9 @@ Template.multiDevice.events({
         let schedule = MultiscreenSchedule.findOne();
 
         data = schedule.devices;
+
+        console.log(data[deviceId]);
+        console.log(typeof data[deviceId] !== "undefined");
 
         if (typeof data[deviceId] !== "undefined") {
             delete data[deviceId];
