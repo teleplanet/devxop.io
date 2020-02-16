@@ -1,0 +1,35 @@
+<template name="templates">
+    <div class="row">
+        <div class="col-12">
+            <div class="card no-style center-align light">
+                <div class="card-body">
+                    <div class="row p-3">
+                        <div class="col-12">
+                            <h4>Criar um menu</h4>
+                            <label>Menu Name</label>
+                            <input id="template-name" type="text">
+                            <label>Numero de categorias</label>
+                            <input id="template-cat-count" type="number" value="1">
+                            <button class="button js-create-template">Criar agora</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-3">
+        {{#each template in templates}}
+        <div class="col-md-3">
+            <div class="card text-center card-select js-template-select" data-template-id="{{template._id}}">
+                <img src="{{template.img}}" class="card-img-top">
+                <div class="card-body">
+                    <div class="card-title"></div>
+                    <p class="card-text">
+                        <strong class="text-primary">{{template.name}}</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</template>

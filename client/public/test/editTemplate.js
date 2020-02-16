@@ -73,6 +73,18 @@ Template.editTemplate.helpers({
 
 
 Template.editTemplate.events({
+    'click .js-generate-template': function(){
+        // You can then get the data URL when the image got loaded:
+        
+        let elem = $("#template-iframe").contents().find('#template')[0];
+        $("#template-iframe").css({"width": "1080px", "height": "1920px"});
+        document.html2canvas(elem,{"width": "1080", "height": "1920" }).then(canvas => {
+            console.log(canvas);
+            document.body.appendChild(canvas);
+        });
+
+        $("#template-iframe").css({"width": "240px", "height": "352px"});
+    },
     'click .js-content-selected': function (event) {
         let setName = $(event.currentTarget).data("set-name");
         let itemIndex = $(event.currentTarget).data("item-index");
@@ -101,12 +113,8 @@ Template.editTemplate.events({
         Session.set("selected-menu", template.menus[menuIndex]);
         Session.set("edit-screen-item", {});
 
-        // You can then get the data URL when the image got loaded:
-
-        document.html2canvas($("#template")[0]).then(canvas => {
-            console.log(canvas);
-            document.body.appendChild(canvas);
-        });
+        $("#template-iframe").attr("src", "/test/screen?index=" + menuIndex);
+        
 
     },
     'change .js-edit-item': function (event) {

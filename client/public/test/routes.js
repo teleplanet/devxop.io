@@ -27,7 +27,7 @@ Router.route('/test/screen', {
 		let template = Templates.findOne()
 
 		Session.set("selected-menu-index", query.index);
-        Session.set("selected-menu", template.menus[menuIndex]);
+        Session.set("selected-menu", template.menus[query.index]);
 
 		this.render("screen");
 

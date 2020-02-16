@@ -64,10 +64,10 @@ Templates.allow({
 
         doc["user_id"] = userId;
 
-        let exists = Templates.findOne({ "user_id": userId });
+        /* let exists = Templates.findOne({ "user_id": userId });
         if (exists) { 
             return false;
-        }
+        } */
 
         return true;
     },

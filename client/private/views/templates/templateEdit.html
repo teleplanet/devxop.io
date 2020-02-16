@@ -1,26 +1,5 @@
-<template name="test">
-    <div class="row">
-        <div class="col-md-6">
-            {{> editTemplate}}
-        </div>
-        <div class="col-md-6">
-            {{> screen}}
-        </div>
-    </div>
-
-    <iframe id="template-iframe" src="/test/screen?index=1"></iframe>
-    <!-- 
-
-    </iframe> -->
-    <!-- <div class="rotate90 anticlock">
-        {{> screen}}
-    </div> -->
-
-    <!-- {{> screen}} -->
-
-</template>
-
-<template name="screen">
+<template name="templateEdit">
+    {{#with template}}
     <div id="template">
         <img id="template-image" src="/images/board2Border.jpg" class="menu-wrapper-image">
         <div class="menu-wrapper">
@@ -28,17 +7,17 @@
                 EMENTA
             </div>
 
-            {{#each set in dataset}}
+            {{#each category in this.data}}
             <div class="menu-section">
-                <div class="section-title js-section-selected {{selected @index}}" data-set-index="{{@index}}">
-                    <div class="js-edit">{{set.name}}</div>
-                    <div class="js-edit">{{set.name2}}</div>
+                <div class="section-title js-category-select" data-category-index="{{@index}}">
+                    <div class="js-edit">{{category.name}}</div>
+                    <div class="js-edit">{{category.name2}}</div>
                 </div>
                 <div class="section-content">
-                    {{#let setIndex=@index}}
+                    {{#let categoryIndex=@index}}
                     {{#each item in set.data}}
-                    <div class="content-item {{set.style}} js-content-selected {{selected setIndex @index}}"
-                        data-set-name="{{setIndex}}" data-item-index="{{@index}}">
+                    <div class="content-item {{category.style}} js-item-select"
+                        data-category-index="{{categoryIndex}}" data-item-index="{{@index}}">
                         <div class="item-left">
                             <div class="js-edit">{{item.info1}}
                                 <span class="js-edit">{{item.info2}}</span>
@@ -60,6 +39,7 @@
 
         </div>
     </div>
-
-
+    {{else}}
+    This template was not found...
+    {{/with}}
 </template>

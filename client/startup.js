@@ -29,15 +29,6 @@ Meteor.startup(function () {
 			});
 		}
 
-		let template = Templates.findOne({ "user_id": this.userId });
-		if (!template) {
-			/* Here we create one */
-			Templates.insert({
-				"menus": [],
-				"stamp_created": new Date().getTime(),
-			});
-		}
-
 		Meteor.methods({
 			"client.upsert": function (data) {
 				/* console.log(this.isSimulation) //Will be true
