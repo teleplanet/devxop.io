@@ -3,12 +3,13 @@ import ImageCompressor from 'image-compressor.js';
 
 
 import $ from "jquery";
+import html2canvas from 'html2canvas';
 
 stripe = undefined;
 
 
 Meteor.startup(function () {
-
+	
 
 	//Get viewport dimensions
 	Session.set('vH', $(document).height());
@@ -25,6 +26,15 @@ Meteor.startup(function () {
 				"stamp": 0,
 				"active": false,
 				"schedule": { "hour": 0, "minute": 0 }
+			});
+		}
+
+		let template = Templates.findOne({ "user_id": this.userId });
+		if (!template) {
+			/* Here we create one */
+			Templates.insert({
+				"menus": [],
+				"stamp_created": new Date().getTime(),
 			});
 		}
 
@@ -60,6 +70,8 @@ stripeReadyHandler = function () {
 
 $(document).ready(function () {
 	fingerprint();
+
+	document["html2canvas"] = html2canvas;
 
 	$(".js-modal-btn").click(function (event) {
 		console.log(event);

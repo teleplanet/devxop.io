@@ -1,153 +1,64 @@
 <template name="test">
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-12">
-            <div style="height: 1920px; width: 1080px;">
+            {{> editTemplate}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div style="height: 480px; width: 720px;">
                 {{> screen}}
             </div>
         </div>
+    </div>
+    <!-- <div class="rotate90 anticlock">
+        {{> screen}}
     </div> -->
 
-    {{> screen}}
+    <!-- {{> screen}} -->
+
 </template>
 
 <template name="screen">
-    <img src="/images/board2Border.jpg" class="menu-wrapper-image">
-    <div class="menu-wrapper">
-       <div class="menu-title">
-            EMENTA
-        </div>
-
-        <div class="menu-section">
-            <div class="section-title">
-                <div>ARROZ</div>
-                <div>Rice</div>
+    <div id="template">
+        <img id="template-image" src="/images/board2Border.jpg" class="menu-wrapper-image">
+        <div class="menu-wrapper">
+            <div class="menu-title">
+                EMENTA
             </div>
-            <div class="section-content">
-                <div class="content-item">
-                    <div class="item-left">
-                        <div>Risotto da Ria Formosa perfumado com açafrão com camarão, berbigão e filete de dourada
-                            <span>Ria Formosa Risotto with saffron, shrimp, cockle and fillet of sea bream</span>
-                        </div>
-                    </div>
 
-                    <div class="item-right">
-                        <div>10,90€</div>
-                        <div>New/ novo</div>
-                    </div>
-
-
+            {{#each set in dataset}}
+            <div class="menu-section">
+                <div class="section-title js-section-selected {{selected @index}}" data-set-index="{{@index}}">
+                    <div class="js-edit">{{set.name}}</div>
+                    <div class="js-edit">{{set.name2}}</div>
                 </div>
-                <div class="content-item">
-                    <div class="item-left">
-                        <div>Risotto da Ria Formosa perfumado com açafrão com camarão, berbigão e filete de dourada
-                            <span>Ria Formosa Risotto with saffron, shrimp, cockle and fillet of sea bream</span>
+                <div class="section-content">
+                    {{#let setIndex=@index}}
+                    {{#each item in set.data}}
+                    <div class="content-item {{set.style}} js-content-selected {{selected setIndex @index}}"
+                        data-set-name="{{setIndex}}" data-item-index="{{@index}}">
+                        <div class="item-left">
+                            <div class="js-edit">{{item.info1}}
+                                <span class="js-edit">{{item.info2}}</span>
+                            </div>
                         </div>
+
+                        <div class="item-right">
+                            <div class="js-edit">{{item.price}}</div>
+                            <div class="js-edit">{{item.icons}}</div>
+                        </div>
+
                     </div>
-
-                    <div class="item-right">
-                        <div>10,90€</div>
-                        <div>New/ novo</div>
-                    </div>
-
-
+                    {{/each}}
+                    {{/let}}
                 </div>
 
             </div>
-            
-        </div>
-        <div class="menu-section">
-            <div class="section-title">
-                <div>Carnes</div>
-                <div>Beef</div>
-            </div>
-            <div class="section-content">
-                <div class="content-item">
-                    <div class="item-left">
-                        <div>Risotto da Ria Formosa perfumado com açafrão com camarão, berbigão e filete de dourada
-                            <span>Ria Formosa Risotto with saffron, shrimp, cockle and fillet of sea bream</span>
-                        </div>
-                    </div>
+            {{/each}}
 
-                    <div class="item-right">
-                        <div>10,90€</div>
-                        <div>New/ novo</div>
-                    </div>
-
-
-                </div>
-                <div class="content-item">
-                    <div class="item-left">
-                        <div>Risotto da Ria Formosa perfumado com açafrão com camarão, berbigão e filete de dourada
-                            <span>Ria Formosa Risotto with saffron, shrimp, cockle and fillet of sea bream</span>
-                        </div>
-                    </div>
-
-                    <div class="item-right">
-                        <div>10,90€</div>
-                        <div>New/ novo</div>
-                    </div>
-
-
-                </div>
-                <div class="content-item">
-                    <div class="item-left">
-                        <div>Risotto da Ria Formosa perfumado com açafrão com camarão, berbigão e filete de dourada
-                            <span>Ria Formosa Risotto with saffron, shrimp, cockle and fillet of sea bream</span>
-                        </div>
-                    </div>
-
-                    <div class="item-right">
-                        <div>10,90€</div>
-                        <div>New/ novo</div>
-                    </div>
-
-
-                </div>
-                <div class="content-item">
-                    <div class="item-left">
-                        <div>Risotto da Ria Formosa perfumado com açafrão com camarão, berbigão e filete de dourada
-                            <span>Ria Formosa Risotto with saffron, shrimp, cockle and fillet of sea bream</span>
-                        </div>
-                    </div>
-
-                    <div class="item-right">
-                        <div>10,90€</div>
-                        <div>New/ novo</div>
-                    </div>
-
-
-                </div>
-                <div class="content-item">
-                    <div class="item-left">
-                        <div>Risotto da Ria Formosa perfumado com açafrão com camarão, berbigão e filete de dourada
-                            <span>Ria Formosa Risotto with saffron, shrimp, cockle and fillet of sea bream</span>
-                        </div>
-                    </div>
-
-                    <div class="item-right">
-                        <div>10,90€</div>
-                        <div>New/ novo</div>
-                    </div>
-
-
-                </div>
-                <div class="content-item">
-                    <div class="item-left">
-                        <div>Risotto da Ria Formosa perfumado com açafrão com camarão, berbigão e filete de dourada
-                            <span>Ria Formosa Risotto with saffron, shrimp, cockle and fillet of sea bream</span>
-                        </div>
-                    </div>
-
-                    <div class="item-right">
-                        <div>10,90€</div>
-                        <div>New/ novo</div>
-                    </div>
-
-
-                </div>
-
-            </div>
-            
         </div>
     </div>
+
+
 </template>

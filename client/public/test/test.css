@@ -8,16 +8,42 @@
     src: url('/fonts/sectionTitle.ttf') format('truetype');
   }
 
+  .rotate90 {
+    transform: rotate(90deg);
+    transform-origin: bottom left;
+    top: -100vw;
+    height: 100vw;
+    width: 100vh;
+    position: absolute;
+  }
+
+  .anticlock {
+    transform: rotate(270deg);
+    transform-origin: top left;
+    top: 100vh;
+    height: 100vw;
+    width: 100vh;
+    position: absolute;
+  }
+
 body, html{
     font-size: 1.7vh !important;
+    overflow: auto !important;
 }
 
+.rotate90 > .menu-wrapper-image {
+    height: 100vw;
+}
 
 .menu-wrapper-image{
     width: 100%;
     height: 100vh;
     z-index: 0;
     position: absolute;
+}
+
+.rotate90 > .menu-wrapper{
+    height: 100vw;
 }
 
 .menu-wrapper{
@@ -29,6 +55,10 @@ body, html{
     font-family: custom;
     z-index: 100;
     position: absolute;
+}
+
+.rotate90 > .menu-wrapper > .menu-title{
+    font-size: 5.84vw;
 }
 
 .menu-wrapper > .menu-title{
@@ -45,11 +75,21 @@ body, html{
     float: left;
 }
 
+
+.rotate90 > .menu-wrapper > .menu-section > .menu-section > .section-title{
+    margin-top: 1vw;
+}
 .menu-section > .section-title{
     width: 100%;
     padding: 0;
     margin-top: 1vh;
-}.section-title > div:nth-child(1){
+}
+
+.rotate90 > .menu-wrapper > .menu-section > .section-title > div:nth-child(1){
+    font-size: 3.13vw;
+    letter-spacing: 0.75vw;
+}
+.section-title > div:nth-child(1){
     font-size: 3.13vh;
     display: inline;
     letter-spacing: 0.75vh;
@@ -57,7 +97,14 @@ body, html{
     text-align: center;
     border-bottom: 10px double #fff;
     text-transform: uppercase;
-}.section-title > div:nth-child(2){
+}
+
+.rotate90 > .menu-wrapper > .menu-section > .section-title > div:nth-child(2){
+    font-size: 1.6vw;
+    letter-spacing: 0.7vw;
+    margin-left: 0.53vw;
+}
+.section-title > div:nth-child(2){
     font-size: 1.6vh;
     display: inline;
     letter-spacing: 0.7vh;
@@ -70,23 +117,56 @@ body, html{
     float: left;
 }
 
+.rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item{
+    margin-top: 0.6vw;
+}
 .section-content > .content-item{
     width: 100%;
     float: left;
     margin-top: 0.6vh;
+    transition: all 0.4s ease-in-out;
+}.content-item:hover, .content-item:focus, .content-item.selected, .section-title.selected{
+    transform: scale(1.05);
+    cursor: pointer;
+
+    color: tomato !important;
 }
+
+
 
 .content-item > .item-left{
     width: 80%;
     float: left;
-} .item-left > div:nth-child(1){
+}
+
+.content-item.two-column{
+    width: 50%;
+}.content-item.two-column > .item-left{
+    width: 70%;
+} .content-item.two-column > .item-left > div:nth-child(1){
+    font-size: 2vh;
+}.content-item.two-column > .item-left > div:nth-child(1) > span:nth-child(1){
+    font-size: 1.8vh;
+    display: block;
+}
+
+.rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item > .item-left > div:nth-child(1){
+    font-size: 1.6vw;
+    line-height: 2.2vw;
+}
+.item-left > div:nth-child(1){
     font-size: 2.5vh;
     text-align: justify;
     line-height: 2.2vh;
-}.item-left > div:nth-child(1) > span:nth-child(1){
+}
+
+.rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item > .item-left > div:nth-child(1) > span:nth-child(1){
+    font-size: 1.9vw;
+}
+
+.item-left > div:nth-child(1) > span:nth-child(1){
     font-size: 1.9vh;
     color: #ff9277;
-    line-height: 0px !important;
     text-align: justify;
     display: inline;
 }
@@ -95,10 +175,28 @@ body, html{
     width: 20%;
    float: left;
    text-align: center;
-} .item-right > div:nth-child(1){
+}
+
+.content-item.two-column > .item-right{
+    width: 30%;
+}.content-item.two-column > .item-right > div:nth-child(1){
+    font-size: 2vh;
+}.content-item.two-column > .item-right > div:nth-child(2){
+    font-size: 1.8vh;
+    display: block;
+}
+
+.rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item > .item-right > div:nth-child(1){
+    font-size: 2.7vw;
+}
+.item-right > div:nth-child(1){
     width: 100%;
     font-size: 2.7vh;
-}.item-right > div:nth-child(2){
+}
+.rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item > .item-right > div:nth-child(2){
+    font-size: 1.6vw;
+}
+.item-right > div:nth-child(2){
     width: 100%;
     font-size: 1.6vh;
 }

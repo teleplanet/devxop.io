@@ -1,0 +1,63 @@
+<template name="editTemplate">
+    <div class="row p-5">
+        <div class="col-12">
+            <h4>Criar um menu</h4>
+            <label>Menu Name</label>
+            <input id="menu-name" type="text">
+            <label>Numero de categorias</label>
+            <input id="category-count" type="number" value="1">
+            <button class="button js-create-menu">Criar agora</button>
+        </div>
+
+    </div>
+    <div class="row p-5">
+        <div class="col-12">
+            <h4>Os seus menus</h4>
+            {{#each menu in menus}}
+            <button class="button float-left js-menu-select m-3" data-menu-index="{{@index}}">{{menu.name}}</button>
+            {{/each}}
+            
+        </div>
+    </div>
+    {{#if menuSelected}}
+    <div class="row p-3">
+        <div class="col-12">
+            <button class="button js-delete-menu">Remover este menu</button>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-md-6">
+            {{#with editSet}}
+            <div class="edit-wrapper p-3">
+                <label>Nome</label>
+                <input class="form-control js-edit-set" type="text" data-key="name" value="{{this.name}}">
+                <label>Nome 2</label>
+                <input class="form-control js-edit-set" type="text" data-key="name2" value="{{this.name2}}">
+                {{#if isTwoColumn this.style}}
+                <button class="button js-set-two-column float-left m-3" data-key="style" value="">Uma Coluna</button>
+                {{else}}
+                <button class="button js-set-two-column float-left m-3" data-key="style" value="two-column">Duas Colunas</button>
+                {{/if}}
+                <br><br>
+                <button class="button js-add-row float-left m-3">Adicionar fila nova</button>
+            </div>
+            {{/with}}
+            {{#with editItem}}
+            <div class="edit-wrapper p-3">
+                <label>Info 1</label>
+                <textarea class="form-control js-edit-item" data-key="info1">{{this.info1}}</textarea>
+                <label>Info 2</label>
+                <textarea class="form-control js-edit-item" data-key="info2">{{this.info2}}</textarea>
+                <label>Preço</label>
+                <input class="form-control js-edit-item" type="text" data-key="price" value="{{this.price}}">
+                <label>Extra</label>
+                <input class="form-control js-edit-item" type="text" data-key="icons" value="{{this.icons}}">
+                <button class="button js-remove-row float-left m-3">Remover fila selecionada</button>
+            </div>
+            {{/with}}
+
+        </div>
+    </div>
+    {{/if}}
+
+</template>
