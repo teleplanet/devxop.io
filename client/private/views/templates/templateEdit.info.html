@@ -2,9 +2,9 @@
     {{#with editCategory}}
     <div class="edit-wrapper p-3">
         <label>Nome</label>
-        <input class="form-control js-edit-set" type="text" data-key="name" value="{{this.name}}">
+        <input class="form-control js-edit-category" type="text" data-key="name" value="{{this.name}}">
         <label>Nome 2</label>
-        <input class="form-control js-edit-set" type="text" data-key="name2" value="{{this.name2}}">
+        <input class="form-control js-edit-category" type="text" data-key="name2" value="{{this.name2}}">
         {{#if isTwoColumn this.style}}
         <button class="button js-set-two-column float-left m-3" data-key="style" value="">Uma Coluna</button>
         {{else}}

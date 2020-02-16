@@ -15,7 +15,7 @@
                 </div>
                 <div class="section-content">
                     {{#let categoryIndex=@index}}
-                    {{#each item in set.data}}
+                    {{#each item in category.data}}
                     <div class="content-item {{category.style}} js-item-select"
                         data-category-index="{{categoryIndex}}" data-item-index="{{@index}}">
                         <div class="item-left">
