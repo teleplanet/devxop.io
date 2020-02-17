@@ -69,6 +69,7 @@ Template.deviceEdit.helpers({
             "edit_display": "static",
             "static_thumb": "",
             "video_name": "",
+            "template": "",
             "code": "",
         }
 
@@ -110,6 +111,14 @@ Template.deviceEdit.helpers({
                 data.video_name = video.original.name
 
             }
+
+            /* GET TEMPLATE */
+            let template = Images.findOne({ _id: data.device.display_types.template.image });
+            if (template) {
+                data.template = template.url();
+
+            }
+
 
             data.code = data.device.display_types.code.code
 
@@ -220,6 +229,23 @@ Template.deviceEdit.events({
                 Devices.update(device._id, {
                     $set: {
                         "display_types.static.image": image._id,
+                        "update": true
+                    }
+                });
+            }
+        });
+
+        return false;
+    },
+    'click .js-select-template': function (event) {
+        event.preventDefault();
+
+        templateListModal(function (err, template) {
+            if (template) {
+                let device = Session.get("device-edit");
+                Devices.update(device._id, {
+                    $set: {
+                        "display_types.template.image": template.image,
                         "update": true
                     }
                 });

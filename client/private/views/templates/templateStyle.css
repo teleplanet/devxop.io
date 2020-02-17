@@ -12,8 +12,8 @@
     transform: rotate(90deg);
     transform-origin: bottom left;
     top: -100vw;
-    height: 100vw;
-    width: 100vh;
+    height: 100vw !important;
+    width: 100vh !important;
     position: absolute;
   }
 
@@ -21,9 +21,6 @@
     transform: rotate(270deg);
     transform-origin: top left;
     top: 100vh;
-    height: 100vw;
-    width: 100vh;
-    position: absolute;
   }
 
 /* body, html{
@@ -40,13 +37,14 @@
     z-index: 1000;
     overflow: hidden;
     right: -100%;
+    top: -100%;
 }
 
 #template{
-    width: 100%;
-    height: 100%;
     float: left;
     position: absolute;
+    width: 100%;
+    height: 100vh;
 }
 
 .rotate90 > .menu-wrapper-image {
@@ -70,7 +68,7 @@
     width: 100%;
     height: 100vh;
     color: #fff;
-    font-family: custom;
+    font-family: custom !important;
     z-index: 100;
     position: absolute;
 }
@@ -96,22 +94,26 @@
 
 .rotate90 > .menu-wrapper > .menu-section > .menu-section > .section-title{
     margin-top: 1vw;
+    margin-bottom: 0.2vw;
 }
 .menu-section > .section-title{
     width: 100%;
     padding: 0;
     margin-top: 1vh;
+    cursor: pointer;
+    margin-bottom: 0.2vh;
 }
 
 .rotate90 > .menu-wrapper > .menu-section > .section-title > div:nth-child(1){
     font-size: 3.13vw;
     letter-spacing: 0.75vw;
+    border-bottom: 1.06vw double #fff;
 }
 .section-title > div:nth-child(1){
     font-size: 3.13vh;
     display: inline;
     letter-spacing: 0.75vh;
-    font-family: section-title;
+    font-family: section-title !important;
     text-align: center;
     border-bottom: 1.06vh double #fff;
     text-transform: uppercase;
@@ -136,24 +138,24 @@
 }
 
 .rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item{
-    margin-top: 0.6vw;
+    margin-top: 0.2vw;
 }
 .section-content > .content-item{
     width: 100%;
     float: left;
-    margin-top: 0.6vh;
+    margin-top: 0.2vh;
     transition: all 0.4s ease-in-out;
 }.content-item:hover, .content-item:focus, .content-item.selected, .section-title.selected{
-    transform: scale(1.05);
+    /* padding: 2%; */
     cursor: pointer;
-
-    color: tomato !important;
+    background-color: rgba(204, 204, 204, 0.3);
+    color: #fff !important;
 }
 
 
 
 .content-item > .item-left{
-    width: 80%;
+    width: 85%;
     float: left;
 }
 
@@ -161,21 +163,33 @@
     width: 50%;
 }.content-item.two-column > .item-left{
     width: 70%;
-} .content-item.two-column > .item-left > div:nth-child(1){
+} 
+
+
+.rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item.two-column > .item-left > div:nth-child(1){
+    font-size: 2vw;
+}
+.rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item.two-column > .item-left > div:nth-child(1) > span:nth-child(1){
+    font-size: 1.8vw;
+}
+
+.content-item.two-column > .item-left > div:nth-child(1){
     font-size: 2vh;
 }.content-item.two-column > .item-left > div:nth-child(1) > span:nth-child(1){
     font-size: 1.8vh;
     display: block;
 }
 
+
+
 .rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item > .item-left > div:nth-child(1){
-    font-size: 1.6vw;
-    line-height: 2.2vw;
+    font-size: 2.3vw;
+    line-height: 2vw;
 }
 .item-left > div:nth-child(1){
-    font-size: 2.5vh;
+    font-size: 2.3vh;
     text-align: justify;
-    line-height: 2.2vh;
+    line-height: 2vh;
 }
 
 .rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item > .item-left > div:nth-child(1) > span:nth-child(1){
@@ -190,7 +204,7 @@
 }
 
 .content-item > .item-right{
-    width: 20%;
+    width: 15%;
    float: left;
    text-align: center;
 }
@@ -204,17 +218,24 @@
     display: block;
 }
 
+.rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item.two-column > .item-right > div:nth-child(1){
+    font-size: 2vw;
+}
+.rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item.two-column > .item-right > div:nth-child(2){
+    font-size: 1.8vw;
+}
+
 .rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item > .item-right > div:nth-child(1){
-    font-size: 2.7vw;
+    font-size: 2.2vw;
 }
 .item-right > div:nth-child(1){
     width: 100%;
-    font-size: 2.7vh;
+    font-size: 2.2vh;
 }
 .rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item > .item-right > div:nth-child(2){
-    font-size: 1.6vw;
+    font-size: 1.8vw;
 }
 .item-right > div:nth-child(2){
     width: 100%;
-    font-size: 1.6vh;
+    font-size: 1.8vh;
 }

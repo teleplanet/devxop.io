@@ -1,0 +1,31 @@
+<template name="moduleTemplateListPopup">
+    <div class="template-list-modal">
+        <div class="row">
+            <div class="col s12">
+                <i class="medium material-icons js-template-list-cancel">close</i>
+            </div>
+        </div>
+        <div class="row">
+            {{#each template in templates}}
+            <div class="col-sm-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <img src="{{imageUrl template.image}}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <div class="button center js-template-selected"
+                                data-template-id="{{template._id}}">
+                                Select template</div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="row">
+            <div class="col s6">
+
+            </div>
+        </div>
+    </div>
+    <div class="template-list-background"></div>
+</template>

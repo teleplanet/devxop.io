@@ -1,5 +1,5 @@
 Router.route('/templates', {
-    name: 'templates',
+    name: 'media.templates',
   controller: 'PrivateController',
   action: function(){
       Session.set("route", "Templates");
@@ -22,6 +22,27 @@ Router.route('/templates/:deviceId', {
         Session.set("template-edit", template);
 
 		this.render("templateEdit");
+	  }
+	  uiInfo(false);
+	},
+    onStop: function() {
+        uiInfo(true);
+    }
+  });
+
+  Router.route('/templates/:templateId/preview', {
+	template: "emptyBase",
+	waitOn: function () {
+		return [
+			Meteor.subscribe("templates"),
+		];
+	},
+	action: function(){
+	  if(this.ready()){
+		let template = Templates.findOne({"_id": this.params.templateId});
+        Session.set("template-edit", template);
+
+		this.render("templatePreview");
 	  }
 	  uiInfo(false);
 	},

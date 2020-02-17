@@ -152,6 +152,14 @@ Router.route('/api/display', { where: 'server' }).get(function () {
                 data.display = "webview";
                 data.code = device.display_types[selected].code
 
+            } else if (selected == "template") {
+                let img = Images.findOne({ "_id": device.display_types[selected].image });
+                data.display = "image";
+                if (img) {
+                    let imgUrl = img.url();
+                    data.url = imgUrl;
+                }
+
             }
         }
 

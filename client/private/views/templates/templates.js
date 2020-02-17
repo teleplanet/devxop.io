@@ -35,5 +35,20 @@ Template.templates.events({
         let templateId = $(event.currentTarget).data('template-id');
 
         Router.go("/templates/" + templateId);
+    },
+    'click .js-template-remove': function(event){
+        let templateId = $(event.currentTarget).data('template-id');
+        confirmPopup({
+            "title": "Apagar menu",
+            "msg": "Tem a certeza que deseja remover este menu?",
+            "btn_type": "danger",
+            "btn_msg": "Apagar"
+        }, function(err, res){
+            if(err){}
+            else{
+                Templates.remove(templateId);
+            }
+        });
+        
     }
 });

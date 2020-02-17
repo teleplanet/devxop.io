@@ -1,4 +1,22 @@
 <template name="templateEdit">
+    <div class="row p-5">
+        <div class="col-12">
+            <button class="button js-generate-template center">Gerar Menu</button>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12">
+            <div style="margin: auto; text-align: center;">
+                <iframe id="template-edit-iframe" style="width: 480px; height: 720px"></iframe>
+            </div>
+        </div>
+    </div>
+
+
+    <iframe id="template-iframe"></iframe>
+</template>
+
+<template name="templatePreview">
     {{#with template}}
     <div id="template">
         <img id="template-image" src="/images/board2Border.jpg" class="menu-wrapper-image">
@@ -16,7 +34,7 @@
                 <div class="section-content">
                     {{#let categoryIndex=@index}}
                     {{#each item in category.data}}
-                    <div class="content-item {{category.style}} js-item-select"
+                    <div class="content-item {{category.style}} js-item-select {{selected categoryIndex @index}}"
                         data-category-index="{{categoryIndex}}" data-item-index="{{@index}}">
                         <div class="item-left">
                             <div class="js-edit">{{item.info1}}

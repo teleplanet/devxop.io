@@ -1,18 +1,122 @@
 
+
 Template.templateEdit.onRendered(function(){
         var controller = Iron.controller();
         controller.render('templateEditInfo', { to: 'nav-panel-info' });
-});
 
-Template.templateEdit.helpers({
-    'template': function(){
-        return Session.get("template-edit");
-    },
-    
+        $("#template-edit-iframe").attr("src", "/templates/" + Session.get("template-edit")._id + "/preview");
+
+        //$("#template-iframe").attr("src", "/templates/" + Session.get("template-edit")._id + "/preview");
 });
 
 Template.templateEdit.events({
+    'click .js-generate-template': function () {
+        let template = Session.get("template-edit");
+
+        Templates.update(template._id, {
+            $set: {
+                "editing": {}
+            }
+        });
+        // You can then get the data URL when the image got loaded:
+        let width = "1920";
+        let height = "1080";
+
+        let elem = $("#template-edit-iframe").contents().find('#template')[0];
+        $("#template-edit-iframe").css({ "width": width + "px", "height": height + "px" });
+        $(elem).addClass("rotate90");
+        $(elem).addClass("anticlock");
+        document.html2canvas(elem, { "width": width, "height": height }).then(canvas => {
+            //console.log(canvas.toDataURL("image/jpeg"));
+            //document.body.appendChild(canvas);
+
+            var blob = dataURItoBlob(canvas.toDataURL("image/jpeg"));
+
+            new ImageCompressor(blob, {
+                quality: 1,
+                width: width,
+                height: height,
+                success(result) {
+                    var imageObj = new FS.File(result);
+                    imageObj['user_id'] = Meteor.userId();
+                    imageObj['template_id'] = template._id;
+
+                    //check existense
+                    let exists = Images.findOne({ "user_id": Meteor.userId(), "template_id": template._id });
+                    if (exists) {
+                        Images.remove(exists._id);
+                    }
+
+                    Images.insert(imageObj, function (err, image) {
+                        // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            Templates.update(template._id, {
+                                $set: {
+                                    "image": imageObj._id
+                                }
+                            });
+
+                            Router.go("/templates");
+                        }
+                    });
+
+
+
+                },
+                error(e) {
+                    console.log(e.message);
+                },
+            });
+
+
+
+        });
+
+        $(elem).removeClass("rotate90");
+        $(elem).removeClass("anticlock");
+        $("#template-edit-iframe").css({ "width": "480px", "height": "720px" });
+    },
+})
+
+Template.templatePreview.helpers({
+    'template': function(){
+        return Session.get("template-edit");
+    },
+    'editCategory': function(){
+        let editIndex = Session.get("template-edit-index");
+
+        if(!editIndex) return;
+
+        if(editIndex.category_edit){
+            return Session.get("template-edit").data[editIndex.category_index];
+        }
+    },
+    'editItem': function(){
+
+    },
+    'selected': function (categoryIndex, itemIndex) {
+        let editIndex = Session.get("template-edit-index");
+        
+        if(!editIndex) return;
+        
+        if (typeof categoryIndex != undefined && typeof itemIndex == "undefined") {
+            if (categoryIndex == editIndex.category_index) {
+                return "selected";
+            }
+        } else if (typeof setIndex != undefined && typeof itemIndex != "undefined") {
+            if (categoryIndex == editIndex.category_index && itemIndex == editIndex.item_index) {
+                return "selected";
+            }
+        }
+        return "";
+    },
+});
+
+Template.templatePreview.events({
     'click .js-category-select': function(event){
+        let template = Session.get("template-edit");
         let categoryIndex = $(event.currentTarget).data("category-index");
 
         let data = {
@@ -22,9 +126,16 @@ Template.templateEdit.events({
             'item_edit': false
         }
 
+        Templates.update(template._id, {
+            $set: {
+                "editing": data
+            }
+        })
+
         Session.set("template-edit-index", data);
     },
     'click .js-item-select': function(event){
+        let template = Session.get("template-edit");
         let categoryIndex = $(event.currentTarget).data("category-index");
         let itemIndex = $(event.currentTarget).data("item-index");
 
@@ -34,6 +145,12 @@ Template.templateEdit.events({
             'item_index': itemIndex,
             'item_edit': true,
         }
+
+        Templates.update(template._id, {
+            $set: {
+                "editing": data
+            }
+        })
 
         Session.set("template-edit-index", data);
     }
