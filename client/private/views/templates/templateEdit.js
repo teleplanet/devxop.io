@@ -1,16 +1,18 @@
 
+import ImageCompressor from 'image-compressor.js';
 
-Template.templateEdit.onRendered(function(){
-        var controller = Iron.controller();
-        controller.render('templateEditInfo', { to: 'nav-panel-info' });
+Template.templateEdit.onRendered(function () {
+    var controller = Iron.controller();
+    controller.render('templateEditInfo', { to: 'nav-panel-info' });
 
-        $("#template-edit-iframe").attr("src", "/templates/" + Session.get("template-edit")._id + "/preview");
+    $("#template-edit-iframe").attr("src", "/templates/" + Session.get("template-edit")._id + "/preview");
 
-        //$("#template-iframe").attr("src", "/templates/" + Session.get("template-edit")._id + "/preview");
+    //$("#template-iframe").attr("src", "/templates/" + Session.get("template-edit")._id + "/preview");
 });
 
 Template.templateEdit.events({
-    'click .js-generate-template': function () {
+    'click .js-generate-template': function (event) {
+        $(event.currentTarget).hide();
         let template = Session.get("template-edit");
 
         Templates.update(template._id, {
@@ -26,6 +28,8 @@ Template.templateEdit.events({
         $("#template-edit-iframe").css({ "width": width + "px", "height": height + "px" });
         $(elem).addClass("rotate90");
         $(elem).addClass("anticlock");
+
+        /* $("#template-edit-iframe").css({ "right": "-100%", "position": "absolute" }); */
         document.html2canvas(elem, { "width": width, "height": height }).then(canvas => {
             //console.log(canvas.toDataURL("image/jpeg"));
             //document.body.appendChild(canvas);
@@ -52,13 +56,43 @@ Template.templateEdit.events({
                         if (err) {
                             console.log(err);
                         } else {
-                            Templates.update(template._id, {
-                                $set: {
-                                    "image": imageObj._id
-                                }
-                            });
+                            scaleImage(canvas.toDataURL("image/jpeg"), 720, 480, function (canvas) {
+                                var blob = dataURItoBlob(canvas.toDataURL("image/jpeg"));
+                                new ImageCompressor(blob, {
+                                    quality: 1,
+                                    width: 720,
+                                    height: 480,
+                                    success(result) {
 
-                            Router.go("/templates");
+                                        var thumbObj = new FS.File(result);
+                                        thumbObj['user_id'] = Meteor.userId();
+                                        thumbObj['template_id'] = template._id;
+                                        Thumbnails.insert(thumbObj, function (err, thumbnail) {
+                                            // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+
+                                                Templates.update(template._id, {
+                                                    $set: {
+                                                        "image": imageObj._id,
+                                                        "image_thumb": thumbObj._id
+                                                    }
+                                                });
+
+                                                $(event.currentTarget).show();
+
+                                                Router.go("/templates");
+                                            }
+                                        });
+
+                                    },
+                                    error(e) {
+                                        console.log(e.message);
+                                    },
+                                });
+                            });
+                            
                         }
                     });
 
@@ -76,31 +110,35 @@ Template.templateEdit.events({
 
         $(elem).removeClass("rotate90");
         $(elem).removeClass("anticlock");
+        /*                                 $("#template-edit-iframe").css({ "right": "initial", "position": "initial" }); */
         $("#template-edit-iframe").css({ "width": "480px", "height": "720px" });
+
+
+
     },
 })
 
 Template.templatePreview.helpers({
-    'template': function(){
+    'template': function () {
         return Session.get("template-edit");
     },
-    'editCategory': function(){
+    'editCategory': function () {
         let editIndex = Session.get("template-edit-index");
 
-        if(!editIndex) return;
+        if (!editIndex) return;
 
-        if(editIndex.category_edit){
+        if (editIndex.category_edit) {
             return Session.get("template-edit").data[editIndex.category_index];
         }
     },
-    'editItem': function(){
+    'editItem': function () {
 
     },
     'selected': function (categoryIndex, itemIndex) {
         let editIndex = Session.get("template-edit-index");
-        
-        if(!editIndex) return;
-        
+
+        if (!editIndex) return;
+
         if (typeof categoryIndex != undefined && typeof itemIndex == "undefined") {
             if (categoryIndex == editIndex.category_index) {
                 return "selected";
@@ -112,10 +150,26 @@ Template.templatePreview.helpers({
         }
         return "";
     },
+    'icon': function (catIndex, itemIndex, key) {
+        let template = Session.get("template-edit");
+
+        let extra = template.data[catIndex].data[itemIndex].icons[key];
+
+        if (extra) {
+            if (key == "new" && extra.selected) {
+                return extra.value;
+            } else {
+                return extra.selected;
+            }
+
+        } else {
+            return false;
+        }
+    }
 });
 
 Template.templatePreview.events({
-    'click .js-category-select': function(event){
+    'click .js-category-select': function (event) {
         let template = Session.get("template-edit");
         let categoryIndex = $(event.currentTarget).data("category-index");
 
@@ -134,7 +188,7 @@ Template.templatePreview.events({
 
         Session.set("template-edit-index", data);
     },
-    'click .js-item-select': function(event){
+    'click .js-item-select': function (event) {
         let template = Session.get("template-edit");
         let categoryIndex = $(event.currentTarget).data("category-index");
         let itemIndex = $(event.currentTarget).data("item-index");

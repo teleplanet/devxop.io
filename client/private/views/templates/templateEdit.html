@@ -13,7 +13,8 @@
     </div>
 
 
-    <iframe id="template-iframe"></iframe>
+    <!-- <iframe id="template-iframe"></iframe> -->
+
 </template>
 
 <template name="templatePreview">
@@ -28,7 +29,10 @@
             {{#each category in this.data}}
             <div class="menu-section">
                 <div class="section-title js-category-select" data-category-index="{{@index}}">
-                    <div class="js-edit">{{category.name}}</div>
+                    <div class="js-edit">{{category.name}}
+                        <div>{{category.name}}</div>
+                        <div>{{category.name}}</div>
+                    </div>
                     <div class="js-edit">{{category.name2}}</div>
                 </div>
                 <div class="section-content">
@@ -44,7 +48,27 @@
 
                         <div class="item-right">
                             <div class="js-edit">{{item.price}}</div>
-                            <div class="js-edit">{{item.icons}}</div>
+                            <div class="js-edit">
+
+                                {{#with icon categoryIndex @index "new"}}
+                                <div class="text">Novo/new</div>
+                                {{else}}
+                                {{#if icon categoryIndex @index "vegan"}}
+                                <div class="icon vegan">vegan</div>
+                                {{/if}}
+                                {{#if icon categoryIndex @index "organic"}}
+                                <div class="icon organic">organic</div>
+                                {{/if}}
+                                {{#if icon categoryIndex @index "gluten"}}
+                                <div class="icon gluten">gluten</div>
+                                {{/if}}
+                                {{/with}}
+                                <!--                            <div class="icon vegan">vegan</div>
+                                <div class="icon gluten">gluten</div>
+                                <div class="icon organic">natural</div>
+                                <div>Novo/new</div>
+                                {{item.icons}} -->
+                            </div>
                         </div>
 
                     </div>

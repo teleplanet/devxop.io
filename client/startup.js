@@ -44,6 +44,22 @@ Meteor.startup(function () {
 				}
 			}
 		});
+
+		let starting = true;
+		Tracker.autorun(function () {
+			if (Meteor.status().connected) {
+				console.log("connected");
+				starting = false;
+			} else {
+				if(starting){
+					console.log("connecting...");
+				}else{
+					document.location.reload(true);
+				}
+				
+				//
+			}
+		});
 	}
 
 });

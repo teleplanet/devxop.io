@@ -24,7 +24,9 @@
 
 .js-template-list-cancel {
     color: #fff !important;
-    float: right;
+	float: right;
+	cursor: pointer;
+	font-size: 48px;
 }
 
 .template-list-modal-toggled{

@@ -4,7 +4,7 @@ imageListModal = function (callback) {
     $(".js-image-list-cancel").unbind('click');
     $(".js-image-selected").unbind('click');
 
-    
+
     //get container instance
     var container = $(".image-list-modal");
     //Session.set("module.imageList", body)
@@ -19,7 +19,7 @@ imageListModal = function (callback) {
         }
     });
 
-    $(".js-image-list-cancel").on("click", function(){
+    $(".js-image-list-cancel").on("click", function () {
         event.preventDefault();
         container.removeClass("image-list-modal-toggled");
 
@@ -27,12 +27,12 @@ imageListModal = function (callback) {
         return callback("Confirmation canceled.", null);
     });
 
-    $(".js-image-selected").on("click", function(event){
+    $(".js-image-selected").on("click", function (event) {
         event.preventDefault();
         container.removeClass("image-list-modal-toggled");
         let imageId = $(event.target).data('image-id');
 
-        let image = Images.findOne({"_id": imageId});
+        let image = Images.findOne({ "_id": imageId });
 
         /* console.log("Session | module.selectedimage: " + image.name)
 
@@ -59,8 +59,8 @@ Template.moduleImageListPopup.helpers({
     'body': function () {
         return Session.get("module.confirmPopup");
     },
-    'images': function(){
-        return Images.find().fetch();
+    'images': function () {
+        return Images.find({ "template_id": { $exists: false } }).fetch();
     }
 });
 

@@ -24,7 +24,7 @@ Template.mediaImages.helpers({
             storage: 0,
         };
 
-        data.images = Images.find({ "download_complete": true }).fetch(),
+        data.images = Images.find({ "download_complete": true, "template_id": { $exists: false } }).fetch(),
             data.total = data.images.length,
 
             data.images.forEach(function (image) {
@@ -47,10 +47,18 @@ Template.mediaImages.events({
     'click .js-remove-image': function (event) {
         event.preventDefault();
 
-        let id = event.target.id;
+        confirmPopup({ title: "Delete image", msg: "Your are attempting to permanantly delete this image. Are you sure?", btn_type: "danger", btn_msg: "Delete(danger)" }, function (canceled, confirmed) {
+            if (canceled) {
+                console.log("device deletion canceled.");
+            } else if (confirmed) {
+                let id = event.target.id;
 
 
-        Images.remove(id);
+                Images.remove(id);
+            }
+        })
+
+
     },
     'change #image-input': function (event) {
         let fileInput = $(event.target);
@@ -97,7 +105,7 @@ Template.mediaImages.events({
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    
+
                                     Deps.autorun(function (computation) {
                                         var fileObj = Images.findOne(image._id);
 

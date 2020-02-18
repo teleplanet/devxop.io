@@ -1,15 +1,26 @@
 <template name="templates">
     <div class="row">
         <div class="col-12">
-            <div class="card no-style center-align light">
+            <div class="card no-style light">
                 <div class="card-body">
                     <div class="row p-3">
                         <div class="col-12">
-                            <h4>Criar um menu</h4>
-                            <label>Menu Name</label>
-                            <input id="template-name" type="text">
+                            <h4>Gerir Menus</h4>
+                            <p>Aqui tens opção para gerir os teus menus. Podes ter um numero infinito de ementas especializadas. 
+                                Para criar mais, basta escrever um nome descritivo e o numero de categorias que pretendes na ementa.
+                                <br>Categorias são consideradas agrupamentos(Entradas, Carnes, Bebidas, etc.)
+                            </p>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <label>Nome de menu</label>
+                            <input class="form-control" id="template-name" type="text">
+                        </div>
+                        <div class="col-sm-12 col-md-4">
                             <label>Numero de categorias</label>
-                            <input id="template-cat-count" type="number" value="1">
+                            <input class="form-control" id="template-cat-count" type="number" value="1">
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <br>
                             <button class="button js-create-template">Criar agora</button>
                         </div>
                     </div>
@@ -25,7 +36,7 @@
                 <div style="order:2; padding: 0;"
                     class="Rtable-cell Rtable-cell--image Rtable-cell--head --alignMiddle">
                     <div class="thumb small"
-                        style="width: 100%; height: 200px; background-image: url({{imageUrl template.image}});">
+                        style="width: 100%; height: 200px; background-image: url({{thumbUrl template.image_thumb}});">
                     </div>
                 </div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">

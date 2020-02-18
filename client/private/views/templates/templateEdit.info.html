@@ -28,9 +28,29 @@
         <textarea class="form-control js-edit-item" data-key="info2">{{this.info2}}</textarea>
         <label>Preço</label>
         <input class="form-control js-edit-item" type="text" data-key="price" value="{{this.price}}">
-        <label>Extras</label>
-        <input class="form-control js-edit-item" type="text" data-key="icons" value="{{this.icons}}">
+        <!--         <label>Extras</label>
+        <input class="form-control js-edit-item" type="text" data-key="icons" value="{{this.icons}}"> -->
         <button class="button js-remove-row float-left m-3">Remover este Elemento</button>
+    </div>
+    <div class="row p-2">
+        <div class="col-12">
+            <label>Extras</label>
+        </div>
+
+        <div class="col-sm-12 col-md-6 mb-1">
+            <button class="button js-select-extra center" data-key="organic">Organico</button>
+        </div>
+        <div class="col-sm-12 col-md-6 mb-1">
+            <button class="button js-select-extra center" data-key="vegan">Vegan</button>
+        </div>
+        <div class="col-sm-12 col-md-6 mb-1">
+            <button class="button js-select-extra center" data-key="gluten">s/Gluten</button>
+        </div>
+        <div class="col-sm-12 col-md-6 mb-1">
+            <button class="button js-select-extra center" data-key="new">Novo</button>
+        </div>
+
+
     </div>
     {{/with}}
 

@@ -34,10 +34,24 @@ Template.mediaVideos.events({
     'click .js-remove-video': function (event) {
         event.preventDefault();
 
-        let id = event.target.id;
+        confirmPopup({
+            title: "Delete Video",
+            msg: "Your are attempting to permanantly delete this video. Are you sure?",
+            btn_type: "danger",
+            btn_msg: "Delete(danger)"
+        },
+        function (canceled, confirmed) {
+            if (canceled) {
+                console.log("device deletion canceled.");
+            } else if (confirmed) {
+                let id = event.target.id;
 
 
-        Videos.remove(id);
+                Videos.remove(id);
+            }
+        });
+
+
     },
     'change #video-input': function (event) {
         let fileInput = $(event.target);
@@ -104,7 +118,7 @@ Template.mediaVideos.events({
 
                 }
             });
-            
+
         }
 
     }

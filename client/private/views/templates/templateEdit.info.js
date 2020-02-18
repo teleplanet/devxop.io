@@ -1,4 +1,3 @@
-import ImageCompressor from 'image-compressor.js';
 
 Template.templateEditInfo.onRendered(function () {
 
@@ -109,6 +108,47 @@ Template.templateEditInfo.events({
         dataSet[key] = $(event.target).val();
 
         template.data[editIndex.category_index] = dataSet;
+
+        Templates.update(template._id, {
+            $set: {
+                "data": template.data
+            }
+        });
+
+    },
+    'click .js-select-extra': function(event){
+        let template = Session.get("template-edit");
+        let editIndex = Session.get("template-edit-index");
+        let key = $(event.target).data("key");
+
+        let dataSet = template.data[editIndex.category_index].data;
+
+        let item = dataSet[editIndex.item_index];
+        
+
+        if(typeof item.icons != "object"){
+            item.icons = {};
+        }
+
+        let icon = item.icons[key];
+        if(typeof icon != "undefined"){
+            //update icon
+            if(icon.selected){
+                icon = {"selected": false, "value": key};
+            }else{
+                icon = {"selected": true, "value": key};
+            }
+        }else{
+            //create icon
+            icon = {"selected": true, "value": key};
+        }
+        
+        item.icons[key] = icon;
+
+        dataSet[editIndex.item_index] = item
+
+        template.data[editIndex.category_index].data = dataSet;
+
 
         Templates.update(template._id, {
             $set: {

@@ -70,6 +70,7 @@ Template.deviceEdit.helpers({
             "static_thumb": "",
             "video_name": "",
             "template": "",
+            "template_img": "",
             "code": "",
         }
 
@@ -101,22 +102,31 @@ Template.deviceEdit.helpers({
             /* GET IMAGE */
             let image = Images.findOne({ _id: data.device.display_types.static.image });
             if (image) {
-                data.static_thumb = Thumbnails.findOne({ _id: image.image_thumb }).url();
+                let thumb = Thumbnails.findOne({ _id: image.image_thumb });
 
+                if(thumb){
+                    data.static_thumb = thumb.url();
+                }
             }
 
             /* GET Video */
             let video = Videos.findOne({ _id: data.device.display_types.video.video });
             if (video) {
                 data.video_name = video.original.name
-
             }
 
             /* GET TEMPLATE */
-            let template = Images.findOne({ _id: data.device.display_types.template.image });
-            if (template) {
-                data.template = template.url();
-
+            data.template = Templates.findOne({ _id: data.device.display_types.template.id });
+            if (data.template) {
+                //data.template = template.url();
+                let thumb = Thumbnails.findOne({ _id: data.template.image_thumb });
+                if(thumb){
+                    data.template_img = thumb.url();
+                }else{
+                    console.log("no image thumb... using main image");
+                    let img = Images.findOne({ _id: data.template.image });
+                    data.template_img = img.url();
+                }
             }
 
 
@@ -246,6 +256,7 @@ Template.deviceEdit.events({
                 Devices.update(device._id, {
                     $set: {
                         "display_types.template.image": template.image,
+                        "display_types.template.id": template._id,
                         "update": true
                     }
                 });

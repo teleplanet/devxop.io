@@ -7,11 +7,13 @@
         </div>
         <div class="row">
             {{#each template in templates}}
-            <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="card">
-                    <img src="{{imageUrl template.image}}" class="card-img-top" alt="">
+                    <img src="{{thumbUrl template.image_thumb}}" class="card-img-top" alt="">
                     <div class="card-body">
+                        <p class="card-text">{{template.name}}</p>
                         <p class="card-text">
+                            
                             <div class="button center js-template-selected"
                                 data-template-id="{{template._id}}">
                                 Select template</div>
