@@ -20,6 +20,8 @@ Template.templateEdit.events({
                 "editing": {}
             }
         });
+
+        
         // You can then get the data URL when the image got loaded:
         let width = "1920";
         let height = "1080";

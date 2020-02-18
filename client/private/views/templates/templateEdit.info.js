@@ -116,6 +116,32 @@ Template.templateEditInfo.events({
         });
 
     },
+    'click .js-select-info': function(event){
+        let template = Session.get("template-edit");
+        let editIndex = Session.get("template-edit-index");
+        let key = $(event.target).data("key");
+
+        let dataSet = template.data[editIndex.category_index].data
+
+        let style = dataSet[editIndex.item_index]["style"];
+
+        if(typeof style != "undefined"){
+            if(style == key){
+                dataSet[editIndex.item_index]["style"] = "";
+            }else{
+                dataSet[editIndex.item_index]["style"] = key;
+            }
+        }
+        template.data[editIndex.category_index].data = dataSet;
+
+
+        Templates.update(template._id, {
+            $set: {
+                "data": template.data
+            }
+        });
+
+    },
     'click .js-select-extra': function(event){
         let template = Session.get("template-edit");
         let editIndex = Session.get("template-edit-index");

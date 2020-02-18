@@ -7,7 +7,7 @@
     <div class="row p-3">
         <div class="col-12">
             <div style="margin: auto; text-align: center;">
-                <iframe id="template-edit-iframe" style="width: 480px; height: 720px"></iframe>
+                <iframe id="template-edit-iframe" style="width: 720px; height: 480px"></iframe>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
 
 <template name="templatePreview">
     {{#with template}}
-    <div id="template">
+    <div id="template" class="rotate90 anticlock">
         <img id="template-image" src="/images/board2Border.jpg" class="menu-wrapper-image">
         <div class="menu-wrapper">
             <div class="menu-title">
@@ -38,7 +38,7 @@
                 <div class="section-content">
                     {{#let categoryIndex=@index}}
                     {{#each item in category.data}}
-                    <div class="content-item {{category.style}} js-item-select {{selected categoryIndex @index}}"
+                    <div class="content-item {{category.style}} {{item.style}} js-item-select {{selected categoryIndex @index}}"
                         data-category-index="{{categoryIndex}}" data-item-index="{{@index}}">
                         <div class="item-left">
                             <div class="js-edit">{{item.info1}}
