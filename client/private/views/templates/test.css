@@ -1,0 +1,11 @@
+.confirm-render{
+    width: 50%;
+    height: 66%;
+    padding: 2%;
+    position: absolute;
+    z-index: 1000;
+}.confirm-render > img{
+    width: 100%;
+    height: 100%;
+    
+}

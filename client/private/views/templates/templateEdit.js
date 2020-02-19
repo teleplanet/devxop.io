@@ -32,8 +32,8 @@ Template.templateEdit.events({
 
         
         // You can then get the data URL when the image got loaded:
-        let width = "1920";
-        let height = "1080";
+        let width = "4096";
+        let height = "2160";
 
         let elem = $("#template-edit-iframe").contents().find('#template')[0];
         $("#template-edit-iframe").css({ "width": width + "px", "height": height + "px" });
@@ -41,7 +41,7 @@ Template.templateEdit.events({
         $(elem).addClass("anticlock");
 
         /* $("#template-edit-iframe").css({ "right": "-100%", "position": "absolute" }); */
-        document.html2canvas(elem, { "width": width, "height": height }).then(canvas => {
+        document.html2canvas(elem, { "width": width, "height": height, "userCORS": true }).then(canvas => {
             //console.log(canvas.toDataURL("image/jpeg"));
             //document.body.appendChild(canvas);
 

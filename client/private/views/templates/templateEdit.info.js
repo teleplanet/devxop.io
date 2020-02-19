@@ -16,6 +16,9 @@ Template.templateEditInfo.helpers({
     'template': function () {
         return Session.get("template-edit");
     },
+    'confirmRender': function(){
+        return Session.get("confirm-render");
+    },
     'editCategory': function () {
         let editIndex = Session.get("template-edit-index");
 
