@@ -131,8 +131,11 @@ Template.templateEditInfo.events({
             }else{
                 dataSet[editIndex.item_index]["style"] = key;
             }
+        }else{
+            dataSet[editIndex.item_index]["style"] = key;
         }
         template.data[editIndex.category_index].data = dataSet;
+
 
 
         Templates.update(template._id, {

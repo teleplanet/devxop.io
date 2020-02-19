@@ -220,14 +220,14 @@
 
 
 .rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item.two-column > .item-left > div:nth-child(1){
-    font-size: 2vw;
+    font-size: 1.8vw;
 }
 .rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item.two-column > .item-left > div:nth-child(1) > span:nth-child(1){
     font-size: 1.8vw;
 }
 
 .content-item.two-column > .item-left > div:nth-child(1){
-    font-size: 2vh;
+    font-size: 1.8vh;
 }.content-item.two-column > .item-left > div:nth-child(1) > span:nth-child(1){
     font-size: 1.8vh;
     display: block;
@@ -236,11 +236,11 @@
 
 
 .rotate90 > .menu-wrapper > .menu-section > .section-content > .content-item > .item-left > div:nth-child(1){
-    font-size: 2.3vw;
+    font-size: 2.1vw;
     line-height: 2vw;
 }
 .item-left > div:nth-child(1){
-    font-size: 2.3vh;
+    font-size: 2.1vh;
     text-align: justify;
     line-height: 2vh;
 }
@@ -258,8 +258,10 @@
 
 .content-item.info{
     font-style: italic !important;
-    opacity: 0.8 !important;
-    transform: scale(0.95) !important;
+    opacity: 0.90 !important;
+    font-size: 1.4vw !important;
+    transform: scale(0.8);
+    transform-origin: left;
 }
 
 .content-item > .item-right{
