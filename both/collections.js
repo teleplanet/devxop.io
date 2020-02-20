@@ -33,7 +33,7 @@ MultiscreenSchedule.allow({
         doc["user_id"] = userId;
 
         let exists = MultiscreenSchedule.findOne({ "user_id": userId });
-        if (exists) { 
+        if (exists) {
             return false;
         }
 
@@ -351,6 +351,9 @@ Thumbnails = new FS.Collection('thumbnails', {
 
 
 Images.allow({
+    /* transformWrite: function (fileObj, readStream, writeStream) {
+        gm(readStream, fileObj.name).autoOrient().stream().pipe(writeStream);
+    }, */
     insert: function (userId, doc) {
 
         //doc.chunkSum vs chunkCount = calculate upload progress

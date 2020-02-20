@@ -153,12 +153,16 @@ Router.route('/api/display', { where: 'server' }).get(function () {
                 data.code = device.display_types[selected].code
 
             } else if (selected == "template") {
-                let img = Images.findOne({ "_id": device.display_types[selected].image });
-                data.display = "image";
-                if (img) {
-                    let imgUrl = img.url();
-                    data.url = imgUrl;
+                let template = Templates.findOne({ "_id": device.display_types[selected].id });
+                if (template) {
+                    let img = Images.findOne({ "_id": template.image });
+                    data.display = "image";
+                    if (img) {
+                        let imgUrl = img.url();
+                        data.url = imgUrl;
+                    }
                 }
+
 
             }
         }
@@ -323,6 +327,6 @@ Router.route('/api/device/time', { where: 'server' }).get(function () {
     //console.log(params.device_id);
 
 
-    resp(res, 200, ""+ new Date().getTime());
+    resp(res, 200, "" + new Date().getTime());
 
 });

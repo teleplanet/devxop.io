@@ -22,6 +22,7 @@ Template.templateEdit.onRendered(function () {
 Template.templateEdit.events({
     'click .js-generate-template': function (event) {
         $(event.currentTarget).hide();
+        let rotation = $(event.currentTarget).data("rotation");
         let template = Session.get("template-edit");
 
         Templates.update(template._id, {
@@ -32,13 +33,21 @@ Template.templateEdit.events({
 
         
         // You can then get the data URL when the image got loaded:
-        let width = "4096";
-        let height = "2160";
+        let width = "1920";
+        let height = "1080";
 
         let elem = $("#template-edit-iframe").contents().find('#template')[0];
         $("#template-edit-iframe").css({ "width": width + "px", "height": height + "px" });
-        $(elem).addClass("rotate90");
-        $(elem).addClass("anticlock");
+
+        if(typeof rotation != "undefined"){
+            if(rotation == "90"){
+                $(elem).addClass("rotate90");
+            }else if(rotation == "-90"){
+                $(elem).addClass("rotate90");
+                $(elem).addClass("anticlock");
+            }
+        }
+        
 
         /* $("#template-edit-iframe").css({ "right": "-100%", "position": "absolute" }); */
         document.html2canvas(elem, { "width": width, "height": height, "userCORS": true }).then(canvas => {
