@@ -16,6 +16,9 @@
         </div>
     </div>
 
+    <img id="image" width="1080" height="1920" style="right: -200%; position: fixed; visibility: hidden;">
+    <canvas id="canvas" style="right: -200%; position: fixed;"></canvas>
+
 
     <!-- <iframe id="template-iframe"></iframe> -->
    <!--  <canvas id="iframe-canvas" width="1920" height="1080"></canvas>
@@ -34,9 +37,9 @@
     <div id="template" >
         <img id="template-image" src="/images/board2Border.jpg" class="menu-wrapper-image">
         <div class="menu-wrapper">
-            <div class="menu-title">
+            <!-- <div class="menu-title">
                 EMENTA
-            </div>
+            </div> -->
 
             {{#each category in this.data}}
             <div class="menu-section">
@@ -63,7 +66,7 @@
                             <div class="js-edit">
 
                                 {{#with icon categoryIndex @index "new"}}
-                                <div class="text">Novo/new</div>
+                                <div class="text">Novo/New</div>
                                 {{else}}
                                 {{#if icon categoryIndex @index "vegan"}}
                                 <div class="icon vegan">vegan</div>

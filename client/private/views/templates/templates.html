@@ -30,7 +30,7 @@
     </div>
     <div class="row p-3 mb-3">
         <div class="col-12">
-            <div class="Rtable Rtable--4cols Rtable--collapse">
+            <div class="Rtable Rtable--5cols Rtable--collapse">
 
                 {{#each template in templates}}
                 <div style="order:2; padding: 0;"
@@ -41,6 +41,9 @@
                 </div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">
                     {{template.name}}
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    <a href="{{imageUrl template.image}}" target="_blank" class="button blue">Ver</a>
                 </div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">
                     <button class="button blue js-template-select" data-template-id="{{template._id}}">Editar</button>
