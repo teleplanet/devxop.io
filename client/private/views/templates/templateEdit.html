@@ -8,7 +8,7 @@
     <div class="row p-3">
         <div class="col-12">
             <div style="margin: auto; text-align: center;">
-                <iframe id="template-edit-iframe" style="width: 480px; height: 720px"></iframe>
+                <iframe id="template-edit-iframe" style="width: 1080px; height: 1920px"></iframe>
             </div>
             <!-- <div style="margin: auto; text-align: center;">
                 <iframe id="template-edit-iframe" style="width: 720px; height: 480px"></iframe>
@@ -35,7 +35,7 @@
 <template name="templatePreview">
     {{#with template}}
     <div id="template" >
-        <img id="template-image" src="/images/board2Border.jpg" class="menu-wrapper-image">
+        <img id="template-image" src="/images/portugueseLab/menuBackground.jpg" class="menu-wrapper-image">
         <div class="menu-wrapper">
             <!-- <div class="menu-title">
                 EMENTA
@@ -56,8 +56,8 @@
                     <div class="content-item {{category.style}} {{item.style}} js-item-select {{selected categoryIndex @index}}"
                         data-category-index="{{categoryIndex}}" data-item-index="{{@index}}">
                         <div class="item-left">
-                            <div class="js-edit">{{item.info1}}
-                                <span class="js-edit">{{item.info2}}</span>
+                            <div class="js-edit">{{{item.info1}}}
+                                <span class="js-edit">{{{item.info2}}}</span>
                             </div>
                         </div>
 
