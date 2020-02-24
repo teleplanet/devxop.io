@@ -3,3 +3,9 @@ Meteor.publish('templates', function () {
     return Templates.find({"user_id": this.userId });
 
 });
+
+Meteor.publish('templates.styles', function () {
+    //console.log(this.userId);
+    return TemplateStyles.find({"user_id": this.userId });
+
+});

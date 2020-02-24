@@ -127,6 +127,26 @@ Template.mediaImages.events({
                                                 }
                                             });
 
+                                            document.Jimp.read({
+                                                url: available, // Required!
+
+                                            }).then(image => {
+                                                // Do stuff with the image.
+                                                image.rotate(180, false);
+
+                                                //console.log(image);
+
+                                                image.getBase64Async("image/jpeg").then(data => {
+                                                    var image = new Image();
+                                                    image.src = data;
+
+                                                    var w = window.open("");
+                                                    w.document.write(image.outerHTML);
+                                                });
+                                            }).catch(err => {
+                                                // Handle an exception.
+                                            });
+
                                             scaleImage(data, 720, 480, function (canvas) {
                                                 // save canvas image as data url (png format by default)
                                                 //var blob = dataURItoBlob(canvas.toDataURL());

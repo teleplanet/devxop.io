@@ -1,5 +1,6 @@
 RegisterTokens = new Mongo.Collection('registerToken');
 
+
 Devices = new Mongo.Collection('devices');
 Devices.allow({
     insert: function (userId, doc) {
@@ -68,6 +69,37 @@ Templates.allow({
         if (exists) { 
             return false;
         } */
+
+        return true;
+    },
+    remove: function (userId, doc) {
+
+        if (doc["user_id"] == userId) {
+            return true;
+        }
+
+        return false;
+    },
+    update: function (userId, doc) {
+
+        if (doc["user_id"] == userId) {
+
+            return true;
+        }
+        return false;
+    }
+})
+
+TemplateStyles = new Mongo.Collection('templateStyles');
+TemplateStyles.allow({
+    insert: function (userId, doc) {
+
+        doc["user_id"] = userId;
+
+        let exists = TemplateStyles.findOne({ "user_id": userId });
+        if (exists) { 
+            return false;
+        }
 
         return true;
     },

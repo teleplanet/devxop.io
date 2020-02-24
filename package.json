@@ -10,6 +10,7 @@
     "dist": "^0.1.2",
     "html2canvas": "^1.0.0-rc.5",
     "image-compressor.js": "^1.1.4",
+    "jimp": "^0.9.3",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
     "materialize-css": "^1.0.0",

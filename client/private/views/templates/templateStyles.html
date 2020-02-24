@@ -1,0 +1,27 @@
+<template name="templateStyles">
+    <div class="row p-3">
+        <div class="col-12">
+            {{#each styles}}
+            <button class="button float-left m-3 js-select-style" data-style-id="{{this._id}}">{{this.name}}</button>
+            {{/each}}
+        </div>
+    </div>
+
+
+    {{#with style}}
+    <div class="row p-3">
+        <div class="col-12">
+            <input type="text" class="js-edit-style" data-key="name" value="{{this.name}}">
+        </div>
+    </div>
+
+    <div class="row p-3">
+        <div class="col-12">
+            <textarea class="js-edit-style" style="width: 100%; min-height: 720px;" data-key="data">{{this.data}}</textarea>
+        </div>
+    </div>
+
+
+
+    {{/with}}
+</template>

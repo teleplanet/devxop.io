@@ -66,10 +66,29 @@ function rotate(p_deg) {
     };
 };
 
+function addStyleString(str) {
+    var node = document.createElement('style');
+    node.innerHTML = str;
+    document.body.appendChild(node);
+}
+
+function addCss(rule) {
+    let css = document.createElement('style');
+    css.type = 'text/css';
+    if (css.styleSheet) css.styleSheet.cssText = rule; // Support for IE
+    else css.appendChild(document.createTextNode(rule)); // Support for the rest
+    document.getElementsByTagName("head")[0].appendChild(css);
+}
+
 
 Template.templateEdit.onRendered(function () {
     var controller = Iron.controller();
     controller.render('templateEditInfo', { to: 'nav-panel-info' });
+
+    //console.log(str);
+    /* var sheet = document.createElement('style')
+    sheet.innerHTML = str;
+    document.body.appendChild(sheet); */
 
     $("#template-edit-iframe").attr("src", "/templates/" + Session.get("template-edit")._id + "/preview");
 
@@ -83,13 +102,17 @@ Template.templateEdit.onRendered(function () {
 
     //$("#template-iframe").attr("src", "/templates/" + Session.get("template-edit")._id + "/preview");
 
-    $("#template-edit-iframe").on("load", function () {
-        let template = Session.get("template-edit");
+   $("#template-edit-iframe").on("load", function () {
+        let style = TemplateStyles.findOne();
+        let str = style.data;
+
+        var sheet = document.createElement('style');
+        sheet.innerHTML = str;
+
         let head = $("#template-edit-iframe").contents().find("head");
-        let css = template["css"];
-        if (css) {
-            $(head).append(css);
-        }
+        console.log("template loaded");
+        console.log("injecting custom css");
+        $(head).append(sheet);
 
     });
 });
@@ -105,6 +128,10 @@ Template.templateEdit.events({
                 "editing": {}
             }
         });
+
+        $("#template-edit-iframe").contents().find('.content-item.selected').removeClass("selected");
+
+        //$(".content-item.selected").removeClass("selected");
 
 
         // You can then get the data URL when the image got loaded:
@@ -131,7 +158,17 @@ Template.templateEdit.events({
             let canvasImage = document.getElementById("canvas");
 
             $(img).on('load', function () {
-                rotate(90);
+
+                if(typeof rotation != "undefined"){
+                    if(rotation == "90"){
+                        rotate(90);
+                    }else if(rotation == "-90"){
+                        rotate(-90);
+                    }else if(rotation == "0"){
+                        rotate(0);
+                    }
+                }
+                
 
                 //img.width = 1920;
                 //img.height = 1080;
@@ -166,7 +203,7 @@ Template.templateEdit.events({
                                         width: 720,
                                         height: 480,
                                         success(result) {
-    
+
                                             var thumbObj = new FS.File(result);
                                             thumbObj['user_id'] = Meteor.userId();
                                             thumbObj['template_id'] = template._id;
@@ -175,27 +212,27 @@ Template.templateEdit.events({
                                                 if (err) {
                                                     console.log(err);
                                                 } else {
-    
+
                                                     Templates.update(template._id, {
                                                         $set: {
                                                             "image": imageObj._id,
                                                             "image_thumb": thumbObj._id
                                                         }
                                                     });
-    
+
                                                     $(event.currentTarget).show();
-    
+
                                                     Router.go("/templates");
                                                 }
                                             });
-    
+
                                         },
                                         error(e) {
                                             console.log(e.message);
                                         },
                                     });
                                 });
-                                
+
                             }
                         });
 

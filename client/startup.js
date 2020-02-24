@@ -4,6 +4,7 @@ import ImageCompressor from 'image-compressor.js';
 
 import $ from "jquery";
 import html2canvas from 'html2canvas';
+import Jimp from 'jimp';
 
 stripe = undefined;
 
@@ -18,6 +19,7 @@ Meteor.startup(function () {
 	//initFB();
 
 	if (Meteor.isClient) {
+		console.log("Multi screen schedule init...");
 		let schedule = MultiscreenSchedule.findOne({ "user_id": this.userId });
 		if (!schedule) {
 			/* Here we create one */
@@ -28,6 +30,9 @@ Meteor.startup(function () {
 				"schedule": { "hour": 0, "minute": 0 }
 			});
 		}
+
+		console.log("Template style init...");
+		TemplateStyles.insert({"name": "Template Style"});
 
 		Meteor.methods({
 			"client.upsert": function (data) {
@@ -79,6 +84,7 @@ $(document).ready(function () {
 	fingerprint();
 
 	document["html2canvas"] = html2canvas;
+	document["Jimp"] = Jimp;
 
 	$(".js-modal-btn").click(function (event) {
 		console.log(event);

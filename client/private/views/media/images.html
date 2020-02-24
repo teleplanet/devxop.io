@@ -60,9 +60,21 @@
                             <div class='file-input'>
                                 <input type='file' accept="image/*" id="image-input" />
                                 <button class='button'>Choose image</button>
-                                <label class='label' id="image-input-label">No file selected</label>
+                                <!-- <label class='label' id="image-input-label">No file selected</label> -->
                             </div>
                         </div>
+                        <div class="col-12">
+                            {{#with containsImage}}
+                            <button class='button js-save-image' data-rotation="0">Save Image</button>
+                            <button class='button js-save-image' data-rotation="90">Save Image 90º</button>
+                            {{else}}
+                            <label class='label' id="image-input-label">No file selected</label>
+                            {{/with}}
+                            <canvas id="image-upload-canvas" width="720" height="480"></canvas>
+
+                            
+                        </div>
+
 
                     </div>
                     {{/if}}
