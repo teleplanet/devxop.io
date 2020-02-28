@@ -24,5 +24,28 @@
     .list-devices-card {
       width: calc(100% - 10px);
     }
+
+    .device-col{
+      width: 50% !important;
+      margin: 0% !important;
+      min-height: 0 !important;
+    }
+  }
+
+
+  .device-row{
+    width: 100%;
+    float: left;
+  }
+
+  .device-col{
+    width: calc(86% / 7);
+    min-height: 100px;
+    height: fit-content;
+    float: left;
+    /* background-color: red; */
+    margin: 1%;
+  }.device-col.dragging{
+    background-color: #ccc;
   }
   

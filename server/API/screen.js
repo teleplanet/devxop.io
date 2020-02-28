@@ -116,6 +116,7 @@ Router.route('/api/display', { where: 'server' }).get(function () {
                         data["action"] = "time";
                         data["hour"] = schedule.schedule.hour;
                         data["minute"] = schedule.schedule.minute;
+                        data["repeat"] = schedule.schedule.repetat;
                     }
                 }
 

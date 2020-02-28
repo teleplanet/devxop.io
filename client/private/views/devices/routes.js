@@ -33,8 +33,7 @@ Router.route('/devices/edit/:deviceId', {
 	action: function(){
 	  if(this.ready()){
 		let device = Devices.findOne({"_id": this.params.deviceId});
-
-		console.log("Session | device-edit: " + device._id);
+		
 		Session.set('device-edit', device);
 		Session.set("route", "Device / Edit");
 

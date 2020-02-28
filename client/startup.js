@@ -19,7 +19,6 @@ Meteor.startup(function () {
 	//initFB();
 
 	if (Meteor.isClient) {
-		console.log("Multi screen schedule init...");
 		let schedule = MultiscreenSchedule.findOne({ "user_id": this.userId });
 		if (!schedule) {
 			/* Here we create one */
@@ -31,9 +30,7 @@ Meteor.startup(function () {
 			});
 		}
 
-		console.log("Template style init...");
 		TemplateStyles.insert({"name": "Template Style"});
-
 		Meteor.methods({
 			"client.upsert": function (data) {
 				/* console.log(this.isSimulation) //Will be true
@@ -53,11 +50,11 @@ Meteor.startup(function () {
 		let starting = true;
 		Tracker.autorun(function () {
 			if (Meteor.status().connected) {
-				console.log("connected");
+				log("connected");
 				starting = false;
 			} else {
 				if(starting){
-					console.log("connecting...");
+					log("connecting...");
 				}else{
 					document.location.reload(true);
 				}
@@ -70,7 +67,7 @@ Meteor.startup(function () {
 });
 
 stripeReadyHandler = function () {
-	console.log("Stripe on Load handler");
+	log("Stripe on Load handler");
 	if (Meteor.isProduction) {
 		console.log('Client Startup @' + moment().format('HH:mm:ss'));
 		stripe = Stripe(Meteor.settings.public.stripe.live_pk);
@@ -87,7 +84,6 @@ $(document).ready(function () {
 	document["Jimp"] = Jimp;
 
 	$(".js-modal-btn").click(function (event) {
-		console.log(event);
 		let id = $(event.target).data("modal-id");
 
 		$("#" + id).toggleClass('toggled');
@@ -139,13 +135,9 @@ initFB = function () {
 
 			//console.log(response);
 
-			console.log("FACEBOOK USER CONNECTED!");
-			console.log('Welcome!  Fetching your information.... ');
 			let fb = {};
 
 			FB.api('/me', function (response) {
-				console.log(response);
-				console.log('Good to see you, ' + response.name + '.');
 				fb["user"] = response;
 
 				FB.api('/me/accounts', function (response) {
@@ -158,7 +150,7 @@ initFB = function () {
 			// The user hasn't authorized your application.  They
 			// must click the Login button, or you must call FB.login
 			// in response to a user gesture, to launch a login dialog.
-			console.log("Facebook user does not authorize application!");
+			log("Facebook user does not authorize application!");
 		} else {
 			// The user isn't logged in to Facebook. You can launch a
 			// login dialog with a user gesture, but the user may have
@@ -166,15 +158,13 @@ initFB = function () {
 			FB.login(function (response) {
 				// Original FB.login code
 				if (response.error) {
-					console.log("No facebook user.");
+					log("No facebook user.");
 					FB.login(function (response) {
 						if (!response.error) {
-							console.log('Welcome!  Fetching your information.... ');
 							let fb = {};
 
 							FB.api('/me', function (response) {
-								console.log(response);
-								console.log('Good to see you, ' + response.name + '.');
+								log('Good to see you, ' + response.name + '.');
 								fb["user"] = response;
 
 								FB.api('/me/accounts', function (response) {
@@ -184,17 +174,15 @@ initFB = function () {
 								});
 							});
 						} else {
-							console.log('User cancelled login or did not fully authorize.');
+							log('User cancelled login or did not fully authorize.');
 						}
 					}, { perms: 'publish_pages,manage_pages,instagram_basic,user_photos,photo_upload,publish_stream' });
 				} else {
-					console.log("FACEBOOK USER CONNECTED!");
-					console.log('Welcome!  Fetching your information.... ');
+					log("FACEBOOK USER CONNECTED!");
 					let fb = {};
 
 					FB.api('/me', function (response) {
-						console.log(response);
-						console.log('Good to see you, ' + response.name + '.');
+						log('Good to see you, ' + response.name + '.');
 						fb["user"] = response;
 
 						FB.api('/me/accounts', function (response) {

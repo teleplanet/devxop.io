@@ -8,17 +8,21 @@
                     <p class="card-text">
                         Choose an hour and minute that you will want to trigger the split screen action.
                         <div class="row">
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
                                 <div class="label">Hour</div>
                                 <input type="number" class="form-control number-plain center js-schedule-edit"
                                     data-key="schedule.hour" value="{{this.schedule_hour}}" min="0" max="23"
                                     onkeyup=enforceMinMax(this)>
                             </div>
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
                                 <div class="label">Minute</div>
                                 <input type="number" class="form-control number-plain center js-schedule-edit"
                                     data-key="schedule.minute" value="{{this.schedule_minute}}" min="0" max="59"
                                     onkeyup=enforceMinMax(this)>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="label">Repeat</div>
+                                <input type="checkbox" data-key="repeat" value="true">
                             </div>
                         </div>
 

@@ -23,7 +23,6 @@ Template.deviceEdit.onRendered(function () {
                 data["display_types." + type] = { "name": type, "orientation": "landscape" };
             } else {
                 if (!device.display_types[type]) {
-                    console.log("adding new type from array");
                     data.display_types[type] = { "name": type, "orientation": "landscape" };
                 }
             }
@@ -32,21 +31,16 @@ Template.deviceEdit.onRendered(function () {
 
         if (typeof device["display_types"] === 'undefined') {
             //display types are missing... adding
-            Meteor.call("devices.edit", device._id, data, function (err, data) {
-                if (err)
-                    console.log(err);
 
-                console.log("device updated");
+            Devices.update(device._id, {
+                $set: data
             });
         } else {
             //object is empty, meaning device already contains some display types
             if (Object.keys(data.display_types).length != Object.keys(Session.get("device-edit").display_types).length) {
                 console.log("updating display types");
-                Meteor.call("devices.edit", device._id, data, function (err, data) {
-                    if (err)
-                        console.log(err);
-
-                    console.log("device updated");
+                Devices.update(device._id, {
+                    $set: data
                 });
             }
         }

@@ -23,3 +23,9 @@
     };
 
 })(); */
+
+log = function(string){
+    if(Meteor.isDevelopment){
+        console.log(string);
+    }
+}

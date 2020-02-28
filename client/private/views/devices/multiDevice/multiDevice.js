@@ -76,8 +76,19 @@ Template.multiDevice.events({
         let value = $(event.target).val();
         let key = $(event.target).data('key');
 
-        let data = {};
-        data[key] = JSON.parse(value);
+
+        isCheckbox = $(event.target).is(':checkbox');
+        if (isCheckbox) {
+            if ($(event.target).is(":checked")) {
+                data[key] = true;
+            } else {
+                data[key] = false;
+            }
+        } else {
+            let data = {};
+            data[key] = JSON.parse(value);
+        }
+
 
         const keys = Object.keys(schedule.devices)
         for (const key of keys) {

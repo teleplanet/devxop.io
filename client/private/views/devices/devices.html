@@ -19,11 +19,90 @@
                             <div class="count">{{this.online}}</div>
                         </div>
                     </div>
+                    <!-- <div class="row p-3">
+                        <div class="col-md-6 col-sm-12">
+                            <label>Row</label>
+                            <input type="number" class="form-control js-edit-order" data-key="row">
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Col</label>
+                            <input type="number" class="form-control js-edit-order" data-key="col">
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("device", $(ev.currentTarget).data("device-id"));
+
+            $('.device-col').each(function () {
+                $(this).addClass("dragging");
+            });
+
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var device = ev.dataTransfer.getData("device");
+            let target = $(ev.currentTarget);
+            let row = target.data("row");
+            let col = target.data("col");
+
+            $('.device-col').each(function () {
+                $(this).removeClass("dragging");
+            });
+            if (typeof row != "undefined" && typeof col != "undefined") {
+                Devices.update(device, {
+                    $set: {
+                        "order": {
+                            "row": row,
+                            "col": col
+                        }
+                    }
+                })
+            }
+
+
+
+            //ev.target.appendChild(document.getElementById(data));
+            /* console.log(ev.currentTarget)
+            console.log(ev.toElement) */
+        }
+    </script>
     <div class="row p-3">
+        {{#each this.devices_ordered}}
+        <div class="device-row">
+            {{#let rowIndex=@index}}
+            {{#each device in this}}
+            <div class="device-col" data-row="{{rowIndex}}" data-col="{{@index}}" ondrop="drop(event)"
+                ondragover="allowDrop(event)">
+                {{#with device}}
+                <div class="card text-center card-select js-device-select" draggable="true" ondragstart="drag(event)"
+                    data-device-id="{{device._id}}">
+                    <div class="card-body">
+                        <div class="card-title">{{device.name}}</div>
+                        <p class="card-text">
+                            <strong class="text-primary">{{getLiveDisplay device}}</strong>
+                        </p>
+                        <div class="card-footer {{getStatus device}}">
+                            {{getStatus device}}
+                        </div>
+                    </div>
+                </div>
+                {{/with}}
+            </div>
+            {{/each}}
+            {{/let}}
+        </div>
+        {{/each}}
+    </div>
+    <!-- <div class="row p-3">
         {{#each device in this.devices}}
         <div class="col-md-3">
             <div class="card text-center card-select js-device-select" data-device-id="{{device._id}}">
@@ -39,7 +118,7 @@
             </div>
         </div>
         {{/each}}
-    </div>
+    </div> -->
     {{/with}}
 
 </template>

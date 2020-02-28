@@ -75,6 +75,8 @@ Templates.allow({
     remove: function (userId, doc) {
 
         if (doc["user_id"] == userId) {
+            //find an associated device
+
             return true;
         }
 
@@ -83,6 +85,15 @@ Templates.allow({
     update: function (userId, doc) {
 
         if (doc["user_id"] == userId) {
+            let device = Devices.findOne({"display_types.template.id": doc._id});
+            if(device){
+                Devices.update(device._id, {
+                    $set: {
+                        "update": true,
+                        "display_types.template.image": doc.image 
+                    }
+                });
+            }
 
             return true;
         }
@@ -340,6 +351,19 @@ Backups.allow({
 });
 
 Companies = new Meteor.Collection('companies');
+Companies.allow({
+    update: function (userId, doc) {
+
+        let user = Meteor.users.findOne(userId);
+        if(user){
+            if(user.profile.company == doc._id){
+                return true;
+            }
+        }
+
+        return false;
+    }
+})
 CompanyUsers = new Meteor.Collection("companyUsers");
 
 Events = new Meteor.Collection('events');
