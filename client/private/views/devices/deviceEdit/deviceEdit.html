@@ -40,20 +40,20 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 col-sm-12 pb-5">
-                            <h4>Step 1</h4>
-                            <p>Select the template to which you want to update.</p>
+                            <h4>{{string "step"}} 1</h4>
+                            <p>{{string "select_template_info"}}</p>
                             {{> moduleDisplaySelect}}
                         </div>
-                        <div class="col-md-4 col-sm-12 pb-5">
-                            <h4>Step 2</h4>
-                            <p>Search and choose the item to add.</p>
+                        <div class="col-md-5 col-sm-12 pb-5">
+                            <h4>{{string "step"}} 2</h4>
+                            <p>{{string "select_list_info"}}</p>
                             <div class="row">
                                 {{#if getDisplay "static"}}
                                 <!-- <div class="col-12">
                                     <h4>Static Image</h4>
                                 </div> -->
                                 <div class="col-12">
-                                    <button class="mt-3 mb-3 button js-select-image">Select Image...</button>
+                                    <button class="mt-3 mb-3 button js-select-image">{{string "select_image"}}</button>
                                 </div>
                                 <br>
                                 <div class="col-md-6 col-sm-12 p-3">
@@ -66,7 +66,7 @@
                                     <h4>Video</h4>
                                 </div> -->
                                 <div class="col-12">
-                                    <button class="mt-3 mb-3 button js-select-video">Select Video...</button>
+                                    <button class="mt-3 mb-3 button js-select-video">{{string "select_video"}}</button>
                                 </div>
                                 <div class="col-md-6 col-sm-12 p-3">
                                     <div class="label">{{this.video_name}}</div>
@@ -91,7 +91,7 @@
                                         {{#with this.template.name}}
                                             {{this}}
                                         {{else}}
-                                            Select Template
+                                            {{string "select_template"}}
                                         {{/with}}
                                     </button>
                                 </div>
@@ -101,14 +101,14 @@
                                 {{/if}}
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-12 pb-5">
-                            <h4>Step 3</h4>
+                        <div class="col-md-3 col-sm-12 pb-5">
+                            <h4>{{string "step"}} 3</h4>
                             <!-- <p>Confirm your action.</p> -->
                             {{#if selectedDisplayIsLive}}
-                            <p>This display is currently playing live on your screen.</p>
+                            <p>{{string "display_is_live"}}</p>
                             {{else}}
                             
-                            <button class="mt-3 mb-3 button red js-live-switch">Go Live!</button>
+                            <button class="mt-3 mb-3 button red js-live-switch">{{string "go_live"}}</button>
                             {{/if}}
                             <br>
                         </div>
