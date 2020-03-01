@@ -98,7 +98,7 @@ Template.deviceEdit.helpers({
             if (image) {
                 let thumb = Thumbnails.findOne({ _id: image.image_thumb });
 
-                if(thumb){
+                if (thumb) {
                     data.static_thumb = thumb.url();
                 }
             }
@@ -114,9 +114,9 @@ Template.deviceEdit.helpers({
             if (data.template) {
                 //data.template = template.url();
                 let thumb = Thumbnails.findOne({ _id: data.template.image_thumb });
-                if(thumb){
+                if (thumb) {
                     data.template_img = thumb.url();
-                }else{
+                } else {
                     console.log("no image thumb... using main image");
                     let img = Images.findOne({ _id: data.template.image });
                     data.template_img = img.url();
@@ -204,6 +204,12 @@ Template.deviceEdit.helpers({
 
             return res;
         }
+    },
+    'scheduleAction': function (type) {
+        return type == Session.get("schedule-action");
+    },
+    'scheduleTemplate': function () {
+        return Session.get("schedule-template");
     }
 });
 
@@ -212,7 +218,7 @@ Template.deviceEdit.events({
 
         $(event.target).hide();
 
-        setTimeout(function(){
+        setTimeout(function () {
             $(event.target).show();
         }, 1500);
 
@@ -309,7 +315,7 @@ Template.deviceEdit.events({
             }
         })
     },
-    'change .js-code-edit':function(event){
+    'change .js-code-edit': function (event) {
         let code = $(event.target).val();
         //console.log(code);
 
@@ -354,5 +360,55 @@ Template.deviceEdit.events({
             $set: data
         });
 
+    },
+    'change #schedule-action': function () {
+        let action = $('#schedule-action option:selected').val();
+
+        Session.set("schedule-action", action);
+
+    },
+    'click .js-schedule-template': function (event) {
+        event.preventDefault();
+
+        templateListModal(function (err, template) {
+            if (template) {
+                Session.set("schedule-template", template);
+                /* let device = Session.get("device-edit");
+                Devices.update(device._id, {
+                    $set: {
+                        "display_types.template.image": template.image,
+                        "display_types.template.id": template._id,
+                        "update": true
+                    }
+                }); */
+            }
+        });
+
+        return false;
+    },
+    'click .js-create-schedule': function (event) {
+        event.preventDefault();
+        let action = Session.get("schedule-action");
+        let hour = $("#schedule-hour").val();
+        let duration = $("#schedule-duration").val();
+        let device = Session.get("device-edit");
+
+        if (action && action == "template") {
+            let template = Session.get("schedule-template");
+
+            if (template && hour && device) {
+                DeviceSchedules.insert({
+                    "device_id": device._id,
+                    "action": "template",
+                    "template_id": template._id,
+                    "hour": hour,
+                    "duration": duration,
+                    "end_time": new Date().setHours((hour+duration)),
+                });
+            }
+        }
+
+
+        return false;
     },
 });

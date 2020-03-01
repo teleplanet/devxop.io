@@ -10,3 +10,7 @@ Meteor.publish('getDevice', function(deviceId){
 Meteor.publish('multiscreenSchedule', function(){
 	return MultiscreenSchedule.find({"user_id": this.userId});
 });
+
+Meteor.publish('devices.schedules', function(){
+	return DeviceSchedules.find({"user_id": this.userId});
+});

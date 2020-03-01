@@ -38,28 +38,24 @@ Meteor.methods({
     'devices.cron': function () {
 
         let data = {
-            'device': "HZYLJMGfXFGkT8wDC",
-            'next_display': "static",
-            'time_start_text_parser': 'at 6:51pm every day'
+            'time_start_text_parser': 'every 1 hour'
         };
 
-        let device = Devices.findOne({ "_id": data.device });
-
         SyncedCron.add({
-            name: 'Display Changed...',
+            name: 'Device Schedule',
             schedule: function (parser) {
                 // parser is a later.parse object
                 return parser.text(data.time_start_text_parser);
             },
-            job: function (device, data) {
+            job: function () {
+                let schedules = DeviceSchedules.find().fetch();
+                let hour = new Date().getHours();
+                for(let i = 0; i < schedules.length; i++){
+                    let schedule = schedules[i];
 
-                console.log(data);
-
-                Devices.update(device._id, {
-                    $set: { "selected_display": data.next_display },
-                });
-
-                return "changed device display";
+                    
+                }
+                
             }
         });
 
