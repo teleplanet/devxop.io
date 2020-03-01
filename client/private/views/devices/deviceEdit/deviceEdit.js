@@ -4,6 +4,10 @@ var pingInterval;
 var flagCodeInit = false;
 
 Template.deviceEdit.onRendered(function () {
+
+    Session.set("schedule-action", undefined);
+    Session.set("schedule-template", undefined);
+
     let device = Session.get("device-edit");
     flagCodeInit = false;
 
@@ -210,6 +214,9 @@ Template.deviceEdit.helpers({
     },
     'scheduleTemplate': function () {
         return Session.get("schedule-template");
+    },
+    'schedules': function(){
+        return DeviceSchedules.find({"device_id": Session.get("device-edit")._id}).fetch();
     }
 });
 
@@ -367,6 +374,11 @@ Template.deviceEdit.events({
         Session.set("schedule-action", action);
 
     },
+    'click .js-remove-schedule': function (event) {
+        let id = event.target.id;
+
+        DeviceSchedules.remove(id);
+    },
     'click .js-schedule-template': function (event) {
         event.preventDefault();
 
@@ -402,8 +414,8 @@ Template.deviceEdit.events({
                     "action": "template",
                     "template_id": template._id,
                     "hour": hour,
-                    "duration": duration,
-                    "end_time": new Date().setHours((hour+duration)),
+                    "status": "ended",
+                    "duration": duration
                 });
             }
         }

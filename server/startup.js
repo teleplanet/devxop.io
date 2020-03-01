@@ -29,5 +29,6 @@ Meteor.startup(() => {
 
     //SETUP CRON JOBS
     Meteor.call("plans.cron.setup");
+    Meteor.call("devices.cron");
 
 });

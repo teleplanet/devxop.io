@@ -165,6 +165,41 @@
 
             </div>
         </div>
+        <div class="col-12">
+            <div class="Rtable Rtable--5cols Rtable--collapse">
+
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Action
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Item
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Hour
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    Duration
+                </div>
+                <div style="order:1" class="Rtable-cell cell-header">
+                    
+                </div>
+
+
+                {{#each schedule in schedules}}
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{schedule.action}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{schedule.template_id}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{schedule.hour}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">{{schedule.duration}}</div>
+                <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--foot">
+                    <button id="{{schedule._id}}" class="button center danger js-remove-schedule">
+                        Delete
+                    </button>
+                </div>
+                {{/each}}
+
+            </div>
+            
+        </div>
 
     </div>
 

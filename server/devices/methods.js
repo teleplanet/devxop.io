@@ -38,28 +38,85 @@ Meteor.methods({
     'devices.cron': function () {
 
         let data = {
-            'time_start_text_parser': 'every 1 hour'
+            'time_start_text_parser': 'every 1 minutes'
         };
 
         SyncedCron.add({
             name: 'Device Schedule',
             schedule: function (parser) {
                 // parser is a later.parse object
-                return parser.text(data.time_start_text_parser);
+                return parser.recur().first().minute();//parser.text(data.time_start_text_parser);
             },
             job: function () {
                 let schedules = DeviceSchedules.find().fetch();
                 let hour = new Date().getHours();
-                for(let i = 0; i < schedules.length; i++){
+                for (let i = 0; i < schedules.length; i++) {
                     let schedule = schedules[i];
+                    let device = Devices.findOne(schedule.device_id);
 
-                    
+                    if (parseInt(schedule.hour) == hour && schedule.status == "ended") {
+                        //run action
+                        if (schedule.action == "template") {
+
+                            DeviceSchedules.update(schedule._id, {
+                                $set: {
+                                    "status": "started",
+                                    "last_display": device.selected_display,
+                                    "last_display_type": device.display_types[device.selected_display]
+                                }
+                            });
+
+                            let data = device.display_types;
+                            data["template"]["id"] = schedule.template_id;
+                            Devices.update(schedule.device_id, {
+                                $set: {
+                                    "selected_display": "template",
+                                    "display_types": data
+                                }
+                            });
+                        }
+
+                    }else if(schedule.status == "started"){
+                        //here we validate that time is exceeded- Return to old screen visualization
+                        if(schedule.duration.length == 0){
+                            schedule.duration = 0;
+                        }
+
+                        let expectedTime = parseInt(schedule.hour) + parseInt(schedule.duration)
+                        
+                        if(expectedTime > 24){
+                            expectedTime = expectedTime-24;
+                        }
+
+                        if(hour >= expectedTime){
+                            //hour has reached duration end time
+                            if (schedule.action == "template") {
+                                let data = device.display_types;
+                                data[schedule.last_display] = schedule.last_display_type; 
+                                Devices.update(schedule.device_id, {
+                                    $set: {
+                                        "selected_display": device.last_display,
+                                        "display_types": data
+                                    }
+                                });
+
+                                DeviceSchedules.update(schedule._id, {
+                                    $set: {
+                                        "status": "ended"
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+
+
                 }
-                
+
             }
         });
 
-        SyncedCron.start(device, data);
+        SyncedCron.start(data);
 
     },
     'devices.register': function (data) {
