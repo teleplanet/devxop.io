@@ -38,18 +38,18 @@ Meteor.methods({
     'devices.cron': function () {
 
         let data = {
-            'time_start_text_parser': 'every 1 minutes'
+            'time_start_text_parser': 'every 15 minutes'
         };
 
         SyncedCron.add({
             name: 'Device Schedule',
             schedule: function (parser) {
                 // parser is a later.parse object
-                return parser.recur().first().minute();//parser.text(data.time_start_text_parser);
+                return parser.recur().on(2).minute().and().on(4).minute().and().every(15).minute();//parser.recur().on(2).minute();//parser.recur().on(14).minute();//parser.text(data.time_start_text_parser);
             },
             job: function () {
-                let schedules = DeviceSchedules.find().fetch();
                 let hour = new Date().getHours();
+                let schedules = DeviceSchedules.find({"hour": ""+hour}).fetch();
                 for (let i = 0; i < schedules.length; i++) {
                     let schedule = schedules[i];
                     let device = Devices.findOne(schedule.device_id);

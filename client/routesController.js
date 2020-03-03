@@ -33,9 +33,7 @@ EmptyController = RouteController.extend({
 	layoutTemplate: 'emptyBase',
 	waitOn: function () {
 		return [
-			Meteor.subscribe("user.plan.subscriptions"),
-			Meteor.subscribe("user.plan.archive"),
-			Meteor.subscribe("templates"),
+			Meteor.subscribe('templates.imageText'),
 		];
 	}
 });
@@ -113,6 +111,7 @@ PrivateController = RouteController.extend({
 			Meteor.subscribe('costs'),
 
 			Meteor.subscribe('templates'),
+			Meteor.subscribe('templates.imageText'),
 			Meteor.subscribe('templates.styles'),
 
 			Meteor.subscribe('multiscreenSchedule'),

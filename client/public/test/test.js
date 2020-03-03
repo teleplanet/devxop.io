@@ -1,258 +1,127 @@
-Template.screen.onRendered(function () {
-
-    let template = Templates.findOne({});
-    Session.set("menus", template.menus);
 
 
+// Created a plugin for project portability
 
+
+
+Template.displayImageText.onRendered(function () {
+    Tracker.autorun(function () {
+        let template = TemplatesImageText.findOne();
+
+        if (!template) {
+            TemplatesImageText.insert({
+                "image_url": "",
+                "image_data": "",
+                "style": {},
+                "value": {},
+                "text": "",
+                "text2": "",
+
+            });
+        } else {
+            $("#image-text").cssMap(template.style);
+        }
+    });
 });
 
-Template.screen.helpers({
-    'menus': function () {
-        return Templates.findOne().menus;
-    },
-    'editSet': function () {
-        let editItem = Session.get("edit-screen-item");
-        if (typeof editItem["set_index"] != "undefined" && typeof editItem["item_index"] == "undefined") {
-            let dataSet = Templates.findOne().menus[Session.get("selected-menu-index")].data;
-
-            //console.log(dataSet);
-            return dataSet[editItem.set_index];
-        }
-
-        return null;
-    },
-    'editItem': function () {
-        let editItem = Session.get("edit-screen-item");
-        if (typeof editItem["set_index"] != "undefined" && typeof editItem["item_index"] != "undefined") {
-            let dataSet = Templates.findOne().menus[Session.get("selected-menu-index")].data;
-            return dataSet[editItem.set_index].data[editItem.item_index]
-        }
-
-        return null;
-    },
-    'dataset': function () {
-        let dataSet = Session.get("selected-menu");
-
-        if (dataSet && dataSet.data) {
-            return dataSet.data;
-        } else {
-            return [];
-        }
-
-    },
-    'selected': function (setIndex, itemIndex) {
-        let editItem = Session.get("edit-screen-item");
-        if (typeof setIndex != undefined && typeof itemIndex == "undefined") {
-            if (setIndex == editItem.set_index) {
-                return "selected";
-            }
-        } else if (typeof setIndex != undefined && typeof itemIndex != "undefined") {
-            if (setIndex == editItem.set_index && itemIndex == editItem.item_index) {
-                return "selected";
-            }
-        }
-
-        return "";
-
-    },
-    'isTwoColumn': function (style) {
-        return style == "two-column";
-    },
-    'menuSelected': function () {
-        if(typeof Session.get("selected-menu-index") != "undefined"){
-            return true;
-        }else{
-            return false;
-        }
+/* Template.test.onCreated(function () {
 
 
-    }
 })
+ */
 
+Template.displayImageText.helpers({
+    "text": function(){
+        return TemplatesImageText.findOne()["text"];
+    },
+    "text2": function(){
+        return TemplatesImageText.findOne()["text2"];
+    },
+});
 
-Template.screen.events({
-    'click .js-content-selected': function (event) {
-        let setName = $(event.currentTarget).data("set-name");
-        let itemIndex = $(event.currentTarget).data("item-index");
-
-        data = {
-            'set_index': setName,
-            'item_index': itemIndex
+ Template.test.helpers({
+    "text": function(){
+        return TemplatesImageText.findOne()["text"];
+    },
+    "text2": function(){
+        return TemplatesImageText.findOne()["text2"];
+    },
+    "style": function(key){
+        if(key){
+            return TemplatesImageText.findOne().style[key];
+        }else{
+            return TemplatesImageText.findOne().style
         }
-
-        Session.set("edit-screen-item", data);
+        
     },
-    'click .js-section-selected': function (event) {
-        let setIndex = $(event.currentTarget).data("set-index");
+    "value": function(key){
+        if(key){
+            return TemplatesImageText.findOne().value[key];
+        }else{
+            return TemplatesImageText.findOne().value
+        }
+        
+    }
+});
 
-        let data = {
-            'set_index': setIndex,
-        };
-
-        console.log(data);
-        Session.set("edit-screen-item", data);
-    },
-    'click .js-menu-select': function (event) {
-        let template = Templates.findOne();
-        let menuIndex = $(event.currentTarget).data("menu-index");
-        Session.set("selected-menu-index", menuIndex);
-        Session.set("selected-menu", template.menus[menuIndex]);
-        Session.set("edit-screen-item", {});
-
-
-    },
-    'change .js-edit-item': function (event) {
-        let template = Templates.findOne();
-        let editItem = Session.get("edit-screen-item");
+Template.test.events({
+    'change .js-edit-text': function (event) {
+        let template = TemplatesImageText.findOne();
+        let val = $(event.target).val();
         let key = $(event.target).data("key");
 
-        let dataSet = Session.get("selected-menu").data;
+        if (template) {
 
-        dataSet[editItem.set_index].data[editItem.item_index][key] = $(event.target).val();
+            let text = {};
+            text[key] = val;
 
+            TemplatesImageText.update(template._id, {
+                $set: text
+            });
 
-        template.menus[Session.get("selected-menu-index")].data = dataSet;
-
-        Session.set("selected-menu", template.menus[Session.get("selected-menu-index")]);
-
-        Templates.update(template._id, {
-            $set: {
-                "menus": template.menus
-            }
-        });
+        }
     },
-    'change .js-edit-set': function (event) {
-        let template = Templates.findOne();
-        let setIndex = Session.get("edit-screen-item").set_index;
+    'change .js-imageText-edit': function (event) {
+        let template = TemplatesImageText.findOne();
+        let val = $(event.target).val();
         let key = $(event.target).data("key");
+        let unit = $(event.target).data("unit");
 
-        let dataSet = Session.get("selected-menu").data;
 
-        dataSet[setIndex][key] = $(event.target).val();
+        if (template) {
 
-        template.menus[Session.get("selected-menu-index")].data = dataSet;
+            let style = template.style;
+            style[key] = val + unit;
 
-        Session.set("selected-menu", template.menus[Session.get("selected-menu-index")]);
+            let value = template.value;
+            value[key] = val;
 
-        Templates.update(template._id, {
-            $set: {
-                "menus": template.menus
-            }
-        });
-    },
-    'click .js-set-two-column': function (event) {
-        let template = Templates.findOne();
-        let setIndex = Session.get("edit-screen-item").set_index;
-        let key = $(event.target).data("key");
-
-        let dataSet = Session.get("selected-menu").data;
-
-        dataSet[setIndex][key] = $(event.target).val();
-
-        template.menus[Session.get("selected-menu-index")].data = dataSet;
-
-        Session.set("selected-menu", template.menus[Session.get("selected-menu-index")]);
-
-        Templates.update(template._id, {
-            $set: {
-                "menus": template.menus
-            }
-        });
-    },
-    'click .js-add-row': function (event) {
-        let template = Templates.findOne();
-        let editItem = Session.get("edit-screen-item");
-
-        let dataSet = Session.get("selected-menu").data;
-
-        let item = {
-            info1: "Novo prato info...",
-            info2: "Prato info 2...",
-            price: "0,00€",
-            icons: "extras..",
-        };
-        dataSet[editItem.set_index].data.push(item);
-
-        template.menus[Session.get("selected-menu-index")].data = dataSet;
-
-        Session.set("selected-menu", template.menus[Session.get("selected-menu-index")]);
-
-        Templates.update(template._id, {
-            $set: {
-                "menus": template.menus
-            }
-        });
-
-    },
-    'click .js-remove-row': function (event) {
-        let template = Templates.findOne();
-        let editItem = Session.get("edit-screen-item");
-
-        let dataSet = Session.get("selected-menu").data;
-
-        delete dataSet[editItem.set_index].data.splice(editItem.item_index, 1);
-
-        //let menu = Session.get("menus");
-
-        template.menus[Session.get("selected-menu-index")].data = dataSet;
-
-        //Session.set("menus", menu);
-        Session.set("selected-menu", template.menus[Session.get("selected-menu-index")]);
-
-        Templates.update(template._id, {
-            $set: {
-                "menus": template.menus
-            }
-        });
-    },
-    'click .js-create-menu': function (event) {
-        let categoryCount = $("#category-count").val();
-        let menuName = $("#menu-name").val();
-        let template = Templates.findOne();
-
-        if (categoryCount > 0 && categoryCount < 6 && menuName) {
-            let data = [];
-
-            for (let i = 0; i < categoryCount; i++) {
-                
-                let category = {
-                    name: "Categoria" + i,
-                    name2: "Categoria" + i,
-                    data: []
-                };
-
-                data.push(category);
-
-            }
-
-            template.menus.push({ "name": menuName, "data": data });
-            //Session.set("menus", menu);
-
-            Templates.update(template._id, {
+            TemplatesImageText.update(template._id, {
                 $set: {
-                    "menus": template.menus
+                    "style": style,
+                    "value": value
                 }
             });
+
+        }
+    },
+    'change #imageText-color': function () {
+        let template = TemplatesImageText.findOne();
+        let val = $('#imageText-color option:selected').val();
+
+
+        if (template) {
+
+            let style = template.style;
+            style["color"] = val;
+
+            TemplatesImageText.update(template._id, {
+                $set: {
+                    "style": style
+                }
+            });
+
         }
 
     },
-    'click .js-delete-menu': function (event) {
-        let template = Templates.findOne();
-
-        let menuIndex = Session.get("selected-menu-index");
-
-
-        template.menus.splice(menuIndex, 1);
-
-        Templates.update(template._id, {
-            $set: {
-                "menus": template.menus
-            }
-        });
-
-
-        Session.set("selected-menu-index", null);
-        Session.set("selected-menu", null);
-    }
 });

@@ -1,65 +1,72 @@
 <template name="test">
-    <div class="row">
-        <div class="col-md-6">
-            {{> editTemplate}}
+    <div class="row p-3">
+        <div class="col-12">
+            <input type="text" class="form-control js-edit-text" value="{{text}}" data-key="text">
         </div>
-        <div class="col-md-6">
-            {{> screen}}
+        <div class="col-12">
+            <input type="text" class="form-control js-edit-text" value="{{text2}}" data-key="text2">
         </div>
     </div>
+    <div class="row p-3">
+        <div class="col-3">
+            <label>Top ({{style.top}})</label>
+            <input type="range" class="js-imageText-edit" data-key="top" data-unit="vh" min="1" max="100"
+                                        value="{{value.top}}"  step="1" />
+        </div>
+        <!-- <div class="col-3">
+            <label>Bottom</label>
+            <input type="num" class="js-imageText-edit" data-key="bottom" value="{{style.bottom}}">
+        </div>
+        <div class="col-3">
+            <label>Right</label>
+            <input type="num" class="js-imageText-edit" data-key="right" value="{{style.right}}">
+        </div> -->
+        <div class="col-3">
+            <label>Left ({{style.left}})</label>
+            <input type="range" class="js-imageText-edit" data-key="left" data-unit="vw"   min="1" max="100"
+                                        value="{{value.left}}"  step="1" />
+        </div>
+        
+    </div>
 
-    <iframe id="template-iframe" src="/test/screen?index=1"></iframe>
-    <!-- 
+    <div class="row p-3">
+        <div class="col-6">
+            <label>Font-size ({{style 'font-size'}})</label>
+            <!-- <input type="num" class="js-imageText-edit" data-key="font-size" data-unit="vh" value="{{style 'font-size'}}">
+ -->
+            <input type="range" class="js-imageText-edit" data-key="font-size" data-unit="vw" min="1" max="15"
+                                        value="{{value 'font-size'}}"  step="1" />
+        </div>
+        <div class="col-6">
+            <label>Color</label>
+            <select id="imageText-color" class="form-control">
+                <option class="js-imageText-edit" data-key="color" value="#fff">White</option>
+                <option class="js-imageText-edit" data-key="color" value="#000">Black</option>
+                <option class="js-imageText-edit" data-key="color" value="gray">Gray</option>
+                <option class="js-imageText-edit" data-key="color" value="red">Red</option>
+                <option class="js-imageText-edit" data-key="color" value="green">Green</option>
+                <option class="js-imageText-edit" data-key="color" value="yellow">Yellow</option>
+                <option class="js-imageText-edit" data-key="color" value="Orange">Orange</option>
+            </select>
+        </div>
+        
+    </div>
 
-    </iframe> -->
-    <!-- <div class="rotate90 anticlock">
-        {{> screen}}
-    </div> -->
-
-    <!-- {{> screen}} -->
-
+    <div class="row p-3">
+        <div class="col-12">
+            <iframe style="width: 720px; height: 480px;" src="/test/screen"></iframe>
+        </div>
+    </div>
 </template>
 
-<template name="screen">
-    <div id="template">
-        <img id="template-image" src="/images/board2Border.jpg" class="menu-wrapper-image">
-        <div class="menu-wrapper">
-            <div class="menu-title">
-                EMENTA
-            </div>
-
-            {{#each set in dataset}}
-            <div class="menu-section">
-                <div class="section-title js-section-selected {{selected @index}}" data-set-index="{{@index}}">
-                    <div class="js-edit">{{set.name}}</div>
-                    <div class="js-edit">{{set.name2}}</div>
-                </div>
-                <div class="section-content">
-                    {{#let setIndex=@index}}
-                    {{#each item in set.data}}
-                    <div class="content-item {{set.style}} js-content-selected {{selected setIndex @index}}"
-                        data-set-name="{{setIndex}}" data-item-index="{{@index}}">
-                        <div class="item-left">
-                            <div class="js-edit">{{item.info1}}
-                                <span class="js-edit">{{item.info2}}</span>
-                            </div>
-                        </div>
-
-                        <div class="item-right">
-                            <div class="js-edit">{{item.price}}</div>
-                            <div class="js-edit">{{item.icons}}</div>
-                        </div>
-
-                    </div>
-                    {{/each}}
-                    {{/let}}
-                </div>
-
-            </div>
-            {{/each}}
-
+<template name="displayImageText">
+    <div class="image-text-wrapper">
+        <div class="image" style="background-image: url(http://localhost:3000/cfs/files/images/J4XFkuh6XcTgfwonM?token=eyJhdXRoVG9rZW4iOiJ3Z2hIUjd6ZDJ3Uk5nUkxtZS1SYmlZSW8zQ2p6dnphOXVnQmJrNExsNFFNIn0%3D?1583141170158);"></div>
+        <div id="image-text" class="text">
+            {{text}}
+        </div>
+        <div id="image-text2" class="text">
+            {{text2}}
         </div>
     </div>
-
-
 </template>

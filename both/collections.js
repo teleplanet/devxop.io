@@ -85,6 +85,47 @@ MultiscreenSchedule.allow({
     }
 })
 
+TemplatesImageText = new Mongo.Collection('templatesImageText');
+TemplatesImageText.allow({
+    insert: function (userId, doc) {
+
+        doc["user_id"] = userId;
+
+        let exists = TemplatesImageText.findOne({ "user_id": userId });
+        if (exists) { 
+            return false;
+        }
+
+        return true;
+    },
+    remove: function (userId, doc) {
+
+        if (doc["user_id"] == userId) {
+            //find an associated device
+
+            return true;
+        }
+
+        return false;
+    },
+    update: function (userId, doc) {
+
+        if (doc["user_id"] == userId) {
+            /* let device = Devices.findOne({"display_types.template.id": doc._id});
+            if(device){
+                Devices.update(device._id, {
+                    $set: {
+                        "update": true,
+                        "display_types.template.image": doc.image 
+                    }
+                });
+            } */
+
+            return true;
+        }
+        return false;
+    }
+})
 
 Templates = new Mongo.Collection('templates');
 Templates.allow({

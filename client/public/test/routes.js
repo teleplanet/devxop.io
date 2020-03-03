@@ -2,7 +2,7 @@ Router.route('/test', {
 	template: "emptyBase",
 	waitOn: function () {
 		return [
-			Meteor.subscribe("templates"),
+			Meteor.subscribe("templates.imageText"),
 		];
 	},
 	action: function () {
@@ -18,18 +18,15 @@ Router.route('/test/screen', {
 	template: "emptyBase",
 	waitOn: function () {
 		return [
-			Meteor.subscribe("templates"),
+			Meteor.subscribe("templates.imageText"),
 		];
 	},
 	action: function () {
 
-		let query = this.params.query;
-		let template = Templates.findOne()
+		/* Session.set("selected-menu-index", query.index);
+        Session.set("selected-menu", template.menus[query.index]); */
 
-		Session.set("selected-menu-index", query.index);
-        Session.set("selected-menu", template.menus[query.index]);
-
-		this.render("screen");
+		this.render("displayImageText");
 
 		this.next();
 

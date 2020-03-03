@@ -9,8 +9,14 @@ import Jimp from 'jimp';
 stripe = undefined;
 
 
+$(function () {
+	// Handler for .ready() called.
+	log("jquery is ready!");
+});
+
 Meteor.startup(function () {
-	
+
+
 
 	//Get viewport dimensions
 	Session.set('vH', $(document).height());
@@ -19,6 +25,7 @@ Meteor.startup(function () {
 	//initFB();
 
 	if (Meteor.isClient) {
+
 		let schedule = MultiscreenSchedule.findOne({ "user_id": this.userId });
 		if (!schedule) {
 			/* Here we create one */
@@ -30,7 +37,7 @@ Meteor.startup(function () {
 			});
 		}
 
-		TemplateStyles.insert({"name": "Template Style"});
+		TemplateStyles.insert({ "name": "Template Style" });
 		Meteor.methods({
 			"client.upsert": function (data) {
 				/* console.log(this.isSimulation) //Will be true
@@ -53,12 +60,12 @@ Meteor.startup(function () {
 				log("connected");
 				starting = false;
 			} else {
-				if(starting){
+				if (starting) {
 					log("connecting...");
-				}else{
+				} else {
 					document.location.reload(true);
 				}
-				
+
 				//
 			}
 		});
