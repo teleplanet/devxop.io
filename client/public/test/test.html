@@ -1,17 +1,15 @@
 <template name="test">
+    {{#with textSelected}}
     <div class="row p-3">
         <div class="col-12">
-            <input type="text" class="form-control js-edit-text" value="{{text}}" data-key="text">
-        </div>
-        <div class="col-12">
-            <input type="text" class="form-control js-edit-text" value="{{text2}}" data-key="text2">
+            <input type="text" class="form-control js-edit-text" value="{{this.value}}">
         </div>
     </div>
     <div class="row p-3">
         <div class="col-3">
-            <label>Top ({{style.top}})</label>
-            <input type="range" class="js-imageText-edit" data-key="top" data-unit="vh" min="1" max="100"
-                                        value="{{value.top}}"  step="1" />
+            <label>Top ({{this.style.top}})</label>
+            <input type="range" class="js-imageText-edit" data-key="top" data-unit="vh" min="0" max="100"
+                value="{{this.originals.top}}" step="1" />
         </div>
         <!-- <div class="col-3">
             <label>Bottom</label>
@@ -22,11 +20,11 @@
             <input type="num" class="js-imageText-edit" data-key="right" value="{{style.right}}">
         </div> -->
         <div class="col-3">
-            <label>Left ({{style.left}})</label>
-            <input type="range" class="js-imageText-edit" data-key="left" data-unit="vw"   min="1" max="100"
-                                        value="{{value.left}}"  step="1" />
+            <label>Left ({{this.style.left}})</label>
+            <input type="range" class="js-imageText-edit" data-key="left" data-unit="vw" min="0" max="100"
+                value="{{this.originals.left}}" step="1" />
         </div>
-        
+
     </div>
 
     <div class="row p-3">
@@ -34,23 +32,47 @@
             <label>Font-size ({{style 'font-size'}})</label>
             <!-- <input type="num" class="js-imageText-edit" data-key="font-size" data-unit="vh" value="{{style 'font-size'}}">
  -->
-            <input type="range" class="js-imageText-edit" data-key="font-size" data-unit="vw" min="1" max="15"
-                                        value="{{value 'font-size'}}"  step="1" />
+            <input type="range" class="js-imageText-edit" data-key="font-size" data-unit="vw" min="0" max="15"
+                value="{{value 'font-size'}}" step="1" />
         </div>
         <div class="col-6">
             <label>Color</label>
-            <select id="imageText-color" class="form-control">
-                <option class="js-imageText-edit" data-key="color" value="#fff">White</option>
-                <option class="js-imageText-edit" data-key="color" value="#000">Black</option>
-                <option class="js-imageText-edit" data-key="color" value="gray">Gray</option>
-                <option class="js-imageText-edit" data-key="color" value="red">Red</option>
-                <option class="js-imageText-edit" data-key="color" value="green">Green</option>
-                <option class="js-imageText-edit" data-key="color" value="yellow">Yellow</option>
-                <option class="js-imageText-edit" data-key="color" value="Orange">Orange</option>
+            <select data-key="color" class="form-control js-imageText-edit">
+                <option ></option>
+                <option data-key="color" value="#fff;">White</option>
+                <option data-key="color" value="#000;">Black</option>
+                <option data-key="color" value="gray;">Gray</option>
+                <option data-key="color" value="red;">Red</option>
+                <option data-key="color" value="green;">Green</option>
+                <option data-key="color" value="yellow;">Yellow</option>
+                <option data-key="color" value="Orange;">Orange</option>
             </select>
         </div>
-        
+
     </div>
+
+    <div class="row p-3">
+        <div class="col-12">
+            <label>Bold</label>
+            <input type="checkbox" class="form-control js-imageText-edit" data-key="font-weight" value="bold">
+        </div>
+        <div class="col-6">
+            <label>Padding ({{this.style.padding}})</label>
+            <input type="range" class="js-imageText-edit" data-key="padding" data-unit="vw" min="0" max="10"
+                value="{{this.originals.padding}}" step="1" />
+        </div>
+        <div class="col-6">
+            <label>Background</label>
+            <select data-key="background" class="form-control js-imageText-edit">
+                <option ></option>
+                <option value="rgba(0, 0, 0, 0.5);">Dark</option>
+                <option value="rgba(255, 255, 255, 0.5);">Light</option>
+            </select>
+        </div>
+
+    </div>
+
+    {{/with}}
 
     <div class="row p-3">
         <div class="col-12">
@@ -61,12 +83,14 @@
 
 <template name="displayImageText">
     <div class="image-text-wrapper">
-        <div class="image" style="background-image: url(http://localhost:3000/cfs/files/images/J4XFkuh6XcTgfwonM?token=eyJhdXRoVG9rZW4iOiJ3Z2hIUjd6ZDJ3Uk5nUkxtZS1SYmlZSW8zQ2p6dnphOXVnQmJrNExsNFFNIn0%3D?1583141170158);"></div>
-        <div id="image-text" class="text">
-            {{text}}
+        {{#with template}}
+        <div class="image" style="background-image: url({{this.image}});"></div>
+        {{#each text in this.texts}}
+        <div id="image-text" class="text js-select-text" data-index="{{@index}}" style="{{parseStyle text.style}}">
+            {{text.value}}
         </div>
-        <div id="image-text2" class="text">
-            {{text2}}
-        </div>
+        {{/each}}
+
+        {{/with}}
     </div>
 </template>
