@@ -1,0 +1,31 @@
+<template name="imageTextEdit">
+    <div class="row p-3">
+        <div class="col-12">
+            <label>Add a new Text</label>
+            <button class="button green js-add-text">Add Text</button>
+        </div>
+        <div class="col-12">
+            <label>Select Image</label>
+            <button class="button green js-add-image">Find image...</button>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12">
+            <iframe style="width: 720px; height: 480px;" src="/image/text/{{template._id}}/preview"></iframe>
+        </div>
+    </div>
+</template>
+
+<template name="displayImageText">
+    <div class="image-text-wrapper">
+        {{#with template}}
+        <div class="image" style="background-image: url({{this.image}});"></div>
+        {{#each text in this.texts}}
+        <div id="image-text" class="text js-select-text" data-index="{{@index}}" style="{{parseStyle text.style}} cursor: pointer;">
+            {{{text.value}}}
+        </div>
+        {{/each}}
+
+        {{/with}}
+    </div>
+</template>

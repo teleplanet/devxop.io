@@ -1,34 +1,34 @@
 Template.imageTextInfo.helpers({
     "style": function (key) {
-        let template = TemplatesImageText.findOne();
+        let template = Session.get("imageText-edit");
         let index = template.text_index;
         if (key) {
-            return TemplatesImageText.findOne().texts[index].style[key];
+            return template.texts[index].style[key];
         } else {
-            return TemplatesImageText.findOne().texts[index].style;
+            return template.texts[index].style;
         }
 
     },
     "value": function (key) {
-        let template = TemplatesImageText.findOne();
+        let template = Session.get("imageText-edit");
         let index = template.text_index;
         if (key) {
-            return TemplatesImageText.findOne().texts[index].originals[key];
+            return template.texts[index].originals[key];
         } else {
-            return TemplatesImageText.findOne().texts[index].originals
+            return template.texts[index].originals
         }
 
     },
     "texts": function(){
-        return TemplatesImageText.findOne().texts;
+        return Session.get("imageText-edit").texts;
     },
     "textSelected": function(){
-        let template = TemplatesImageText.findOne();
+        let template = Session.get("imageText-edit");
         let index = template.text_index;
-        return TemplatesImageText.findOne().texts[index];
+        return template.texts[index];
     },
     "isChecked": function(key, value){
-        let template = TemplatesImageText.findOne();
+        let template = Session.get("imageText-edit");
         let index = template.text_index;
 
         let val = template.texts[index].originals[key];
@@ -43,7 +43,7 @@ Template.imageTextInfo.helpers({
 
 Template.imageTextInfo.events({
     'click .js-remove-text': function (event) {
-        let template = TemplatesImageText.findOne();
+        let template = Session.get("imageText-edit");
         let index = template.text_index;
 
         if (template) {
@@ -61,7 +61,7 @@ Template.imageTextInfo.events({
         }
     },
     'change .js-imageText-edit': function (event) {
-        let template = TemplatesImageText.findOne();
+        let template = Session.get("imageText-edit");
         let index = template.text_index;
         let val = $(event.target).val();
         let key = $(event.target).data("key");
@@ -100,7 +100,7 @@ Template.imageTextInfo.events({
         }
     },
     'change #imageText-color': function () {
-        let template = TemplatesImageText.findOne();
+        let template = Session.get("imageText-edit");
         let index = template.text_index;
         let val = $('#imageText-color option:selected').val();
 

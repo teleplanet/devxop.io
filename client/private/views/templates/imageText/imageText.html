@@ -1,27 +1,44 @@
 <template name="imageText">
-    <div class="row p-3">
+    <div class="row">
         <div class="col-12">
-            <label>Add a new Text</label>
-            <button class="button green js-add-text">Add Text</button>
+            <div class="card no-style light">
+                <div class="card-body">
+                    <div class="row p-3">
+                        <div class="col-12">
+                            <h4>Gerir Menus</h4>
+                            <p>Aqui tens opção para gerir os teus menus. Podes ter um numero infinito de ementas especializadas. 
+                                Para criar mais, basta escrever um nome descritivo e o numero de categorias que pretendes na ementa.
+                                <br>Categorias são consideradas agrupamentos(Entradas, Carnes, Bebidas, etc.)
+                            </p>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <label>Template Name</label>
+                            <input class="form-control" id="imageText-name" type="text">
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <br>
+                            <button class="button js-create-imageText">Criar agora</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row p-3">
+    <div class="row p-3 mb-3">
         <div class="col-12">
-            <iframe style="width: 720px; height: 480px;" src="/image/text/preview"></iframe>
-        </div>
-    </div>
-</template>
+            <div class="Rtable Rtable--2cols Rtable--collapse">
 
-<template name="displayImageText">
-    <div class="image-text-wrapper">
-        {{#with template}}
-        <div class="image" style="background-image: url({{this.image}});"></div>
-        {{#each text in this.texts}}
-        <div id="image-text" class="text js-select-text" data-index="{{@index}}" style="{{parseStyle text.style}} cursor: pointer;">
-            {{{text.value}}}
-        </div>
-        {{/each}}
+                {{#each imageText in imageTexts}}
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    {{imageText.name}}
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    {{imageText._id}}
+                    <button class="button blue js-imageText-select" data-image-text="{{imageText._id}}">Editar</button>
+                </div>
+                {{/each}}
 
-        {{/with}}
+            </div>
+        </div>
     </div>
 </template>
