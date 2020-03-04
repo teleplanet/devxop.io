@@ -15,7 +15,7 @@ Template.imageTextEdit.events({
 
             let data = {
                 "value": "New Text",
-                "style": {"color": "white;", "background": "red;"},
+                "style": { "color": "white;", "background": "red;" },
                 "originals": {},
             };
 
@@ -46,14 +46,73 @@ Template.imageTextEdit.events({
 
         return false;
     },
+    'click .js-generate': function(){
+        let template = Session.get("imageText-edit");
+
+        console.log("generating...");
+        let elem = $("#image-text-iframe").contents().find('.image-text-wrapper')[0];
+        var o = domJSON.toJSON(elem);
+        console.log(o);
+        //$(".image-text-wrapper").html("");
+
+        var DOMDocumentFragment = domJSON.toDOM(o);
+
+    
+
+        TemplatesImageText.update(template._id, {
+            $set: {
+                "domJSON": o,
+                "DOM": elem.outerHTML
+            }
+        });
+    }
 });
 
 
-Template.displayImageText.onRendered(function () {
-    /* Tracker.autorun(function () {
-        let template = Session.get("imageText-edit");
+function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
 
-        if (!template) {
+function toDataUrl(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
+
+
+Template.displayImageText.onRendered(function () {
+
+    Tracker.autorun(function () {
+        let template = Session.get("imageText-edit");
+        //console.log("template changed!");
+
+        if (template.image) {
+            toDataUrl(template.image, function (myBase64) {
+                //console.log(myBase64); // myBase64 is the base64 string
+                $("#image").css("background-image", "url(" + myBase64 + ")");
+            });
+        }
+
+        
+
+
+        //$(".image-text-wrapper").html(DOMDocumentFragment);
+
+        /* if (!template) {
             TemplatesImageText.insert({
                 "image": "http://localhost:3000/cfs/files/images/J4XFkuh6XcTgfwonM?token=eyJhdXRoVG9rZW4iOiJ3Z2hIUjd6ZDJ3Uk5nUkxtZS1SYmlZSW8zQ2p6dnphOXVnQmJrNExsNFFNIn0%3D?1583141170158",
                 "texts": [{
@@ -71,8 +130,8 @@ Template.displayImageText.onRendered(function () {
             //Session.set("text-index", template.text_index);
             //$("#image-text").cssMap(template.style);
             //log(createMarkup(template.style));
-        }
-    }); */
+        } */
+    });
 });
 
 /* Template.test.onCreated(function () {

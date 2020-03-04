@@ -2,7 +2,8 @@ displayTypes = [
     "static",
     "video",
     "code",
-    "template"
+    "template",
+    "modules"
     /* "url",
     "code", */
     /* "slider", */

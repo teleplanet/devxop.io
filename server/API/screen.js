@@ -165,6 +165,18 @@ Router.route('/api/display', { where: 'server' }).get(function () {
                 }
 
 
+            }else if (selected == "imageText") {
+                data.display = "webview";
+                //data.code = device.display_types[selected].code
+
+                let template = TemplatesImageText.findOne(device.display_types[selected].id);
+
+                if(template){
+                    let html = '<html><header><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></header><body style="margin: 0; padding: 0"> '+ template["DOM"] +'</body></html>'
+                    data.code = html;
+                }
+
+                data.code = "Data is unavailable. Error ocurred! Contact devxop.com";
             }
         }
 

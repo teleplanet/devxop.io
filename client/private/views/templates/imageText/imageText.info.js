@@ -27,14 +27,18 @@ Template.imageTextInfo.helpers({
         let index = template.text_index;
         return template.texts[index];
     },
-    "isChecked": function(key, value){
+    "isChecked": function(key, value, attribute){
         let template = Session.get("imageText-edit");
         let index = template.text_index;
 
         let val = template.texts[index].originals[key];
 
         if(val == value){
-            return "checked";
+            if(attribute){
+                return attribute;
+            }else{
+                return "checked";
+            }
         }
 
     }

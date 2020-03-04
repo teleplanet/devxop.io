@@ -1,0 +1,33 @@
+<template name="moduleImageTextListPopup">
+    <div class="imageText-list-modal">
+        <div class="row">
+            <div class="col s12">
+                <i class="medium material-icons js-imageText-list-cancel">close</i>
+            </div>
+        </div>
+        <div class="row">
+            {{#each imageText in imageTexts}}
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img src="{{thumbUrl imageText.image_thumb}}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <p class="card-text">{{imageText.name}}</p>
+                        <p class="card-text">
+                            
+                            <div class="button center js-imageText-selected"
+                                data-imageText-id="{{imageText._id}}">
+                                Select imageText</div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="row">
+            <div class="col s6">
+
+            </div>
+        </div>
+    </div>
+    <div class="imageText-list-background"></div>
+</template>

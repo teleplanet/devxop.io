@@ -272,6 +272,23 @@ Template.deviceEdit.events({
 
         return false;
     },
+    'click .js-select-imageText': function (event) {
+        event.preventDefault();
+
+        imageTextListModal(function (err, imageText) {
+            if (imageText) {
+                let device = Session.get("device-edit");
+                Devices.update(device._id, {
+                    $set: {
+                        "display_types.imageText.id": imageText._id,
+                        "update": true
+                    }
+                });
+            }
+        });
+
+        return false;
+    },
     'click .js-select-video': function (event) {
         event.preventDefault();
 
