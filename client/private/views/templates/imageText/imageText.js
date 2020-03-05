@@ -22,9 +22,24 @@ Template.imageText.events({
         }
 
     },
-    'click .js-imageText-select': function (event) {
-        let templateId = $(event.currentTarget).data('image-text');
+    'click .js-imageText-remove': function () {
+        let templateId = $(event.target).data('imageText');
 
-        Router.go("/image/text/" + templateId);
+        console.log(templateId);
+        if(templateId){
+            TemplatesImageText.remove(templateId);
+        }
+
+        
+
+    },
+    'click .js-imageText-select': function (event) {
+        let templateId = $(event.target).data('imageText');
+
+        if(templateId){
+            Router.go("/image/text/" + templateId);
+        }
+
+        
     },
 });

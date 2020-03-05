@@ -109,17 +109,9 @@ TemplatesImageText.allow({
         return false;
     },
     update: function (userId, doc) {
-
         if (doc["user_id"] == userId) {
-            /* let device = Devices.findOne({"display_types.template.id": doc._id});
-            if(device){
-                Devices.update(device._id, {
-                    $set: {
-                        "update": true,
-                        "display_types.template.image": doc.image 
-                    }
-                });
-            } */
+            
+
 
             return true;
         }
@@ -153,12 +145,12 @@ Templates.allow({
     update: function (userId, doc) {
 
         if (doc["user_id"] == userId) {
-            let device = Devices.findOne({"display_types.template.id": doc._id});
-            if(device){
+            let device = Devices.findOne({ "display_types.template.id": doc._id });
+            if (device) {
                 Devices.update(device._id, {
                     $set: {
                         "update": true,
-                        "display_types.template.image": doc.image 
+                        "display_types.template.image": doc.image
                     }
                 });
             }
@@ -176,7 +168,7 @@ TemplateStyles.allow({
         doc["user_id"] = userId;
 
         let exists = TemplateStyles.findOne({ "user_id": userId });
-        if (exists) { 
+        if (exists) {
             return false;
         }
 
@@ -423,8 +415,8 @@ Companies.allow({
     update: function (userId, doc) {
 
         let user = Meteor.users.findOne(userId);
-        if(user){
-            if(user.profile.company == doc._id){
+        if (user) {
+            if (user.profile.company == doc._id) {
                 return true;
             }
         }

@@ -102,7 +102,7 @@ Template.templateEdit.onRendered(function () {
 
     //$("#template-iframe").attr("src", "/templates/" + Session.get("template-edit")._id + "/preview");
 
-   $("#template-edit-iframe").on("load", function () {
+    $("#template-edit-iframe").on("load", function () {
         let style = TemplateStyles.findOne();
         let str = style.data;
 
@@ -159,16 +159,16 @@ Template.templateEdit.events({
 
             $(img).on('load', function () {
 
-                if(typeof rotation != "undefined"){
-                    if(rotation == "90"){
+                if (typeof rotation != "undefined") {
+                    if (rotation == "90") {
                         rotate(90);
-                    }else if(rotation == "-90"){
+                    } else if (rotation == "-90") {
                         rotate(-90);
-                    }else if(rotation == "0"){
+                    } else if (rotation == "0") {
                         rotate(0);
                     }
                 }
-                
+
 
                 //img.width = 1920;
                 //img.height = 1080;
@@ -219,6 +219,21 @@ Template.templateEdit.events({
                                                             "image_thumb": thumbObj._id
                                                         }
                                                     });
+
+
+                                                    let devices = Devices.find({ "display_types.template.id": template._id }).fetch();
+                                                    if (devices) {
+                                                        for (let i = 0; i < devices.length; i++) {
+                                                            let device = devices[i];
+                                                            //console.log("Device updating..." + device._id);
+                                                            Devices.update(device._id, {
+                                                                $set: {
+                                                                    "update": true
+                                                                }
+                                                            });
+                                                        }
+
+                                                    }
 
                                                     $(event.currentTarget).show();
 

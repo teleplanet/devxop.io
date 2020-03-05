@@ -3,7 +3,7 @@ displayTypes = [
     "video",
     "code",
     "template",
-    "modules"
+    "imageText"
     /* "url",
     "code", */
     /* "slider", */

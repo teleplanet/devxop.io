@@ -26,15 +26,26 @@
     </div>
     <div class="row p-3 mb-3">
         <div class="col-12">
-            <div class="Rtable Rtable--2cols Rtable--collapse">
+            <div class="Rtable Rtable--5cols Rtable--collapse">
 
                 {{#each imageText in imageTexts}}
+                <div style="order:2; padding: 0;"
+                    class="Rtable-cell Rtable-cell--image Rtable-cell--head --alignMiddle">
+                    <div class="thumb small"
+                        style="width: 100%; height: 200px; background-image: url({{thumbUrl imageText.image_thumb}});">
+                    </div>
+                </div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">
                     {{imageText.name}}
                 </div>
                 <div style="order:2" class="Rtable-cell --alignMiddle">
-                    {{imageText._id}}
+                    <a href="{{imageUrl imageText.image}}" target="_blank" class="button blue">Ver</a>
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
                     <button class="button blue js-imageText-select" data-image-text="{{imageText._id}}">Editar</button>
+                </div>
+                <div style="order:2" class="Rtable-cell --alignMiddle">
+                    <button class="button blue js-imageText-remove" data-image-text="{{imageText._id}}">Remover</button>
                 </div>
                 {{/each}}
 

@@ -60,7 +60,7 @@ Template.moduleImageListPopup.helpers({
         return Session.get("module.confirmPopup");
     },
     'images': function () {
-        return Images.find({ "template_id": { $exists: false } }).fetch();
+        return Images.find({ "template_id": { $exists: false }, "imageText_id": { $exists: false }  }).fetch();
     }
 });
 

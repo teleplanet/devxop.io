@@ -1,3 +1,6 @@
+
+import ImageCompressor from 'image-compressor.js';
+
 Template.imageTextEdit.onRendered(function () {
     var controller = Iron.controller();
     controller.render('imageTextInfo', { to: 'nav-panel-info' });
@@ -38,7 +41,7 @@ Template.imageTextEdit.events({
                 let template = Session.get("imageText-edit");
                 TemplatesImageText.update(template._id, {
                     $set: {
-                        "image": image.url(),
+                        "image_url": image.url(),
                     }
                 });
             }
@@ -46,12 +49,12 @@ Template.imageTextEdit.events({
 
         return false;
     },
-    'click .js-generate': function(){
+    'click .js-generate': function () {
         let template = Session.get("imageText-edit");
 
         console.log("generating...");
         let elem = $("#image-text-iframe").contents().find('.image-text-wrapper')[0];
-        var o = domJSON.toJSON(elem);
+        /* var o = domJSON.toJSON(elem);
         console.log(o);
         //$(".image-text-wrapper").html("");
 
@@ -64,6 +67,113 @@ Template.imageTextEdit.events({
                 "domJSON": o,
                 "DOM": elem.outerHTML
             }
+        }); */
+
+
+        // You can then get the data URL when the image got loaded:
+        let width = "1920";
+        let height = "1080";
+
+        $("#image-text-iframe").css({ "width": width + "px", "height": height + "px" });
+
+        /* if(typeof rotation != "undefined"){
+            if(rotation == "90"){
+                $(elem).addClass("rotate90");
+            }else if(rotation == "-90"){
+                $(elem).addClass("rotate90");
+                $(elem).addClass("anticlock");
+            }
+        } */
+
+
+        /* $("#template-edit-iframe").css({ "right": "-100%", "position": "absolute" }); */
+        document.html2canvas(elem, { "width": width, "height": height, "userCORS": true }).then(canvas => {
+
+            var blob = dataURItoBlob(canvas.toDataURL("image/jpeg"));
+
+            new ImageCompressor(blob, {
+                quality: 1,
+                width: width,
+                height: height,
+                success(result) {
+                    var imageObj = new FS.File(result);
+                    imageObj['user_id'] = Meteor.userId();
+                    imageObj['imageText_id'] = template._id;
+
+                    //check existense
+                    let exists = Images.findOne({ "user_id": Meteor.userId(), "imageText_id": template._id });
+                    if (exists) {
+                        Images.remove(exists._id);
+                    }
+
+                    Images.insert(imageObj, function (err, image) {
+                        // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            scaleImage(canvas.toDataURL("image/jpeg"), 720, 480, function (canvas) {
+                                var blob = dataURItoBlob(canvas.toDataURL("image/jpeg"));
+                                new ImageCompressor(blob, {
+                                    quality: 1,
+                                    width: 720,
+                                    height: 480,
+                                    success(result) {
+
+                                        var thumbObj = new FS.File(result);
+                                        thumbObj['user_id'] = Meteor.userId();
+                                        thumbObj['imageText_id'] = template._id;
+                                        Thumbnails.insert(thumbObj, function (err, thumbnail) {
+                                            // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+
+                                                TemplatesImageText.update(template._id, {
+                                                    $set: {
+                                                        "image": imageObj._id,
+                                                        "image_thumb": thumbObj._id,
+                                                    }
+                                                });
+
+                                                let devices = Devices.find({ "display_types.imageText.id": template._id }).fetch();
+                                                if (devices) {
+                                                    for (let i = 0; i < devices.length; i++) {
+                                                        let device = devices[i];
+                                                        //console.log("Device updating..." + device._id);
+                                                        Devices.update(device._id, {
+                                                            $set: {
+                                                                "update": true
+                                                            }
+                                                        });
+                                                    }
+
+                                                }
+
+                                                $(event.currentTarget).show();
+
+                                                Router.go("/image/text");
+                                            }
+                                        });
+
+                                    },
+                                    error(e) {
+                                        console.log(e.message);
+                                    },
+                                });
+                            });
+
+                        }
+                    });
+
+
+
+                },
+                error(e) {
+                    console.log(e.message);
+                },
+
+            });
+            $("#image-text-iframe").css({ "width": "720px", "height": "480px" });
         });
     }
 });
@@ -100,14 +210,14 @@ Template.displayImageText.onRendered(function () {
         let template = Session.get("imageText-edit");
         //console.log("template changed!");
 
-        if (template.image) {
-            toDataUrl(template.image, function (myBase64) {
+        if (template.image_url) {
+            toDataUrl(template.image_url, function (myBase64) {
                 //console.log(myBase64); // myBase64 is the base64 string
                 $("#image").css("background-image", "url(" + myBase64 + ")");
             });
         }
 
-        
+
 
 
         //$(".image-text-wrapper").html(DOMDocumentFragment);

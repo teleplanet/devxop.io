@@ -1,6 +1,7 @@
 
 Router.route('/image/text', {
     controller: 'PrivateController',
+    name: "media.images.text",
     action: function () {
       if (this.ready()) {
 /*         let template = Templates.findOne({ "_id": this.params.deviceId });
@@ -11,10 +12,10 @@ Router.route('/image/text', {
         Session.set("route", "Image / Text");
         this.render("imageText");
       }
-      uiInfo(false);
+      uiInfo(true);
     },
     onStop: function () {
-      uiInfo(true);
+      uiInfo(false);
     }
   });
 
@@ -44,7 +45,7 @@ Router.route('/image/text', {
 	template: "emptyBase",
 	waitOn: function () {
 		return [
-			Meteor.subscribe("templates.imageText"),
+			Meteor.subscribe("templates.imageText.public"),
 		];
 	},
 	action: function () {

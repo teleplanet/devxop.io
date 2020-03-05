@@ -10,6 +10,12 @@ Meteor.publish('templates.imageText', function () {
 
 });
 
+Meteor.publish('templates.imageText.public', function () {
+    //console.log(this.userId);
+    return TemplatesImageText.find({});
+
+});
+
 Meteor.publish('templates.styles', function () {
     //console.log(this.userId);
     return TemplateStyles.find({"user_id": this.userId });

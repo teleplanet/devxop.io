@@ -30,7 +30,7 @@ imageTextListModal = function (callback) {
     $(".js-imageText-selected").on("click", function(event){
         event.preventDefault();
         container.removeClass("imageText-list-modal-toggled");
-        let templateId = $(event.target).data('imageText-id');
+        let templateId = $(event.target).data('image-text');
 
         let imageText = TemplatesImageText.findOne({"_id": templateId});
 

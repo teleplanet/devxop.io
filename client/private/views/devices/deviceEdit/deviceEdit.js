@@ -69,6 +69,8 @@ Template.deviceEdit.helpers({
             "video_name": "",
             "template": "",
             "template_img": "",
+            "module": "",
+            "module_img": "",
             "code": "",
         }
 
@@ -124,6 +126,20 @@ Template.deviceEdit.helpers({
                     console.log("no image thumb... using main image");
                     let img = Images.findOne({ _id: data.template.image });
                     data.template_img = img.url();
+                }
+            }
+
+            /* GET IMAGETEXT */
+            data.module = TemplatesImageText.findOne({ _id: data.device.display_types.imageText.id });
+            if (data.module) {
+                //data.template = template.url();
+                let thumb = Thumbnails.findOne({ _id: data.module.image_thumb });
+                if (thumb) {
+                    data.module_img = thumb.url();
+                } else {
+                    console.log("no image thumb... using main image");
+                    let img = Images.findOne({ _id: data.module.image });
+                    data.module_img = img.url();
                 }
             }
 
@@ -277,6 +293,7 @@ Template.deviceEdit.events({
 
         imageTextListModal(function (err, imageText) {
             if (imageText) {
+                console.log(imageText);
                 let device = Session.get("device-edit");
                 Devices.update(device._id, {
                     $set: {
