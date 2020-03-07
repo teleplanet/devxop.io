@@ -42,6 +42,7 @@
     font: 53px;
 }.nav-panel-icons .icon > span{
     margin: 0px;
+    width: max-content;
     position: absolute;
     background-color: rgb(34, 34, 34);
     margin-left: 20px;

@@ -1,4 +1,4 @@
-Router.route('/test', { where: 'server' }).get(function () {
+Router.route('/api/test', { where: 'server' }).get(function () {
 
     let req = this.request,
         res = this.response,

@@ -5,6 +5,8 @@ import ImageCompressor from 'image-compressor.js';
 import $ from "jquery";
 import html2canvas from 'html2canvas';
 import Jimp from 'jimp';
+import ImageEditor from 'tui-image-editor';
+import AColorPicker from 'a-color-picker';
 
 stripe = undefined;
 
@@ -89,6 +91,8 @@ $(document).ready(function () {
 
 	document["html2canvas"] = html2canvas;
 	document["Jimp"] = Jimp;
+	document["imageEditor"] = ImageEditor;
+	document["aColorPicker"] = AColorPicker;
 
 	$(".js-modal-btn").click(function (event) {
 		let id = $(event.target).data("modal-id");
