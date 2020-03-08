@@ -8,6 +8,7 @@ Template.imageTextEdit.onRendered(function () {
 });
 
 Template.imageTextEdit.events({
+
     'click .js-add-text': function (event) {
         let template = Session.get("imageText-edit");
         let index = template.text_index;
@@ -208,6 +209,7 @@ Template.displayImageText.onRendered(function () {
 
     Tracker.autorun(function () {
         let template = Session.get("imageText-edit");
+        setDraggables();
         //console.log("template changed!");
 
         if (template.image_url) {
@@ -219,37 +221,51 @@ Template.displayImageText.onRendered(function () {
 
 
 
-
-        //$(".image-text-wrapper").html(DOMDocumentFragment);
-
-        /* if (!template) {
-            TemplatesImageText.insert({
-                "image": "http://localhost:3000/cfs/files/images/J4XFkuh6XcTgfwonM?token=eyJhdXRoVG9rZW4iOiJ3Z2hIUjd6ZDJ3Uk5nUkxtZS1SYmlZSW8zQ2p6dnphOXVnQmJrNExsNFFNIn0%3D?1583141170158",
-                "texts": [{
-                    "value": "this is string 1",
-                    "style": {},
-                    "originals": {},
-                }, {
-                    "value": "this is string 1",
-                    "style": {},
-                    "originals": {},
-                }],
-
-            });
-        } else {
-            //Session.set("text-index", template.text_index);
-            //$("#image-text").cssMap(template.style);
-            //log(createMarkup(template.style));
-        } */
+        
     });
+
+
 });
 
-/* Template.test.onCreated(function () {
 
+setDraggables = function(){
+    $('.js-select-text').each(function (i, obj) {
+        $(this).draggable({
+            stop: function () {
+                var finalOffset = $(this).offset();
+                var finalxPos = finalOffset.left;
+                var finalyPos = finalOffset.top;
+                let template = Session.get("imageText-edit");
 
-})
- */
+                //$(this).text('Final X: ' + finalxPos + " | Final X: " + finalyPos);
+                let left = pxToVw(finalxPos);
+                let top = pxToVh(finalyPos);
 
+                let index = $(this).data("index");
+                let text = template.texts[index];
+                let style = text.style;
+                style["left"] = left + "vw";
+                style["top"] = top + "vh";
+                let originals = text.originals;
+                originals["left"] = left;
+                originals["top"] = top;
+
+                text["originals"] = originals;
+                text["style"] = style;
+
+                template.texts[index] = text;
+
+                TemplatesImageText.update(template._id, {
+                    $set: {
+                        "texts": template.texts,
+                    }
+                });
+
+            },
+        }
+        );
+    });
+}
 Template.imageTextEdit.helpers({
     "template": function () {
         return Session.get("imageText-edit");
@@ -268,15 +284,20 @@ Template.displayImageText.helpers({
     }
 });
 
+
 Template.displayImageText.events({
     'click .js-select-text': function (event) {
         let template = Session.get("imageText-edit");
         let index = $(event.target).data("index");
+        let target = $(event.target);
 
         TemplatesImageText.update(template._id, {
             $set: {
                 "text_index": index,
             }
         });
+
+
     },
+
 });

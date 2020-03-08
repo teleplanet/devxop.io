@@ -57,7 +57,7 @@
                     <input type="range" class="js-imageText-edit" data-key="padding" data-unit="vw" min="0" max="10"
                         value="{{this.originals.padding}}" step="1" />
                 </div>
-                <div class="col-6">
+                <!-- <div class="col-6">
                     <label>Top ({{this.style.top}})</label>
                     <input type="range" class="js-imageText-edit" data-key="top" data-unit="vh" min="0" max="100"
                         value="{{this.originals.top}}" step="1" />
@@ -67,7 +67,7 @@
                     <label>Left ({{this.style.left}})</label>
                     <input type="range" class="js-imageText-edit" data-key="left" data-unit="vw" min="0" max="100"
                         value="{{this.originals.left}}" step="1" />
-                </div>
+                </div> -->
             </div>
             <div class="row">
                 <div class="col-12">
@@ -86,7 +86,9 @@
                 </div>
                 <div class="col-12">
                     <label>Color</label>
-                    <select data-key="color" class="form-control js-imageText-edit">
+                    <div class="picker" acp-color="#EFE9E7" acp-show-rgb="no" acp-show-hsl="no" acp-show-hex="yes" acp-show-alpha>
+                    </div>
+                    <!-- <select data-key="color" class="form-control js-imageText-edit">
                         <option></option>
                         <option data-key="color" value="#fff;" {{isChecked "color" "#fff;" "selected"}} >White</option>
                         <option data-key="color" value="#000;" {{isChecked "color" "#000;" "selected"}} >Black</option>
@@ -95,7 +97,7 @@
                         <option data-key="color" value="green;" {{isChecked "color" "green;" "selected"}} >Green</option>
                         <option data-key="color" value="yellow;" {{isChecked "color" "yellow;" "selected"}} >Yellow</option>
                         <option data-key="color" value="Orange;" {{isChecked "color" "orange;" "selected"}} >Orange</option>
-                    </select>
+                    </select> -->
                 </div>
                 <div class="col-12">
                     <label>Background</label>

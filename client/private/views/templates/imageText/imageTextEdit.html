@@ -52,10 +52,17 @@
         {{#with template}}
         <div id="image" class="image"></div>
         {{#each text in this.texts}}
-        <div id="image-text" class="text js-select-text" data-index="{{@index}}"
+        <div id="image-text" draggable="true" class="text js-select-text" data-index="{{@index}}"
             style="{{parseStyle text.style}} cursor: pointer;">
             {{{text.value}}}
         </div>
+        <script>
+            //Make the DIV element draggagle:
+            
+            
+
+        
+        </script>
         {{/each}}
 
         {{/with}}

@@ -1,3 +1,37 @@
+Template.imageTextInfo.onRendered(function () {
+    document.aColorPicker.from('.picker')
+        .on('change', (picker, color) => {
+            document.body.style.backgroundColor = color;
+
+            let template = Session.get("imageText-edit");
+            let index = template.text_index;
+            let val = color;
+
+
+            if (template) {
+
+                let text = template.texts[index];
+                let style = text.style;
+                style["color"] = val;
+                let originals = text.originals;
+                originals["color"] = val;
+
+                text["originals"] = originals;
+                text["style"] = style;
+
+                template.texts[index] = text;
+
+                TemplatesImageText.update(template._id, {
+                    $set: {
+                        "texts": template.texts,
+                    }
+                });
+
+            }
+        });
+});
+
+
 Template.imageTextInfo.helpers({
     "style": function (key) {
         let template = Session.get("imageText-edit");
@@ -19,24 +53,24 @@ Template.imageTextInfo.helpers({
         }
 
     },
-    "texts": function(){
+    "texts": function () {
         return Session.get("imageText-edit").texts;
     },
-    "textSelected": function(){
+    "textSelected": function () {
         let template = Session.get("imageText-edit");
         let index = template.text_index;
         return template.texts[index];
     },
-    "isChecked": function(key, value, attribute){
+    "isChecked": function (key, value, attribute) {
         let template = Session.get("imageText-edit");
         let index = template.text_index;
 
         let val = template.texts[index].originals[key];
 
-        if(val == value){
-            if(attribute){
+        if (val == value) {
+            if (attribute) {
                 return attribute;
-            }else{
+            } else {
                 return "checked";
             }
         }
@@ -72,7 +106,7 @@ Template.imageTextInfo.events({
         let unit = $(event.target).data("unit");
 
         if (template) {
-            if($(event.target).is(':checkbox') && !$(event.target).is(':checked')){
+            if ($(event.target).is(':checkbox') && !$(event.target).is(':checked')) {
                 val = "";
             }
 
@@ -80,12 +114,12 @@ Template.imageTextInfo.events({
             let style = text.style;
             let originals = text.originals;
 
-            if(key == "padding"){
-                let newVal = val + "vh " + (val*2) + "vw";
+            if (key == "padding") {
+                let newVal = val + "vh " + (val * 2) + "vw";
                 style[key] = newVal;
-            }else if(key == "value"){
+            } else if (key == "value") {
                 text["value"] = val;
-            }else{
+            } else {
                 style[key] = val + unit;
                 originals[key] = val;
             }
