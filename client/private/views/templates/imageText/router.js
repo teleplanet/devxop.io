@@ -1,14 +1,10 @@
 
-Router.route('/image/text', {
+/* Router.route('/image/text', {
     controller: 'PrivateController',
     name: "media.images.text",
     action: function () {
       if (this.ready()) {
-/*         let template = Templates.findOne({ "_id": this.params.deviceId });
-        Session.set("route", "Template / Edit");
-  
-        Session.set("template-edit", template);
-   */
+
         Session.set("route", "Image / Text");
         this.render("imageText");
       }
@@ -18,13 +14,15 @@ Router.route('/image/text', {
       uiInfo(false);
     }
   });
-
-  Router.route('/image/text/:imageText', {
+ */
+  Router.route('/image/text', {
     controller: 'PrivateController',
+    name: "media.images.text",
     action: function () {
       if (this.ready()) {
-         let template = TemplatesImageText.findOne({ "_id": this.params.imageText });
-        Session.set("route", "Image / Text / Edit");
+        //let template = TemplatesImageText.findOne({ "_id": this.params.imageText });
+         let template = TemplatesImageText.findOne({});
+        Session.set("route", "Image / Text");
   
         Session.set("imageText-edit", template);
    

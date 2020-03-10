@@ -100,10 +100,10 @@
 }
 
 #ui-wrapper.large-info > .ui-nav{
-     width: 450px !important;
+     width: 450px;
 }
 #ui-wrapper.large-info > .ui-nav > .nav-panel-info{
-    width: 400px !important;
+    width: 400px;
 }#ui-wrapper.large-info > .ui-content{
     left: 450px;
     width: calc(100% - 450px);
@@ -117,6 +117,14 @@
 @media all and (max-width: 676px) {
     .ui-nav > .nav-panel-info{
         display: none;
+    }
+
+    #ui-wrapper.large-info > .ui-nav{
+        width: 48px;
+    }#ui-wrapper.large-info > .ui-content{
+        left: 48px;
+        width: calc(100% - 48px);
+        height: calc(100% - 36px);
     }
 
     .ui-content{

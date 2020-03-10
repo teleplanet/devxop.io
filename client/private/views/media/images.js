@@ -24,7 +24,7 @@ Template.mediaImages.helpers({
             storage: 0,
         };
 
-        data.images = Images.find({ "download_complete": true, "template_id": { $exists: false } }).fetch(),
+        data.images = Images.find({ /* "download_complete": true, */ "template_id": { $exists: false } }).fetch(),
             data.total = data.images.length,
 
             data.images.forEach(function (image) {

@@ -99,13 +99,13 @@ Template.imageTextEdit.events({
                 success(result) {
                     var imageObj = new FS.File(result);
                     imageObj['user_id'] = Meteor.userId();
-                    imageObj['imageText_id'] = template._id;
+                    //imageObj['imageText_id'] = template._id;
 
                     //check existense
-                    let exists = Images.findOne({ "user_id": Meteor.userId(), "imageText_id": template._id });
+                    /* let exists = Images.findOne({ "user_id": Meteor.userId(), "imageText_id": template._id });
                     if (exists) {
                         Images.remove(exists._id);
-                    }
+                    } */
 
                     Images.insert(imageObj, function (err, image) {
                         // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
@@ -122,21 +122,31 @@ Template.imageTextEdit.events({
 
                                         var thumbObj = new FS.File(result);
                                         thumbObj['user_id'] = Meteor.userId();
-                                        thumbObj['imageText_id'] = template._id;
+                                        //thumbObj['imageText_id'] = template._id;
                                         Thumbnails.insert(thumbObj, function (err, thumbnail) {
                                             // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
                                             if (err) {
                                                 console.log(err);
                                             } else {
+                                                
 
-                                                TemplatesImageText.update(template._id, {
+                                                Images.update(imageObj._id, {
+                                                    $set: {
+                                                        "image_thumb": thumbnail._id,
+                                                        "download_complete": true,
+                                                    }
+                                                });
+
+                                                /* TemplatesImageText.update(template._id, {
                                                     $set: {
                                                         "image": imageObj._id,
                                                         "image_thumb": thumbObj._id,
                                                     }
-                                                });
+                                                }); */
 
-                                                let devices = Devices.find({ "display_types.imageText.id": template._id }).fetch();
+
+
+                                                /* let devices = Devices.find({ "display_types.imageText.id": template._id }).fetch();
                                                 if (devices) {
                                                     for (let i = 0; i < devices.length; i++) {
                                                         let device = devices[i];
@@ -149,10 +159,10 @@ Template.imageTextEdit.events({
                                                     }
 
                                                 }
-
+ */
                                                 $(event.currentTarget).show();
 
-                                                Router.go("/image/text");
+                                                Router.go("/media/images");
                                             }
                                         });
 
@@ -212,7 +222,7 @@ Template.displayImageText.onRendered(function () {
            setDraggables(); 
         }, 500);
         
-        console.log("template changed!");
+        //console.log("template changed!");
 
         if (template.image_url) {
             toDataUrl(template.image_url, function (myBase64) {

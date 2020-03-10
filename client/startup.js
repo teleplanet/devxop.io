@@ -39,6 +39,23 @@ Meteor.startup(function () {
 			});
 		}
 
+		let imageText = TemplatesImageText.findOne({});
+		if (!imageText) {
+			/* Here we create one */
+			TemplatesImageText.insert({
+				"image": "",
+				"name": name,
+				"texts": [{
+					"value": "Example Text",
+					"style": { "color": "white;", "background": "red;" },
+					"originals": {},
+				}],
+
+			});
+		}
+
+
+
 		TemplateStyles.insert({ "name": "Template Style" });
 		Meteor.methods({
 			"client.upsert": function (data) {

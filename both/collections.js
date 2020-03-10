@@ -91,10 +91,10 @@ TemplatesImageText.allow({
 
         doc["user_id"] = userId;
 
-        /* let exists = TemplatesImageText.findOne({ "user_id": userId });
+        let exists = TemplatesImageText.findOne({ "user_id": userId });
         if (exists) { 
             return false;
-        } */
+        }
 
         return true;
     },
