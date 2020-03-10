@@ -37,8 +37,13 @@ Meteor.startup(() => {
 
 });
 
+/* var ffmpeg = require('fluent-ffmpeg');
+
 Meteor.methods({
     'test': async function (files, folder, filename) {
+        files = ["/cfs/files/videos/tLytcws965zHamNuT/Menu-Bebidas-2-v2-23-08-2019.mp4", "/cfs/files/videos/F9JpMh42Hc9Na7mL3/video_2.mp4"];
+        folder = "testing"
+        filename = "merged"
         return new Promise((resolve, reject) => {
 
             var cmd = ffmpeg({ priority: 20 }).videoCodec('h264').fps(29.7)
@@ -58,4 +63,4 @@ Meteor.methods({
             cmd.mergeToFile(folder + "/" + filename, folder);
         });
     }
-})
+}) */

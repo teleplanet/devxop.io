@@ -73,26 +73,31 @@
 
     </div>
     <div class="row p-3 mb-3">
-        <div class="col-12">
+        {{#if this.videos}}
+        {{#each video in this.videos}}
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card">
+                <video src="{{videoUrl video._id}}" preload="metadata" controls class="card-img-top" alt="..."></video>
+                <div class="card-body">
+                    <h5 class="card-title">{{video.original.name}}</h5>
+                    <p class="card-text">
+                        <button id="{{video._id}}" class="button danger center js-remove-video">
+                            Delete Video
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+        {{/if}}
+    </div>
+    {{/with}}
+</template>
+
+<!-- <div class="col-12">
             {{#if this.videos}}
             <div class="Rtable Rtable--5cols Rtable--collapse">
-
-                <!-- <div style="order:1" class="Rtable-cell cell-header">
-                    Name
-                </div>
-                <div style="order:1" class="Rtable-cell cell-header">
-                    Size
-                </div>
-                <div style="order:1" class="Rtable-cell cell-header">
-                    Type
-                </div>
-                <div style="order:1" class="Rtable-cell cell-header">
-
-                </div>
-                <div style="order:1" class="Rtable-cell cell-header">
-
-                </div> -->
-
 
                 {{#each video in this.videos}}
                 <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--head">{{video.original.name}}</div>
@@ -111,6 +116,4 @@
             </div>
             {{/if}}
         </div>
-    </div>
-    {{/with}}
-</template>
+    </div> -->

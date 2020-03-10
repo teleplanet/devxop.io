@@ -82,7 +82,7 @@ Meteor.startup(function () {
 				if (starting) {
 					log("connecting...");
 				} else {
-					document.location.reload(true);
+					//document.location.reload(true);
 				}
 
 				//

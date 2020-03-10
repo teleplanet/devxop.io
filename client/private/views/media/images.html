@@ -99,33 +99,48 @@
                         <div class="col-12">
                             <br>
                             <a href="{{pathFor route='media.images.text'}}" class="button center"><i
-                                class="material-icons">photo_filter</i><span>Image Editor</span></a>
+                                    class="material-icons">photo_filter</i><span>Image Editor</span></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
-    <div class="row p-3 mb-3">
-        <div class="col-12">
+    <div class="row p-3">
 
-            {{#if this.images}}
+        {{#if this.images}}
+        {{#each image in this.images}}
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card">
+                <img src="{{thumbUrl image.image_thumb}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">
+                        <div class="row">
+                            <div class="col-6">
+                                <button id="{{image._id}}" class="button center danger js-remove-image">
+                                    Delete
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <a class="button blue center" href="{{imageUrl image._id}}" target="_blank">Full
+                                    view</a>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+        {{/if}}
+        
+    </div>
+    {{/with}}
+</template>
+
+<!-- <div class="col-12">
             <div class="Rtable Rtable--5cols Rtable--collapse">
-
-                <!-- <div style="order:1" class="Rtable-cell cell-header">
-                    
-                </div>
-                <div style="order:1" class="Rtable-cell cell-header">
-                    Size
-                </div>
-                <div style="order:1" class="Rtable-cell cell-header">
-                    Type
-                </div>
-                <div style="order:1" class="Rtable-cell cell-header">
-
-                </div> -->
-
-
                 {{#each image in this.images}}
                 <div style="order:2; padding: 0;"
                     class="Rtable-cell Rtable-cell--image Rtable-cell--head --alignMiddle">
@@ -147,8 +162,5 @@
 
             </div>
 
-            {{/if}}
-        </div>
-    </div>
-    {{/with}}
-</template>
+           
+        </div> -->

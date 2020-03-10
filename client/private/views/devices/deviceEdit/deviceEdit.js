@@ -113,6 +113,7 @@ Template.deviceEdit.helpers({
             let video = Videos.findOne({ _id: data.device.display_types.video.video });
             if (video) {
                 data.video_name = video.original.name
+                data.video = video._id;
             }
 
             /* GET TEMPLATE */
@@ -129,8 +130,8 @@ Template.deviceEdit.helpers({
                 }
             }
 
-            /* GET IMAGETEXT */
-            data.module = TemplatesImageText.findOne({ _id: data.device.display_types.imageText.id });
+            /* GET IMAGETEXT [DEPRECATED] */
+            /* data.module = TemplatesImageText.findOne({ _id: data.device["display_types.imageText.id"] });
             if (data.module) {
                 //data.template = template.url();
                 let thumb = Thumbnails.findOne({ _id: data.module.image_thumb });
@@ -141,7 +142,7 @@ Template.deviceEdit.helpers({
                     let img = Images.findOne({ _id: data.module.image });
                     data.module_img = img.url();
                 }
-            }
+            } */
 
 
             data.code = data.device.display_types.code.code
