@@ -52,10 +52,15 @@ Template.privateBase.events({
 	}
 });
 
-uiInfo = function(show){
+uiInfo = function(show, action){
+	$("#ui-wrapper").removeClass("large-info");
 	if(show){
 		$("#ui-wrapper").addClass("full-content");
 	}else{
 		$("#ui-wrapper").removeClass("full-content");
+
+		if(action == "large"){
+			$("#ui-wrapper").addClass("large-info");
+		}
 	}
 }

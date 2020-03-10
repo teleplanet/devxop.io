@@ -1,34 +1,49 @@
 Template.imageTextInfo.onRendered(function () {
-    document.aColorPicker.from('.picker')
-        .on('change', (picker, color) => {
-            document.body.style.backgroundColor = color;
 
-            let template = Session.get("imageText-edit");
-            let index = template.text_index;
-            let val = color;
+    this.sessionWatcher = Session.watch('imageText-edit', function (value) {
+        setTimeout(() => {
+            $('.picker').each(function (i, obj) {
+                if ($(this).find('.a-color-picker').length == 1) {
+
+                } else {
+                    document.aColorPicker.from(this)
+                        .on('change', (picker, color) => {
+                            //document.body.style.backgroundColor = color;
+
+                            let template = Session.get("imageText-edit");
+                            let index = template.text_index;
+                            let key = $(this).data("key");
+                            let val = color;
 
 
-            if (template) {
+                            if (template) {
 
-                let text = template.texts[index];
-                let style = text.style;
-                style["color"] = val;
-                let originals = text.originals;
-                originals["color"] = val;
+                                let text = template.texts[index];
+                                let style = text.style;
+                                style[key] = val;
+                                let originals = text.originals;
+                                originals[key] = val;
 
-                text["originals"] = originals;
-                text["style"] = style;
+                                text["originals"] = originals;
+                                text["style"] = style;
 
-                template.texts[index] = text;
+                                template.texts[index] = text;
 
-                TemplatesImageText.update(template._id, {
-                    $set: {
-                        "texts": template.texts,
-                    }
-                });
+                                TemplatesImageText.update(template._id, {
+                                    $set: {
+                                        "texts": template.texts,
+                                    }
+                                });
 
-            }
-        });
+                            }
+                        });
+                }
+
+            })
+        }, 500);
+    });
+
+
 });
 
 

@@ -206,7 +206,25 @@ function toDataUrl(url, callback) {
 
 
 Template.displayImageText.onRendered(function () {
+    this.sessionWatcher = Session.watch('imageText-edit', function (value) {
+        let template = value;
+        setTimeout(() => {
+           setDraggables(); 
+        }, 500);
+        
+        console.log("template changed!");
 
+        if (template.image_url) {
+            toDataUrl(template.image_url, function (myBase64) {
+                //console.log(myBase64); // myBase64 is the base64 string
+                $("#image").css("background-image", "url(" + myBase64 + ")");
+            });
+        }
+    });
+
+});
+
+/* Template.onCreated(function () {
     Tracker.autorun(function () {
         let template = Session.get("imageText-edit");
         setDraggables();
@@ -219,16 +237,11 @@ Template.displayImageText.onRendered(function () {
             });
         }
 
-
-
-        
     });
+}); */
 
 
-});
-
-
-setDraggables = function(){
+setDraggables = function () {
     $('.js-select-text').each(function (i, obj) {
         $(this).draggable({
             stop: function () {
@@ -286,7 +299,7 @@ Template.displayImageText.helpers({
 
 
 Template.displayImageText.events({
-    'click .js-select-text': function (event) {
+    'mousedown .js-select-text': function (event) {
         let template = Session.get("imageText-edit");
         let index = $(event.target).data("index");
         let target = $(event.target);

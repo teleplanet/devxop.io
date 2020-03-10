@@ -30,7 +30,7 @@ Router.route('/image/text', {
    
         this.render("imageTextEdit");
       }
-      uiInfo(false);
+      uiInfo(false, "large");
     },
     onStop: function () {
       uiInfo(true);
