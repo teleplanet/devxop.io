@@ -64,3 +64,22 @@ uiInfo = function(show, action){
 		}
 	}
 }
+
+
+uiSidePanel = function(action){
+	if(action == "show"){
+		$("#ui-side-panel").addClass("show");
+	}else if(action == "hide"){
+		$("#ui-side-panel").removeClass("show");
+	}
+}
+
+$(document).mouseup(function (e) {
+	var container = $("#ui-side-panel");
+
+	// if the target of the click isn't the container nor a descendant of the container
+	if (container.hasClass("show") && !container.is(e.target) && container.has(e.target).length === 0) {
+		$("#ui-side-panel").removeClass("show");
+	}
+});
+

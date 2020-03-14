@@ -137,6 +137,13 @@ PrivateController = RouteController.extend({
 	}
 });
 
+Router.onStop(function(){
+	uiSidePanel("hide");
+
+	$('html,body').scrollTop(0);
+	$('.ui-content').scrollTop(0);
+})
+
 //Check for user login before action (for all routes)
 Router.onBeforeAction(function () {
 	// Only required on client

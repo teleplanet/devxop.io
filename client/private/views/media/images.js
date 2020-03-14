@@ -12,6 +12,9 @@ Template.mediaImages.events({
 import ImageCompressor from 'image-compressor.js';
 
 Template.mediaImages.onRendered(function () {
+    var controller = Iron.controller();
+        controller.render('imagesEdit', { to: 'ui-side-panel' });
+
     Session.set("image-uploading", { status: false, progress: 0, name: "" });
 });
 
@@ -44,6 +47,14 @@ Template.mediaImages.helpers({
 })
 
 Template.mediaImages.events({
+    'click .js-select-image': function (event) {
+        event.preventDefault();
+        let imageId = $(event.target).data("image");
+
+        Session.set("image-edit", imageId);
+
+        uiSidePanel("show");
+    },
     'click .js-remove-image': function (event) {
         event.preventDefault();
 
@@ -57,8 +68,6 @@ Template.mediaImages.events({
                 Images.remove(id);
             }
         })
-
-
     },
     'change #image-input': function (event) {
         let fileInput = $(event.target);

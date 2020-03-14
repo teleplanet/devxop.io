@@ -1,0 +1,41 @@
+<template name="videosEdit">
+    {{#with video}}
+        <div class="row">
+            <div class="col-12">
+                <div class="card no-style p-0">
+                    <video id="video-edit" src="{{videoUrl this._id}}" preload="auto" class="card-img-top" data-video="{{this._id}}"></video>
+
+                    <div class="row p-3">
+                        <div class="col-12">
+                            <a class="button green center" href="{{videoUrl this._id}}" target="_blank">
+                                Play <i class="material-icons p-1">
+                                    play_circle_outline
+                                    </i></a>
+                        </div>
+                        {{#with deviceUsing}}
+                        <div class="col-12">
+                            <label>Device Using</label>
+                            <p><a href="/devices/edit/{{this._id}}">{{this.name}}</a></p>
+                        </div>
+                            
+                        {{/with}}
+                        <div class="col-12">
+                            <label>Image Type</label>
+                            <p>{{this.original.type}}</p>
+                        </div>
+                        <div class="col-12">
+                            <label>Size</label>
+                            <p>{{formatBytes this.original.size}}</p>
+                        </div>
+                        <div class="col-12">
+                            <button id="{{this._id}}" class="button center danger js-remove-video">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {{/with}}
+</template>

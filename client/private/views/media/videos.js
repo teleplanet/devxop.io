@@ -1,4 +1,6 @@
 Template.mediaVideos.onRendered(function () {
+    var controller = Iron.controller();
+    controller.render('videosEdit', { to: 'ui-side-panel' });
     Session.set("video-uploading", { status: false, progress: 0, name: "" });
 });
 
@@ -11,12 +13,13 @@ Template.mediaVideos.helpers({
             storage: 0,
         };
 
-        data.videos = Videos.find({ "download_complete": true }).fetch(),
-            data.total = data.videos.length,
+        data.videos = Videos.find({ "download_complete": true }).fetch();
+        data.total = data.videos.length;
 
-            data.videos.forEach(function (video) {
-                data.storage += video.original.size;
-            });
+        data.videos.forEach(function (video) {
+            data.storage += video.original.size;
+            
+        });
 
         //data.storage = formatBytes(data.storage);
 
@@ -31,6 +34,14 @@ Template.mediaVideos.helpers({
 })
 
 Template.mediaVideos.events({
+    'click .js-select-video': function (event) {
+        event.preventDefault();
+        let videoId = $(event.currentTarget).data("video");
+
+        Session.set("video-edit", videoId);
+
+        uiSidePanel("show");
+    },
     'click .js-remove-video': function (event) {
         event.preventDefault();
 
@@ -40,16 +51,16 @@ Template.mediaVideos.events({
             btn_type: "danger",
             btn_msg: "Delete(danger)"
         },
-        function (canceled, confirmed) {
-            if (canceled) {
-                console.log("device deletion canceled.");
-            } else if (confirmed) {
-                let id = event.target.id;
+            function (canceled, confirmed) {
+                if (canceled) {
+                    console.log("device deletion canceled.");
+                } else if (confirmed) {
+                    let id = event.target.id;
 
 
-                Videos.remove(id);
-            }
-        });
+                    Videos.remove(id);
+                }
+            });
 
 
     },

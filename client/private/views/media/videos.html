@@ -76,15 +76,15 @@
         {{#if this.videos}}
         {{#each video in this.videos}}
         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="card">
-                <video src="{{videoUrl video._id}}" preload="metadata" controls class="card-img-top" alt="..."></video>
+            <div class="card card-select js-select-video" data-video="{{video._id}}">
+                <video src="{{videoUrl video._id}}" class="card-img-top" alt="..."></video>
                 <div class="card-body">
                     <h5 class="card-title">{{video.original.name}}</h5>
-                    <p class="card-text">
+                    <!-- <p class="card-text">
                         <button id="{{video._id}}" class="button danger center js-remove-video">
                             Delete Video
                         </button>
-                    </p>
+                    </p> -->
                 </div>
             </div>
         </div>
