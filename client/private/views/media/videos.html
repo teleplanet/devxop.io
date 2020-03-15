@@ -28,7 +28,7 @@
             <div class="card no-style text-center">
                 <div class="card-body">
 
-                    
+
                     {{#if videoUploading.status}}
                     <div class="row">
                         <div class="col-12">
@@ -77,7 +77,12 @@
         {{#each video in this.videos}}
         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="card card-select js-select-video" data-video="{{video._id}}">
-                <video src="{{videoUrl video._id}}" class="card-img-top" alt="..."></video>
+                {{#if video.image_thumb}}
+                <img src="{{thumbUrl video.image_thumb}}" class="card-img-top" data-video="{{video._id}}">
+                {{else}}
+                <video id="video-edit-{{video._id}}" src="{{videoUrl video._id}}" preload="auto" onloadeddata="captureImage({{video._id}})"
+                    class="card-img-top" data-video="{{video._id}}"></video>
+                {{/if}}
                 <div class="card-body">
                     <h5 class="card-title">{{video.original.name}}</h5>
                     <!-- <p class="card-text">

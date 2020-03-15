@@ -1,3 +1,59 @@
+captureImage = function() {
+    let id = $(this.event.target).data("video");
+    let video = Videos.findOne({ "_id": id });
+    //&& typeof video.image_thumb == "undefined"
+    if (video && typeof video.image_thumb == "undefined") {
+        setTimeout(async function () {
+            console.log("Video empty thumb... creating one.");
+            var canvas = document.createElement("canvas");
+            var video = document.getElementById("video-edit-" + id);
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d')
+                .drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            let data = canvas.toDataURL("image/png");
+
+            let resized = await resizeImage(data, 480, 360);
+
+            var blob = dataURItoBlob(resized);
+
+            new ImageCompressor(blob, {
+                quality: 1,
+                width: 480,
+                height: 360,
+                success(result) {
+
+                    let exists = Thumbnails.findOne({ "video_id": id });
+                    if (exists) Thumbnails.remove(exists._id);
+
+                    var thumbObj = new FS.File(result);
+                    thumbObj['user_id'] = Meteor.userId();
+                    thumbObj['video_id'] = id;
+                    Thumbnails.insert(thumbObj, function (err, thumbnail) {
+                        // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            Videos.update(id, {
+                                $set: {
+                                    "image_thumb": thumbnail._id,
+                                }
+                            })
+                        }
+                    });
+
+                },
+                error(e) {
+                    console.log(e.message);
+                },
+            });
+        }, 1000);
+    }
+
+
+};
+
 Template.mediaVideos.onRendered(function () {
     var controller = Iron.controller();
     controller.render('videosEdit', { to: 'ui-side-panel' });
@@ -18,7 +74,7 @@ Template.mediaVideos.helpers({
 
         data.videos.forEach(function (video) {
             data.storage += video.original.size;
-            
+
         });
 
         //data.storage = formatBytes(data.storage);

@@ -1,4 +1,4 @@
-var video, $output;
+/* var video, $output;
 var scale = 0.25;
 
 initialize = function () {
@@ -27,4 +27,4 @@ captureImage = function () {
 
 Template.test.onRendered(function () {
     initialize();
-});
+}); */

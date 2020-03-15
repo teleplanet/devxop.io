@@ -3,8 +3,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="card no-style p-0">
+                    {{#if this.image_thumb}}
+                    <img src="{{thumbUrl this.image_thumb}}" class="card-img-top" data-video="{{this._id}}">
+                    {{else}}
                     <video id="video-edit" src="{{videoUrl this._id}}" preload="auto" class="card-img-top" data-video="{{this._id}}"></video>
-
+                    {{/if}}
                     <div class="row p-3">
                         <div class="col-12">
                             <a class="button green center" href="{{videoUrl this._id}}" target="_blank">

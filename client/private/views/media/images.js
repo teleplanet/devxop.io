@@ -156,7 +156,7 @@ Template.mediaImages.events({
                                                 // Handle an exception.
                                             });
 
-                                            scaleImage(data, 720, 480, function (canvas) {
+                                            scaleImage(data, 480, 360, function (canvas) {
                                                 // save canvas image as data url (png format by default)
                                                 //var blob = dataURItoBlob(canvas.toDataURL());
 
@@ -164,8 +164,8 @@ Template.mediaImages.events({
 
                                                 new ImageCompressor(blob, {
                                                     quality: 1,
-                                                    width: 720,
-                                                    height: 480,
+                                                    width: 480,
+                                                    height: 360,
                                                     success(result) {
                                                         imageUploading["progress"] = 50;
                                                         Session.set("image-uploading", imageUploading);

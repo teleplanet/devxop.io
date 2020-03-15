@@ -1,12 +1,12 @@
-import ImageCompressor from 'image-compressor.js';
+
 //import attachBanner from '@beyonk/gdpr-cookie-consent-banner';
 
 
 import $ from "jquery";
 import html2canvas from 'html2canvas';
 import Jimp from 'jimp';
-import ImageEditor from 'tui-image-editor';
 import AColorPicker from 'a-color-picker';
+import ImageCompressor from 'image-compressor.js';
 
 stripe = undefined;
 
@@ -108,8 +108,11 @@ $(document).ready(function () {
 
 	document["html2canvas"] = html2canvas;
 	document["Jimp"] = Jimp;
-	document["imageEditor"] = ImageEditor;
+	//document["imageEditor"] = ImageEditor;
 	document["aColorPicker"] = AColorPicker;
+	window["ImageCompressor"] = ImageCompressor;
+	window["Jimp"] = Jimp;
+
 
 	$(".js-modal-btn").click(function (event) {
 		let id = $(event.target).data("modal-id");

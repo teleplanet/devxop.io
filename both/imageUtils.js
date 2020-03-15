@@ -65,6 +65,29 @@ dataURItoBlob = function (dataURI) {
 
 }
 
+resizeImage = async function(data, width, height){
+    /* Jimp.read({
+        url: data, // Required!
+    }).then(image => {
+        // Do stuff with the image.
+        image.scaleToFit(width, height);
+        image.getBase64Async("image/jpeg").then(dataUrl => {
+            return dataUrl;
+        });
+    }).catch(err => {
+        // Handle an exception.
+    }); */
+
+    let image = await Jimp.read({url: data});
+        // Do stuff with the image.
+    image.scaleToFit(width, height);
+    
+    let dataUrl = await  image.getBase64Async("image/jpeg");
+
+    return dataUrl;
+
+}
+
 // The function that scales an images with canvas then runs a callback.
 scaleImage = function (url, width, height, callback) {
     var img = new Image(),
