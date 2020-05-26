@@ -5,7 +5,7 @@ Template.imagesEdit.onRendered(function () {
 Template.imagesEdit.helpers({
     'image': function () {
         let id = Session.get("image-edit");
-        return Images.findOne({ "_id": id });
+        return Files.findOne({ "_id": id });
     },
     "deviceUsing": function(){
         let id = Session.get("image-edit");
@@ -24,7 +24,13 @@ Template.imagesEdit.events({
                 let id = event.target.id;
 
 
-                Images.remove(id);
+                Meteor.call("files.remove", id, function(err, result){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log(result);
+                    }
+                });
             }
         })
     },

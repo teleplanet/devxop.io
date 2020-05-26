@@ -72,53 +72,37 @@
         </div>
 
     </div>
-    <div class="row p-3 mb-3">
-        {{#if this.videos}}
-        {{#each video in this.videos}}
-        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="card card-select js-select-video" data-video="{{video._id}}">
-                {{#if video.image_thumb}}
-                <img src="{{thumbUrl video.image_thumb}}" class="card-img-top" data-video="{{video._id}}">
-                {{else}}
-                <video id="video-edit-{{video._id}}" src="{{videoUrl video._id}}" preload="auto" onloadeddata="captureImage({{video._id}})"
-                    class="card-img-top" data-video="{{video._id}}"></video>
-                {{/if}}
-                <div class="card-body">
-                    <h5 class="card-title">{{video.original.name}}</h5>
-                    <!-- <p class="card-text">
-                        <button id="{{video._id}}" class="button danger center js-remove-video">
-                            Delete Video
-                        </button>
-                    </p> -->
+    <div class="row">
+        <div class="grid-card-wrapper">
+            {{#if this.videos}}
+            {{#each video in this.videos}}
+            <div class="grid-card selectable js-select-video" data-video="{{video._id}}">
+                <div class="gc-thumbnail">
+                    {{> img file=video}}
+                </div>
+                <div class="gc-body">
+                    <div class="gcb-title">
+                        {{video.file.name}}
+                    </div>
+                    <!-- <div class="gcb-meta">
+                        Emperor Palpatine's Secret Jedi Killing ARMY - Star Wars Explained
+                    </div> -->
                 </div>
             </div>
-        </div>
-        {{/each}}
+            <!-- <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card card-select js-select-video" data-video="{{video._id}}">
+                    {{> img file=video}}
+                    <div class="card-body">
+                        <h5 class="card-title">{{video.file.name}}</h5>
 
-        {{/if}}
+                    </div>
+                </div>
+            </div> -->
+            {{/each}}
+
+            {{/if}}
+        </div>
+
     </div>
     {{/with}}
 </template>
-
-<!-- <div class="col-12">
-            {{#if this.videos}}
-            <div class="Rtable Rtable--5cols Rtable--collapse">
-
-                {{#each video in this.videos}}
-                <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--head">{{video.original.name}}</div>
-                <div style="order:2" class="Rtable-cell --alignMiddle">{{formatBytes video.original.size}}</div>
-                <div style="order:2" class="Rtable-cell --alignMiddle">{{video.original.type}}</div>
-                <div style="order:2" class="Rtable-cell --alignMiddle">
-                    <a class="button blue center" href="{{videoUrl video._id}}" target="_blank">Play</a>
-                </div>
-                <div style="order:2" class="Rtable-cell --alignMiddle Rtable-cell--foot">
-                    <button id="{{video._id}}" class="button danger center js-remove-video">
-                        Delete Video
-                    </button>
-                </div>
-                {{/each}}
-
-            </div>
-            {{/if}}
-        </div>
-    </div> -->

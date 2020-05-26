@@ -11,9 +11,10 @@ Template.mediaImages.events({
 
 import ImageCompressor from 'image-compressor.js';
 
+
 Template.mediaImages.onRendered(function () {
     var controller = Iron.controller();
-        controller.render('imagesEdit', { to: 'ui-side-panel' });
+    controller.render('imagesEdit', { to: 'ui-side-panel' });
 
     Session.set("image-uploading", { status: false, progress: 0, name: "" });
 });
@@ -27,29 +28,88 @@ Template.mediaImages.helpers({
             storage: 0,
         };
 
-        data.images = Images.find({ /* "download_complete": true, */ "template_id": { $exists: false } },  {sort: {"uploadedAt": -1}}).fetch(),
-            data.total = data.images.length,
+        data.images = Files.find({ "is_image": true, "template_id": { $exists: false } }, { sort: { "uploadedAt": -1 } }).fetch();
+        data.total = data.images.length;
 
-            data.images.forEach(function (image) {
-                data.storage += image.original.size;
-            });
-
-        //data.storage = formatBytes(data.storage);
-
-        //console.log(data);
+        for (let i = 0; i < data.images.length; i++) {
+            const image = data.images[i];
+            data.storage += image.file.size;
+        }
 
         return data;
     },
     'imageUploading': function () {
 
         return Session.get("image-uploading");
-    }
+    },
 })
 
 Template.mediaImages.events({
+    'change #image-input-test': function (e) {
+        //prevent Default functionality
+        e.preventDefault();
+
+        var value = $(e.target).val().replace(/^.*[\\\/]/, '')
+
+        let ev = e.target;
+        if (ev.files && ev.files[0]) {
+            let imageUploading = Session.get("image-uploading");
+            imageUploading["name"] = value;
+            Session.set("image-uploading", imageUploading);
+
+            //do your own request an handle the results
+            var file_data = ev.files[0]; // Getting the properties of file from file field
+            var form_data = new FormData(); // Creating object of FormData class
+            form_data.append("file", file_data) // Appending parameter named file with properties of file_field to form_data
+            form_data.append("user_id", Meteor.userId()) // Adding extra parameters to form_data
+            $.ajax({
+                url: origins().files, // Upload Script
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data, // Setting the data attribute of ajax with file_data
+                type: 'post',
+                xhr: function () {
+                    var xhr = $.ajaxSettings.xhr();
+                    /* xhr.onprogress = function e() {
+                        // For downloads
+                        if (e.lengthComputable) {
+                            console.log(e.loaded / e.total);
+                        }
+                    }; */
+                    xhr.upload.onprogress = function (e) {
+                        // For uploads
+                        if (e.lengthComputable) {
+                            //console.log(e.loaded / e.total);
+
+                            imageUploading["status"] = true;
+                            imageUploading["progress"] = (e.loaded / e.total) * 100;
+                            Session.set("image-uploading", imageUploading);
+                        }
+                    };
+                    return xhr;
+                },
+                success: function (data) {
+                    // Do something after Ajax completes 
+                    imageUploading["status"] = false;
+                    imageUploading["name"] = "";
+                    imageUploading["progress"] = 0;
+                    Session.set("image-uploading", imageUploading);
+                },
+                error: function (err) {
+                    imageUploading["status"] = false;
+                    imageUploading["name"] = "";
+                    imageUploading["progress"] = 0;
+                    Session.set("image-uploading", imageUploading);
+                }
+            });
+        }
+
+    },
     'click .js-select-image': function (event) {
         event.preventDefault();
-        let imageId = $(event.target).data("image");
+        let imageId = $(event.currentTarget).data("image");
 
         Session.set("image-edit", imageId);
 
@@ -69,6 +129,7 @@ Template.mediaImages.events({
             }
         })
     },
+
     'change #image-input': function (event) {
         let fileInput = $(event.target);
 

@@ -3,7 +3,10 @@ stripe = null;
 Meteor.startup(() => {
     console.log('***');
 
+    /* require('dotenv').config({ path: '.env' })
 
+    process.env.MONGO_URL= process.env['MONGO_URL'];
+    console.log(process.env['MONGO_URL']); */
     /* process.env.MONGO_URL='mongodb://teleplanet.ddns.net:27017/';
      */
 

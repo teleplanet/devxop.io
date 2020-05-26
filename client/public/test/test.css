@@ -1,5 +1,296 @@
+#app-wrapper{
+    width: 100%;
+    display: block;
+    left: 0;
+    min-height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #f4f4f4;
+}
 
-.picker {
-    display: inline-block;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(3, 1, 1, 0.08);
-  }
+#app-header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2020;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    background-color: #ffffff;
+
+    height: 64px;
+    padding: 0 16px;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+
+    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.12);
+}
+
+.ah-scope{
+    margin: 0 16px 0 0;
+    margin-right: 8px;
+    box-sizing: border-box;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}.ahs-button{
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    margin-right: 8px;
+}.ahs-button > i{
+    color: #606060;
+}
+
+#app-content{
+    position: fixed;
+    top: 64px;
+    width: 100%;
+
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+
+    height: 100%;
+    padding-bottom: 64px;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+#app-content.drawer-toggled > .ac-drawer{
+    display: flex;
+}#app-content.drawer-toggled > .ac-nav{
+    display: none;
+}
+
+.ac-drawer{
+    width: 255px;
+    background-color: #ffffff;
+    padding: 12px 0;
+    overflow: hidden;
+    overflow-y: auto;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: none;/* On toggled above -> display flex */
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: center;
+    justify-content: center; 
+}.acd-account{
+    width: 100%;
+    padding: 0 24px;
+    height: 208px;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: center;
+    justify-content: center; 
+}.acda-image{
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}.acda-image > img{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}.acda-image > .img-hover{
+    opacity: 0;
+    margin-top: -112px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.55);
+    -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: center;
+    justify-content: center; 
+
+    color: #ffffff;
+}.acda-image:hover > .img-hover{
+    opacity: 1;
+}.acda-entity{
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 14px;
+}.acda-name{
+    font-weight: 400;
+    letter-spacing: 0.132px;
+    font-size: 12px;
+    line-height: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgba(0, 0, 0, 0.55);
+    padding-top: 2px;
+}
+
+
+
+.acd-item{
+    width: 100%;
+    padding: 0 24px;
+    height: 48px;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between; 
+}.acd-item > i {
+    margin-left: 8px;
+    margin-right: 24px;
+}.acd-item > span {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    /* margin-top: 1px; */
+    flex-grow: 2;
+}
+
+.acd-footer{
+    width: 100%;
+    flex-grow: 2;
+    
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: flex-end;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end; 
+}
+
+#app-content > .ac-drawer > .acd-section{
+    width: 240px;
+    padding: 0 24px;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: flex-start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start; 
+
+    font-size: 14px;
+}
+
+
+#app-content > .ac-nav{
+    width: 72px;
+    background-color: #ffffff;
+}#app-content > .ac-nav > .acn-item{
+    width: 72px;
+    padding: 16px 0 14px;
+    font-size: 10px;
+    line-height: 14px;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+
+    cursor: pointer;
+}/* #app-content > .ac-nav > .acn-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+} */
+#app-content > .ac-nav > .acn-item > i {
+    margin-bottom: 6px;
+}
+
+
+#app-content > .ac-render{
+    flex-grow: 2;
+    background-color: transparent;
+}
+
+
+
+/*  */

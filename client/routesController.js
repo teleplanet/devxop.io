@@ -116,6 +116,8 @@ PrivateController = RouteController.extend({
 
 			Meteor.subscribe('multiscreenSchedule'),
 			Meteor.subscribe('devices.schedules'),
+
+			Meteor.subscribe('files'),
 			/* Meteor.subscribe('invoices') */
 		];
 	},

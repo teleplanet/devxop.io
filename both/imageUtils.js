@@ -1,7 +1,7 @@
 getBase64FromImageUrl = function(url) {
     var img = new Image();
 
-    img.setAttribute('crossOrigin', 'anonymous');
+    //img.setAttribute('crossOrigin', 'anonymous');
 
     img.onload = function () {
         var canvas = document.createElement("canvas");
@@ -19,6 +19,16 @@ getBase64FromImageUrl = function(url) {
     };
 
     img.src = url;
+}
+
+getDataImage = async function(url){
+
+    let image = await Jimp.read({url: url});
+    
+    let dataUrl = await  image.getBase64Async("image/jpeg");
+
+    return dataUrl;
+
 }
 
 getBase64Image = function(img) {
@@ -130,16 +140,33 @@ videoUrl = function(id){
 }
 
 
-imageUrl = function(id){
-    let img = Images.findOne({"_id": id});
+fileUrl = function(id, key){
+    let file = Files.findOne({"_id": id});
 
-
-    let url = "";
-    if(img){
-        url = img.url();
+    let data = {
+        url: origins().files + Meteor.userId() + "/" + id
     }
 
-    return  document.location.origin + url +'?'+new Date().getTime();
+    if(file.is_image){
+        data["type"] = "image";
+        data["preload"] = data.url + "/preload.jpeg";
+        data["thumb"] = data.url + "/thumb.jpeg";
+        data["main"] = data.url + "/main.jpeg";
+    }else if(file.is_video){
+        data["type"] = "video";
+        data["preload"] = data.url + "/preload.jpeg";
+        data["thumb"] = data.url + "/thumb.jpeg";
+        data["preview"] = data.url + "/preview.gif";
+        data["video"] = data.url + "/video." + file.extension;
+    }
+
+    //console.log(data);
+
+    if(key){
+        return data[key];
+    }
+
+    return  data;
 }
 
 

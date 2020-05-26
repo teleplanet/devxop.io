@@ -69,12 +69,11 @@ Template.mediaVideos.helpers({
             storage: 0,
         };
 
-        data.videos = Videos.find({ "download_complete": true }).fetch();
+        data.videos = Files.find({ "is_video": true }).fetch();
         data.total = data.videos.length;
 
         data.videos.forEach(function (video) {
-            data.storage += video.original.size;
-
+            data.storage += video.file.size;
         });
 
         //data.storage = formatBytes(data.storage);
@@ -114,7 +113,9 @@ Template.mediaVideos.events({
                     let id = event.target.id;
 
 
-                    Videos.remove(id);
+                    /* Videos.remove(id); */
+
+                    
                 }
             });
 
@@ -138,7 +139,56 @@ Template.mediaVideos.events({
         if (ev.files && ev.files[0]) {
             videoUploading["status"] = true;
             Session.set("video-uploading", videoUploading);
-            let body = {
+
+
+            //do your own request an handle the results
+            var file_data = ev.files[0]; // Getting the properties of file from file field
+            var form_data = new FormData(); // Creating object of FormData class
+            form_data.append("file", file_data) // Appending parameter named file with properties of file_field to form_data
+            form_data.append("user_id", Meteor.userId()) // Adding extra parameters to form_data
+            $.ajax({
+                url: origins().files, // Upload Script
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data, // Setting the data attribute of ajax with file_data
+                type: 'post',
+                xhr: function () {
+                    var xhr = $.ajaxSettings.xhr();
+                    /* xhr.onprogress = function e() {
+                        // For downloads
+                        if (e.lengthComputable) {
+                            console.log(e.loaded / e.total);
+                        }
+                    }; */
+                    xhr.upload.onprogress = function (e) {
+                        // For uploads
+                        if (e.lengthComputable) {
+                            //console.log(e.loaded / e.total);
+
+                            videoUploading["status"] = true;
+                            videoUploading["progress"] = (e.loaded / e.total) * 100;
+                            Session.set("video-uploading", videoUploading);
+                        }
+                    };
+                    return xhr;
+                },
+                success: function (data) {
+                    // Do something after Ajax completes 
+                    videoUploading["status"] = false;
+                    videoUploading["name"] = "";
+                    videoUploading["progress"] = 0;
+                    Session.set("video-uploading", videoUploading);
+                },
+                error: function (err) {
+                    videoUploading["status"] = false;
+                    videoUploading["name"] = "";
+                    videoUploading["progress"] = 0;
+                    Session.set("video-uploading", videoUploading);
+                }
+            });
+            /* let body = {
                 "title": "Upload video",
                 "msg": "Please confirm that you would like to upload and save this video.",
                 "btn_type": "confirm",
@@ -184,7 +234,7 @@ Template.mediaVideos.events({
                     document.getElementById("video-input").value = "";
 
                 }
-            });
+            }); */
 
         }
 
