@@ -80,7 +80,7 @@
                 {{#if video.image_thumb}}
                 <img src="{{thumbUrl video.image_thumb}}" class="card-img-top" data-video="{{video._id}}">
                 {{else}}
-                <video id="video-edit-{{video._id}}" src="{{videoUrl video._id}}" preload="auto" onloadeddata="captureImage({{video._id}})"
+                <video id="video-edit-{{video._id}}" src="{{videoUrl video._id}}" preload="auto" onloadeddata="captureImage()"
                     class="card-img-top" data-video="{{video._id}}"></video>
                 {{/if}}
                 <div class="card-body">

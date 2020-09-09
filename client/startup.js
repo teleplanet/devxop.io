@@ -4,6 +4,13 @@
 
 import $ from "jquery";
 import html2canvas from 'html2canvas';
+
+import Highcharts from 'highcharts';
+// Load the exporting module.
+import Exporting from 'highcharts/modules/exporting';
+// Initialize exporting module.
+Exporting(Highcharts);
+
 import Jimp from 'jimp';
 import AColorPicker from 'a-color-picker';
 import ImageCompressor from 'image-compressor.js';
@@ -108,10 +115,12 @@ $(document).ready(function () {
 
 	document["html2canvas"] = html2canvas;
 	document["Jimp"] = Jimp;
+
 	//document["imageEditor"] = ImageEditor;
 	document["aColorPicker"] = AColorPicker;
 	window["ImageCompressor"] = ImageCompressor;
 	window["Jimp"] = Jimp;
+	window["Highcharts"] = Highcharts;
 
 
 	$(".js-modal-btn").click(function (event) {
@@ -225,7 +234,7 @@ initFB = function () {
 				}
 
 
-			}, { auth_type: 'reauthenticate' })
+			}/* , { auth_type: 'reauthenticate' } */)
 		}
 	});
 }

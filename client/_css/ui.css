@@ -79,10 +79,10 @@
 
 .ui-content{
     position: fixed;
-    top: 36px;
+    top: 50px;
     left: 300px;
     width: calc(100% - 300px);
-    height: calc(100% - 36px);
+    height: calc(100% - 50px);
     background-color: rgb(250, 250, 250);
     overflow: hidden;
     overflow-y: auto;
@@ -114,6 +114,27 @@
 }#ui-wrapper.full-content > .ui-header{
     width: calc(100% - 50px);
     left: 50px;
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}.ui-header > .routes{
+    flex-grow: 1;
+    width: 50%;
+    display: flex;
+    padding: 0 10px;
+}.ui-header > .actions{
+    flex-grow: 1;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 0 10px;
+}.ui-header > .actions > .item{
+    flex-grow: 0;
+    background: green;
+    margin: 0px 10px;
 }
 
 #ui-wrapper.large-info > .ui-nav{

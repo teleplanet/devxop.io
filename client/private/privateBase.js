@@ -11,6 +11,7 @@ Template.privateBase.onRendered(function(){
 	/* $(".navbar-logo").css({"background-color": "#5c6bc0", "color": "#fff"});
     $(".navbar").css({"background-color": "#5c6bc0", "color": "#fff"});
 	$(".navbar-item").css({"color": "#fff"}); */
+
 	
 	
 }) ;

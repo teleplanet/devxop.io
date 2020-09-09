@@ -1,7 +1,16 @@
 <template name="privateBase">
 	<div id="ui-wrapper">
-		<div class="ui-header pl-3">
-			{{route}}
+		<div class="ui-header">
+
+			<div class="routes">
+				{{route}}
+			</div>
+			<div class="actions">
+				<div class="item">test</div>
+				<div class="item">test</div>
+				<div class="item">test</div>
+				<div class="item">test</div>
+			</div>
 		</div>
 		<div class="ui-nav">
 			<div class="nav-panel-icons">
@@ -48,5 +57,36 @@
 			{{> yield 'ui-side-panel'}}
 		</div>
 	</div>
+	<script>
 
+		window.fbAsyncInit = function () {
+			FB.init({
+				appId: '463101157581514',
+				cookie: true,
+				xfbml: true,
+				version: 'v3.3'
+			}, function (err, data) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(data);
+				}
+			});
+
+			FB.AppEvents.logPageView();
+
+
+
+			//Session.set("fbInitialized", true);
+		};
+		(function (d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) { return; }
+			js = d.createElement(s); js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<script async defer src="https://connect.facebook.net/en_US/sdk.js" onload="initFB()"></script>
 </template>

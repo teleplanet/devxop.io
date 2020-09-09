@@ -9,45 +9,59 @@ Router.route('/media', {
 
 Router.route('/media/images', {
     name: 'media.images',
-	controller: 'PrivateController',
-	action: function(){
-		Session.set("route", "Media / Images");
-		uiInfo(true);
+    controller: 'PrivateController',
+    action: function () {
+        Session.set("route", "Media / Images");
+        uiInfo(true);
 
         this.render('mediaImages');
     },
-    onStop: function() {
+    onStop: function () {
         uiInfo(false);
     }
-  });
+});
 
-  Router.route('/media/images/edit/:imageId', {
+Router.route('/media/images/edit/:imageId', {
     name: 'media.images.edit',
-	controller: 'PrivateController',
-	action: function(){
-        let image = Images.findOne({"_id": this.params.imageId});
-		
-		Session.set('image-edit', image);
-		Session.set("route", "Media / Images / Edit");
-		uiInfo(true);
+    controller: 'PrivateController',
+    action: function () {
+        let image = Images.findOne({ "_id": this.params.imageId });
+
+        Session.set('image-edit', image);
+        Session.set("route", "Media / Images / Edit");
+        uiInfo(true);
 
         this.render('mediaImagesEdit');
     },
-    onStop: function() {
+    onStop: function () {
         uiInfo(false);
     }
-  });
+});
 
-  Router.route('/media/videos', {
-      name: 'media.videos',
-	controller: 'PrivateController',
-	action: function(){
-		Session.set("route", "Media / Videos");
-		uiInfo(true);
+Router.route('/media/videos', {
+    name: 'media.videos',
+    controller: 'PrivateController',
+    action: function () {
+        Session.set("route", "Media / Videos");
+        uiInfo(true);
 
         this.render('mediaVideos');
     },
-    onStop: function() {
+    onStop: function () {
         uiInfo(false);
     }
-  });
+});
+
+Router.route('/media/social', {
+    name: 'media.social',
+    controller: 'PrivateController',
+    action: function () {
+        Session.set("route", "Media / Social");
+        uiInfo(false);
+
+        this.render('mediaSocial');
+    },
+    onStop: function () {
+        uiInfo(true);
+    }
+});

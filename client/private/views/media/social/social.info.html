@@ -1,0 +1,40 @@
+<template name="socialInfo">
+    {{#with fb}}
+    <div class="row p-3">
+        <div class="col">
+            <p>Logged in as:</p>
+            <p><b>{{this.user.name}}</b></p>
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col s12">
+            <div class="button js-fb-logout">Logout from facebook</div>
+            <!-- <div class="sub-title">Post to facebook...</div> -->
+            <label>Select your facebook page</label>
+            <form action="#">
+                {{#each page in this.pages.data}}
+                <p>
+                    <label>
+                        <input class="js-checked-fb-page" data-fb-page="{{page.id}}" name="group1" type="radio" />
+                        <span>{{page.name}}</span>
+                    </label>
+                </p>
+                {{/each}}
+            </form>
+        </div>
+    </div>
+    {{else}}
+    <!-- ENDIF ELSE FB Connected -->
+    <div class="row p-3">
+        <div class="col">
+            <p>You are not logged in with facebook</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="button js-login-fb">Login with facebook</div>
+        </div>
+    </div>
+
+    {{/with}}
+</template>

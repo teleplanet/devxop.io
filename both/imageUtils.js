@@ -1,4 +1,4 @@
-getBase64FromImageUrl = function(url) {
+getBase64FromImageUrl = async function(url) {
     var img = new Image();
 
     img.setAttribute('crossOrigin', 'anonymous');
@@ -19,6 +19,14 @@ getBase64FromImageUrl = function(url) {
     };
 
     img.src = url;
+}
+
+getDataFromImageUrl = async function(url){
+    let image = await Jimp.read({url: url});
+    
+    let dataUrl = await  image.getBase64Async("image/jpeg");
+
+    return dataUrl;
 }
 
 getBase64Image = function(img) {
