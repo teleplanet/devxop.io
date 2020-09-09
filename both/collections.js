@@ -1,5 +1,6 @@
 RegisterTokens = new Mongo.Collection('registerToken');
 
+Files = new Mongo.Collection('files');
 
 Devices = new Mongo.Collection('devices');
 Devices.allow({

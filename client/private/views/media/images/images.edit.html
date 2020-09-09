@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="card no-style p-0">
-                    <img src="{{thumbUrl this.image_thumb}}" class="card-img-top" data-image="{{image._id}}">
-
+                    <!-- <img src="{{thumbUrl this.image_thumb}}" class="card-img-top" data-image="{{image._id}}"> -->
+                    {{> img file=this }}
                     <div class="row p-3">
                         <div class="col-12">
-                            <a class="button green center" href="{{imageUrl this._id}}" target="_blank">
+                            <a class="button green center" href="{{fileUrl this._id 'main' }}" target="_blank">
                                 View <i class="material-icons p-1">
                                     zoom_in
                                     </i></a>
@@ -20,12 +20,16 @@
                             
                         {{/with}}
                         <div class="col-12">
+                            <label>Image Name</label>
+                            <p>{{this.file.name}}</p>
+                        </div>
+                        <div class="col-12">
                             <label>Image Type</label>
-                            <p>{{this.original.type}}</p>
+                            <p>{{this.file.mimeType}}</p>
                         </div>
                         <div class="col-12">
                             <label>Size</label>
-                            <p>{{formatBytes this.original.size}}</p>
+                            <p>{{formatBytes this.file.size}}</p>
                         </div>
                         <div class="col-12">
                             <button id="{{this._id}}" class="button center danger js-remove-image">

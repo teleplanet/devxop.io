@@ -1,3 +1,83 @@
 <template name="test">
     {{> moduleSocialMedia}}
+    <div id="app-wrapper">
+        <div id="app-header">
+            <div class="ah-scope" style="margin-right: 16px;">
+                <div id="toggle-nav-drawer" class="ahs-button selectable"><i class="material-icons">menu</i></div>
+            </div>
+            <!-- We stretch middle div to remaining space Flex-grow: 2 -->
+            <div class="ah-scope" style="flex-grow: 2;">
+                Devxop.com
+                <!-- <div class="ahs-button">
+                    <i class="material-icons">menu</i>
+                </div> -->
+            </div>
+            <div class="ah-scope">
+                <div class="ahs-button hovicon"><i class="material-icons">notifications</i></div>
+                <div class="ahs-button hovicon"><i class="material-icons">account_circle</i></div>
+            </div>
+        </div>
+        <div id="app-content" class="drawer-toggled">
+            <div class="ac-drawer">
+                <div class="acd-account">
+                    <div class="acda-image">
+                        <img src="https://yt3.ggpht.com/a/AATXAJyq7p1x4cXXb-UeiPAqH-yL84ZW-KxjzTZe3g=s176-c-k-c0x00ffffff-no-rj">
+                        <div class="img-hover">
+                            <i class="material-icons">open_in_new</i>
+                        </div>
+                    </div>
+                    <div class="acda-entity">Account</div>
+                    <div class="acda-name">Daniel Abrantes</div>
+                </div>
+                <div class="acd-item
+                 hoverable">
+                    <i class="material-icons">dashboard</i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="acd-item hoverable">
+                    <i class="material-icons">devices</i>
+                    <span>Devices</span>
+                </div>
+                <div class="acd-item hoverable">
+                    <i class="material-icons">movie</i>
+                    <span>Media</span>
+                </div>
+                <div class="acd-item hoverable">
+                    <i class="material-icons">assessment</i>
+                    <span>Analytics</span>
+                </div>
+
+                <div class="acd-footer">
+                    <div class="acd-item hoverable">
+                        <i class="material-icons">settings</i>
+                        <span>Settings</span>
+                    </div>
+    
+                </div>
+                <!-- <div class="divider"></div>
+                <div class="acd-section">
+                    <p>About Press Copyright Contact usCreators Advertise Developers</p>
+                    <p>Terms Privacy Policy and Safety Test new features</p>
+                    <p>© 2020 Devxop</p>
+                </div> -->
+            </div>
+            <!-- <div class="ac-nav" >
+                <div class="acn-item hoverable">
+                    <i class="material-icons">home</i>
+                    <span>Home</span>
+                </div>
+                <div class="acn-item hoverable">
+                    <i class="material-icons">home</i>
+                    <span>Subscriptions</span>
+                </div>
+                <div class="acn-item hoverable">
+                    <i class="material-icons">home</i>
+                    <span>Media</span>
+                </div>
+            </div> -->
+            <div class="ac-render">
+
+            </div>
+        </div>
+    </div>
 </template>

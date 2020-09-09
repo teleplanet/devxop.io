@@ -1,0 +1,40 @@
+node ./app/processes/merger.process.js "./storage/users/Aw6MjjnJ5TcAyr5tM/ewrBnjTp7zNGn3Pc2/video.mp4" "./storage/users/Aw6MjjnJ5TcAyr5tM/ewrBnjTp7zNGn3Pc2/video.mp4"
+
+videoView.post(new Runnable() {
+
+            @Override
+            public void run() {
+                videoView.setVisibility(View.VISIBLE);
+
+                File[] files = getFiles(STORAGE_VIDEO);
+                if (files != null && files.length > 0) {
+                    Log.d("Video Files to Play", "Num: " + files.length);
+                    if (videoPlayIndex > files.length - 1) {
+                        //reset index
+                        videoPlayIndex = 0;
+                    }
+
+                    File file = files[videoPlayIndex];
+
+                    if(file != null){
+                        //play video
+                        String filePath = file.getAbsolutePath();
+                        String videoUrl = "file://" + filePath;
+                        String fileName = file.getName();
+
+                        if(videoPlayName == fileName){
+                            //dont update path -> just play
+                        }else{
+                            //update path
+                            videoView.setVideoPath(videoUrl);
+                        }
+
+                        videoPlayName = fileName;
+                    }
+                    videoView.start();
+
+                    //increment after video play
+                    videoPlayIndex++;
+                }
+            }
+        });

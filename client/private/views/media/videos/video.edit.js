@@ -4,7 +4,7 @@ Template.videosEdit.onRendered(function () {
 Template.videosEdit.helpers({
     'video': function () {
         let id = Session.get("video-edit");
-        return Videos.findOne({ "_id": id });
+        return Files.findOne({ "_id": id });
     },
     "deviceUsing": function () {
         let id = Session.get("video-edit");
@@ -23,7 +23,14 @@ Template.videosEdit.events({
                 let id = event.target.id;
 
 
-                Videos.remove(id);
+                /* Files.remove(id); */
+                Meteor.call("files.remove", id, function(err, result){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log(result);
+                    }
+                });
             }
         })
     },

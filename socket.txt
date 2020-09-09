@@ -1,0 +1,49 @@
+Socket.Options opts = new Socket.Options();
+                opts.transports = new String[] {WebSocket.NAME};
+                
+                //opts.host = "10.0.2.2:8080";
+                //opts.host = "10.0.2.2";
+                //opts.port = 8080;
+
+                try {
+                    socket = new Socket("ws://10.0.2.2:8080", opts);
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+                socket.on(Socket.EVENT_OPEN, new Emitter.Listener() {
+                    @Override
+                    public void call(Object... args) {
+                        socket.send("hi");
+                        socket.emit("message", "YOUR_DATA_VALUE");
+                        //socket.close();
+                        Log.d(LOG_TAG, "opened socket connection.");
+                        /*Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d(LOG_TAG, "Socket event open loop");
+                                socket.emit("YOUR_TOPIC", "YOUR_DATA_VALUE");
+
+                                handler.postDelayed(this, 1000);
+                            }
+                        };
+                        handler.post(runnable);*/
+                    }
+                }).on(Socket.EVENT_PING, new Emitter.Listener() {
+                    @Override
+                    public void call(Object... args) {
+                        Log.d(LOG_TAG, args[0].toString());
+                    }
+                }).on(Socket.EVENT_MESSAGE, new Emitter.Listener() {
+                    @Override
+                    public void call(Object... args) {
+                        String data = (String)args[0];
+                        Log.d(LOG_TAG, data);
+                    }
+                }).on(Socket.EVENT_ERROR, new Emitter.Listener() {
+                    @Override
+                    public void call(Object... args) {
+                        Exception err = (Exception)args[0];
+                        Log.d(LOG_TAG, err.toString());
+                    }
+                });
+                socket.open();

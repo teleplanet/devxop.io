@@ -10,6 +10,7 @@
     "bcrypt": "^3.0.8",
     "concatenateblobs": "^1.0.2",
     "dist": "^0.1.2",
+    "dotenv": "^8.2.0",
     "highcharts": "^8.0.4",
     "html2canvas": "^1.0.0-rc.5",
     "image-compressor.js": "^1.1.4",

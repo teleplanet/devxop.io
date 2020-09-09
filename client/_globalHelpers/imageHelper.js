@@ -16,6 +16,11 @@ Template.registerHelper("thumbUrl", function (id) {
     return thumbUrl(id);
 });
 
+Template.registerHelper("fileUrl", function (id, key) {
+
+    return fileUrl(id, key);
+});
+
 
 //**dataURL to blob**
 dataURLtoBlob = function(dataurl) {
