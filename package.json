@@ -24,7 +24,7 @@
     "tui-image-editor": "^3.8.0",
     "video.js": "^7.6.6",
     "web-push": "^3.4.3",
-    "ws": "^7.2.1"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@beyonk/gdpr-cookie-consent-banner": "^5.0.2",
