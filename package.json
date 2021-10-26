@@ -16,7 +16,7 @@
     "image-compressor.js": "^1.1.4",
     "jimp": "^0.9.3",
     "jquery": "^3.4.1",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.0",
     "materialize-css": "^1.0.0",
     "simpl-schema": "^1.5.7",
     "stripe": "^7.15.0",
