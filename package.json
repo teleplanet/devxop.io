@@ -29,7 +29,7 @@
   "devDependencies": {
     "@beyonk/gdpr-cookie-consent-banner": "^5.0.2",
     "meteor-node-stubs": "^0.3.3",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "socket.io-client": "^2.3.0"
   }
 }
